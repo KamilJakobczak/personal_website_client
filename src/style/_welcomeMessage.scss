@@ -1,4 +1,38 @@
 div.welcome_message {
   height: 100vh;
-  background-color: greenyellow;
+  background-image: url('../../public/waterfall.jpg');
+  background-size: cover;
+  background-position: center;
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    justify-content: space-between;
+    top: 25vh;
+    bottom: 25vh;
+    right: 20vw;
+    left: 20vw;
+    p {
+      text-align: center;
+      font-size: 3vw;
+      letter-spacing: 1px;
+      color: $second-color;
+    }
+    button {
+      background-color: transparent;
+      font-weight: bold;
+      color: $third-color;
+      cursor: pointer;
+      font-size: 3vw;
+      margin: 0 auto;
+      height: 5vw;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: 0.3s;
+      border: none;
+      &:hover {
+        color: $main-color;
+      }
+    }
+  }
 }
