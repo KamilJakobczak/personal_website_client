@@ -39,16 +39,5 @@ class Scroller {
     }
     this.visibleElementIndex += direction;
   };
-
-  drawNav = () => {
-    const scrollerContainer = document.querySelector('.scroller');
-    const ul = document.createElement('ul');
-    scrollerContainer?.appendChild(ul);
-    for (let i = 0; i < this.elementsCount; i++) {
-      const li = document.createElement('li');
-
-      ul.appendChild(li);
-    }
-  };
 }
 export default Scroller;
