@@ -1,0 +1,26 @@
+.scroller ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  position: absolute;
+  top: 45vh;
+  bottom: 45vh;
+  right: 3vw;
+  left: 95vw;
+
+  li {
+    background-color: antiquewhite;
+    width: 1.25vw;
+    height: 1.25vw;
+    border-radius: 50%;
+    &:hover {
+      cursor: pointer;
+      background-color: aqua;
+    }
+    &.active {
+      background-color: green;
+    }
+  }
+}

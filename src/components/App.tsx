@@ -1,25 +1,39 @@
+import React, { useEffect, useState } from 'react';
+import Scroller from '../scripts/Scroller';
 import Header from './Header';
+import Main from './Main';
+import ScrollerNavigation from './ScrollerNavigation';
+import WelcomeMessage from './WelcomeMessage';
 
 const App = () => {
+  const elements = [<Header />, <WelcomeMessage />, <Main />];
+  const [visibleElementIndex, setVisibleElementIndex] = useState(0);
+
+  useEffect(() => {
+    const scroller = new Scroller(elements.length);
+    document.addEventListener('wheel', e => {
+      scroller.listenScroll(e);
+      setVisibleElementIndex(scroller.currentIndex);
+    });
+    document.addEventListener('keydown', e => {
+      scroller.listenKeydown(e);
+      setVisibleElementIndex(scroller.currentIndex);
+    });
+  }, [elements.length]);
+
+  const handleClick = (index: number) => {
+    setVisibleElementIndex(index);
+  };
+
   return (
-    <>
-      <Header></Header>
-      <div>
-        <p>
-          I'm so happy that you decided to visit my page! If you want to get to
-          know me better you can read my blog or just look around. If you are
-          here for any programming related stuff you can go straight to that
-          section
-        </p>
-        <button>Content</button>
-        <button>Business</button>
-      </div>
-      <main>
-        <section>Content</section>
-        <section>Business details</section>
-      </main>
-      <footer>Kamil Jakóbczak 2022</footer>
-    </>
+    <div className='scroller'>
+      {elements[visibleElementIndex]}
+      <ScrollerNavigation
+        elements={elements}
+        onClick={handleClick}
+        visibleElement={visibleElementIndex}
+      />
+    </div>
   );
 };
 
