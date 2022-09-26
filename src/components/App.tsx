@@ -3,12 +3,12 @@ import Scroller from '../scripts/scroller/Scroller';
 import Swiper from '../scripts/scroller/Swiper';
 import Business from './Business';
 import Header from './Header';
-import Main from './Main';
+import Projects from './Projects';
 import ScrollerNavigation from './ScrollerNavigation';
 import WelcomeMessage from './WelcomeMessage';
 
 const App = () => {
-  const elements = [<Header />, <WelcomeMessage />, <Main />, <Business />];
+  const elements = [<Header />, <WelcomeMessage />, <Projects />, <Business />];
   const [visibleElementIndex, setVisibleElementIndex] = useState(0);
 
   useEffect(() => {

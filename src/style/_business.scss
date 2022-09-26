@@ -1,0 +1,66 @@
+section.business {
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba($color: $fourth-color, $alpha: 0.4);
+  h2 {
+    color: $fifth-color;
+    height: 10vh;
+    line-height: 10vh;
+    flex-basis: 90%;
+    text-transform: uppercase;
+    font-size: $font-size-headings;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  div.skills {
+    flex-grow: 1;
+    flex-basis: 70%;
+
+    // background: rgba($color: $fourth-color, $alpha: 0.6);
+    padding: 20px;
+    h3 {
+      border-bottom: 1px solid black;
+      margin: 5px 0 3px;
+      font-size: $font-size-medium;
+      letter-spacing: 0.25px;
+      color: $fifth-color;
+    }
+    ul {
+      width: 70%;
+      margin: 0 auto;
+      li {
+        color: rgba($color: $fifth-color, $alpha: 0.8);
+        text-indent: 10px;
+        width: 80%;
+        padding-bottom: 1px;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+  div.contact {
+    flex-basis: 70%;
+
+    h4 {
+      border-bottom: 1px solid black;
+      font-size: $font-size-large;
+      color: $fifth-color;
+
+      text-transform: uppercase;
+    }
+    ul {
+      display: flex;
+      justify-content: space-between;
+
+      li {
+        color: rgba($color: $fifth-color, $alpha: 0.8);
+        flex-basis: 32%;
+        padding: 5px 0 0;
+        font-size: $font-size-medium;
+      }
+    }
+  }
+}

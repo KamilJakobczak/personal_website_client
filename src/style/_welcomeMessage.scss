@@ -33,34 +33,28 @@ div.welcome_message {
   }
 
   div.vertical_button {
+    position: fixed;
+    background: rgba($color: #000000, $alpha: 0.6);
+    top: 3vh;
+    bottom: 3vh;
+    right: 10vw;
+    left: 86vw;
+    cursor: pointer;
+    transition: 0.3s;
+
     p {
+      margin: 0 auto;
       writing-mode: vertical-lr;
       text-orientation: upright;
       font-weight: bold;
-      margin: auto;
       color: $third-color;
       text-transform: uppercase;
-      letter-spacing: 1px;
       font-size: $font-size-large;
+      &:hover {
+        color: $main-color;
+      }
     }
 
-    position: fixed;
-    // width: 5vw;
-
-    top: 15vh;
-    bottom: 15vh;
-    right: 10vw;
-    left: 86vw;
-
-    // background-color: transparent;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-    border: none;
-    &:hover {
-      color: $main-color;
-    }
     // }
   }
 }
