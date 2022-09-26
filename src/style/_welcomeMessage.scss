@@ -3,36 +3,64 @@ div.welcome_message {
   background-image: url('../../public/waterfall.jpg');
   background-size: cover;
   background-position: center;
-  div {
-    display: flex;
-    flex-wrap: wrap;
-    position: absolute;
-    justify-content: space-between;
-    top: 25vh;
-    bottom: 25vh;
-    right: 20vw;
-    left: 20vw;
+  position: relative;
+  // div {
+  //   // display: flex;
+  //   flex-wrap: wrap;
+  //   position: absolute;
+  //   background-color: antiquewhite;
+  //   justify-content: space-between;
+  //   // top: 25vh;
+  //   // bottom: 25vh;
+  //   // right: 20vw;
+  //   // left: 20vw;
+  div.message_container {
+    position: fixed;
+    background: rgba($color: #bcf7ff, $alpha: 0.3);
+    border-radius: 30% 5%;
+    top: 3vh;
+    left: 2vw;
+    right: 50vw;
     p {
+      color: $fifth-color;
+      padding: 3vw;
+
       text-align: center;
-      font-size: 3vw;
-      letter-spacing: 1px;
-      color: $second-color;
+      font-size: $font-size-large;
+      line-height: 2.75vw;
+      letter-spacing: 1.25px;
     }
-    button {
-      background-color: transparent;
+  }
+
+  div.vertical_button {
+    p {
+      writing-mode: vertical-lr;
+      text-orientation: upright;
       font-weight: bold;
+      margin: auto;
       color: $third-color;
-      cursor: pointer;
-      font-size: 3vw;
-      margin: 0 auto;
-      height: 5vw;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: 0.3s;
-      border: none;
-      &:hover {
-        color: $main-color;
-      }
+      font-size: $font-size-large;
     }
+
+    position: fixed;
+    // width: 5vw;
+
+    top: 15vh;
+    bottom: 15vh;
+    right: 10vw;
+    left: 86vw;
+
+    // background-color: transparent;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+    border: none;
+    &:hover {
+      color: $main-color;
+    }
+    // }
   }
 }

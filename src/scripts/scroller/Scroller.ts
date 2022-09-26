@@ -34,9 +34,13 @@ class Scroller {
     if (this.visibleElementIndex === 0 && direction === -1) {
       return;
     }
-    if (this.visibleElementIndex === 2 && direction === 1) {
+    if (
+      this.visibleElementIndex === this.elementsCount - 1 &&
+      direction === 1
+    ) {
       return;
     }
+
     this.visibleElementIndex += direction;
   };
 }

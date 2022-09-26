@@ -5,13 +5,13 @@
   align-items: center;
 
   position: absolute;
-  top: 45vh;
-  bottom: 45vh;
+  top: 43vh;
+  bottom: 43vh;
   right: 3vw;
   left: 95vw;
 
   li {
-    background-color: antiquewhite;
+    background-color: $fifth-color;
     width: 1.25vw;
     height: 1.25vw;
     border-radius: 50%;
@@ -20,7 +20,7 @@
       background-color: aqua;
     }
     &.active {
-      background-color: green;
+      background-color: $main-color;
     }
   }
 }

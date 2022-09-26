@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Scroller from '../scripts/scroller/Scroller';
 import Swiper from '../scripts/scroller/Swiper';
+import Business from './Business';
 import Header from './Header';
 import Main from './Main';
 import ScrollerNavigation from './ScrollerNavigation';
 import WelcomeMessage from './WelcomeMessage';
 
 const App = () => {
-  const elements = [<Header />, <WelcomeMessage />, <Main />];
+  const elements = [<Header />, <WelcomeMessage />, <Main />, <Business />];
   const [visibleElementIndex, setVisibleElementIndex] = useState(0);
 
   useEffect(() => {
