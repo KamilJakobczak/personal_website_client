@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Scroller from '../scripts/scroller/Scroller';
 import Swiper from '../scripts/scroller/Swiper';
 import Business from './Business';

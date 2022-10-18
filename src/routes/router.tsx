@@ -2,8 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import BookCollection from '../components/Projects/BookCollection';
 import App from '../components/App';
 import Gallery from '../components/Projects/Gallery';
-import CodeCP from '../components/Projects/CodeCP';
 import Blog from '../components/Projects/Blog';
+import CodePlayground from '../components/Projects/CodePlayground';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/jamar_cp',
-    element: <CodeCP />,
+    element: <CodePlayground />,
   },
   {
     path: '/blog',
