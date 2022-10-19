@@ -1,4 +1,8 @@
 body {
   font-family: $font-basic;
   font-size: $font-size-basic;
+  &.coding_playground {
+    background-color: $cp_background;
+    // REMOVE THIS WHEN USER GOES SOMEWHERE ELSE ON THE PAGE
+  }
 }

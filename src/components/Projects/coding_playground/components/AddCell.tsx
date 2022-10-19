@@ -7,22 +7,22 @@ interface AddCellProps {
 const AddCell: React.FC<AddCellProps> = ({ forceVisible, previousCellId }) => {
   const { insertCellAfter } = useActions();
   return (
-    <div className={`add-cell ${forceVisible && 'force-visible'}`}>
-      <div className='add-buttons'>
+    <div className={`add_cell ${forceVisible && 'force-visible'}`}>
+      <div className='add_cell__add_buttons'>
         <button
-          className='button is-rounded is-primary is-small'
+          className='add_cell__add_buttons__button'
           onClick={() => insertCellAfter(previousCellId, 'code')}
         >
-          <span className='icon is-small'>
+          <span className='add_cell__add_buttons__icon'>
             <i className='fas fa-plus'></i>
           </span>
           <span>Code</span>
         </button>
         <button
-          className='button is-rounded is-primary is-small'
+          className='add_cell__add_buttons__button'
           onClick={() => insertCellAfter(previousCellId, 'text')}
         >
-          <span className='icon is-small'>
+          <span className='add_cell__add_buttons__icon'>
             <i className='fas fa-plus'></i>
           </span>
           <span>Text</span>

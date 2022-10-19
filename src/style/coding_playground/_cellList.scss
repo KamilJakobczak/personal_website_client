@@ -1,0 +1,12 @@
+.cell-list {
+  margin: 0 15px 50vh;
+  button {
+    background-color: $cp_button_background;
+    border: none;
+    color: white;
+  }
+}
+
+.react-draggable-transparent-selection .cell-list {
+  margin-bottom: 100vh;
+}

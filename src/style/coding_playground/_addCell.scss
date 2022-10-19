@@ -1,0 +1,41 @@
+.add_cell {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.3s ease-in 0.2s;
+  margin: 5px 0;
+
+  &.force-visible {
+    opacity: 1;
+  }
+  &:hover {
+    opacity: 1;
+  }
+
+  .divider {
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    right: 2.5%;
+    left: 2.5%;
+    border-bottom: 1px solid gray;
+    width: 90%;
+    z-index: -1;
+  }
+
+  &__add_buttons {
+    display: flex;
+    justify-content: center;
+    &__button {
+      font-size: $font-size-basic;
+      margin: 0 20px;
+      border-radius: 290486px;
+      padding: 5px 15px;
+    }
+    span {
+      letter-spacing: 0.5px;
+    }
+    &__icon {
+      margin-right: 5px;
+    }
+  }
+}
