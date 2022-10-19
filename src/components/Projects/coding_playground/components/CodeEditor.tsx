@@ -2,7 +2,8 @@ import { useRef } from 'react';
 import MonacoEditor, { OnMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
-import codeShift from 'jscodeshift';
+import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
 import MonacoJSXHighlighter from 'monaco-jsx-highlighter';
 
 interface CodeEditorProps {
@@ -20,18 +21,15 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
 
     editor.getModel()?.updateOptions({ tabSize: 2 });
 
-    const highlighter = new MonacoJSXHighlighter(
-      // @ts-ignore
-      window.monaco,
-      codeShift,
+    const monacoJSXHighlighter = new MonacoJSXHighlighter(
+      monaco,
+      parse,
+      traverse,
       editor
     );
-    highlighter.highLightOnDidChangeModelContent(
-      () => {},
-      () => {},
-      undefined,
-      () => {}
-    );
+
+    monacoJSXHighlighter.highLightOnDidChangeModelContent(100);
+    monacoJSXHighlighter.addJSXCommentCommand();
   };
 
   const onFormatClick = () => {
@@ -50,17 +48,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
     editorRef.current.setValue(formatted);
   };
   return (
-    <div className='editor-wrapper'>
-      <button
-        className='button button-format is-primary is-small'
-        onClick={onFormatClick}
-      >
+    <div className='editor_wrapper'>
+      <button className='editor_wrapper__button' onClick={onFormatClick}>
         Format
       </button>
       <MonacoEditor
         onMount={onEditorDidMount}
         value={initialValue}
-        theme='dark'
+        theme='vs-dark'
         language='javascript'
         height='100%'
         options={{
