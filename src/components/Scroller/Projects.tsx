@@ -1,7 +1,6 @@
-import { Router, Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const Projects: React.FC = () => {
   return (
-    // <Router>
     <section className='projects'>
       <h2>Projects</h2>
 

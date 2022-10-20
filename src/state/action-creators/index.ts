@@ -11,7 +11,7 @@ import {
   UpdateCellAction,
 } from '../actions';
 import { Cell, CellTypes } from '../cell';
-import { RootState } from '../reducers';
+import { RootState } from '../store';
 
 export const deleteCell = (id: string): DeleteCellAction => {
   return {
@@ -98,7 +98,7 @@ export const saveCells = () => {
     const {
       cells: { data, order },
     } = getState();
-    const cells = order.map(id => data[id]);
+    const cells = order.map((id: string) => data[id]);
 
     try {
       await axios.post('/cells', { cells });

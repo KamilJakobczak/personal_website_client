@@ -1,14 +1,13 @@
-// import 'bulmaswatch/superhero/bulmaswatch.min.css';
-// -- FIGURE OUT WHY IT BREAKS
 import { Fragment, useEffect } from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import AddCell from './AddCell';
 import CellListItem from './CellListItem';
 import { useActions } from '../hooks/useActions';
+import { Cell } from '../../../../state';
 
 const CellList: React.FC = () => {
   const cells = useTypedSelector(({ cells: { order, data } }) => {
-    return order.map(id => {
+    return order.map((id: string) => {
       return data[id];
     });
   });
@@ -22,7 +21,7 @@ const CellList: React.FC = () => {
     saveCells();
   }, []);
 
-  const renderedCells = cells.map(cell => (
+  const renderedCells = cells.map((cell: Cell) => (
     <Fragment key={cell.id}>
       <CellListItem key={cell.id} cell={cell} />
       <AddCell previousCellId={cell.id} />

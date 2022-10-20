@@ -1,14 +1,13 @@
-import { Dispatch } from 'redux';
 import { saveCells } from '../action-creators';
 import { ActionType } from '../action-types';
 import { Action } from '../actions';
-import { RootState } from '../reducers';
+import { AppDispatch, RootState } from '../index';
 
-export const persistMiddleware = ({
+export const persistMiddleware: any = ({
   dispatch,
   getState,
 }: {
-  dispatch: Dispatch<Action>;
+  dispatch: AppDispatch;
   getState: () => RootState;
 }) => {
   let timer: any;
