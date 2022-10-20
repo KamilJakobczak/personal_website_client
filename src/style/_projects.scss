@@ -15,9 +15,7 @@
     text-align: center;
     text-transform: uppercase;
   }
-  a:visited {
-    @extend a;
-  }
+
   &__container {
     flex-basis: 40%;
 

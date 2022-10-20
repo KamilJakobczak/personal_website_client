@@ -1,5 +1,5 @@
 import { Router, Route, Routes, Link } from 'react-router-dom';
-const Projects = () => {
+const Projects: React.FC = () => {
   return (
     // <Router>
     <section className='projects'>
@@ -8,7 +8,7 @@ const Projects = () => {
       <div className='projects__container'>
         <h3>JS coding playground</h3>
         <div>
-          <Link to='/jamar_cp'>
+          <Link to='apps/coding'>
             <img src='' alt='' />
           </Link>
         </div>
@@ -21,7 +21,7 @@ const Projects = () => {
       <div className='projects__container'>
         <h3>book collection</h3>
         <div>
-          <Link to='/book_collection'>
+          <Link to='apps/collection'>
             <img src='' alt='' />
           </Link>
         </div>
@@ -34,7 +34,7 @@ const Projects = () => {
       <div className='projects__container'>
         <h3>blog</h3>
         <div>
-          <Link to='/blog'>
+          <Link to='apps/blog'>
             <img src='' alt='' />
           </Link>
         </div>
@@ -47,7 +47,7 @@ const Projects = () => {
       <div className='projects__container'>
         <h3>gallery</h3>
         <div>
-          <Link to='gallery'>
+          <Link to='apps/gallery'>
             <img src='' alt='' />
           </Link>
         </div>

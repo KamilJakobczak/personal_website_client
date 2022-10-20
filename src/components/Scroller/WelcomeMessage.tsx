@@ -1,4 +1,4 @@
-const WelcomeMessage = () => {
+const WelcomeMessage: React.FC = () => {
   return (
     <div className='welcome_message'>
       <div>

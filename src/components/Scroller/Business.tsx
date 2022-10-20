@@ -1,4 +1,4 @@
-const Business = () => {
+const Business: React.FC = () => {
   return (
     <section className='business'>
       <h2>Skills and contact</h2>

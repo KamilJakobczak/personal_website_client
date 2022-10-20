@@ -1,33 +1,20 @@
 header {
-  height: 100vh;
-  background-image: url('../../public/dreams-2904682.jpg');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  // font-family: Roboto;
-  color: rgb(188, 247, 255);
-  text-align: center;
-  div {
-    position: relative;
-    top: 10vh;
-    bottom: 40vh;
-
-    opacity: 0.9;
-
-    h1 {
-      font-family: 'Monoton';
-      font-size: 6.5vw;
-      line-height: 8vw;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    h2 {
-      margin-top: 5px;
-      font-size: 3vw;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+  width: 100%;
+  background-color: $apps_background;
+  width: 100%;
+  flex-basis: 10vh;
+  border-bottom: 1px solid $fourth-color;
+  a {
+    text-decoration: none;
+  }
+  span {
+    display: block;
+    line-height: 10vh;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: Monoton;
+    font-size: $font-size-large;
+    color: $fourth-color;
+    letter-spacing: 4px;
   }
 }

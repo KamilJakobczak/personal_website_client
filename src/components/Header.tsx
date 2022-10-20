@@ -1,10 +1,11 @@
-const Header = () => {
+import { Link } from 'react-router-dom';
+
+const Header: React.FC = () => {
   return (
     <header>
-      <div>
-        <h1>Kamil 'Jamar' Jakóbczak</h1>
-        <h2>front-end developer</h2>
-      </div>
+      <Link to={'/'}>
+        <span>Kamil 'JAMAR' Jakóbczak</span>
+      </Link>
     </header>
   );
 };

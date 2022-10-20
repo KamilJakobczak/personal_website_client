@@ -6,11 +6,11 @@ interface ScrollerNavigationProps {
   visibleElement: number;
 }
 
-const ScrollerNavigation = ({
+const ScrollerNavigation: React.FC<ScrollerNavigationProps> = ({
   elements,
   onClick,
   visibleElement,
-}: ScrollerNavigationProps) => {
+}) => {
   const [active, setActive] = useState(0);
   useEffect(() => {
     setActive(visibleElement);

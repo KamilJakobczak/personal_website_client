@@ -1,4 +1,4 @@
-const Gallery = () => {
+const Gallery: React.FC = () => {
   return <div>Gallery</div>;
 };
 

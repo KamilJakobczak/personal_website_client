@@ -1,4 +1,16 @@
 footer {
-  height: 100vh;
-  background-color: aquamarine;
+  flex-basis: 5vh;
+  background-color: $apps_background;
+  div {
+    width: 80%;
+    border-top: 1px solid $fourth-color;
+    margin: 0 auto;
+    span {
+      display: block;
+      margin: 1vh auto 0;
+      color: $fourth-color;
+      letter-spacing: 1.75px;
+      text-align: center;
+    }
+  }
 }

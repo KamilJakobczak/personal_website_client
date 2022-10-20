@@ -5,10 +5,12 @@ import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 let esbuildInit: Promise<void>;
 
 export const setupBundler = () => {
-  esbuildInit = esbuild.initialize({
-    worker: true,
-    wasmURL: 'https://unpkg.com/esbuild-wasm@0.15.11/esbuild.wasm',
-  });
+  if (!esbuildInit) {
+    esbuildInit = esbuild.initialize({
+      worker: true,
+      wasmURL: 'https://unpkg.com/esbuild-wasm@0.15.11/esbuild.wasm',
+    });
+  }
 };
 
 const Bundler = async (rawCode: string) => {

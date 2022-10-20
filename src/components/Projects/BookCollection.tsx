@@ -1,6 +1,4 @@
-import React from 'react';
-
-const BookCollection = () => {
+const BookCollection: React.FC = () => {
   return <div>book collection will be here</div>;
 };
 

@@ -1,8 +1,20 @@
 body {
   font-family: $font-basic;
   font-size: $font-size-basic;
-  &.coding_playground {
-    background-color: $cp_background;
-    // REMOVE THIS WHEN USER GOES SOMEWHERE ELSE ON THE PAGE
+  // &.coding_playground {
+  //   // REMOVE THIS WHEN USER GOES SOMEWHERE ELSE ON THE PAGE
+  // }
+
+  // #root {
+  //   height: 100vh;
+  // }
+  #root {
+    display: flex;
+    flex-direction: column;
+  }
+  #apps {
+    background-color: $apps_background;
+    flex-basis: 85vh;
+    flex-grow: 1;
   }
 }
