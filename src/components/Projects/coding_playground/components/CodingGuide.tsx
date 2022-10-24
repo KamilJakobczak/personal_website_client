@@ -13,7 +13,7 @@ const CodingGuide: React.FC = () => {
       createSession();
       setInterval(() => {
         saveCells();
-      }, 6000);
+      }, 60000);
     } else if (answer === 'no') {
       setConsentVisible('fold');
     }
