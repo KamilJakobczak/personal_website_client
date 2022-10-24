@@ -1,8 +1,9 @@
 div.welcome_message {
   height: 100vh;
-  background-image: url('../../public/waterfall.jpg');
-  background-size: cover;
-  background-position: center;
+  // background-image: url('../../public/waterfall.jpg');
+  // background-size: cover;
+  // background-position: center;
+  background-color: rgba($color: $fourth-color, $alpha: 0.4);
   position: relative;
   // div {
   //   // display: flex;

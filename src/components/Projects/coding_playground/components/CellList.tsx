@@ -11,15 +11,19 @@ const CellList: React.FC = () => {
       return data[id];
     });
   });
-  const { fetchCells, saveCells } = useActions();
-
   useEffect(() => {
-    fetchCells();
+    console.log(cells);
   }, []);
 
-  useEffect(() => {
-    saveCells();
-  }, []);
+  // const { fetchCells, saveCells } = useActions();
+
+  // useEffect(() => {
+  //   fetchCells();
+  // }, []);
+
+  // useEffect(() => {
+  //   saveCells();
+  // }, []);
 
   const renderedCells = cells.map((cell: Cell) => (
     <Fragment key={cell.id}>

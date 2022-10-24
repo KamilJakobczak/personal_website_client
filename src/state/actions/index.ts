@@ -3,10 +3,25 @@ import { Cell, CellTypes } from '../cell';
 
 export type Direction = 'up' | 'down';
 
+export interface CreateSessionAction {
+  type: ActionType.CREATE_SESSION;
+  payload: {
+    sessionId: string;
+  };
+}
+
+export interface CreateSessionActionError {
+  type: ActionType.CREATE_SESSION_ERROR;
+  payload: {
+    err: string;
+  };
+}
+
 export interface MoveCellAction {
   type: ActionType.MOVE_CELL;
   payload: {
     id: string;
+
     direction: Direction;
   };
 }
@@ -18,6 +33,7 @@ export interface InsertCellAfterAction {
   type: ActionType.INSERT_CELL_AFTER;
   payload: {
     id: string | null;
+
     type: CellTypes;
   };
 }
@@ -25,6 +41,7 @@ export interface UpdateCellAction {
   type: ActionType.UPDATE_CELL;
   payload: {
     id: string;
+
     content: string;
   };
 }
@@ -64,7 +81,17 @@ export interface SaveCellsErrorAction {
   payload: string;
 }
 
+// export interface AutosaveCellsAction {
+//   type: ActionType.AUTOSAVE_CELLS;
+//   payload: {
+//     cookieId: string;
+//     cellId: string;
+//   };
+// }
+
 export type Action =
+  | CreateSessionAction
+  | CreateSessionActionError
   | MoveCellAction
   | DeleteCellAction
   | InsertCellAfterAction

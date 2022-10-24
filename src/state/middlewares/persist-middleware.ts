@@ -18,7 +18,6 @@ export const persistMiddleware: any = ({
       if (
         [
           ActionType.MOVE_CELL,
-          ActionType.UPDATE_CELL,
           ActionType.INSERT_CELL_AFTER,
           ActionType.DELETE_CELL,
         ].includes(action.type)
@@ -29,6 +28,9 @@ export const persistMiddleware: any = ({
         setTimeout(() => {
           saveCells()(dispatch, getState);
         }, 250);
+      }
+
+      if (ActionType.UPDATE_CELL) {
       }
     };
   };
