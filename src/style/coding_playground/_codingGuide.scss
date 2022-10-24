@@ -38,7 +38,9 @@
     }
   }
   &__autosave,
-  &__autosave__fold {
+  &__autosave__fold,
+  &__autosave__error,
+  &__autosave__success {
     display: flex;
     width: 75%;
     margin: 30px auto 15px;
@@ -53,6 +55,14 @@
     &__fold {
       cursor: pointer;
       padding: 15px 30px;
+    }
+    &__error {
+      cursor: pointer;
+      padding: 15px 30px;
+      &__content {
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }

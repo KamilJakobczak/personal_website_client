@@ -1,22 +1,58 @@
 import Consent from '../../../Consent';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 const CodingGuide: React.FC = () => {
   const [consentVisible, setConsentVisible] = useState('show');
   const [infoVisible, setInfoVisible] = useState(true);
-  const { createSession, saveCells } = useActions();
+  const [sessionSuccess, setSessionSuccess] = useState(false);
+
+  const { createSession } = useActions();
+  const { sessionId, error } = useTypedSelector(state => state.session);
+
+  useEffect(() => {
+    if (!sessionId) {
+      setSessionSuccess(false);
+    } else if (sessionId) {
+      setSessionSuccess(true);
+      setTimeout(() => {
+        setSessionSuccess(false);
+      }, 5000);
+    }
+  }, [sessionId]);
 
   const handleConsentClick = (answer: string) => {
     setConsentVisible('hide');
     if (answer === 'yes') {
       createSession();
-      setInterval(() => {
-        saveCells();
-      }, 60000);
     } else if (answer === 'no') {
       setConsentVisible('fold');
     }
+  };
+
+  const consentFoldedEl = () => {
+    return (
+      <div
+        className='coding_info__autosave__fold'
+        onClick={() => setConsentVisible('show')}
+      >
+        Click here to edit your settings
+      </div>
+    );
+  };
+
+  const sessionSuccessEl = () => {
+    return <div className='coding_info__autosave__success'>Success!</div>;
+  };
+
+  const sessionErrorEl = () => {
+    return (
+      <div className='coding_info__autosave__error'>
+        <div className='coding_info__autosave__error__content'>{error}</div>
+        <button onClick={() => handleConsentClick('yes')}>try again</button>
+      </div>
+    );
   };
 
   const info = () => {
@@ -57,14 +93,9 @@ const CodingGuide: React.FC = () => {
           question='Do you want to enable cookies and autosave every 60 seconds?'
         />
       )}
-      {consentVisible === 'fold' && (
-        <div
-          className='coding_info__autosave__fold'
-          onClick={() => setConsentVisible('show')}
-        >
-          Click here to edit your settings
-        </div>
-      )}
+      {consentVisible === 'fold' && consentFoldedEl()}
+      {error && sessionErrorEl()}
+      {sessionSuccess ? sessionSuccessEl() : null}
     </div>
   );
 };
