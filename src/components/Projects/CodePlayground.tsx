@@ -7,12 +7,11 @@ import { useActions } from './coding_playground/hooks/useActions';
 import { useTypedSelector } from './coding_playground/hooks/useTypedSelector';
 
 const CodePlayground: React.FC = () => {
-  const { createSession } = useActions();
   useEffect(() => {
     setupBundler();
-    createSession();
   }, []);
-const session = useTypedSelector(state => state.session[])
+  const session = useTypedSelector(state => state.session.sessionId);
+  console.log(session);
   return (
     <>
       <CodingGuide />

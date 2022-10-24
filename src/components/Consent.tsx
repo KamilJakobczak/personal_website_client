@@ -1,13 +1,11 @@
 interface ConsentProps {
-  // handleClick: (arg0: boolean) => void;
-  handleYesClick: () => void;
+  handleClick: (arg0: string) => void;
   className: string;
   question: string;
 }
 
 const Consent: React.FC<ConsentProps> = ({
-  // handleClick,
-  handleYesClick,
+  handleClick,
   className,
   question,
 }) => {
@@ -16,15 +14,14 @@ const Consent: React.FC<ConsentProps> = ({
       <p>{question}</p>
       <button
         onClick={() => {
-          // handleClick(false);
-          handleYesClick();
+          handleClick('yes');
         }}
       >
         yes
       </button>
       <button
         onClick={() => {
-          // handleClick(true);
+          handleClick('no');
         }}
       >
         no

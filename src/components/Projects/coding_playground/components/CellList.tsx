@@ -11,9 +11,6 @@ const CellList: React.FC = () => {
       return data[id];
     });
   });
-  useEffect(() => {
-    console.log(cells);
-  }, []);
 
   // const { fetchCells, saveCells } = useActions();
 

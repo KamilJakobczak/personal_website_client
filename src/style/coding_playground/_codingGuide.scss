@@ -37,7 +37,8 @@
       }
     }
   }
-  &__autosave {
+  &__autosave,
+  &__autosave__fold {
     display: flex;
     width: 75%;
     margin: 30px auto 15px;
@@ -48,6 +49,10 @@
       flex-basis: 100%;
     }
     button {
+    }
+    &__fold {
+      cursor: pointer;
+      padding: 15px 30px;
     }
   }
 }

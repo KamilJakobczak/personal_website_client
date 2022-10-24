@@ -133,9 +133,10 @@ export const fetchCells = () => {
 
 export const saveCells = () => {
   return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
+    console.log(getState());
     const {
       cells: { data, order },
-      sessionId,
+      session: { sessionId },
     } = getState();
     const cells = order.map((id: string) => data[id]);
 
@@ -157,7 +158,3 @@ export const saveCells = () => {
     }
   };
 };
-
-// export const autosaveCells = () => {
-//   return ;
-// };

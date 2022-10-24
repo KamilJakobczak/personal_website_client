@@ -2,20 +2,21 @@ import Consent from '../../../Consent';
 import { useState } from 'react';
 import { useActions } from '../hooks/useActions';
 
-// interface CodingGuideProps {
-//   handleInfoClick: () => void;
-// }
-
 const CodingGuide: React.FC = () => {
-  const [consentVisible, setConsentVisible] = useState(true);
+  const [consentVisible, setConsentVisible] = useState('show');
   const [infoVisible, setInfoVisible] = useState(true);
-  const [consent, setConsent] = useState(false);
-  // const { autosaveCells } = useActions;
+  const { createSession, saveCells } = useActions();
 
-  const handleConsentYesClick = () => {
-    // if (consent) {
-    //   autosaveCells()
-    // }
+  const handleConsentClick = (answer: string) => {
+    setConsentVisible('hide');
+    if (answer === 'yes') {
+      createSession();
+      setInterval(() => {
+        saveCells();
+      }, 6000);
+    } else if (answer === 'no') {
+      setConsentVisible('fold');
+    }
   };
 
   const info = () => {
@@ -49,13 +50,20 @@ const CodingGuide: React.FC = () => {
   return (
     <div className='coding_info'>
       {infoVisible && info()}
-      {consentVisible && (
+      {consentVisible === 'show' && (
         <Consent
-          // handleClick={setConsentVisible}
-          handleYesClick={handleConsentYesClick}
+          handleClick={handleConsentClick}
           className='coding_info__autosave'
           question='Do you want to enable cookies and autosave every 60 seconds?'
         />
+      )}
+      {consentVisible === 'fold' && (
+        <div
+          className='coding_info__autosave__fold'
+          onClick={() => setConsentVisible('show')}
+        >
+          Click here to edit your settings
+        </div>
       )}
     </div>
   );
