@@ -2,30 +2,49 @@ import Consent from '../../../Consent';
 import { useState, useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { getCookie } from '../../../../utility/getCookie';
+import LoadingSpinner from '../../../LoadingSpinner';
 
 const CodingGuide: React.FC = () => {
   const [consentVisible, setConsentVisible] = useState('show');
   const [infoVisible, setInfoVisible] = useState(true);
-  const [sessionSuccess, setSessionSuccess] = useState(false);
+  const [showSessionSuccess, setShowSessionSuccess] = useState(false);
 
-  const { createSession } = useActions();
-  const { sessionId, error } = useTypedSelector(state => state.session);
+  const { createSession, fetchCells } = useActions();
+  const { error, sessionId, loading } = useTypedSelector(
+    state => state.session
+  );
+  const cookie = getCookie('sessionId');
 
   useEffect(() => {
-    if (!sessionId) {
-      setSessionSuccess(false);
-    } else if (sessionId) {
-      setSessionSuccess(true);
+    if (!cookie) {
+      return;
+    }
+    if (cookie && !sessionId) {
+      return;
+    }
+    if (cookie && sessionId) {
+      setShowSessionSuccess(true);
       setTimeout(() => {
-        setSessionSuccess(false);
+        setShowSessionSuccess(false);
       }, 5000);
     }
   }, [sessionId]);
 
+  useEffect(() => {
+    if (cookie) {
+      createSession(cookie);
+      fetchCells(cookie);
+    }
+  }, []);
+
   const handleConsentClick = (answer: string) => {
     setConsentVisible('hide');
+
     if (answer === 'yes') {
-      createSession();
+      if (!sessionId) {
+        createSession();
+      }
     } else if (answer === 'no') {
       setConsentVisible('fold');
     }
@@ -43,7 +62,11 @@ const CodingGuide: React.FC = () => {
   };
 
   const sessionSuccessEl = () => {
-    return <div className='coding_info__autosave__success'>Success!</div>;
+    return (
+      <div className='coding_info__autosave__success'>
+        Session (re)created successfully
+      </div>
+    );
   };
 
   const sessionErrorEl = () => {
@@ -85,17 +108,18 @@ const CodingGuide: React.FC = () => {
   };
   return (
     <div className='coding_info'>
-      {infoVisible && info()}
-      {consentVisible === 'show' && (
+      {/* {infoVisible && info()}
+      {consentVisible === 'show' && !sessionId && (
         <Consent
           handleClick={handleConsentClick}
           className='coding_info__autosave'
           question='Do you want to enable cookies and autosave every 60 seconds?'
         />
       )}
-      {consentVisible === 'fold' && consentFoldedEl()}
-      {error && sessionErrorEl()}
-      {sessionSuccess ? sessionSuccessEl() : null}
+      {consentVisible === 'fold' && consentFoldedEl()} */}
+      <LoadingSpinner />
+      {/* {error && sessionErrorEl()}
+      {showSessionSuccess ? sessionSuccessEl() : null} */}
     </div>
   );
 };

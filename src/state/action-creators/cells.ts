@@ -20,12 +20,18 @@ export const deleteCell = (id: string): DeleteCellAction => {
   };
 };
 
-export const fetchCells = () => {
-  return async (dispatch: Dispatch<Action>) => {
+export const fetchCells = (cookie?: string) => {
+  return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
     dispatch({ type: ActionType.FETCH_CELLS });
 
+    const {
+      session: { sessionId },
+    } = getState();
+
     try {
-      const { data }: { data: Cell[] } = await axios.get(`${codingApi}/cells`);
+      const { data }: { data: Cell[] } = await axios.get(
+        `${codingApi}/cells/${sessionId}`
+      );
 
       dispatch({ type: ActionType.FETCH_CELLS_COMPLETE, payload: data });
     } catch (err) {
@@ -69,7 +75,6 @@ export const moveCell = (
 
 export const saveCells = () => {
   return async (dispatch: Dispatch<Action>, getState: () => RootState) => {
-    console.log(getState());
     const {
       cells: { data, order },
       session: { sessionId },

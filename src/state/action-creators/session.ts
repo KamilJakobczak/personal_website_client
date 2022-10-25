@@ -5,30 +5,43 @@ import { Dispatch } from 'redux';
 import { codingApi } from '../server';
 import { saveCells } from './cells';
 
-export const createSession = () => {
+export const createSession = (cookie?: string) => {
   return async (dispatch: Dispatch<Action>) => {
-    try {
-      const { data } = await axios.get(`${codingApi}/cells/session`, {
-        withCredentials: true,
-      });
-      setInterval(() => {
-        saveCells();
-      }, 6000);
+    dispatch({ type: ActionType.CREATE_SESSION });
+
+    if (cookie) {
       dispatch({
-        type: ActionType.CREATE_SESSION,
+        type: ActionType.CREATE_SESSION_COMPLETE,
         payload: {
-          sessionId: data.sessionId,
+          sessionId: cookie,
         },
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        console.log(err.message);
+    } else {
+      try {
+        const { data } = await axios.get(`${codingApi}/cells/session`, {
+          withCredentials: true,
+        });
+        if (data.sessionId) {
+          setInterval(() => {
+            saveCells();
+          }, 6000);
+        }
         dispatch({
-          type: ActionType.CREATE_SESSION_ERROR,
+          type: ActionType.CREATE_SESSION_COMPLETE,
           payload: {
-            err: err.message,
+            sessionId: data.sessionId,
           },
         });
+      } catch (err) {
+        if (err instanceof Error) {
+          console.log(err.message);
+          dispatch({
+            type: ActionType.CREATE_SESSION_ERROR,
+            payload: {
+              err: err.message,
+            },
+          });
+        }
       }
     }
   };

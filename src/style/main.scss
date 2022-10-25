@@ -2,12 +2,13 @@
 @import './variables';
 @import './index';
 @import './homepage';
-@import 'header';
+@import './header';
+@import './loadingSpinner';
 @import './welcomeMessage';
 @import './projects';
 @import './footer';
 @import './business';
-@import 'scrollerNavigation';
+@import './scrollerNavigation';
 
 @import './coding_playground/codingGuide';
 @import './coding_playground/actionBar';

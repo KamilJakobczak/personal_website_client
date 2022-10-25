@@ -1,5 +1,6 @@
 export enum ActionType {
   CREATE_SESSION = 'create_session',
+  CREATE_SESSION_COMPLETE = 'create_session_complete',
   CREATE_SESSION_ERROR = 'create_session_error',
 
   BUNDLE_START = 'bundle_start',
