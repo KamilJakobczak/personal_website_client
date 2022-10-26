@@ -2,7 +2,7 @@ import { ActionType } from '../action-types';
 import { Action } from '../actions';
 import axios from 'axios';
 import { Dispatch } from 'redux';
-import { codingApi } from '../server';
+import { codingApi } from '../../server';
 import { saveCells } from './cells';
 
 export const createSession = (cookie?: string) => {

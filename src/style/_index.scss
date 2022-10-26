@@ -1,19 +1,14 @@
 body {
   font-family: $font-basic;
   font-size: $font-size-basic;
-  // &.coding_playground {
-  //   // REMOVE THIS WHEN USER GOES SOMEWHERE ELSE ON THE PAGE
-  // }
 
-  // #root {
-  //   height: 100vh;
-  // }
   #root {
     display: flex;
     flex-direction: column;
   }
   #apps {
     background-color: $apps_background;
+    color: $fourth-color;
     flex-basis: 85vh;
     flex-grow: 1;
   }

@@ -29,6 +29,7 @@ const CodingGuide: React.FC = () => {
         setShowSessionSuccess(false);
       }, 5000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId]);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const CodingGuide: React.FC = () => {
       createSession(cookie);
       fetchCells(cookie);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleConsentClick = (answer: string) => {
@@ -108,7 +110,7 @@ const CodingGuide: React.FC = () => {
   };
   return (
     <div className='coding_info'>
-      {/* {infoVisible && info()}
+      {infoVisible && info()}
       {consentVisible === 'show' && !sessionId && (
         <Consent
           handleClick={handleConsentClick}
@@ -116,10 +118,10 @@ const CodingGuide: React.FC = () => {
           question='Do you want to enable cookies and autosave every 60 seconds?'
         />
       )}
-      {consentVisible === 'fold' && consentFoldedEl()} */}
-      <LoadingSpinner />
-      {/* {error && sessionErrorEl()}
-      {showSessionSuccess ? sessionSuccessEl() : null} */}
+      {consentVisible === 'fold' && consentFoldedEl()}
+      {loading && <LoadingSpinner />}
+      {error && sessionErrorEl()}
+      {showSessionSuccess ? sessionSuccessEl() : null}
     </div>
   );
 };

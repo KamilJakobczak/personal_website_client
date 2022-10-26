@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 // import { LOAD_BOOK } from '../GraphQL/Queries';
 
 interface BookDataProps {

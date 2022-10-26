@@ -4,13 +4,11 @@ import { useEffect } from 'react';
 import { setupBundler } from './coding_playground/bundler';
 import CodingGuide from './coding_playground/components/CodingGuide';
 
-import { useTypedSelector } from './coding_playground/hooks/useTypedSelector';
-
 const CodePlayground: React.FC = () => {
   useEffect(() => {
     setupBundler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // const session = useTypedSelector(state => state.session.sessionId);
 
   return (
     <>

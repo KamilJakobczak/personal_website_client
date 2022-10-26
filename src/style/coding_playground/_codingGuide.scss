@@ -1,8 +1,6 @@
 .coding_info {
-  color: #dee5ed;
   font-size: $font-size-medium;
   button {
-    color: #dee5ed;
     border: none;
     font-weight: bold;
     display: block;
@@ -10,13 +8,14 @@
     text-transform: uppercase;
     background: none;
     cursor: pointer;
+    color: $main-color;
   }
   &__guide {
     // position: relative;
     width: 75%;
     margin: 30px auto;
     padding: 30px;
-    color: #dee5ed;
+
     border: 1px solid #dee5ed;
     button {
     }

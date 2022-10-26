@@ -10,7 +10,7 @@ import {
 import { ActionType } from '../action-types';
 import { Cell, CellTypes } from '../cell';
 import { Dispatch } from 'redux';
-import { codingApi } from '../server';
+import { codingApi } from '../../server';
 import { RootState } from '../store';
 
 export const deleteCell = (id: string): DeleteCellAction => {
