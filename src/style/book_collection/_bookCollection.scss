@@ -4,14 +4,7 @@
   margin: 10px auto;
   .list {
     border: none;
-    &__search_engine {
-      width: 100%;
-      input {
-        display: block;
-        margin: 0 auto;
-        width: 80%;
-      }
-    }
+
     &__tiles {
       margin: 10px auto;
       &__single_tile {

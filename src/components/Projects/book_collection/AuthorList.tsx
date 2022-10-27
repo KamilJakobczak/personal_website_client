@@ -1,18 +1,19 @@
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { LOAD_BOOKS } from '../../../GraphQL/queries';
+import { LOAD_AUTHORS } from '../../../GraphQL/queries';
 import Error from '../../Error';
 import LoadingSpinner from '../../LoadingSpinner';
 
-const BookList = () => {
-  const { data, loading, error } = useQuery(LOAD_BOOKS);
+const AuthorList: React.FC = () => {
+  const { data, loading, error } = useQuery(LOAD_AUTHORS);
   console.log(loading, error, data);
+
   const listTiles = () => {
-    return data.books.map((item: any) => {
+    return data.authors.map((item: any) => {
       return (
         <div key={item.id} className='list__tiles__single_tile'>
-          <Link to={item.id.slice(-10, -1)} state={{ bookId: item.id }}>
-            {item.title}
+          <Link to={item.id.slice(-10, -1)} state={{ authorId: item.id }}>
+            {item.name}
           </Link>
         </div>
       );
@@ -27,4 +28,4 @@ const BookList = () => {
   );
 };
 
-export default BookList;
+export default AuthorList;

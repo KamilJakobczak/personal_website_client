@@ -1,4 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
+import Search from './book_collection/Search';
 
 const BookCollection: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const BookCollection: React.FC = () => {
           </li>
         </ul>
       </nav>
+      <Search />
 
       <Outlet />
     </div>

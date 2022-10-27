@@ -1,6 +1,9 @@
 @import './reset';
 @import './variables';
+
 @import './index';
+
+@import './errorMessage';
 @import './homepage';
 @import './header';
 @import './loadingSpinner';
@@ -23,3 +26,5 @@
 
 @import './book_collection/bookCollection';
 @import './book_collection/navigation';
+@import './book_collection/book';
+@import './book_collection/search';

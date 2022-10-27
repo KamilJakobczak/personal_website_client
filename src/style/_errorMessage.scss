@@ -1,0 +1,8 @@
+.error_message {
+  width: 90%;
+  margin: 0 auto 15px;
+  font-size: $font-size-medium;
+  span {
+    color: $second-color;
+  }
+}
