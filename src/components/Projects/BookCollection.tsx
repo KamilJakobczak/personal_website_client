@@ -1,25 +1,18 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import Navigation from './book_collection/Navigation';
 import Search from './book_collection/Search';
 
 const BookCollection: React.FC = () => {
+  const elements = [
+    { id: 0, element: 'books' },
+    { id: 1, element: 'genres' },
+    { id: 2, element: 'authors' },
+    { id: 3, element: 'publishers' },
+  ];
+
   return (
     <div className='book_collection'>
-      <nav className='book_collection navigation'>
-        <ul className='navigation_ul'>
-          <li className='navigation_li'>
-            <Link to='books'>books</Link>
-          </li>
-          <li className='navigation_li'>
-            <Link to='authors'>authors</Link>
-          </li>
-          <li className='navigation_li'>
-            <Link to='publishers'>publishers</Link>
-          </li>
-          <li className='navigation_li'>
-            <Link to='genres'>genres</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navigation elements={elements} parentClass='book_collection' />
       <Search />
 
       <Outlet />

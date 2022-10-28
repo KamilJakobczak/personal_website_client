@@ -1,5 +1,4 @@
 .book_collection {
-  border: solid white 1px;
   width: 90%;
   margin: 10px auto;
   .list {
@@ -11,5 +10,9 @@
         margin-top: 5px;
       }
     }
+  }
+  a.router_link {
+    color: $fourth-color;
+    text-decoration: none;
   }
 }

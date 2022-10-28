@@ -1,0 +1,12 @@
+.book_collection__list {
+  width: 80%;
+
+  margin: 20px auto 0;
+  &_element {
+    font-size: $font-size-medium;
+    margin: 5px 10px;
+
+    a.router-link {
+    }
+  }
+}

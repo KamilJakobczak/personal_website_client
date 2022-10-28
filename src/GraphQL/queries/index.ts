@@ -10,7 +10,8 @@ export const LOAD_BOOK = gql`
       isbn
       firstEdition
       authors {
-        name
+        firstName
+        lastName
       }
       publisher {
         name
@@ -28,7 +29,8 @@ export const LOAD_BOOKS = gql`
       title
       id
       authors {
-        name
+        firstName
+        lastName
       }
     }
   }
@@ -37,6 +39,25 @@ export const LOAD_BOOKS = gql`
 export const LOAD_AUTHORS = gql`
   query Authors {
     authors {
+      id
+      firstName
+      lastName
+    }
+  }
+`;
+
+export const LOAD_PUBLISHERS = gql`
+  query Publishers {
+    publishers {
+      id
+      name
+    }
+  }
+`;
+
+export const LOAD_GENRES = gql`
+  query Genres {
+    genres {
       id
       name
     }
