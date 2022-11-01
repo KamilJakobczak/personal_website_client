@@ -4,17 +4,19 @@ header {
   width: 100%;
   flex-basis: 10vh;
   border-bottom: 1px solid $fourth-color;
+  color: $fourth-color;
   a {
+    color: $fourth-color;
     text-decoration: none;
   }
-  span {
+  span.header {
     display: block;
     line-height: 10vh;
     text-transform: uppercase;
     text-align: center;
     font-family: Monoton;
     font-size: $font-size-large;
-    color: $fourth-color;
+
     letter-spacing: 4px;
   }
 }

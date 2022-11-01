@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom';
+import BookFilter from './book_collection/BookFilter';
 import Navigation from './book_collection/Navigation';
 import Search from './book_collection/Search';
 
 const BookCollection: React.FC = () => {
   const elements = [
     { id: 0, element: 'books' },
-    { id: 1, element: 'genres' },
-    { id: 2, element: 'authors' },
-    { id: 3, element: 'publishers' },
+    { id: 1, element: 'authors' },
+    { id: 2, element: 'publishers' },
   ];
 
   return (

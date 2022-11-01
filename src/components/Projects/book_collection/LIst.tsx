@@ -18,7 +18,7 @@ interface DataRecord {
 const List: React.FC<ListProps> = ({ query, item }) => {
   const { data, loading, error } = useQuery(query);
 
-  console.log(data);
+  // console.log(location);
   const tiles = () => {
     let dataArr: DataRecord[] = [];
 
@@ -32,9 +32,6 @@ const List: React.FC<ListProps> = ({ query, item }) => {
       case 'publishers':
         dataArr = data.publishers;
         break;
-      case 'genres':
-        dataArr = data.genres;
-        break;
       default:
         return [];
     }
@@ -44,7 +41,7 @@ const List: React.FC<ListProps> = ({ query, item }) => {
         <div className='book_collection__list_element' key={record.id}>
           <Link
             className='router_link'
-            to={record.id.slice(-10, -1)}
+            to={`${record.id.slice(-10)}`}
             state={{ id: record.id }}
           >
             {record.title ? record.title : null}
@@ -55,24 +52,6 @@ const List: React.FC<ListProps> = ({ query, item }) => {
       );
     });
     return result;
-    // arr.map(() => {});
-    // arr.map(() => {});
-    // arr.forEach(arr => {
-    //   if (arr instanceof Array || arr instanceof Object) {
-    //     console.log(typeof arr);
-    //     return arr.map(record => {
-    //       return (
-    //         <div>
-    //           <div key={record.id}>
-    //             <Link to={record.id.slice(-10, -1)} state={{ id: record.id }}>
-    //               {record.title} | {record.name}
-    //             </Link>
-    //           </div>
-    //         </div>
-    //       );
-    //     });
-    //   }
-    // });
   };
   return (
     <div className='book_collection__list'>

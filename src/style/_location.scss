@@ -1,0 +1,15 @@
+.location {
+  padding-top: 10px;
+  flex-basis: 5vh;
+  background-color: $apps_background;
+
+  &__text {
+    letter-spacing: 1px;
+    color: $fourth-color;
+    background-color: transparent;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: $font-size-large;
+  }
+}

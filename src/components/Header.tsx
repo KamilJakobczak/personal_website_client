@@ -4,7 +4,7 @@ const Header: React.FC = () => {
   return (
     <header>
       <Link to={'/'}>
-        <span>Kamil 'JAMAR' Jakóbczak</span>
+        <span className='header'>Kamil 'JAMAR' Jakóbczak</span>
       </Link>
     </header>
   );

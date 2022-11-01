@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 interface NavigationProps {
   elements: { id: number; element: string }[];
@@ -7,26 +6,11 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ elements, parentClass }) => {
-  const [activeLink, setActiveLink] = useState(Number);
-
-  const handleNavClick = (
-    // e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-    id: number
-  ) => {
-    setActiveLink(id);
-  };
-
   const renderElements = () => {
     return elements.map(({ id, element }) => {
       return (
         <li key={id} className='navigation_li'>
-          <Link
-            to={element}
-            className={activeLink === id ? 'active' : ''}
-            onClick={() => handleNavClick(id)}
-          >
-            {element}
-          </Link>
+          <NavLink to={element}>{element}</NavLink>
         </li>
       );
     });

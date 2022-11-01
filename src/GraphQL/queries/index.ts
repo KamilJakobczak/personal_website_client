@@ -36,12 +36,40 @@ export const LOAD_BOOKS = gql`
   }
 `;
 
+export const LOAD_AUTHOR = gql`
+  query Author($id: ID!) {
+    author(id: $id) {
+      firstName
+      lastName
+      nationality
+      birthYear
+    }
+  }
+`;
+
 export const LOAD_AUTHORS = gql`
   query Authors {
     authors {
       id
       firstName
       lastName
+    }
+  }
+`;
+
+export const LOAD_PUBLISHER = gql`
+  query Publisher($id: ID!) {
+    publisher(id: $id) {
+      name
+      address {
+        country
+        zipCode
+        city
+        street
+        buildingNr
+        placeNr
+      }
+      website
     }
   }
 `;
