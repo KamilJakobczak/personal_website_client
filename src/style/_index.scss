@@ -1,6 +1,10 @@
 body {
   font-family: $font-basic;
   font-size: $font-size-basic;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
   #root {
     display: flex;

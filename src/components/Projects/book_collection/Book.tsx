@@ -1,20 +1,66 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface BookProps {
   data: {
     title: string;
     language: string;
-    authors: string[];
+    authors: {
+      id: string;
+      firstName: string;
+      lastName: string;
+    }[];
     translators: string[];
-    bookGenres: string[];
+    bookGenres: {
+      name: string;
+    }[];
     pages: number;
-    publisher: string;
+    publisher: {
+      id: string;
+      name: string;
+    };
     isbn: string;
     firstEdition: number;
   };
 }
 
 const Book: React.FC<BookProps> = ({ data }) => {
+  const { authors, bookGenres, publisher } = data;
+
+  const showAuthors = () => {
+    return authors.map(author => {
+      const { id } = author;
+      const pathId = author.id.slice(-10);
+      return (
+        <span className='book__data_element_value_span' key={id}>
+          <Link to={`../authors/${pathId}`} state={{ id }}>
+            {author.firstName.concat(' ', author.lastName)}
+          </Link>
+        </span>
+      );
+    });
+  };
+
+  const showGenres = () => {
+    return bookGenres.map(genre => {
+      return (
+        <span className='book__data_element_value_span'>{genre.name}</span>
+      );
+    });
+  };
+
+  const showPublisher = () => {
+    const { id, name } = publisher;
+    const pathId = id.slice(-10);
+    return (
+      <span className='book__data_element_value_span'>
+        <Link to={`../publishers/${pathId}`} state={{ id }}>
+          {name}
+        </Link>
+      </span>
+    );
+  };
+
   return (
     <div className='book'>
       <div className='book_title'>
@@ -28,14 +74,12 @@ const Book: React.FC<BookProps> = ({ data }) => {
       <div className='book__data'>
         <div className='book__data_element'>
           <p className='book__data_element_key'>Author:</p>
-          {/* <p className='book__data_element_value'>{data.authors[0].name}</p> */}
+          <div className='book__data_element_value'>{showAuthors()}</div>
         </div>
 
         <div className='book__data_element'>
           <p className='book__data_element_key'>Genre:</p>
-          {/* <p className='book__data_element_value'>
-      {data.bookGenres[0].name}
-    </p> */}
+          <div className='book__data_element_value'>{showGenres()}</div>
         </div>
         <div className='book__data_element'>
           <p className='book__data_element_key'>Pages:</p>
@@ -47,7 +91,7 @@ const Book: React.FC<BookProps> = ({ data }) => {
         </div>
         <div className='book__data_element'>
           <p className='book__data_element_key'>Publisher:</p>
-          {/* <p className='book__data_element_value'>{data.publisher.name}</p> */}
+          <div className='book__data_element_value'>{showPublisher()}</div>
         </div>
 
         <div className='book__data_element'>

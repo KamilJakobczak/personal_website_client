@@ -10,10 +10,12 @@ export const LOAD_BOOK = gql`
       isbn
       firstEdition
       authors {
+        id
         firstName
         lastName
       }
       publisher {
+        id
         name
       }
       bookGenres {
