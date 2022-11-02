@@ -9,7 +9,7 @@ import ScrollerComponent from '../components/Scroller/Scroller';
 import { apollo_client } from '../ApolloClient';
 import { ApolloProvider } from '@apollo/client';
 
-import List from '../components/Projects/book_collection/List';
+import List from '../components/Projects/book_collection/CollectionList';
 import {
   LOAD_AUTHOR,
   LOAD_AUTHORS,
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
                     },
                   ]}
                 />
-                <List query={LOAD_BOOKS} item={'books'} />
+                <List query={LOAD_BOOKS} />
               </div>
             ),
           },
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/authors',
-            element: <List query={LOAD_AUTHORS} item={'authors'} />,
+            element: <List query={LOAD_AUTHORS} />,
           },
           {
             path: '/apps/collection/authors/:id',
@@ -69,7 +69,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/publishers',
-            element: <List query={LOAD_PUBLISHERS} item={'publishers'} />,
+            element: <List query={LOAD_PUBLISHERS} />,
           },
           {
             path: '/apps/collection/publishers/:id',

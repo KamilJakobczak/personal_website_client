@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import BookFilter from './book_collection/BookFilter';
 import Navigation from './book_collection/Navigation';
 import Search from './book_collection/Search';
 
@@ -14,7 +13,6 @@ const BookCollection: React.FC = () => {
     <div className='book_collection'>
       <Navigation elements={elements} parentClass='book_collection' />
       <Search />
-
       <Outlet />
     </div>
   );

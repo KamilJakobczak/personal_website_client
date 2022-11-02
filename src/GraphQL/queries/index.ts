@@ -43,6 +43,10 @@ export const LOAD_AUTHOR = gql`
       lastName
       nationality
       birthYear
+      books {
+        id
+        title
+      }
     }
   }
 `;
@@ -70,6 +74,10 @@ export const LOAD_PUBLISHER = gql`
         placeNr
       }
       website
+      books {
+        id
+        title
+      }
     }
   }
 `;

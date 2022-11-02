@@ -1,3 +1,5 @@
+import List from './List';
+
 interface PublisherProps {
   data: {
     address: {
@@ -10,14 +12,17 @@ interface PublisherProps {
     };
     name: string;
     website: string;
+    books: [];
   };
 }
 
 const Publisher: React.FC<PublisherProps> = ({ data }) => {
-  const { country, zipCode, city, street, buildingNr, placeNr } = data.address;
+  const { address, name, books, website } = data;
+  const { country, zipCode, city, street, buildingNr, placeNr } = address;
+
   return (
     <div className='publisher'>
-      <h4 className='publisher__name'>{data.name}</h4>
+      <h4 className='publisher__name'>{name}</h4>
       <div className='publisher__address'>
         <p className='publisher__address_country'>
           Country: <span>{country}</span>
@@ -38,10 +43,12 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
       </div>
       <div className='publisher__website'>
         <p className='publisher__website_address'>
-          Website: <span>{data.website}</span>
+          Website: <span>{website}</span>
         </p>
       </div>
-      <div className='publisher__books'>BOOKS</div>
+      <div className='publisher__books'>
+        <List data={books} nested={true} />
+      </div>
     </div>
   );
 };

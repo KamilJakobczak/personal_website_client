@@ -1,64 +1,63 @@
-import { useQuery } from '@apollo/client';
-import { DocumentNode } from 'graphql';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Error from '../../Error';
-import LoadingSpinner from '../../LoadingSpinner';
 
 interface ListProps {
-  query: DocumentNode;
-  item: string;
+  data: {
+    id: string;
+    title?: string;
+    firstName?: string;
+    lastName?: string;
+    name?: string;
+  }[];
+  nested?: boolean;
 }
-interface DataRecord {
+interface RecordType {
   id: string;
   title?: string;
   firstName?: string;
   lastName?: string;
   name?: string;
+  __typename?: string;
 }
-const List: React.FC<ListProps> = ({ query, item }) => {
-  const { data, loading, error } = useQuery(query);
 
-  // console.log(location);
-  const tiles = () => {
-    let dataArr: DataRecord[] = [];
+const List: React.FC<ListProps> = ({ data, nested }) => {
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
-    switch (item) {
-      case 'authors':
-        dataArr = data.authors;
-        break;
-      case 'books':
-        dataArr = data.books;
-        break;
-      case 'publishers':
-        dataArr = data.publishers;
-        break;
-      default:
-        return [];
+  const linkPath = (record: RecordType) => {
+    const pathId = record.id.slice(-10);
+    if (!nested) {
+      return pathId;
+    } else if (nested) {
+      if (record.__typename === 'Book') return `../books/${pathId}`;
+      if (record.__typename === 'Author') return `../authors/${pathId}`;
+      if (record.__typename === 'Publisher') return `../publishers/${pathId}`;
     }
-
-    const result = dataArr.map(record => {
-      return (
-        <div className='book_collection__list_element' key={record.id}>
-          <Link
-            className='router_link'
-            to={`${record.id.slice(-10)}`}
-            state={{ id: record.id }}
-          >
-            {record.title ? record.title : null}
-            {record.lastName ? `${record.lastName} ${record.firstName}` : null}
-            {record.name ? record.name : null}
-          </Link>
-        </div>
-      );
-    });
-    return result;
   };
+
   return (
-    <div className='book_collection__list'>
-      {loading && <LoadingSpinner />}
-      {error && <Error text={error.message} />}
-      {data && tiles()}
+    <div>
+      {data.map(record => {
+        return (
+          <div className='book_collection__list_element' key={record.id}>
+            <Link
+              className='router_link'
+              to={linkPath(record) || ''}
+              // relative='apps/collection/books/'
+              state={{ id: record.id }}
+            >
+              {record.title ? record.title : null}
+              {record.lastName
+                ? `${record.lastName} ${record.firstName}`
+                : null}
+              {record.name ? record.name : null}
+            </Link>
+          </div>
+        );
+      })}
     </div>
   );
 };
+
 export default List;
