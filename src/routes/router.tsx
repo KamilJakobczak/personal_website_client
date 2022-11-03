@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Link } from 'react-router-dom';
 
 import BookCollection from '../components/Projects/BookCollection';
 import App from '../components/App';
@@ -21,6 +21,7 @@ import {
 import BookFilter from '../components/Projects/book_collection/BookFilter';
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
+import AddBook from '../components/Projects/book_collection/AddBook';
 
 export const router = createBrowserRouter([
   {
@@ -52,12 +53,19 @@ export const router = createBrowserRouter([
                   ]}
                 />
                 <List query={LOAD_BOOKS} />
+                <div className='book_collection__add_book'>
+                  <Link to={'new'}>add book</Link>
+                </div>
               </div>
             ),
           },
           {
             path: '/apps/collection/books/:id',
             element: <SingleRecord query={LOAD_BOOK} />,
+          },
+          {
+            path: '/apps/collection/books/new',
+            element: <AddBook />,
           },
           {
             path: '/apps/collection/authors',

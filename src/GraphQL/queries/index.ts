@@ -101,3 +101,13 @@ export const LOAD_GENRES = gql`
     }
   }
 `;
+
+export const LOAD_TRANSLATORS = gql`
+  query Translators {
+    translators {
+      id
+      firstName
+      lastName
+    }
+  }
+`;
