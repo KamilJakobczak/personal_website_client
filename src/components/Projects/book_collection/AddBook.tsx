@@ -1,37 +1,33 @@
 import { useQueries } from './hooks/useQueries';
 import Select from './Select';
 import { useState } from 'react';
-import { useQuery } from '@apollo/client';
-import {
-  LOAD_AUTHORS,
-  LOAD_GENRES,
-  LOAD_TRANSLATORS,
-} from '../../../GraphQL/queries';
+
+import LoadingSpinner from '../../LoadingSpinner';
+import Error from '../../Error';
 
 const AddBook: React.FC = () => {
-  const {
-    error: errorA,
-    loading: loadingA,
-    data: dataA,
-  } = useQuery(LOAD_AUTHORS);
-  const {
-    error: errorG,
-    loading: loadingG,
-    data: dataG,
-  } = useQuery(LOAD_GENRES);
-  const {
-    error: errorT,
-    loading: loadingT,
-    data: dataT,
-  } = useQuery(LOAD_TRANSLATORS);
+  // FETCHING DATA
+  const { data, errors, loading } = useQueries();
 
+  // CONTROL STATES
   const [authorsInputCounter, setAuthorsInputCounter] = useState([0]);
   const [genresInputCounter, setGenresInputCounter] = useState([0]);
   const [translatorsInputCounter, setTranslatorsInputCounter] = useState([0]);
-  const [language, setLanguage] = useState('English');
+  const [collectionsInputCounter, setCollectionsInputCounter] = useState([0]);
   const [inCollection, setInCollection] = useState(false);
 
-  const handleAddAuthorsInput = (
+  // FORM VALUES
+
+  const [title, setTitle] = useState('');
+  const [language, setLanguage] = useState('Polish');
+  const [genres, setGenres] = useState<string[]>([]);
+  const [publisher, setPublisher] = useState('');
+  const [translators, setTranslators] = useState<string[]>([]);
+  const [authors, setAuthors] = useState<string[]>([]);
+  const [collections, setCollections] = useState<string[]>([]);
+
+  // HANDLE EVENTS
+  const handleAddInputs = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     item: string
   ) => {
@@ -44,78 +40,198 @@ const AddBook: React.FC = () => {
         break;
       case 'genres':
         counter = genresInputCounter.length;
-        setGenresInputCounter([...authorsInputCounter, counter]);
+        setGenresInputCounter([...genresInputCounter, counter]);
         break;
       case 'translators':
         counter = translatorsInputCounter.length;
-        setTranslatorsInputCounter([...authorsInputCounter, counter]);
+        setTranslatorsInputCounter([...translatorsInputCounter, counter]);
+        break;
+      case 'collections':
+        counter = collectionsInputCounter.length;
+        setCollectionsInputCounter([...collectionsInputCounter, counter]);
         break;
       default:
         break;
     }
   };
-  return (
-    <div className='add_book'>
+
+  const handleBookSubmit = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    console.log(title, language, genres, publisher);
+  };
+
+  const setter = (data, method, value, counter, id) => {
+    const idNumber = Number(id);
+    const index = data.indexOf(value);
+    if (counter.length === 1) {
+      method([value]);
+    } else if (index === -1 && index !== idNumber) {
+      const arr = data;
+      data[idNumber] = value;
+      method(arr);
+    }
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target) {
+      const { name, value, id } = e.target;
+      const idNumber = Number(id);
+
+      switch (name) {
+        case 'authors':
+          const authorIndex = genres.indexOf(value);
+          if (genresInputCounter.length === 1) {
+            setAuthors([value]);
+          } else if (authorIndex === -1 && authorIndex !== idNumber) {
+            const authorsArr = authors;
+            authorsArr[idNumber] = value;
+            setAuthors(authorsArr);
+          } else {
+            e.target.classList.add('invalid');
+          }
+          break;
+        case 'collections':
+          const collectionIndex = collections.indexOf(value);
+          if (collectionsInputCounter.length === 1) {
+            setCollections([value]);
+          } else if (collectionIndex === -1 && collectionIndex !== idNumber) {
+            const collectionsArr = collections;
+            collectionsArr[idNumber] = value;
+            setCollections(collectionsArr);
+          } else {
+            e.target.classList.add('invalid');
+          }
+          break;
+        case 'genres':
+          const genreIndex = genres.indexOf(value);
+          if (genresInputCounter.length === 1) {
+            setGenres([value]);
+          } else if (genreIndex === -1 && genreIndex !== idNumber) {
+            const genreArr = genres;
+            genreArr[idNumber] = value;
+            setGenres(genreArr);
+          } else {
+            e.target.classList.add('invalid');
+          }
+
+          break;
+        case 'publishers':
+          setPublisher(value);
+          break;
+        case 'translators':
+          const translatorIndex = translators.indexOf(value);
+          if (translatorsInputCounter.length === 1) {
+            setTranslators([value]);
+          } else if (translatorIndex === -1 && translatorIndex !== idNumber) {
+            const translatorsArr = translators;
+            translatorsArr[idNumber] = value;
+            setTranslators(translatorsArr);
+          } else {
+            e.target.classList.add('invalid');
+          }
+          break;
+
+        default:
+          break;
+      }
+    }
+  };
+
+  // RENDER ELEMENTS
+  const showElements = () => {
+    return (
       <form className='add_book add_book__form' action=''>
         <div className='add_book__form_element'>
           <label htmlFor='title'>title:</label>
-          <input id='title' type='text' autoComplete='off' required />
+          <input
+            value={title}
+            id='title'
+            type='text'
+            autoComplete='off'
+            required
+            onChange={e => setTitle(e.target.value)}
+          />
         </div>
         <div className='add_book__form_element'>
           <label htmlFor='language'>language:</label>
-          <select id='language' name='language'>
+          <select
+            id='language'
+            name='language'
+            onChange={e => setLanguage(e.target.value)}
+          >
             <option value='Polish'>Polish</option>
             <option value='English'>English</option>
           </select>
         </div>
         <div className='add_book__form_element'>
-          {dataG &&
-            genresInputCounter.map(input => {
-              return (
-                <Select
-                  key={input}
-                  onAddClick={handleAddAuthorsInput}
-                  data={dataG.genres}
-                  item='genres'
-                />
-              );
-            })}
+          {genresInputCounter.map(input => {
+            return (
+              <Select
+                id={input}
+                handleSelectChange={handleSelectChange}
+                key={input}
+                onAddClick={handleAddInputs}
+                data={data.genres}
+                item='genres'
+              />
+            );
+          })}
         </div>
         <div className='add_book__form_element'>
           <label htmlFor='pages'>pages:</label>
           <input type='number' id='pages' />
         </div>
         <div className='add_book__form_element'>
-          {dataA &&
-            authorsInputCounter.map(input => {
-              return (
-                <Select
-                  key={input}
-                  onAddClick={handleAddAuthorsInput}
-                  data={dataA.authors}
-                  item='authors'
-                />
-              );
-            })}
+          {authorsInputCounter.map(input => {
+            return (
+              <Select
+                id={input}
+                handleSelectChange={handleSelectChange}
+                key={input}
+                onAddClick={handleAddInputs}
+                data={data.authors}
+                item='authors'
+              />
+            );
+          })}
         </div>
         <div className='add_book__form_element'>
           <label htmlFor='publisher'>publisher:</label>
-          <input id='publisher' list='' name='' />
-          <datalist id=''></datalist>
+
+          <select
+            className='form_select'
+            id='publishers'
+            name='publishers'
+            onChange={e => handleSelectChange(e)}
+          >
+            <option value=''>-- find me --</option>
+            {data.publishers.map((publisher: any) => {
+              return (
+                <option
+                  key={publisher.id}
+                  value={publisher.id}
+                  label={publisher.name}
+                ></option>
+              );
+            })}
+          </select>
         </div>
         {language === 'English' && (
           <div className='add_book__form_element'>
-            {dataT &&
-              translatorsInputCounter.map(input => {
-                return (
-                  <Select
-                    key={input}
-                    onAddClick={handleAddAuthorsInput}
-                    data={dataT.translators}
-                    item='translators'
-                  />
-                );
-              })}
+            {translatorsInputCounter.map(input => {
+              return (
+                <Select
+                  id={input}
+                  handleSelectChange={handleSelectChange}
+                  key={input}
+                  onAddClick={handleAddInputs}
+                  data={data.translators}
+                  item='translators'
+                />
+              );
+            })}
           </div>
         )}
         <div className='add_book__form_element'>
@@ -149,20 +265,30 @@ const AddBook: React.FC = () => {
         </div>
         {inCollection && (
           <div className='add_book__form_element'>
-            {dataC &&
-              collectionsInputCounter.map(input => {
-                return (
-                  <Select
-                    key={input}
-                    onAddClick={handleAddAuthorsInput}
-                    data={dataT.translators}
-                    item='translators'
-                  />
-                );
-              })}
+            {collectionsInputCounter.map(input => {
+              return (
+                <Select
+                  id={input}
+                  handleSelectChange={handleSelectChange}
+                  key={input}
+                  onAddClick={handleAddInputs}
+                  data={data.collections}
+                  item='collections'
+                />
+              );
+            })}
           </div>
         )}
+        <button onClick={e => handleBookSubmit(e)}>submit</button>
       </form>
+    );
+  };
+
+  return (
+    <div className='add_book'>
+      {loading && <LoadingSpinner />}
+      {errors && <Error text={errors} />}
+      {data && !loading && showElements()}
     </div>
   );
 };

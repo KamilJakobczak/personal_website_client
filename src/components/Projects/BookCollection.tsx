@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Navigation from './book_collection/Navigation';
 import Search from './book_collection/Search';
 

@@ -84,6 +84,15 @@ export const LOAD_PUBLISHER = gql`
   }
 `;
 
+export const LOAD_COLLECTIONS = gql`
+  query Collections {
+    collections {
+      id
+      name
+    }
+  }
+`;
+
 export const LOAD_PUBLISHERS = gql`
   query Publishers {
     publishers {
