@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import LoadingSpinner from '../../LoadingSpinner';
 import Error from '../../Error';
+import { processSelectionData } from './handlers/processSelectionData';
 
 const AddBook: React.FC = () => {
   // FETCHING DATA
@@ -59,78 +60,64 @@ const AddBook: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    console.log(title, language, genres, publisher);
-  };
-
-  const setter = (data, method, value, counter, id) => {
-    const idNumber = Number(id);
-    const index = data.indexOf(value);
-    if (counter.length === 1) {
-      method([value]);
-    } else if (index === -1 && index !== idNumber) {
-      const arr = data;
-      data[idNumber] = value;
-      method(arr);
-    }
+    console.log(
+      title,
+      authors,
+      language,
+      genres,
+      publisher,
+      translators,
+      collections
+    );
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target) {
       const { name, value, id } = e.target;
-      const idNumber = Number(id);
-
+      const element = e.target;
       switch (name) {
         case 'authors':
-          const authorIndex = genres.indexOf(value);
-          if (genresInputCounter.length === 1) {
-            setAuthors([value]);
-          } else if (authorIndex === -1 && authorIndex !== idNumber) {
-            const authorsArr = authors;
-            authorsArr[idNumber] = value;
-            setAuthors(authorsArr);
-          } else {
-            e.target.classList.add('invalid');
-          }
+          processSelectionData(
+            authors,
+            setAuthors,
+            value,
+            authorsInputCounter,
+            id,
+            element
+          );
           break;
         case 'collections':
-          const collectionIndex = collections.indexOf(value);
-          if (collectionsInputCounter.length === 1) {
-            setCollections([value]);
-          } else if (collectionIndex === -1 && collectionIndex !== idNumber) {
-            const collectionsArr = collections;
-            collectionsArr[idNumber] = value;
-            setCollections(collectionsArr);
-          } else {
-            e.target.classList.add('invalid');
-          }
+          processSelectionData(
+            collections,
+            setCollections,
+            value,
+            collectionsInputCounter,
+            id,
+            element
+          );
           break;
         case 'genres':
-          const genreIndex = genres.indexOf(value);
-          if (genresInputCounter.length === 1) {
-            setGenres([value]);
-          } else if (genreIndex === -1 && genreIndex !== idNumber) {
-            const genreArr = genres;
-            genreArr[idNumber] = value;
-            setGenres(genreArr);
-          } else {
-            e.target.classList.add('invalid');
-          }
-
+          processSelectionData(
+            genres,
+            setGenres,
+            value,
+            genresInputCounter,
+            id,
+            element
+          );
           break;
         case 'publishers':
           setPublisher(value);
           break;
         case 'translators':
-          const translatorIndex = translators.indexOf(value);
-          if (translatorsInputCounter.length === 1) {
-            setTranslators([value]);
-          } else if (translatorIndex === -1 && translatorIndex !== idNumber) {
-            const translatorsArr = translators;
-            translatorsArr[idNumber] = value;
-            setTranslators(translatorsArr);
-          } else {
-            e.target.classList.add('invalid');
-          }
+          processSelectionData(
+            translators,
+            setTranslators,
+            value,
+            translatorsInputCounter,
+            id,
+            element
+          );
           break;
 
         default:
