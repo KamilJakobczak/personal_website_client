@@ -5,6 +5,8 @@ import { useState } from 'react';
 import LoadingSpinner from '../../LoadingSpinner';
 import Error from '../../Error';
 import { processSelectionData } from './handlers/processSelectionData';
+import axios from 'axios';
+import { graphqlApi } from '../../../server';
 
 const AddBook: React.FC = () => {
   // FETCHING DATA
@@ -26,6 +28,9 @@ const AddBook: React.FC = () => {
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [collections, setCollections] = useState<string[]>([]);
+  const [isbn, setIsbn] = useState('');
+  const [pages, setPages] = useState('');
+  const [firstEdition, setFirstEdition] = useState('');
 
   // HANDLE EVENTS
   const handleAddInputs = (
@@ -33,42 +38,35 @@ const AddBook: React.FC = () => {
     item: string
   ) => {
     e.preventDefault();
-    let counter;
+
     switch (item) {
       case 'authors':
-        counter = authorsInputCounter.length;
-        setAuthorsInputCounter([...authorsInputCounter, counter]);
+        setAuthorsInputCounter([
+          ...authorsInputCounter,
+          authorsInputCounter.length,
+        ]);
         break;
       case 'genres':
-        counter = genresInputCounter.length;
-        setGenresInputCounter([...genresInputCounter, counter]);
+        setGenresInputCounter([
+          ...genresInputCounter,
+          genresInputCounter.length,
+        ]);
         break;
       case 'translators':
-        counter = translatorsInputCounter.length;
-        setTranslatorsInputCounter([...translatorsInputCounter, counter]);
+        setTranslatorsInputCounter([
+          ...translatorsInputCounter,
+          translatorsInputCounter.length,
+        ]);
         break;
       case 'collections':
-        counter = collectionsInputCounter.length;
-        setCollectionsInputCounter([...collectionsInputCounter, counter]);
+        setCollectionsInputCounter([
+          ...collectionsInputCounter,
+          collectionsInputCounter.length,
+        ]);
         break;
       default:
         break;
     }
-  };
-
-  const handleBookSubmit = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-    console.log(
-      title,
-      authors,
-      language,
-      genres,
-      publisher,
-      translators,
-      collections
-    );
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -126,11 +124,44 @@ const AddBook: React.FC = () => {
     }
   };
 
+  const handleNumerics = (e: React.ChangeEvent<HTMLSelectElement>) => {};
+
+  const handleBookSubmit = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    console.log(
+      title,
+      authors,
+      language,
+      pages,
+      isbn,
+      firstEdition,
+      genres,
+      publisher,
+      translators,
+      collections
+    );
+    const data = {
+      title,
+      authors,
+      language,
+      pages,
+      isbn,
+      firstEdition,
+      genres,
+      publisher,
+      translators,
+      collections,
+    };
+    axios.post(`${graphqlApi}/add/book`, data);
+  };
+
   // RENDER ELEMENTS
   const showElements = () => {
     return (
       <form className='add_book add_book__form' action=''>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__title'>
           <label htmlFor='title'>title:</label>
           <input
             value={title}
@@ -141,7 +172,7 @@ const AddBook: React.FC = () => {
             onChange={e => setTitle(e.target.value)}
           />
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__language'>
           <label htmlFor='language'>language:</label>
           <select
             id='language'
@@ -152,7 +183,7 @@ const AddBook: React.FC = () => {
             <option value='English'>English</option>
           </select>
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__genres'>
           {genresInputCounter.map(input => {
             return (
               <Select
@@ -166,11 +197,20 @@ const AddBook: React.FC = () => {
             );
           })}
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__pages'>
           <label htmlFor='pages'>pages:</label>
-          <input type='number' id='pages' />
+          <input
+            autoComplete='off'
+            id='pages'
+            type='text'
+            value={pages}
+            min={0}
+            max={2000}
+            step={1}
+            onChange={e => setPages(e.target.value)}
+          />
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__authors'>
           {authorsInputCounter.map(input => {
             return (
               <Select
@@ -184,7 +224,7 @@ const AddBook: React.FC = () => {
             );
           })}
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__publisher'>
           <label htmlFor='publisher'>publisher:</label>
 
           <select
@@ -206,7 +246,7 @@ const AddBook: React.FC = () => {
           </select>
         </div>
         {language === 'English' && (
-          <div className='add_book__form_element'>
+          <div className='add_book__form_element__translators'>
             {translatorsInputCounter.map(input => {
               return (
                 <Select
@@ -221,19 +261,35 @@ const AddBook: React.FC = () => {
             })}
           </div>
         )}
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__isbn'>
           <label htmlFor='isbn'>isbn</label>
-          <input id='isbn' type='text' />
+          <input
+            pattern='((?:[\dX]{13})|(?:[\d\-X]{17})|(?:[\dX]{10})|(?:[\d\-X]{13}))'
+            autoComplete='off'
+            id='isbn'
+            type='text'
+            value={isbn}
+            onChange={e => setIsbn(e.target.value)}
+          />
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__firstEdition'>
           <label htmlFor='firstEdition'>first edition(global):</label>
-          <input type='text' id='firstEdition' />
+          <input
+            autoComplete='off'
+            type='text'
+            id='firstEdition'
+            value={firstEdition}
+            min={0}
+            max={2030}
+            step={1}
+            onChange={e => setFirstEdition(e.target.value)}
+          />
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__cover'>
           <label htmlFor='cover'>upload cover</label>
           <input id='cover' type='file' />
         </div>
-        <div className='add_book__form_element'>
+        <div className='add_book__form_element__isCollection'>
           <label htmlFor='in_collection'>Part of a collection?</label>
           <input
             type='radio'
@@ -251,7 +307,7 @@ const AddBook: React.FC = () => {
           <label htmlFor='no'>No</label>
         </div>
         {inCollection && (
-          <div className='add_book__form_element'>
+          <div className='add_book__form_element__collections'>
             {collectionsInputCounter.map(input => {
               return (
                 <Select
@@ -273,6 +329,7 @@ const AddBook: React.FC = () => {
 
   return (
     <div className='add_book'>
+      <div className='upload'>Upload component</div>
       {loading && <LoadingSpinner />}
       {errors && <Error text={errors} />}
       {data && !loading && showElements()}

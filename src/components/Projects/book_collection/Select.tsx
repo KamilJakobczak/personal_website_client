@@ -17,6 +17,8 @@ const Select: React.FC<SelectProps> = ({
   item,
   handleSelectChange,
 }) => {
+  const singularString = item.slice(0, item.lastIndexOf('s'));
+
   return (
     <>
       <label htmlFor={item}>{item}</label>
@@ -35,7 +37,7 @@ const Select: React.FC<SelectProps> = ({
             return <option key={record.id} value={record.id} label={label} />;
           })}
       </select>
-      <button onClick={e => onAddClick(e, item)}>add {item}</button>
+      <button onClick={e => onAddClick(e, item)}>add {singularString}</button>
     </>
   );
 };

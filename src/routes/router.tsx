@@ -22,6 +22,8 @@ import BookFilter from '../components/Projects/book_collection/BookFilter';
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
 import AddBook from '../components/Projects/book_collection/AddBook';
+import AddPublisher from '../components/Projects/book_collection/adding_records/AddPublisher';
+import NewRecords from '../components/Projects/book_collection/adding_records/NewRecords';
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +73,7 @@ export const router = createBrowserRouter([
             path: '/apps/collection/authors',
             element: <List query={LOAD_AUTHORS} />,
           },
+
           {
             path: '/apps/collection/authors/:id',
             element: <SingleRecord query={LOAD_AUTHOR} />,
@@ -78,6 +81,10 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection/publishers',
             element: <List query={LOAD_PUBLISHERS} />,
+          },
+          {
+            path: '/apps/collection/add',
+            element: <NewRecords />,
           },
           {
             path: '/apps/collection/publishers/:id',
