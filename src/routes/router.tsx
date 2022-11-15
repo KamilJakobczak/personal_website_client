@@ -21,9 +21,13 @@ import {
 import BookFilter from '../components/Projects/book_collection/BookFilter';
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
-import AddBook from '../components/Projects/book_collection/AddBook';
+import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
 import AddPublisher from '../components/Projects/book_collection/adding_records/AddPublisher';
 import NewRecords from '../components/Projects/book_collection/adding_records/NewRecords';
+import AddGenre from '../components/Projects/book_collection/adding_records/AddGenre';
+import AddCollection from '../components/Projects/book_collection/adding_records/AddCollection';
+import AddTranslator from '../components/Projects/book_collection/adding_records/AddTranslator';
+import AddAuthor from '../components/Projects/book_collection/adding_records/AddAuthor';
 
 export const router = createBrowserRouter([
   {
@@ -55,19 +59,12 @@ export const router = createBrowserRouter([
                   ]}
                 />
                 <List query={LOAD_BOOKS} />
-                <div className='book_collection__add_book'>
-                  <Link to={'new'}>add book</Link>
-                </div>
               </div>
             ),
           },
           {
             path: '/apps/collection/books/:id',
             element: <SingleRecord query={LOAD_BOOK} />,
-          },
-          {
-            path: '/apps/collection/books/new',
-            element: <AddBook />,
           },
           {
             path: '/apps/collection/authors',
@@ -82,6 +79,20 @@ export const router = createBrowserRouter([
             path: '/apps/collection/publishers',
             element: <List query={LOAD_PUBLISHERS} />,
           },
+
+          { path: '/apps/collection/add/genre', element: <AddGenre /> },
+          { path: '/apps/collection/add/book', element: <AddBook /> },
+          { path: '/apps/collection/add/author', element: <AddAuthor /> },
+          { path: '/apps/collection/add/publisher', element: <AddPublisher /> },
+          {
+            path: '/apps/collection/add/translator',
+            element: <AddTranslator />,
+          },
+          {
+            path: '/apps/collection/add/collection',
+            element: <AddCollection />,
+          },
+
           {
             path: '/apps/collection/add',
             element: <NewRecords />,

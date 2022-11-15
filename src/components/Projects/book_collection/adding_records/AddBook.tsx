@@ -1,12 +1,12 @@
-import { useQueries } from './hooks/useQueries';
-import Select from './Select';
+import { useQueries } from '../hooks/useQueries';
+import Select from '../Select';
 import { useState } from 'react';
 
-import LoadingSpinner from '../../LoadingSpinner';
-import Error from '../../Error';
-import { processSelectionData } from './handlers/processSelectionData';
+import LoadingSpinner from '../../../LoadingSpinner';
+import Error from '../../../Error';
+import { processSelectionData } from '../handlers/processSelectionData';
 import axios from 'axios';
-import { graphqlApi } from '../../../server';
+import { graphqlApi } from '../../../../server';
 
 const AddBook: React.FC = () => {
   // FETCHING DATA
