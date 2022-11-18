@@ -328,7 +328,7 @@ const AddBook: React.FC = () => {
   };
 
   return (
-    <div className='add_book'>
+    <div className='add_book new'>
       <div className='upload'>Upload component</div>
       {loading && <LoadingSpinner />}
       {errors && <Error text={errors} />}

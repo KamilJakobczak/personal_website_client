@@ -7,15 +7,16 @@ const Business: React.FC = () => {
           <h3>Main technologies:</h3>
           <li>Javascript</li>
           <li>React</li>
+          <li>Typescript</li>
+          <li>NodeJS</li>
           <li>CSS (SASS)</li>
           <li>HTML</li>
         </ul>
         <ul className='skills__additional'>
           <h3>Technologies that I used in my biggest projects:</h3>
           <li>GraphQL</li>
+          <li>Apollo</li>
           <li>Redux</li>
-          <li>Typescript</li>
-          <li>NodeJS</li>
           <li>MongoDB</li>
           <li>Prisma</li>
         </ul>

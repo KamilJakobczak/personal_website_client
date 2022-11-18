@@ -1,22 +1,14 @@
 .collection_button {
   display: block;
-  background-color: #b9ccdf;
+  background-color: $fourth-color;
   padding: 10px;
-
+  position: relative;
+  overflow: hidden;
   color: $apps_background;
+  cursor: pointer;
   // margin-top: 20px;
   text-align: center;
   font-size: $font-size-medium;
   text-transform: uppercase;
-  transition: 0.3s;
-  &:hover {
-    color: #726a30;
-    margin: 5px;
-    padding: 5px;
-    cursor: pointer;
-
-    // font-size: calc($font-size-medium * 1.2);
-    transition: 0.3s;
-    // border-radius: 48% 52% 50% 50% / 45% 48% 52% 55%;
-  }
+  transition: 0.5s;
 }

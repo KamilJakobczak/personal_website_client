@@ -9,48 +9,4 @@
   &__item {
     flex-basis: 40%;
   }
-  .add_publisher {
-    // align-self: flex-start;
-    width: 80%;
-    font-size: $font-size-medium;
-    &__form {
-      &_element {
-        margin-top: 5px;
-        display: flex;
-        width: 70%;
-        align-items: flex-start;
-
-        justify-content: space-between;
-        &__address {
-          margin: 10px 0 10px;
-          display: flex;
-          flex-wrap: wrap;
-          align-items: flex-start;
-          justify-content: space-between;
-          p {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            text-align: center;
-            border-bottom: 1px $fourth-color solid;
-            flex-basis: 100%;
-          }
-          .address_item {
-            margin-top: 5px;
-            display: flex;
-            justify-content: space-between;
-            flex-basis: 70%;
-          }
-        }
-        &__button {
-          margin-top: 15px;
-          flex-basis: 90%;
-          button {
-            margin: 0 auto;
-            width: 70%;
-          }
-        }
-      }
-    }
-  }
 }

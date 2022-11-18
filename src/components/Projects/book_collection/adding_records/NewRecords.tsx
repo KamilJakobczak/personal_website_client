@@ -1,74 +1,72 @@
-import AddPublisher from './AddPublisher';
-import { useEffect, useState } from 'react';
-import AddTranslator from './AddTranslator';
-import AddBook from './AddBook';
-import AddGenre from './AddGenre';
-import AddCollection from './AddCollection';
-import AddAuthor from './AddAuthor';
-import { history } from '../../../../routes/history';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-interface NewRecordsProps {
-  resetComponent: string;
-  resetBooleans: boolean;
-}
+import { Link } from 'react-router-dom';
+import Button from '../Button';
 
-const NewRecords: React.FC = props => {
+// interface NewRecordsProps {
+//   resetComponent: string;
+//   resetBooleans: boolean;
+// }
+
+const NewRecords: React.FC = () => {
   const [buttons, setButtons] = useState(true);
   const [book, setBook] = useState(false);
 
   const showBookOptions = () => {
     return (
-      <div>
-        <button className='collection_button' onClick={e => {}}>
-          <Link to={'/apps/collection/add/book/upload'}>
-            upload an epub file
-          </Link>
-        </button>
-        <button className='collection_button'>
-          <Link to={'/apps/collection/add/book'}>input info by yourself</Link>{' '}
-        </button>
-
-        <button
-          className='collection_button'
-          onClick={e => {
+      <div className='new_records__add_book_options'>
+        <Button
+          className='new_records__add_book_options__button'
+          text='go back'
+          handleClick={() => {
             setButtons(true);
             setBook(false);
           }}
-        >
-          whoops, missclick, go back
-        </button>
+        />
+        <Button
+          className='new_records__add_book_options__button'
+          linkPath='/apps/collection/add/book/upload'
+          text='upload an epub file'
+        />
+        <Button
+          className='new_records__add_book_options__button'
+          linkPath='/apps/collection/add/book'
+          text='input info by yourself'
+        />
       </div>
     );
   };
 
+  const handleBookButtonClick = () => {
+    setBook(true);
+    setButtons(false);
+  };
+
   const showButtons = () => {
+    const elements = [
+      'author',
+      'genre',
+      'publisher',
+      'translator',
+      'collection',
+    ];
     return (
       <>
-        <div
-          className='new_records__item collection_button'
-          onClick={e => {
-            setBook(true);
-            setButtons(false);
-          }}
-        >
-          book
-        </div>
-        <div className='new_records__item collection_button'>
-          <Link to={'/apps/collection/add/author'}>author</Link>
-        </div>
-        <div className='new_records__item collection_button'>
-          <Link to={'/apps/collection/add/genre'}>genre</Link>
-        </div>
-        <div className='new_records__item collection_button'>
-          <Link to={'/apps/collection/add/publisher'}>publisher</Link>
-        </div>
-        <div className='new_records__item collection_button'>
-          <Link to={'/apps/collection/add/translator'}>translator</Link>
-        </div>
-        <div className='new_records__item collection_button'>
-          <Link to={'/apps/collection/add/collection'}>collection</Link>
-        </div>
+        <Button
+          className='new_records__item'
+          text='book'
+          handleClick={handleBookButtonClick}
+        />
+        {elements.map(element => {
+          return (
+            <Button
+              key={element}
+              className='new_records__item'
+              text={element}
+              linkPath='/apps/collection/add'
+            />
+          );
+        })}
       </>
     );
   };
