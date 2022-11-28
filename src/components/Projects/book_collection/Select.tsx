@@ -8,6 +8,10 @@ interface SelectProps {
   ) => void;
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   item: string;
+  onRemoveClick?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -16,6 +20,7 @@ const Select: React.FC<SelectProps> = ({
   data,
   item,
   handleSelectChange,
+  onRemoveClick,
 }) => {
   const singularString = item.slice(0, item.lastIndexOf('s'));
 
@@ -33,11 +38,20 @@ const Select: React.FC<SelectProps> = ({
           data.map((record: any) => {
             let label = record.firstName
               ? `${record.lastName} ${record.firstName}`
-              : record.name;
+              : record.name || record.title;
             return <option key={record.id} value={record.id} label={label} />;
           })}
       </select>
       <button onClick={e => onAddClick(e, item)}>add {singularString}</button>
+      <button
+        onClick={e => {
+          if (onRemoveClick) {
+            onRemoveClick(e, id);
+          }
+        }}
+      >
+        X
+      </button>
     </>
   );
 };

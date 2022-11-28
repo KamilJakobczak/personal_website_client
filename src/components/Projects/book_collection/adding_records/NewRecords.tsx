@@ -30,7 +30,7 @@ const NewRecords: React.FC = () => {
         />
         <Button
           className='new_records__add_book_options__button'
-          linkPath='/apps/collection/add/book'
+          linkPath='/apps/collection/add/book/manual'
           text='input info by yourself'
         />
       </div>
@@ -62,6 +62,7 @@ const NewRecords: React.FC = () => {
             <Button
               key={element}
               className='new_records__item'
+              linkEnd={element}
               text={element}
               linkPath='/apps/collection/add'
             />

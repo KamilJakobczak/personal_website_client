@@ -4,6 +4,7 @@ interface ButtonProps {
   className: string;
   handleClick?: () => void;
   linkPath?: string;
+  linkEnd?: string;
   text?: string;
   goBack?: boolean;
 }
@@ -12,18 +13,23 @@ const Button: React.FC<ButtonProps> = ({
   className,
   handleClick,
   linkPath,
+  linkEnd,
   text,
   goBack,
 }) => {
-  const path = `${linkPath}/${text}`;
+  const path = `${linkPath}/${linkEnd || ''}`;
   const navigate = useNavigate();
+  const handleSubmit = () => {
+    if (!goBack && handleClick) {
+      handleClick();
+    } else if (goBack) {
+      navigate(-1);
+    }
+  };
   return (
     <div
       className={`${className} collection_button`}
-      onClick={e => {
-        if (goBack) navigate(-1);
-        if (handleClick) handleClick();
-      }}
+      onClick={() => handleSubmit()}
     >
       <span>{!linkPath && (text || 'submit')}</span>
       {linkPath && <Link to={path}>{text}</Link>}

@@ -19,6 +19,11 @@ const AddBook: React.FC = () => {
   const [collectionsInputCounter, setCollectionsInputCounter] = useState([0]);
   const [inCollection, setInCollection] = useState(false);
 
+  const [canAddAuthor, setCanAddAuthor] = useState(true);
+  const [canAddGenre, setCanAddGenre] = useState(true);
+  const [canAddTranslator, setCanAddTranslator] = useState(true);
+  const [canAddCollection, setCanAddCollection] = useState(true);
+
   // FORM VALUES
 
   const [title, setTitle] = useState('');
@@ -78,6 +83,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             authors,
             setAuthors,
+            // setCanAddAuthor,
             value,
             authorsInputCounter,
             id,
@@ -88,6 +94,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             collections,
             setCollections,
+            // setCanAddCollection,
             value,
             collectionsInputCounter,
             id,
@@ -98,6 +105,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             genres,
             setGenres,
+            // setCanAddGenre,
             value,
             genresInputCounter,
             id,
@@ -111,6 +119,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             translators,
             setTranslators,
+            // setCanAddTranslator,
             value,
             translatorsInputCounter,
             id,

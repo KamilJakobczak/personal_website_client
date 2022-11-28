@@ -81,7 +81,7 @@ export const router = createBrowserRouter([
           },
 
           { path: '/apps/collection/add/genre', element: <AddGenre /> },
-          { path: '/apps/collection/add/book', element: <AddBook /> },
+          { path: '/apps/collection/add/book/manual', element: <AddBook /> },
           { path: '/apps/collection/add/author', element: <AddAuthor /> },
           { path: '/apps/collection/add/publisher', element: <AddPublisher /> },
           {
