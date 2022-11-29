@@ -1,5 +1,11 @@
 import Button from '../Button';
 import { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_PUBLISHER } from '../../../../GraphQL/mutations';
+import { regexValidator } from '../handlers/regexValidator';
+import Error from '../../../Error';
+import SuccessMessage from '../SuccessMessage';
+import LoadingSpinner from '../../../LoadingSpinner';
 
 const AddPublisher: React.FC = () => {
   const [name, setName] = useState('');
@@ -10,23 +16,91 @@ const AddPublisher: React.FC = () => {
   const [street, setStreet] = useState('');
   const [buildingNr, setBuildingNr] = useState('');
   const [placeNr, setPlaceNr] = useState('');
+  const [userError, setUserError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const [addPublisher, { data, loading, error }] = useMutation(ADD_PUBLISHER, {
+    onCompleted(data) {
+      if (data.addPublisher.userErrors[0].message) {
+        setUserError(data.addPublisher.userErrors[0].message);
+      }
+      if (data.addPublisher.publisher) {
+        setName('');
+        setWebsite('');
+        setCountry('');
+        setZipCode('');
+        setCity('');
+        setStreet('');
+        setBuildingNr('');
+        setPlaceNr('');
+        setUserError('');
+        setSuccessMessage(data.addPublisher.publisher.name);
+
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000);
+      }
+    },
+  });
+
+  const handleTextInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const regex = /^([ \u00c0-\u01ffa-zA-Z'-])+$/gm;
+    const { value, id } = e.target;
+
+    switch (id) {
+      case 'name':
+        regexValidator(regex, value, setName);
+        break;
+      case 'country':
+        regexValidator(regex, value, setCountry);
+        break;
+      case 'city':
+        regexValidator(regex, value, setCity);
+        break;
+      case 'street':
+        regexValidator(regex, value, setStreet);
+        break;
+      default:
+        break;
+    }
+  };
+  const handleWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const regex =
+      /^(https?:\/\/)?([\w\d_]+)\.([\w\d_.]+)\/?\??([^#\n\r]*)?#?([^\n\r]*)/gm;
+
+    regexValidator(regex, value, setWebsite);
+  };
 
   const handleSubmit = () => {
-    console.log('submit');
+    addPublisher({
+      variables: {
+        name,
+        website,
+        address: {
+          country,
+          zipCode,
+          city,
+          street,
+          buildingNr,
+          placeNr,
+        },
+      },
+    });
   };
-  return (
-    <div className='add_publisher new'>
-      <Button className='add_publisher__button' text='go back' goBack={true} />
-      <form className='add_publisher__form' action=''>
+
+  const showForm = () => {
+    return (
+      <form className='add_publisher__form' action='' autoComplete='off'>
         <div className='add_publisher__form_element'>
           <label htmlFor='name'>name</label>
           <input
             type='text'
             id='name'
-            autoComplete='off'
+            autoComplete='do-not-autofill'
             required
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={e => handleTextInputs(e)}
           />
         </div>
         <div className='add_publisher__form_element'>
@@ -34,10 +108,10 @@ const AddPublisher: React.FC = () => {
           <input
             type='text'
             id='website'
-            autoComplete='off'
+            autoComplete='do-not-autofill'
             required
             value={website}
-            onChange={e => setWebsite(e.target.value)}
+            onChange={e => handleWebsiteChange(e)}
           />
         </div>
         <div className='add_publisher__form_element__address'>
@@ -47,10 +121,10 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='country'
-              autoComplete='off'
+              autoComplete='do-not-autofill'
               required
               value={country}
-              onChange={e => setCountry(e.target.value)}
+              onChange={e => handleTextInputs(e)}
             />
           </div>
           <div className='address_item'>
@@ -58,7 +132,7 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='zipCode'
-              autoComplete='off'
+              autoComplete='do-not-autofill'
               required
               value={zipCode}
               onChange={e => setZipCode(e.target.value)}
@@ -69,10 +143,10 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='city'
-              autoComplete='off'
+              autoComplete='do-not-autofill'
               required
               value={city}
-              onChange={e => setCity(e.target.value)}
+              onChange={e => handleTextInputs(e)}
             />
           </div>
           <div className='address_item'>
@@ -80,10 +154,10 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='street'
-              autoComplete='off'
+              autoComplete='do-not-autofill'
               required
               value={street}
-              onChange={e => setStreet(e.target.value)}
+              onChange={e => handleTextInputs(e)}
             />
           </div>
           <div className='address_item'>
@@ -91,7 +165,7 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='buildingNr'
-              autoComplete='off'
+              autoComplete='do-not-autofill'
               required
               value={buildingNr}
               onChange={e => setBuildingNr(e.target.value)}
@@ -102,7 +176,7 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='placeNr'
-              autoComplete='off'
+              autoComplete='do-not-autofill'
               required
               value={placeNr}
               onChange={e => setPlaceNr(e.target.value)}
@@ -114,6 +188,26 @@ const AddPublisher: React.FC = () => {
           handleClick={handleSubmit}
         />
       </form>
+    );
+  };
+
+  const showErrors = () => {
+    if (error) {
+      return <Error text={error.message} />;
+    } else if (userError) {
+      return <Error text={userError} />;
+    }
+  };
+
+  return (
+    <div className='add_publisher new'>
+      <Button className='add_publisher__button' text='go back' goBack={true} />
+      {data && successMessage ? (
+        <SuccessMessage item='publisher' successMessage={successMessage} />
+      ) : null}
+      {loading && <LoadingSpinner />}
+      {!loading && !successMessage ? showForm() : null}
+      {showErrors()}
     </div>
   );
 };

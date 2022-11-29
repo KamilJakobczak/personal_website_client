@@ -47,3 +47,21 @@ export const ADD_GENRE = gql`
     }
   }
 `;
+
+export const ADD_PUBLISHER = gql`
+  mutation addPublisher(
+    $name: String!
+    $website: String
+    $adress: addressInput
+  ) {
+    addPublisher(input: { name: $name, website: $website, address: $adress }) {
+      userErrors {
+        message
+      }
+      publisher {
+        name
+        id
+      }
+    }
+  }
+`;

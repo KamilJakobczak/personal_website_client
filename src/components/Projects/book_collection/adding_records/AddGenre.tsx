@@ -14,11 +14,17 @@ const AddGenre: React.FC = () => {
   const [addGenre, { data, loading, error }] = useMutation(ADD_GENRE, {
     onCompleted(data) {
       setName('');
-      console.log(data);
-      setSuccessMessage(data.addGenre.genre.name);
-      setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
+      if (data.addGenre.userErrors[0].message) {
+        setUserError(data.addGenre.userErrors[0].message);
+      }
+      if (data.addGenre.genre) {
+        setUserError('');
+        setSuccessMessage(data.addGenre.genre.name);
+
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000);
+      }
     },
   });
 

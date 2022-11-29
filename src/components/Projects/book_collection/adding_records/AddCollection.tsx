@@ -7,7 +7,7 @@ import { LOAD_BOOKS } from '../../../../GraphQL/queries';
 import Button from '../Button';
 import Select from '../Select';
 import { checkDuplicates } from '../handlers/checkDuplicates';
-import _, { set } from 'lodash';
+import _ from 'lodash';
 import LoadingSpinner from '../../../LoadingSpinner';
 import SuccessMessage from '../SuccessMessage';
 
