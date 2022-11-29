@@ -33,3 +33,17 @@ export const ADD_TRANSLATOR = gql`
     }
   }
 `;
+
+export const ADD_GENRE = gql`
+  mutation addGenre($name: String!) {
+    addGenre(input: { name: $name }) {
+      userErrors {
+        message
+      }
+      genre {
+        name
+        id
+      }
+    }
+  }
+`;

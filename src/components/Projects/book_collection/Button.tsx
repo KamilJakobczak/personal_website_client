@@ -19,7 +19,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const path = `${linkPath}/${linkEnd || ''}`;
   const navigate = useNavigate();
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     if (!goBack && handleClick) {
       handleClick();
     } else if (goBack) {
@@ -29,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <div
       className={`${className} collection_button`}
-      onClick={() => handleSubmit()}
+      onClick={e => handleSubmit(e)}
     >
       <span>{!linkPath && (text || 'submit')}</span>
       {linkPath && <Link to={path}>{text}</Link>}

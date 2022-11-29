@@ -9,6 +9,7 @@ import SuccessMessage from '../SuccessMessage';
 const AddTranslator: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const [addTranslator, { data, loading, error }] = useMutation(
@@ -17,16 +18,21 @@ const AddTranslator: React.FC = () => {
       onCompleted(data) {
         setFirstName('');
         setLastName('');
-        setSuccessMessage(
-          data.addTranslator.translator.firstName +
-            ' ' +
-            data.addTranslator.translator.lastName
-        );
-        console.log(data);
+        if (data.addTranslator.userErrors[0].message) {
+          setUserError(data.addTranslator.userErrors[0].message);
+        }
+        if (data.addTranslator.translator) {
+          setUserError('');
+          setSuccessMessage(
+            data.addTranslator.translator.firstName +
+              ' ' +
+              data.addTranslator.translator.lastName
+          );
 
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 3000);
+        }
       },
     }
   );
@@ -103,6 +109,14 @@ const AddTranslator: React.FC = () => {
     );
   };
 
+  const showErrors = () => {
+    if (error) {
+      return <Error text={error.message} />;
+    } else if (userError) {
+      return <Error text={userError} />;
+    }
+  };
+
   return (
     <div className='add_translator new'>
       <Button className='add_translator__button' text='go back' goBack={true} />
@@ -110,11 +124,8 @@ const AddTranslator: React.FC = () => {
         <SuccessMessage item='translator' successMessage={successMessage} />
       ) : null}
       {loading && <LoadingSpinner />}
-      {data.addTranslator.userErrors[0].message && (
-        <Error text={data.addTranslator.userErrors[0].message} />
-      )}
-      {error && <Error text={error.message} />}
       {!loading && !successMessage ? showForm() : null}
+      {showErrors()}
     </div>
   );
 };

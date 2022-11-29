@@ -8,6 +8,7 @@ interface SelectProps {
   ) => void;
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   item: string;
+
   onRemoveClick?: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     id: number

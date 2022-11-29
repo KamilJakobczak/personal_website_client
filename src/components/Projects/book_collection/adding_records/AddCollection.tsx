@@ -7,7 +7,7 @@ import { LOAD_BOOKS } from '../../../../GraphQL/queries';
 import Button from '../Button';
 import Select from '../Select';
 import { checkDuplicates } from '../handlers/checkDuplicates';
-import _ from 'lodash';
+import _, { set } from 'lodash';
 import LoadingSpinner from '../../../LoadingSpinner';
 import SuccessMessage from '../SuccessMessage';
 
@@ -19,6 +19,7 @@ const AddCollection: React.FC = () => {
   const [booksSelectionCounter, setBooksSelectionCounter] = useState([0]);
   const [duplicationError, setDuplicationError] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [userError, setUserError] = useState('');
   const {
     data: dataB,
     error: errorB,
@@ -34,15 +35,21 @@ const AddCollection: React.FC = () => {
   );
 
   const onCompletedMutation = (data: any) => {
+    setName('');
     setBooks(['']);
     setTomes(['']);
-    setBooksSelectionCounter([0]);
+    setAddBooks(false);
+    if (data.addCollection.userErrors[0].message) {
+      setUserError(data.addCollection.userErrors[0].message);
+    }
+    if (data.addCollection.collection) {
+      setSuccessMessage(data.addCollection.collection.name);
 
-    setSuccessMessage(data.addCollection.collection.name);
-
-    setTimeout(() => {
-      setSuccessMessage('');
-    }, 3000);
+      setBooksSelectionCounter([0]);
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
   };
 
   // HANDLERS
@@ -173,7 +180,7 @@ const AddCollection: React.FC = () => {
           </label>
         </div>
         {!loading && addBooks && showAddBooks()}
-        {(error || errorB) && showErrors()}
+        {showErrors()}
         {duplicationError && (
           <Error text='Duplication error(s) detected, correct mistakes before continuing' />
         )}
@@ -218,13 +225,12 @@ const AddCollection: React.FC = () => {
   };
 
   const showErrors = () => {
-    const errors: { message: string }[] = data && data.addCollection.userErrors;
     if (error) {
       return <Error text={error.message} />;
-    } else if (errors) {
-      return errors.map(error => {
-        return <Error key={error.message} text={error.message} />;
-      });
+    } else if (errorB) {
+      return <Error text={errorB.message} />;
+    } else if (userError) {
+      return <Error text={userError} />;
     }
   };
 
