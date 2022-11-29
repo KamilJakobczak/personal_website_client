@@ -18,3 +18,18 @@ export const ADD_COLLECTION = gql`
     }
   }
 `;
+
+export const ADD_TRANSLATOR = gql`
+  mutation addTranslator($firstName: String!, $lastName: String!) {
+    addTranslator(input: { firstName: $firstName, lastName: $lastName }) {
+      userErrors {
+        message
+      }
+      translator {
+        firstName
+        lastName
+        id
+      }
+    }
+  }
+`;

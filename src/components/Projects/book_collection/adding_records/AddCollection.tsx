@@ -34,8 +34,6 @@ const AddCollection: React.FC = () => {
   );
 
   const onCompletedMutation = (data: any) => {
-    console.log(data.addCollection.userErrors);
-    console.log(data.addCollection.collection.name);
     setBooks(['']);
     setTomes(['']);
     setBooksSelectionCounter([0]);
@@ -44,7 +42,7 @@ const AddCollection: React.FC = () => {
 
     setTimeout(() => {
       setSuccessMessage('');
-    }, 2000);
+    }, 3000);
   };
 
   // HANDLERS
@@ -234,9 +232,9 @@ const AddCollection: React.FC = () => {
     <div className='add_collection'>
       <Button className='add_collection__button' text='go back' goBack={true} />
       {data && successMessage ? (
-        <SuccessMessage successMessage={successMessage} />
+        <SuccessMessage item='collection' successMessage={successMessage} />
       ) : null}
-      {loading || (loadingB && <LoadingSpinner />)}
+      {(loading || loadingB) && <LoadingSpinner />}
       {!loading && !loadingB && !successMessage ? showForm() : null}
     </div>
   );
