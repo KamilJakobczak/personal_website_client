@@ -96,9 +96,9 @@ const AddPublisher: React.FC = () => {
         <div className='add_publisher__form_element'>
           <label htmlFor='name'>name</label>
           <input
+            autoComplete='nameOff'
             type='text'
             id='name'
-            autoComplete='do-not-autofill'
             required
             value={name}
             onChange={e => handleTextInputs(e)}
@@ -109,7 +109,6 @@ const AddPublisher: React.FC = () => {
           <input
             type='text'
             id='website'
-            autoComplete='do-not-autofill'
             required
             value={website}
             onChange={e => handleWebsiteChange(e)}
@@ -120,9 +119,9 @@ const AddPublisher: React.FC = () => {
           <div className='address_item'>
             <label htmlFor='country'>country</label>
             <input
+              autoComplete='countryOff'
               type='text'
               id='country'
-              autoComplete='do-not-autofill'
               required
               value={country}
               onChange={e => handleTextInputs(e)}
@@ -131,9 +130,9 @@ const AddPublisher: React.FC = () => {
           <div className='address_item'>
             <label htmlFor='zipCode'>zipCode</label>
             <input
+              autoComplete='zipCodeOff'
               type='text'
               id='zipCode'
-              autoComplete='do-not-autofill'
               required
               value={zipCode}
               onChange={e => setZipCode(e.target.value)}
@@ -142,9 +141,9 @@ const AddPublisher: React.FC = () => {
           <div className='address_item'>
             <label htmlFor='city'>city</label>
             <input
+              autoComplete='cityOff'
               type='text'
               id='city'
-              autoComplete='do-not-autofill'
               required
               value={city}
               onChange={e => handleTextInputs(e)}
@@ -153,9 +152,9 @@ const AddPublisher: React.FC = () => {
           <div className='address_item'>
             <label htmlFor='street'>street</label>
             <input
+              autoComplete='streetOff'
               type='text'
               id='street'
-              autoComplete='do-not-autofill'
               required
               value={street}
               onChange={e => handleTextInputs(e)}
@@ -166,7 +165,6 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='buildingNr'
-              autoComplete='do-not-autofill'
               required
               value={buildingNr}
               onChange={e => setBuildingNr(e.target.value)}
@@ -177,7 +175,6 @@ const AddPublisher: React.FC = () => {
             <input
               type='text'
               id='placeNr'
-              autoComplete='do-not-autofill'
               required
               value={placeNr}
               onChange={e => setPlaceNr(e.target.value)}

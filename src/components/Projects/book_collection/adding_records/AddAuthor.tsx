@@ -58,7 +58,7 @@ const AddAuthor: React.FC = () => {
         regexValidator(nameRegex, value, setFirstName);
         break;
       case 'lastName':
-        regexValidator(nameRegex, value, setLastName);
+        regexValidator(lastNameRegex, value, setLastName);
         break;
       case 'nationality':
         regexValidator(nameRegex, value, setNationality);
@@ -118,13 +118,12 @@ const AddAuthor: React.FC = () => {
 
   const showForm = () => {
     return (
-      <form action='add_author__form'>
+      <form action='add_author__form' autoComplete='off'>
         <div className='add_author__form_element'>
           <label htmlFor='firstName'>first name</label>
           <input
             type='text'
             id='firstName'
-            autoComplete='off'
             required
             value={firstName}
             onChange={e => handleInputs(e)}
@@ -135,7 +134,6 @@ const AddAuthor: React.FC = () => {
           <input
             type='text'
             id='lastName'
-            autoComplete='off'
             required
             value={lastName}
             onChange={e => handleInputs(e)}
