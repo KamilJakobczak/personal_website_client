@@ -1,17 +1,120 @@
+import { useMutation } from '@apollo/client';
 import { useState } from 'react';
+import { ADD_AUTHOR } from '../../../../GraphQL/mutations';
+import Error from '../../../Error';
+import LoadingSpinner from '../../../LoadingSpinner';
 import Button from '../Button';
+import { invalidValue, regexValidator } from '../handlers';
+import { lastNameRegex, nameRegex, numbersRegex, websiteRegex } from '../regex';
+import SuccessMessage from '../SuccessMessage';
 
 const AddAuthor: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nationality, setNationality] = useState('');
-  const [birth, setBirth] = useState('');
-  const [death, setDeath] = useState('');
+  const [birthYear, setBirthYear] = useState('');
+  const [deathYear, setDeathYear] = useState('');
   const [wiki, setWiki] = useState('');
   const [goodreads, setGoodreads] = useState('');
   const [lubimyczytac, setLubimyczytac] = useState('');
 
-  const handleTextInputs = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const [userError, setUserError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const [addAuthor, { data, loading, error }] = useMutation(ADD_AUTHOR, {
+    onCompleted(data) {
+      onCompleted(data);
+    },
+  });
+
+  const onCompleted = (data: any) => {
+    if (data.addAuthor.userErrors[0].message) {
+      setUserError(data.addAuthor.userErrors[0].message);
+    }
+    if (data.addAuthor.author) {
+      setFirstName('');
+      setLastName('');
+      setNationality('');
+      setBirthYear('');
+      setDeathYear('');
+      setWiki('');
+      setGoodreads('');
+      setLubimyczytac('');
+      setUserError('');
+      setSuccessMessage(
+        data.addAuthor.author.firstName + ' ' + data.addAuthor.author.lastName
+      );
+
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
+  };
+
+  const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    switch (id) {
+      case 'firstName':
+        regexValidator(nameRegex, value, setFirstName);
+        break;
+      case 'lastName':
+        regexValidator(nameRegex, value, setLastName);
+        break;
+      case 'nationality':
+        regexValidator(nameRegex, value, setNationality);
+        break;
+      case 'birth':
+        regexValidator(numbersRegex, value, setBirthYear);
+        break;
+      case 'death':
+        regexValidator(numbersRegex, value, setDeathYear);
+        break;
+      case 'wiki':
+        regexValidator(websiteRegex, value, setWiki);
+        if (!value.includes('wikipedia')) {
+          invalidValue(e);
+        } else {
+          invalidValue(e, true);
+        }
+        break;
+      case 'goodreads':
+        regexValidator(websiteRegex, value, setGoodreads);
+        if (!value.includes('goodreads')) {
+          invalidValue(e);
+        } else {
+          invalidValue(e, true);
+        }
+        break;
+      case 'lubimyczytac':
+        regexValidator(websiteRegex, value, setLubimyczytac);
+        if (!value.includes('lubimyczytac')) {
+          invalidValue(e);
+        } else {
+          invalidValue(e, true);
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleSubmit = () => {
+    addAuthor({
+      variables: {
+        firstName,
+        lastName,
+        nationality,
+        birthYear: Number(birthYear),
+        deathYear: Number(deathYear),
+        bioPages: {
+          wiki,
+          goodreads,
+          lubimyczytac,
+        },
+      },
+    });
+  };
 
   const showForm = () => {
     return (
@@ -24,7 +127,7 @@ const AddAuthor: React.FC = () => {
             autoComplete='off'
             required
             value={firstName}
-            onChange={e => setFirstName(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -35,7 +138,7 @@ const AddAuthor: React.FC = () => {
             autoComplete='off'
             required
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -44,7 +147,7 @@ const AddAuthor: React.FC = () => {
             type='text'
             id='nationality'
             value={nationality}
-            onChange={e => setNationality(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -52,8 +155,8 @@ const AddAuthor: React.FC = () => {
           <input
             type='text'
             id='birth'
-            value={birth}
-            onChange={e => setBirth(e.target.value)}
+            value={birthYear}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -61,8 +164,8 @@ const AddAuthor: React.FC = () => {
           <input
             type='text'
             id='death'
-            value={death}
-            onChange={e => setDeath(e.target.value)}
+            value={deathYear}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -71,7 +174,7 @@ const AddAuthor: React.FC = () => {
             type='text'
             id='wiki'
             value={wiki}
-            onChange={e => setWiki(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -80,7 +183,7 @@ const AddAuthor: React.FC = () => {
             type='text'
             id='goodreads'
             value={goodreads}
-            onChange={e => setGoodreads(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_author__form_element'>
@@ -89,18 +192,34 @@ const AddAuthor: React.FC = () => {
             type='text'
             id='lubimyczytac'
             value={lubimyczytac}
-            onChange={e => setLubimyczytac(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
-        <Button className='add_author__form_button' />
+        <Button
+          className='add_author__form_button'
+          handleClick={handleSubmit}
+        />
       </form>
     );
+  };
+
+  const showErrors = () => {
+    if (error) {
+      return <Error text={error.message} />;
+    } else if (userError) {
+      return <Error text={userError} />;
+    }
   };
 
   return (
     <div className='add_author new'>
       <Button className='add_author__button' text='go back' goBack={true} />
-      {showForm()}
+      {data && successMessage ? (
+        <SuccessMessage item='author' successMessage={successMessage} />
+      ) : null}
+      {loading && <LoadingSpinner />}
+      {!loading && !successMessage ? showForm() : null}
+      {showErrors()}
     </div>
   );
 };

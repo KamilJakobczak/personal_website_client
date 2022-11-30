@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { processSelectionData } from '../handlers/processSelectionData';
+import { processSelectionData, checkDuplicates } from '../handlers';
 import Error from '../../../Error';
 import React, { useState } from 'react';
 import { ADD_COLLECTION } from '../../../../GraphQL/mutations';
 import { LOAD_BOOKS } from '../../../../GraphQL/queries';
 import Button from '../Button';
 import Select from '../Select';
-import { checkDuplicates } from '../handlers/checkDuplicates';
+
 import _ from 'lodash';
 import LoadingSpinner from '../../../LoadingSpinner';
 import SuccessMessage from '../SuccessMessage';

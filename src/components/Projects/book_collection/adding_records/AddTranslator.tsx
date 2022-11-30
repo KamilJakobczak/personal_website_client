@@ -18,12 +18,12 @@ const AddTranslator: React.FC = () => {
     ADD_TRANSLATOR,
     {
       onCompleted(data) {
-        setFirstName('');
-        setLastName('');
         if (data.addTranslator.userErrors[0].message) {
           setUserError(data.addTranslator.userErrors[0].message);
         }
         if (data.addTranslator.translator) {
+          setFirstName('');
+          setLastName('');
           setUserError('');
           setSuccessMessage(
             data.addTranslator.translator.firstName +

@@ -65,3 +65,34 @@ export const ADD_PUBLISHER = gql`
     }
   }
 `;
+
+export const ADD_AUTHOR = gql`
+  mutation addAuthor(
+    $firstName: String!
+    $lastName: String!
+    $nationality: String
+    $birthYear: Int
+    $deathYear: Int
+    $bioPages: bioPagesInput
+  ) {
+    addAuthor(
+      input: {
+        firstName: $firstName
+        lastName: $lastName
+        nationality: $nationality
+        birthYear: $birthYear
+        deathYear: $deathYear
+        bioPages: $bioPages
+      }
+    ) {
+      userErrors {
+        message
+      }
+      author {
+        firstName
+        lastName
+        id
+      }
+    }
+  }
+`;

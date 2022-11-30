@@ -2,7 +2,7 @@ import Button from '../Button';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_PUBLISHER } from '../../../../GraphQL/mutations';
-import { regexValidator } from '../handlers/regexValidator';
+import { regexValidator } from '../handlers';
 import Error from '../../../Error';
 import SuccessMessage from '../SuccessMessage';
 import LoadingSpinner from '../../../LoadingSpinner';
@@ -22,27 +22,31 @@ const AddPublisher: React.FC = () => {
 
   const [addPublisher, { data, loading, error }] = useMutation(ADD_PUBLISHER, {
     onCompleted(data) {
-      if (data.addPublisher.userErrors[0].message) {
-        setUserError(data.addPublisher.userErrors[0].message);
-      }
-      if (data.addPublisher.publisher) {
-        setName('');
-        setWebsite('');
-        setCountry('');
-        setZipCode('');
-        setCity('');
-        setStreet('');
-        setBuildingNr('');
-        setPlaceNr('');
-        setUserError('');
-        setSuccessMessage(data.addPublisher.publisher.name);
-
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
-      }
+      onCompleted(data);
     },
   });
+
+  const onCompleted = (data: any) => {
+    if (data.addPublisher.userErrors[0].message) {
+      setUserError(data.addPublisher.userErrors[0].message);
+    }
+    if (data.addPublisher.publisher) {
+      setName('');
+      setWebsite('');
+      setCountry('');
+      setZipCode('');
+      setCity('');
+      setStreet('');
+      setBuildingNr('');
+      setPlaceNr('');
+      setUserError('');
+      setSuccessMessage(data.addPublisher.publisher.name);
+
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
+  };
 
   const handleTextInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.target;

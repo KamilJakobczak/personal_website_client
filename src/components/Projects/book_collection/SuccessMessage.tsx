@@ -10,7 +10,6 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({
   return (
     <div className='success_message'>
       <p>
-        {' '}
         {`${item}:`} <span>{successMessage}</span> added succesfully
       </p>
     </div>
