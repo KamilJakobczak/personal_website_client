@@ -10,6 +10,7 @@ import { checkDuplicates } from '../handlers/checkDuplicates';
 import _ from 'lodash';
 import LoadingSpinner from '../../../LoadingSpinner';
 import SuccessMessage from '../SuccessMessage';
+import { numbersRegex } from '../regex';
 
 const AddCollection: React.FC = () => {
   const [name, setName] = useState('');
@@ -108,18 +109,22 @@ const AddCollection: React.FC = () => {
     const element = e.target;
     const { id, value } = element;
 
-    if (booksSelectionCounter.length === 1) {
-      setTomes([value]);
-    } else {
-      processSelectionData(
-        tomes,
-        setTomes,
-        value,
-        booksSelectionCounter,
-        id,
-        element,
-        setDuplicationError
-      );
+    if (value.match(numbersRegex)) {
+      if (booksSelectionCounter.length === 1) {
+        setTomes([value]);
+      } else {
+        processSelectionData(
+          tomes,
+          setTomes,
+          value,
+          booksSelectionCounter,
+          id,
+          element,
+          setDuplicationError
+        );
+      }
+    } else if (value.length === 0) {
+      setTomes(['']);
     }
   };
 

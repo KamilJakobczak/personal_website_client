@@ -6,6 +6,7 @@ import { regexValidator } from '../handlers/regexValidator';
 import Error from '../../../Error';
 import SuccessMessage from '../SuccessMessage';
 import LoadingSpinner from '../../../LoadingSpinner';
+import { lastNameRegex, nameRegex, websiteRegex } from '../regex';
 
 const AddPublisher: React.FC = () => {
   const [name, setName] = useState('');
@@ -44,21 +45,20 @@ const AddPublisher: React.FC = () => {
   });
 
   const handleTextInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regex = /^([ \u00c0-\u01ffa-zA-Z'-])+$/gm;
     const { value, id } = e.target;
 
     switch (id) {
       case 'name':
-        regexValidator(regex, value, setName);
+        regexValidator(nameRegex, value, setName);
         break;
       case 'country':
-        regexValidator(regex, value, setCountry);
+        regexValidator(nameRegex, value, setCountry);
         break;
       case 'city':
-        regexValidator(regex, value, setCity);
+        regexValidator(lastNameRegex, value, setCity);
         break;
       case 'street':
-        regexValidator(regex, value, setStreet);
+        regexValidator(lastNameRegex, value, setStreet);
         break;
       default:
         break;
@@ -66,10 +66,7 @@ const AddPublisher: React.FC = () => {
   };
   const handleWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const regex =
-      /^(https?:\/\/)?([\w\d_]+)\.([\w\d_.]+)\/?\??([^#\n\r]*)?#?([^\n\r]*)/gm;
-
-    regexValidator(regex, value, setWebsite);
+    regexValidator(websiteRegex, value, setWebsite);
   };
 
   const handleSubmit = () => {

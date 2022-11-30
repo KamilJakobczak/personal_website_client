@@ -11,9 +11,10 @@ const AddAuthor: React.FC = () => {
   const [goodreads, setGoodreads] = useState('');
   const [lubimyczytac, setLubimyczytac] = useState('');
 
-  return (
-    <div className='add_author new'>
-      <Button className='add_author__button' text='go back' goBack={true} />
+  const handleTextInputs = (e: React.ChangeEvent<HTMLInputElement>) => {};
+
+  const showForm = () => {
+    return (
       <form action='add_author__form'>
         <div className='add_author__form_element'>
           <label htmlFor='firstName'>first name</label>
@@ -93,6 +94,13 @@ const AddAuthor: React.FC = () => {
         </div>
         <Button className='add_author__form_button' />
       </form>
+    );
+  };
+
+  return (
+    <div className='add_author new'>
+      <Button className='add_author__button' text='go back' goBack={true} />
+      {showForm()}
     </div>
   );
 };

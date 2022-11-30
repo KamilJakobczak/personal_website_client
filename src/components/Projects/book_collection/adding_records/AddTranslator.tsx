@@ -4,6 +4,8 @@ import { ADD_TRANSLATOR } from '../../../../GraphQL/mutations';
 import Error from '../../../Error';
 import LoadingSpinner from '../../../LoadingSpinner';
 import Button from '../Button';
+import { regexValidator } from '../handlers/regexValidator';
+import { lastNameRegex, nameRegex } from '../regex';
 import SuccessMessage from '../SuccessMessage';
 
 const AddTranslator: React.FC = () => {
@@ -37,33 +39,18 @@ const AddTranslator: React.FC = () => {
     }
   );
 
-  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    const regex = /^([ \u00c0-\u01ffa-zA-Z'-])+$/gm;
+  const handleNamesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, id } = e.target;
 
-    const regexCheck = value.match(regex);
-
-    if (!regexCheck) {
-      if (value.length === 0) {
-        setFirstName('');
-      }
-    } else {
-      setFirstName(value);
-    }
-  };
-
-  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    const regex = /^([ \u00c0-\u01ffa-zA-Z'-])+$/gm;
-
-    const regexCheck = value.match(regex);
-
-    if (!regexCheck) {
-      if (value.length === 0) {
-        setLastName('');
-      }
-    } else {
-      setLastName(value);
+    switch (id) {
+      case 'firstName':
+        regexValidator(nameRegex, value, setFirstName);
+        break;
+      case 'lastName':
+        regexValidator(lastNameRegex, value, setLastName);
+        break;
+      default:
+        break;
     }
   };
 
@@ -87,7 +74,7 @@ const AddTranslator: React.FC = () => {
             autoComplete='off'
             required
             value={firstName}
-            onChange={e => handleFirstNameChange(e)}
+            onChange={e => handleNamesChange(e)}
           />
         </div>
         <div className='add_translator__form_element'>
@@ -98,7 +85,7 @@ const AddTranslator: React.FC = () => {
             autoComplete='off'
             required
             value={lastName}
-            onChange={e => handleLastNameChange(e)}
+            onChange={e => handleNamesChange(e)}
           />
         </div>
         <Button

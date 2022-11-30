@@ -4,6 +4,8 @@ import { ADD_GENRE } from '../../../../GraphQL/mutations';
 import Error from '../../../Error';
 import LoadingSpinner from '../../../LoadingSpinner';
 import Button from '../Button';
+import { regexValidator } from '../handlers/regexValidator';
+import { smallLettersRegex } from '../regex';
 import SuccessMessage from '../SuccessMessage';
 
 const AddGenre: React.FC = () => {
@@ -30,17 +32,7 @@ const AddGenre: React.FC = () => {
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const regex = /^([ \u00c0-\u01ffa-z'-])+$/gm;
-
-    const regexCheck = value.match(regex);
-
-    if (!regexCheck) {
-      if (value.length === 0) {
-        setName('');
-      }
-    } else {
-      setName(value);
-    }
+    regexValidator(smallLettersRegex, value, setName);
   };
 
   const handleSubmit = () => {
@@ -62,7 +54,7 @@ const AddGenre: React.FC = () => {
             autoComplete='off'
             required
             value={name}
-            placeholder='small characters'
+            placeholder='small characters only'
             onChange={e => handleNameChange(e)}
           />
         </div>
