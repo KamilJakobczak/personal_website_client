@@ -19,11 +19,6 @@ const AddBook: React.FC = () => {
   const [collectionsInputCounter, setCollectionsInputCounter] = useState([0]);
   const [inCollection, setInCollection] = useState(false);
 
-  const [canAddAuthor, setCanAddAuthor] = useState(true);
-  const [canAddGenre, setCanAddGenre] = useState(true);
-  const [canAddTranslator, setCanAddTranslator] = useState(true);
-  const [canAddCollection, setCanAddCollection] = useState(true);
-
   // FORM VALUES
 
   const [title, setTitle] = useState('');
@@ -38,41 +33,6 @@ const AddBook: React.FC = () => {
   const [firstEdition, setFirstEdition] = useState('');
 
   // HANDLE EVENTS
-  const handleAddInputs = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    item: string
-  ) => {
-    e.preventDefault();
-
-    switch (item) {
-      case 'authors':
-        setAuthorsInputCounter([
-          ...authorsInputCounter,
-          authorsInputCounter.length,
-        ]);
-        break;
-      case 'genres':
-        setGenresInputCounter([
-          ...genresInputCounter,
-          genresInputCounter.length,
-        ]);
-        break;
-      case 'translators':
-        setTranslatorsInputCounter([
-          ...translatorsInputCounter,
-          translatorsInputCounter.length,
-        ]);
-        break;
-      case 'collections':
-        setCollectionsInputCounter([
-          ...collectionsInputCounter,
-          collectionsInputCounter.length,
-        ]);
-        break;
-      default:
-        break;
-    }
-  };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target) {
@@ -83,7 +43,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             authors,
             setAuthors,
-            // setCanAddAuthor,
+
             value,
             authorsInputCounter,
             id,
@@ -94,7 +54,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             collections,
             setCollections,
-            // setCanAddCollection,
+
             value,
             collectionsInputCounter,
             id,
@@ -105,7 +65,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             genres,
             setGenres,
-            // setCanAddGenre,
+
             value,
             genresInputCounter,
             id,
@@ -119,7 +79,7 @@ const AddBook: React.FC = () => {
           processSelectionData(
             translators,
             setTranslators,
-            // setCanAddTranslator,
+
             value,
             translatorsInputCounter,
             id,
@@ -131,6 +91,13 @@ const AddBook: React.FC = () => {
           break;
       }
     }
+  };
+
+  const handleRemoveSelect = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number
+  ) => {
+    e.preventDefault();
   };
 
   const handleNumerics = (e: React.ChangeEvent<HTMLSelectElement>) => {};
@@ -167,7 +134,7 @@ const AddBook: React.FC = () => {
   };
 
   // RENDER ELEMENTS
-  const showElements = () => {
+  const showForm = () => {
     return (
       <form className='add_book add_book__form' action=''>
         <div className='add_book__form_element__title'>
@@ -196,12 +163,15 @@ const AddBook: React.FC = () => {
           {genresInputCounter.map(input => {
             return (
               <Select
+                item='genre'
                 id={input}
-                handleSelectChange={handleSelectChange}
                 key={input}
-                onAddClick={handleAddInputs}
                 data={data.genres}
-                item='genres'
+                inputValues1={genres}
+                inputCounter={genresInputCounter}
+                handleSelectChange={handleSelectChange}
+                setInputCounter={setGenresInputCounter}
+                setInputValues1={setGenres}
               />
             );
           })}
@@ -223,12 +193,15 @@ const AddBook: React.FC = () => {
           {authorsInputCounter.map(input => {
             return (
               <Select
+                item='author'
                 id={input}
-                handleSelectChange={handleSelectChange}
                 key={input}
-                onAddClick={handleAddInputs}
                 data={data.authors}
-                item='authors'
+                inputValues1={authors}
+                inputCounter={authorsInputCounter}
+                handleSelectChange={handleSelectChange}
+                setInputCounter={setAuthorsInputCounter}
+                setInputValues1={setAuthors}
               />
             );
           })}
@@ -243,7 +216,7 @@ const AddBook: React.FC = () => {
             onChange={e => handleSelectChange(e)}
           >
             <option value=''>-- find me --</option>
-            {data.publishers.map((publisher: any) => {
+            {data.publishers.map((publisher: { id: string; name: string }) => {
               return (
                 <option
                   key={publisher.id}
@@ -259,12 +232,15 @@ const AddBook: React.FC = () => {
             {translatorsInputCounter.map(input => {
               return (
                 <Select
+                  item='translator'
                   id={input}
-                  handleSelectChange={handleSelectChange}
                   key={input}
-                  onAddClick={handleAddInputs}
                   data={data.translators}
-                  item='translators'
+                  inputValues1={translators}
+                  inputCounter={translatorsInputCounter}
+                  handleSelectChange={handleSelectChange}
+                  setInputCounter={setTranslatorsInputCounter}
+                  setInputValues1={setTranslators}
                 />
               );
             })}
@@ -320,12 +296,15 @@ const AddBook: React.FC = () => {
             {collectionsInputCounter.map(input => {
               return (
                 <Select
+                  item='collection'
                   id={input}
-                  handleSelectChange={handleSelectChange}
                   key={input}
-                  onAddClick={handleAddInputs}
                   data={data.collections}
-                  item='collections'
+                  inputValues1={collections}
+                  inputCounter={collectionsInputCounter}
+                  handleSelectChange={handleSelectChange}
+                  setInputCounter={setCollectionsInputCounter}
+                  setInputValues1={setCollections}
                 />
               );
             })}
@@ -341,7 +320,7 @@ const AddBook: React.FC = () => {
       <div className='upload'>Upload component</div>
       {loading && <LoadingSpinner />}
       {errors && <Error text={errors} />}
-      {data && !loading && showElements()}
+      {data && !loading && showForm()}
     </div>
   );
 };

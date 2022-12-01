@@ -1,29 +1,88 @@
+import _ from 'lodash';
 import React from 'react';
+import { checkDuplicates } from './handlers';
 interface SelectProps {
+  item: string;
   id: number;
   data: [];
-  onAddClick: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    item: string
-  ) => void;
+  inputValues1: string[];
+  inputValues2?: string[];
+  inputCounter: number[];
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  item: string;
-
-  onRemoveClick?: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: number
-  ) => void;
+  setInputCounter: React.Dispatch<React.SetStateAction<number[]>>;
+  setInputValues1: React.Dispatch<React.SetStateAction<string[]>>;
+  setInputValues2?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const Select: React.FC<SelectProps> = ({
-  id,
-  onAddClick,
-  data,
   item,
+  id,
+  data,
+  inputValues1,
+  inputValues2,
+  inputCounter,
   handleSelectChange,
-  onRemoveClick,
+  setInputCounter,
+  setInputValues1,
+  setInputValues2,
 }) => {
-  const singularString = item.slice(0, item.lastIndexOf('s'));
+  const handleAddClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    // console.log(inputValues1, inputValues2);
+
+    if (inputValues1) {
+      if (inputValues2) {
+        if (
+          !checkDuplicates(inputValues1) &&
+          !checkDuplicates(inputValues2) &&
+          inputValues1[id] &&
+          inputValues2[id]
+        ) {
+          // console.log(
+          //   inputValues1,
+          //   inputValues2,
+          //   inputValues1[id],
+          //   inputValues2[id]
+          // );
+          setInputCounter([...inputCounter, inputCounter.length]);
+        }
+      }
+    }
+  };
+
+  const addButton = () => {
+    if (id !== inputCounter.length - 1) {
+      return null;
+    }
+
+    return <button onClick={e => handleAddClick(e)}>add {item}</button>;
+  };
+
+  const handleSelectRemove = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    const arr = _.without(inputCounter, id);
+    for (let i = 0; i < arr.length; i++) {
+      _.fill(arr, i, i, i + 1);
+    }
+    const editedInputValues1 = _.without(inputValues1, inputValues1[id]);
+
+    setInputCounter(arr);
+    setInputValues1(editedInputValues1);
+    if (inputValues2 && setInputValues2) {
+      const editedInputValues2 = _.without(inputValues2, inputValues2[id]);
+      setInputValues2(editedInputValues2);
+    }
+  };
+
+  const removeButton = () => {
+    if (inputCounter.length > 1) {
+      return <button onClick={e => handleSelectRemove(e)}>X</button>;
+    }
+  };
 
   return (
     <>
@@ -43,16 +102,8 @@ const Select: React.FC<SelectProps> = ({
             return <option key={record.id} value={record.id} label={label} />;
           })}
       </select>
-      <button onClick={e => onAddClick(e, item)}>add {singularString}</button>
-      <button
-        onClick={e => {
-          if (onRemoveClick) {
-            onRemoveClick(e, id);
-          }
-        }}
-      >
-        X
-      </button>
+      {addButton()}
+      {removeButton()}
     </>
   );
 };

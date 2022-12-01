@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import { processSelectionData, checkDuplicates } from '../handlers';
+import { processSelectionData } from '../handlers';
 import Error from '../../../Error';
 import React, { useState } from 'react';
 import { ADD_COLLECTION } from '../../../../GraphQL/mutations';
@@ -54,18 +54,6 @@ const AddCollection: React.FC = () => {
   };
 
   // HANDLERS
-  const handleAddSelect = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-
-    if (!checkDuplicates(tomes) && !checkDuplicates(books)) {
-      setBooksSelectionCounter([
-        ...booksSelectionCounter,
-        booksSelectionCounter.length,
-      ]);
-    }
-  };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target) {
@@ -85,24 +73,6 @@ const AddCollection: React.FC = () => {
         );
       }
     }
-  };
-
-  const handleRemoveSelect = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: number
-  ) => {
-    e.preventDefault();
-
-    const arr = _.without(booksSelectionCounter, id);
-    for (let i = 0; i < arr.length; i++) {
-      _.fill(arr, i, i, i + 1);
-    }
-
-    const editedTomes = _.without(tomes, tomes[id]);
-    const editedBooks = _.without(books, books[id]);
-    setBooksSelectionCounter(arr);
-    setTomes(editedTomes);
-    setBooks(editedBooks);
   };
 
   const handleTomeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,13 +106,15 @@ const AddCollection: React.FC = () => {
         bookId: books[i],
       });
     }
-
-    addCollection({
-      variables: {
-        name: name,
-        booksInCollection: arr,
-      },
-    });
+    console.log(
+      `Counter: ${booksSelectionCounter}; Tomes: ${tomes}; Books: ${books}; `
+    );
+    // addCollection({
+    //   variables: {
+    //     name: name,
+    //     booksInCollection: arr,
+    //   },
+    // });
   };
 
   // RENDER ELEMENTS
@@ -214,12 +186,16 @@ const AddCollection: React.FC = () => {
                   onChange={e => handleTomeInput(e)}
                 />
                 <Select
+                  item='book'
                   id={selection}
                   data={dataB.books}
-                  item='books'
-                  onAddClick={handleAddSelect}
+                  inputValues1={tomes}
+                  inputValues2={books}
+                  inputCounter={booksSelectionCounter}
                   handleSelectChange={handleSelectChange}
-                  onRemoveClick={handleRemoveSelect}
+                  setInputCounter={setBooksSelectionCounter}
+                  setInputValues1={setTomes}
+                  setInputValues2={setBooks}
                 />
               </React.Fragment>
             );
