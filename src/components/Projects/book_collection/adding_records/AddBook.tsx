@@ -13,10 +13,10 @@ const AddBook: React.FC = () => {
   const { data, errors, loading } = useQueries();
 
   // CONTROL STATES
-  const [authorsInputCounter, setAuthorsInputCounter] = useState([0]);
-  const [genresInputCounter, setGenresInputCounter] = useState([0]);
-  const [translatorsInputCounter, setTranslatorsInputCounter] = useState([0]);
-  const [collectionsInputCounter, setCollectionsInputCounter] = useState([0]);
+  const [authorsSelectCounter, setAuthorsSelectCounter] = useState([0]);
+  const [genresSelectCounter, setGenresSelectCounter] = useState([0]);
+  const [translatorsSelectCounter, setTranslatorsSelectCounter] = useState([0]);
+  const [collectionsSelectCounter, setCollectionsSelectCounter] = useState([0]);
   const [inCollection, setInCollection] = useState(false);
 
   // FORM VALUES
@@ -33,72 +33,6 @@ const AddBook: React.FC = () => {
   const [firstEdition, setFirstEdition] = useState('');
 
   // HANDLE EVENTS
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target) {
-      const { name, value, id } = e.target;
-      const element = e.target;
-      switch (name) {
-        case 'authors':
-          processSelectionData(
-            authors,
-            setAuthors,
-
-            value,
-            authorsInputCounter,
-            id,
-            element
-          );
-          break;
-        case 'collections':
-          processSelectionData(
-            collections,
-            setCollections,
-
-            value,
-            collectionsInputCounter,
-            id,
-            element
-          );
-          break;
-        case 'genres':
-          processSelectionData(
-            genres,
-            setGenres,
-
-            value,
-            genresInputCounter,
-            id,
-            element
-          );
-          break;
-        case 'publishers':
-          setPublisher(value);
-          break;
-        case 'translators':
-          processSelectionData(
-            translators,
-            setTranslators,
-
-            value,
-            translatorsInputCounter,
-            id,
-            element
-          );
-          break;
-
-        default:
-          break;
-      }
-    }
-  };
-
-  const handleRemoveSelect = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    id: number
-  ) => {
-    e.preventDefault();
-  };
 
   const handleNumerics = (e: React.ChangeEvent<HTMLSelectElement>) => {};
 
@@ -160,18 +94,17 @@ const AddBook: React.FC = () => {
           </select>
         </div>
         <div className='add_book__form_element__genres'>
-          {genresInputCounter.map(input => {
+          {genresSelectCounter.map(input => {
             return (
               <Select
                 item='genre'
                 id={input}
                 key={input}
                 data={data.genres}
-                inputValues1={genres}
-                inputCounter={genresInputCounter}
-                handleSelectChange={handleSelectChange}
-                setInputCounter={setGenresInputCounter}
-                setInputValues1={setGenres}
+                selectedValues={genres}
+                selectCounter={genresSelectCounter}
+                setSelectCounter={setGenresSelectCounter}
+                setSelectedValues={setGenres}
               />
             );
           })}
@@ -190,18 +123,17 @@ const AddBook: React.FC = () => {
           />
         </div>
         <div className='add_book__form_element__authors'>
-          {authorsInputCounter.map(input => {
+          {authorsSelectCounter.map(input => {
             return (
               <Select
                 item='author'
                 id={input}
                 key={input}
                 data={data.authors}
-                inputValues1={authors}
-                inputCounter={authorsInputCounter}
-                handleSelectChange={handleSelectChange}
-                setInputCounter={setAuthorsInputCounter}
-                setInputValues1={setAuthors}
+                selectedValues={authors}
+                selectCounter={authorsSelectCounter}
+                setSelectCounter={setAuthorsSelectCounter}
+                setSelectedValues={setAuthors}
               />
             );
           })}
@@ -213,7 +145,7 @@ const AddBook: React.FC = () => {
             className='form_select'
             id='publishers'
             name='publishers'
-            onChange={e => handleSelectChange(e)}
+            onChange={e => setPublisher(e.target.value)}
           >
             <option value=''>-- find me --</option>
             {data.publishers.map((publisher: { id: string; name: string }) => {
@@ -229,18 +161,17 @@ const AddBook: React.FC = () => {
         </div>
         {language === 'English' && (
           <div className='add_book__form_element__translators'>
-            {translatorsInputCounter.map(input => {
+            {translatorsSelectCounter.map(input => {
               return (
                 <Select
                   item='translator'
                   id={input}
                   key={input}
                   data={data.translators}
-                  inputValues1={translators}
-                  inputCounter={translatorsInputCounter}
-                  handleSelectChange={handleSelectChange}
-                  setInputCounter={setTranslatorsInputCounter}
-                  setInputValues1={setTranslators}
+                  selectedValues={translators}
+                  selectCounter={translatorsSelectCounter}
+                  setSelectCounter={setTranslatorsSelectCounter}
+                  setSelectedValues={setTranslators}
                 />
               );
             })}
@@ -293,18 +224,17 @@ const AddBook: React.FC = () => {
         </div>
         {inCollection && (
           <div className='add_book__form_element__collections'>
-            {collectionsInputCounter.map(input => {
+            {collectionsSelectCounter.map(input => {
               return (
                 <Select
                   item='collection'
                   id={input}
                   key={input}
                   data={data.collections}
-                  inputValues1={collections}
-                  inputCounter={collectionsInputCounter}
-                  handleSelectChange={handleSelectChange}
-                  setInputCounter={setCollectionsInputCounter}
-                  setInputValues1={setCollections}
+                  selectedValues={collections}
+                  selectCounter={collectionsSelectCounter}
+                  setSelectCounter={setCollectionsSelectCounter}
+                  setSelectedValues={setCollections}
                 />
               );
             })}

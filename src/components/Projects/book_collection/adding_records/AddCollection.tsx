@@ -7,7 +7,6 @@ import { LOAD_BOOKS } from '../../../../GraphQL/queries';
 import Button from '../Button';
 import Select from '../Select';
 
-import _ from 'lodash';
 import LoadingSpinner from '../../../LoadingSpinner';
 import SuccessMessage from '../SuccessMessage';
 import { numbersRegex } from '../regex';
@@ -54,26 +53,6 @@ const AddCollection: React.FC = () => {
   };
 
   // HANDLERS
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target) {
-      const { value, id } = e.target;
-      const element = e.target;
-      if (booksSelectionCounter.length === 1) {
-        setBooks([value]);
-      } else {
-        processSelectionData(
-          books,
-          setBooks,
-          value,
-          booksSelectionCounter,
-          id,
-          element,
-          setDuplicationError
-        );
-      }
-    }
-  };
 
   const handleTomeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const element = e.target;
@@ -189,13 +168,13 @@ const AddCollection: React.FC = () => {
                   item='book'
                   id={selection}
                   data={dataB.books}
-                  inputValues1={tomes}
-                  inputValues2={books}
-                  inputCounter={booksSelectionCounter}
-                  handleSelectChange={handleSelectChange}
-                  setInputCounter={setBooksSelectionCounter}
-                  setInputValues1={setTomes}
-                  setInputValues2={setBooks}
+                  selectedValues={books}
+                  inputValues={tomes}
+                  selectCounter={booksSelectionCounter}
+                  setSelectCounter={setBooksSelectionCounter}
+                  setSelectedValues={setBooks}
+                  setInputValues={setTomes}
+                  setDuplicationError={setDuplicationError}
                 />
               </React.Fragment>
             );

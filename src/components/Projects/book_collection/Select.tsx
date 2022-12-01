@@ -1,59 +1,68 @@
 import _ from 'lodash';
-import React from 'react';
-import { checkDuplicates } from './handlers';
+import React, { useState } from 'react';
+import { checkDuplicates, processSelectionData } from './handlers';
+
 interface SelectProps {
   item: string;
   id: number;
   data: [];
-  inputValues1: string[];
-  inputValues2?: string[];
-  inputCounter: number[];
-  handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  setInputCounter: React.Dispatch<React.SetStateAction<number[]>>;
-  setInputValues1: React.Dispatch<React.SetStateAction<string[]>>;
-  setInputValues2?: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedValues: string[];
+  inputValues?: string[];
+  selectCounter: number[];
+  setSelectCounter: React.Dispatch<React.SetStateAction<number[]>>;
+  setSelectedValues: React.Dispatch<React.SetStateAction<string[]>>;
+  setInputValues?: React.Dispatch<React.SetStateAction<string[]>>;
+  setDuplicationError?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Select: React.FC<SelectProps> = ({
   item,
   id,
   data,
-  inputValues1,
-  inputValues2,
-  inputCounter,
-  handleSelectChange,
-  setInputCounter,
-  setInputValues1,
-  setInputValues2,
+  selectedValues,
+  inputValues,
+  selectCounter,
+  setSelectCounter,
+  setInputValues,
+  setSelectedValues,
+  setDuplicationError,
 }) => {
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    // console.log(inputValues1, inputValues2);
+    // console.log(selectedValues, inputValues);
 
-    if (inputValues1) {
-      if (inputValues2) {
+    if (selectedValues) {
+      if (inputValues) {
+        console.log('hmmm');
         if (
-          !checkDuplicates(inputValues1) &&
-          !checkDuplicates(inputValues2) &&
-          inputValues1[id] &&
-          inputValues2[id]
+          !checkDuplicates(selectedValues) &&
+          !checkDuplicates(inputValues) &&
+          selectedValues[id] &&
+          inputValues[id]
         ) {
+          console.log('hmmm');
           // console.log(
-          //   inputValues1,
-          //   inputValues2,
-          //   inputValues1[id],
-          //   inputValues2[id]
+          //   selectedValues,
+          //   inputValues,
+          //   selectedValues[id],
+          //   inputValues[id]
           // );
-          setInputCounter([...inputCounter, inputCounter.length]);
+          setSelectCounter([...selectCounter, selectCounter.length]);
         }
+      }
+      console.log('hmmm');
+      console.log(selectedValues);
+      if (!checkDuplicates(selectedValues) && selectedValues[id]) {
+        console.log('hhmmm');
+        setSelectCounter([...selectCounter, selectCounter.length]);
       }
     }
   };
 
   const addButton = () => {
-    if (id !== inputCounter.length - 1) {
+    if (id !== selectCounter.length - 1) {
       return null;
     }
 
@@ -64,23 +73,42 @@ const Select: React.FC<SelectProps> = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    const arr = _.without(inputCounter, id);
+    const arr = _.without(selectCounter, id);
     for (let i = 0; i < arr.length; i++) {
       _.fill(arr, i, i, i + 1);
     }
-    const editedInputValues1 = _.without(inputValues1, inputValues1[id]);
+    const editedselectedValues = _.without(selectedValues, selectedValues[id]);
 
-    setInputCounter(arr);
-    setInputValues1(editedInputValues1);
-    if (inputValues2 && setInputValues2) {
-      const editedInputValues2 = _.without(inputValues2, inputValues2[id]);
-      setInputValues2(editedInputValues2);
+    setSelectCounter(arr);
+    setSelectedValues(editedselectedValues);
+    if (inputValues && setInputValues) {
+      const editedinputValues = _.without(inputValues, inputValues[id]);
+      setInputValues(editedinputValues);
     }
   };
 
   const removeButton = () => {
-    if (inputCounter.length > 1) {
+    if (selectCounter.length > 1) {
       return <button onClick={e => handleSelectRemove(e)}>X</button>;
+    }
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    const element = e.target;
+
+    if (selectCounter.length === 1) {
+      setSelectedValues([value]);
+    } else {
+      processSelectionData(
+        selectedValues,
+        setSelectedValues,
+        value,
+        selectCounter,
+        `${id}`,
+        element,
+        setDuplicationError
+      );
     }
   };
 
