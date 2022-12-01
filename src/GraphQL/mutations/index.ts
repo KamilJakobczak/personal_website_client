@@ -96,3 +96,41 @@ export const ADD_AUTHOR = gql`
     }
   }
 `;
+
+export const ADD_BOOK = gql`
+  mutation addBook(
+    $title: String!
+    $language: Language
+    $authors: [String]!
+    $collection: [String]
+    $translators: [String]
+    $bookGenres: [String]!
+    $pages: Int
+    $publisher: String
+    $isbn: String
+    $firstEdition: Int
+  ) {
+    addBook(
+      input: {
+        title: $title
+        language: $language
+        authors: $authors
+        collection: $collection
+        translators: $translators
+        bookGenres: $bookGenres
+        pages: $pages
+        publisher: $publisher
+        isbn: $isbn
+        firstEdition: $firstEdition
+      }
+    ) {
+      userErrors {
+        message
+      }
+      book {
+        id
+        title
+      }
+    }
+  }
+`;

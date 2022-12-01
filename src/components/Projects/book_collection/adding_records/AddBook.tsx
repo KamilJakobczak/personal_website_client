@@ -3,13 +3,17 @@ import Select from '../Select';
 import { useState } from 'react';
 import LoadingSpinner from '../../../LoadingSpinner';
 import Error from '../../../Error';
-import axios from 'axios';
-import { graphqlApi } from '../../../../server';
 import { regexValidator } from '../handlers';
-import { isbnRegex, numbersRegex } from '../regex';
+import { numbersRegex } from '../regex';
 import { checkIsbn } from '../handlers/checkIsbn';
 import { useMutation } from '@apollo/client';
+import { ADD_BOOK } from '../../../../GraphQL/mutations';
+import SuccessMessage from '../SuccessMessage';
 
+enum Language {
+  Polish = 'POLISH',
+  English = 'ENGLISH',
+}
 const AddBook: React.FC = () => {
   // FETCHING DATA
   const { data, errors, loading } = useQueries();
@@ -21,11 +25,13 @@ const AddBook: React.FC = () => {
   const [collectionsSelectCounter, setCollectionsSelectCounter] = useState([0]);
   const [inCollection, setInCollection] = useState(false);
   const [duplicationError, setDuplicationError] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [userError, setUserError] = useState('');
 
   // FORM VALUES
 
   const [title, setTitle] = useState('');
-  const [language, setLanguage] = useState('Polish');
+  const [language, setLanguage] = useState('POLISH');
   const [genres, setGenres] = useState<string[]>([]);
   const [publisher, setPublisher] = useState('');
   const [translators, setTranslators] = useState<string[]>([]);
@@ -35,8 +41,41 @@ const AddBook: React.FC = () => {
   const [pages, setPages] = useState('');
   const [firstEdition, setFirstEdition] = useState('');
 
-  // const [addBook, {data, loading, error}] = useMutation(ADD)
+  const [
+    addBook,
+    { data: mutationData, loading: mutationLoading, error: mutationError },
+  ] = useMutation(ADD_BOOK, {
+    onCompleted(data) {
+      onCompletedMutation(data);
+    },
+  });
 
+  const onCompletedMutation = (data: any) => {
+    if (data.addBook.userErrors[0].message) {
+      setUserError(data.addBook.userErrors[0].message);
+    }
+    if (data.addBook.book) {
+      setInCollection(false);
+      setAuthorsSelectCounter([0]);
+      setCollectionsSelectCounter([0]);
+      setGenresSelectCounter([0]);
+      setTranslatorsSelectCounter([0]);
+      setSuccessMessage(data.addBook.book.title);
+      setTitle('');
+      setLanguage('POLISH');
+      setGenres([]);
+      setTranslators([]);
+      setAuthors([]);
+      setCollections([]);
+      setPublisher('');
+      setIsbn('');
+      setPages('');
+      setFirstEdition('');
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+    }
+  };
   // HANDLE EVENTS
 
   const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,31 +105,21 @@ const AddBook: React.FC = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    console.log(
-      title,
-      authors,
-      language,
-      pages,
-      isbn,
-      firstEdition,
-      genres,
-      publisher,
-      translators,
-      collections
-    );
-    const data = {
-      title,
-      authors,
-      language,
-      pages,
-      isbn,
-      firstEdition,
-      genres,
-      publisher,
-      translators,
-      collections,
-    };
-    axios.post(`${graphqlApi}/add/book`, data);
+
+    addBook({
+      variables: {
+        title,
+        authors,
+        language,
+        pages: pages ? Number(pages) : null,
+        isbn,
+        firstEdition: firstEdition ? Number(firstEdition) : null,
+        bookGenres: genres ? genres : null,
+        publisher,
+        translators,
+        collections,
+      },
+    });
   };
 
   // RENDER ELEMENTS
@@ -115,8 +144,8 @@ const AddBook: React.FC = () => {
             name='language'
             onChange={e => setLanguage(e.target.value)}
           >
-            <option value='Polish'>Polish</option>
-            <option value='English'>English</option>
+            <option value={Language.Polish}>{Language.Polish}</option>
+            <option value={Language.English}>{Language.English}</option>
           </select>
         </div>
         <div className='add_book__form_element__genres'>
@@ -187,7 +216,7 @@ const AddBook: React.FC = () => {
             })}
           </select>
         </div>
-        {language === 'English' && (
+        {language === Language.English && (
           <div className='add_book__form_element__translators'>
             {translatorsSelectCounter.map(input => {
               return (
@@ -271,16 +300,28 @@ const AddBook: React.FC = () => {
       </form>
     );
   };
-
+  const showErrors = () => {
+    if (mutationError) {
+      return <Error text={mutationError.message} />;
+    } else if (userError) {
+      return <Error text={userError} />;
+    }
+  };
   return (
     <div className='add_book new'>
       <div className='upload'>Upload component</div>
-      {loading && <LoadingSpinner />}
+      {(loading || mutationLoading) && <LoadingSpinner />}
       {errors && <Error text={errors} />}
-      {data && !loading && showForm()}
+
+      {data && successMessage ? (
+        <SuccessMessage item='publisher' successMessage={successMessage} />
+      ) : null}
+
+      {data && !loading && !successMessage && showForm()}
       {duplicationError && (
         <Error text='Duplication error(s) detected, correct mistakes before continuing' />
       )}
+      {showErrors()}
     </div>
   );
 };
