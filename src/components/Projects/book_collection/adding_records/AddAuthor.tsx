@@ -52,7 +52,8 @@ const AddAuthor: React.FC = () => {
   };
 
   const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+    const element = e.target;
+    const { id, value } = element;
     switch (id) {
       case 'firstName':
         regexValidator(nameRegex, value, setFirstName);
@@ -169,6 +170,7 @@ const AddAuthor: React.FC = () => {
         <div className='add_author__form_element'>
           <label htmlFor='wiki'>Wikipedia</label>
           <input
+            name='link'
             type='text'
             id='wiki'
             value={wiki}
@@ -178,6 +180,7 @@ const AddAuthor: React.FC = () => {
         <div className='add_author__form_element'>
           <label htmlFor='goodreads'>goodreads</label>
           <input
+            name='link'
             type='text'
             id='goodreads'
             value={goodreads}
@@ -187,6 +190,7 @@ const AddAuthor: React.FC = () => {
         <div className='add_author__form_element'>
           <label htmlFor='lubimyczytac'>lubimyczytac</label>
           <input
+            name='link'
             type='text'
             id='lubimyczytac'
             value={lubimyczytac}

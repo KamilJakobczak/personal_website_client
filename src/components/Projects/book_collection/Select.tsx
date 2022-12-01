@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React from 'react';
 import { checkDuplicates, processSelectionData } from './handlers';
 
 interface SelectProps {
@@ -27,12 +27,26 @@ const Select: React.FC<SelectProps> = ({
   setSelectedValues,
   setDuplicationError,
 }) => {
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+
+    if (selectCounter.length === 1) {
+      setSelectedValues([value]);
+    } else {
+      processSelectionData(
+        e,
+        selectedValues,
+        setSelectedValues,
+        selectCounter,
+        setDuplicationError
+      );
+    }
+  };
+
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    // console.log(selectedValues, inputValues);
-
     if (selectedValues) {
       if (inputValues) {
         console.log('hmmm');
@@ -42,31 +56,14 @@ const Select: React.FC<SelectProps> = ({
           selectedValues[id] &&
           inputValues[id]
         ) {
-          console.log('hmmm');
-          // console.log(
-          //   selectedValues,
-          //   inputValues,
-          //   selectedValues[id],
-          //   inputValues[id]
-          // );
           setSelectCounter([...selectCounter, selectCounter.length]);
         }
       }
-      console.log('hmmm');
-      console.log(selectedValues);
       if (!checkDuplicates(selectedValues) && selectedValues[id]) {
         console.log('hhmmm');
         setSelectCounter([...selectCounter, selectCounter.length]);
       }
     }
-  };
-
-  const addButton = () => {
-    if (id !== selectCounter.length - 1) {
-      return null;
-    }
-
-    return <button onClick={e => handleAddClick(e)}>add {item}</button>;
   };
 
   const handleSelectRemove = (
@@ -87,28 +84,17 @@ const Select: React.FC<SelectProps> = ({
     }
   };
 
+  const addButton = () => {
+    if (id !== selectCounter.length - 1) {
+      return null;
+    }
+
+    return <button onClick={e => handleAddClick(e)}>add {item}</button>;
+  };
+
   const removeButton = () => {
     if (selectCounter.length > 1) {
       return <button onClick={e => handleSelectRemove(e)}>X</button>;
-    }
-  };
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { value } = e.target;
-    const element = e.target;
-
-    if (selectCounter.length === 1) {
-      setSelectedValues([value]);
-    } else {
-      processSelectionData(
-        selectedValues,
-        setSelectedValues,
-        value,
-        selectCounter,
-        `${id}`,
-        element,
-        setDuplicationError
-      );
     }
   };
 
@@ -120,6 +106,7 @@ const Select: React.FC<SelectProps> = ({
         id={`${id}`}
         name={item}
         onChange={e => handleSelectChange(e)}
+        value={selectedValues[id] || ''}
       >
         <option value=''>-- find me --</option>
         {data &&

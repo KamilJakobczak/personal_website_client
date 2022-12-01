@@ -5,8 +5,8 @@ export const regexValidator = (
 ) => {
   const regexCheck = regex.test(value);
   console.log(regexCheck);
-  if (value.length === 0) setter('');
   if (regexCheck) {
     setter(value);
   }
+  if (value.length === 0) setter('');
 };

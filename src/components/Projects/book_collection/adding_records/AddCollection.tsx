@@ -55,23 +55,15 @@ const AddCollection: React.FC = () => {
   // HANDLERS
 
   const handleTomeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const element = e.target;
-    const { id, value } = element;
-
+    const { value } = e.target;
     if (value.match(numbersRegex)) {
-      if (booksSelectionCounter.length === 1) {
-        setTomes([value]);
-      } else {
-        processSelectionData(
-          tomes,
-          setTomes,
-          value,
-          booksSelectionCounter,
-          id,
-          element,
-          setDuplicationError
-        );
-      }
+      processSelectionData(
+        e,
+        tomes,
+        setTomes,
+        booksSelectionCounter,
+        setDuplicationError
+      );
     } else if (value.length === 0) {
       setTomes(['']);
     }

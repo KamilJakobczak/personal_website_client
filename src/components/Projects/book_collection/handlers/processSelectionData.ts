@@ -1,30 +1,34 @@
+import { invalidValue } from './InvalidValue';
+
 export const processSelectionData = (
-  data: string[],
-  setData: React.Dispatch<React.SetStateAction<string[]>>,
-  value: string,
+  event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  values: string[],
+  setValues: React.Dispatch<React.SetStateAction<string[]>>,
   counter: number[],
-  id: string,
-  element: EventTarget & (HTMLSelectElement | HTMLInputElement),
   setDuplicationError?: React.Dispatch<React.SetStateAction<boolean>>
 ): void => {
+  const element = event.target;
+  const { id, value } = element;
   const idNumber = Number(id);
-  const index = data.indexOf(value);
+  const index = values.indexOf(value);
   if (counter.length === 1) {
-    setData([value]);
+    setValues([value]);
   } else {
-    const arr = [...data];
+    const arr = [...values];
     arr[idNumber] = value;
-    setData(arr);
+    setValues(arr);
   }
 
   if (index >= 0) {
     element.classList.add('invalid');
     if (setDuplicationError) {
       setDuplicationError(true);
+      invalidValue(event);
       console.log('duplication error');
     }
   } else {
     element.classList.remove('invalid');
     if (setDuplicationError) setDuplicationError(false);
+    invalidValue(event, true);
   }
 };

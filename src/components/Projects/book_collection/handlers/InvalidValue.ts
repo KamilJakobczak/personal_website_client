@@ -1,13 +1,13 @@
 export const invalidValue = (
-  e: React.ChangeEvent<HTMLInputElement>,
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   clear?: boolean
 ): void => {
-  console.log(e);
+  const { name } = e.target;
   const lastChild = e.target.parentElement?.lastElementChild;
   if (lastChild && !lastChild.classList.contains('invalid_value_info')) {
     const element = document.createElement('span');
     element.classList.add('invalid_value_info');
-    element.innerText = 'Provided link is invalid.';
+    element.innerText = `Provided ${name} is invalid.`;
     e.target.parentElement?.appendChild(element);
     e.target.classList.add('invalid');
   }

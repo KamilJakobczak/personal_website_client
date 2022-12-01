@@ -1,12 +1,14 @@
 import { useQueries } from '../hooks/useQueries';
 import Select from '../Select';
 import { useState } from 'react';
-
 import LoadingSpinner from '../../../LoadingSpinner';
 import Error from '../../../Error';
-import { processSelectionData } from '../handlers/processSelectionData';
 import axios from 'axios';
 import { graphqlApi } from '../../../../server';
+import { regexValidator } from '../handlers';
+import { isbnRegex, numbersRegex } from '../regex';
+import { checkIsbn } from '../handlers/checkIsbn';
+import { useMutation } from '@apollo/client';
 
 const AddBook: React.FC = () => {
   // FETCHING DATA
@@ -18,6 +20,7 @@ const AddBook: React.FC = () => {
   const [translatorsSelectCounter, setTranslatorsSelectCounter] = useState([0]);
   const [collectionsSelectCounter, setCollectionsSelectCounter] = useState([0]);
   const [inCollection, setInCollection] = useState(false);
+  const [duplicationError, setDuplicationError] = useState(false);
 
   // FORM VALUES
 
@@ -32,9 +35,32 @@ const AddBook: React.FC = () => {
   const [pages, setPages] = useState('');
   const [firstEdition, setFirstEdition] = useState('');
 
+  // const [addBook, {data, loading, error}] = useMutation(ADD)
+
   // HANDLE EVENTS
 
-  const handleNumerics = (e: React.ChangeEvent<HTMLSelectElement>) => {};
+  const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, id } = e.target;
+    switch (id) {
+      case 'title':
+        setTitle(value);
+        break;
+      case 'pages':
+        regexValidator(numbersRegex, value, setPages);
+        break;
+      case 'isbn':
+        setIsbn(value);
+        if (value.length >= 10) checkIsbn(e);
+
+        break;
+      case 'firstEdition':
+        regexValidator(numbersRegex, value, setFirstEdition);
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const handleBookSubmit = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -105,6 +131,7 @@ const AddBook: React.FC = () => {
                 selectCounter={genresSelectCounter}
                 setSelectCounter={setGenresSelectCounter}
                 setSelectedValues={setGenres}
+                setDuplicationError={setDuplicationError}
               />
             );
           })}
@@ -119,7 +146,7 @@ const AddBook: React.FC = () => {
             min={0}
             max={2000}
             step={1}
-            onChange={e => setPages(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_book__form_element__authors'>
@@ -134,6 +161,7 @@ const AddBook: React.FC = () => {
                 selectCounter={authorsSelectCounter}
                 setSelectCounter={setAuthorsSelectCounter}
                 setSelectedValues={setAuthors}
+                setDuplicationError={setDuplicationError}
               />
             );
           })}
@@ -172,6 +200,7 @@ const AddBook: React.FC = () => {
                   selectCounter={translatorsSelectCounter}
                   setSelectCounter={setTranslatorsSelectCounter}
                   setSelectedValues={setTranslators}
+                  setDuplicationError={setDuplicationError}
                 />
               );
             })}
@@ -180,12 +209,12 @@ const AddBook: React.FC = () => {
         <div className='add_book__form_element__isbn'>
           <label htmlFor='isbn'>isbn</label>
           <input
-            pattern='((?:[\dX]{13})|(?:[\d\-X]{17})|(?:[\dX]{10})|(?:[\d\-X]{13}))'
+            name='isbn'
             autoComplete='off'
             id='isbn'
             type='text'
             value={isbn}
-            onChange={e => setIsbn(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_book__form_element__firstEdition'>
@@ -195,10 +224,7 @@ const AddBook: React.FC = () => {
             type='text'
             id='firstEdition'
             value={firstEdition}
-            min={0}
-            max={2030}
-            step={1}
-            onChange={e => setFirstEdition(e.target.value)}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='add_book__form_element__cover'>
@@ -235,6 +261,7 @@ const AddBook: React.FC = () => {
                   selectCounter={collectionsSelectCounter}
                   setSelectCounter={setCollectionsSelectCounter}
                   setSelectedValues={setCollections}
+                  setDuplicationError={setDuplicationError}
                 />
               );
             })}
@@ -251,6 +278,9 @@ const AddBook: React.FC = () => {
       {loading && <LoadingSpinner />}
       {errors && <Error text={errors} />}
       {data && !loading && showForm()}
+      {duplicationError && (
+        <Error text='Duplication error(s) detected, correct mistakes before continuing' />
+      )}
     </div>
   );
 };
