@@ -1,4 +1,4 @@
-import { createBrowserRouter, Link } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import BookCollection from '../components/Projects/BookCollection';
 import App from '../components/App';
@@ -9,16 +9,13 @@ import ScrollerComponent from '../components/Scroller/Scroller';
 import { apollo_client } from '../ApolloClient';
 import { ApolloProvider } from '@apollo/client';
 
-import List from '../components/Projects/book_collection/CollectionList';
 import {
   LOAD_AUTHOR,
   LOAD_AUTHORS,
   LOAD_BOOK,
-  LOAD_BOOKS,
   LOAD_PUBLISHER,
   LOAD_PUBLISHERS,
 } from '../GraphQL/queries';
-import Filter from '../components/Projects/book_collection/Filter';
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
 import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
