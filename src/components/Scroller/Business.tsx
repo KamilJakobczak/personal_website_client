@@ -1,10 +1,10 @@
 const Business: React.FC = () => {
   return (
-    <section className='business'>
-      <h2>Skills and contact</h2>
-      <div className='skills'>
+    <section className='scroller__business'>
+      <h3>Skills and contact</h3>
+      <div className='scroller__business_skills'>
         <ul className='skills__main'>
-          <h3>Main technologies:</h3>
+          <h4>Main technologies:</h4>
           <li>Javascript</li>
           <li>React</li>
           <li>Typescript</li>
@@ -13,7 +13,7 @@ const Business: React.FC = () => {
           <li>HTML</li>
         </ul>
         <ul className='skills__additional'>
-          <h3>Technologies that I used in my biggest projects:</h3>
+          <h4>Technologies that I used in my biggest projects:</h4>
           <li>GraphQL</li>
           <li>Apollo</li>
           <li>Redux</li>
@@ -21,20 +21,17 @@ const Business: React.FC = () => {
           <li>Prisma</li>
         </ul>
         <ul className='skills__recognized'>
-          <h3>
-            Technologies that I have basic knowledge of and I used those in some
-            minor projects or exercises:
-          </h3>
+          <h4>Technologies that I have basic knowledge of:</h4>
           <li>Webpack</li>
           <li>Bootstrap</li>
         </ul>
         <ul className='skills__in_progress'>
-          <h3>Technologies I'm learning:</h3>
+          <h4>Technologies I'm learning:</h4>
           <li>React Native</li>
         </ul>
       </div>
-      <div className='contact'>
-        <h4>send me a message!</h4>
+      <div className='scroller__business_contact'>
+        <h5>send me a message!</h5>
         <ul>
           <li>Github</li>
           <li>Mail</li>

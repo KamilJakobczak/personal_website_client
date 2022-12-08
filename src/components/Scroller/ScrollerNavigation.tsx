@@ -22,7 +22,7 @@ const ScrollerNavigation: React.FC<ScrollerNavigationProps> = ({
   };
 
   return (
-    <ul>
+    <ul className='scroller__navigation'>
       {elements.map((element: JSX.Element, index: number) => {
         return (
           <li

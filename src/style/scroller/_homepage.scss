@@ -1,0 +1,29 @@
+.scroller__homepage {
+  height: 100vh;
+  background-image: url('../../../public/dreams-2904682.jpg');
+  background-size: cover;
+  background-position: center;
+
+  &_title {
+    position: relative;
+    top: 28vh;
+    width: 85%;
+    margin: 0 auto;
+    // opacity: 1;
+    // color: rgb(188, 247, 255);
+    text-align: center;
+    color: $third-color;
+    &_h1 {
+      font-family: $font-heading;
+      font-size: 11vw;
+      line-height: calc(11vw * 1.2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    &_h2 {
+      font-size: $font-size-large;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}

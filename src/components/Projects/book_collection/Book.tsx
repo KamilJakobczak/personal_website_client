@@ -44,7 +44,9 @@ const Book: React.FC<BookProps> = ({ data }) => {
   const showGenres = () => {
     return bookGenres.map(genre => {
       return (
-        <span className='book__data_element_value_span'>{genre.name}</span>
+        <span key={genre.name} className='book__data_element_value_span'>
+          {genre.name}
+        </span>
       );
     });
   };

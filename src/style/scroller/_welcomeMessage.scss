@@ -1,0 +1,41 @@
+.scroller__welcome_message {
+  // background: rgba($color: $fourth-color, $alpha: 0.3);
+  height: 100vh;
+
+  &_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 85%;
+    height: 100%;
+    margin: 0 auto;
+
+    div {
+      .image_container {
+        padding-top: 1vh;
+        padding-right: 3vw;
+        float: left;
+        height: 30vh;
+
+        img {
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+        }
+      }
+      p {
+        padding-top: 1vh;
+        text-align: justify;
+      }
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: $fifth-color;
+      text-align: justify;
+      font-size: $font-size-medium;
+
+      letter-spacing: 0.5px;
+    }
+  }
+}

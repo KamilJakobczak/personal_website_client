@@ -1,38 +1,37 @@
-section.business {
+.scroller__business {
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
-
   justify-content: center;
-  align-items: flex-start;
-  background: rgba($color: $fourth-color, $alpha: 0.4);
-  h2 {
-    color: $fifth-color;
-    height: 10vh;
-    line-height: 10vh;
-    flex-basis: 90%;
-    text-transform: uppercase;
+  h3 {
+    padding-top: 5px;
+    // flex-basis: 95%;
     font-size: $font-size-headings;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-align: center;
+    text-transform: uppercase;
+    color: $fifth-color;
   }
-  div.skills {
+  &_skills {
     flex-grow: 1;
-    flex-basis: 70%;
+    flex-basis: 90%;
 
-    // background: rgba($color: $fourth-color, $alpha: 0.6);
-    padding: 20px;
-    h3 {
+    // padding: 20px;
+    h4 {
       border-bottom: 1px solid black;
       margin: 5px 0 3px;
+      padding-bottom: 2px;
       font-size: $font-size-medium;
+      line-height: calc($font-size-medium * 1.1);
       letter-spacing: 0.25px;
+      text-align: justify;
       color: $fifth-color;
     }
     ul {
-      width: 70%;
+      width: 90%;
       margin: 0 auto;
       li {
+        font-size: $font-size-medium;
         color: rgba($color: $fifth-color, $alpha: 0.8);
         text-indent: 10px;
         width: 80%;
@@ -41,14 +40,14 @@ section.business {
       }
     }
   }
-  div.contact {
-    flex-basis: 70%;
+  &_contact {
+    flex-basis: 90%;
 
-    h4 {
+    h5 {
       border-bottom: 1px solid black;
       font-size: $font-size-large;
       color: $fifth-color;
-
+      text-align: center;
       text-transform: uppercase;
     }
     ul {
