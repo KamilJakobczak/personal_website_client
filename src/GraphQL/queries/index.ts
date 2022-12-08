@@ -26,8 +26,8 @@ export const LOAD_BOOK = gql`
 `;
 
 export const LOAD_BOOKS = gql`
-  query Books {
-    books {
+  query Books($input: BooksInput) {
+    books(input: $input) {
       title
       id
       authors {
