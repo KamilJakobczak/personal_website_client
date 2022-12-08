@@ -1,6 +1,6 @@
 const Search: React.FC = () => {
   return (
-    <div className='search_engine'>
+    <div className='book_collection__search_engine'>
       <input type='text' />
     </div>
   );

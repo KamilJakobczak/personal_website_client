@@ -37,7 +37,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
   };
 
   return (
-    <div>
+    <>
       {data.map(record => {
         return (
           <div className='book_collection__list_element' key={record.id}>
@@ -56,7 +56,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

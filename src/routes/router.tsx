@@ -18,7 +18,7 @@ import {
   LOAD_PUBLISHER,
   LOAD_PUBLISHERS,
 } from '../GraphQL/queries';
-import BookFilter from '../components/Projects/book_collection/BookFilter';
+import Filter from '../components/Projects/book_collection/Filter';
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
 import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
@@ -28,6 +28,8 @@ import AddGenre from '../components/Projects/book_collection/adding_records/AddG
 import AddCollection from '../components/Projects/book_collection/adding_records/AddCollection';
 import AddTranslator from '../components/Projects/book_collection/adding_records/AddTranslator';
 import AddAuthor from '../components/Projects/book_collection/adding_records/AddAuthor';
+import BookList from '../components/Projects/book_collection/BookList';
+import CollectionList from '../components/Projects/book_collection/CollectionList';
 
 export const router = createBrowserRouter([
   {
@@ -49,8 +51,9 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection/books',
             element: (
-              <div>
-                <BookFilter
+              <BookList />
+              // <div>
+              /* <Filter
                   filterOptions={[
                     {
                       name: 'genre',
@@ -58,8 +61,8 @@ export const router = createBrowserRouter([
                     },
                   ]}
                 />
-                <List query={LOAD_BOOKS} />
-              </div>
+                <List query={LOAD_BOOKS} /> */
+              /* </div> */
             ),
           },
           {
@@ -68,7 +71,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/authors',
-            element: <List query={LOAD_AUTHORS} />,
+            element: <CollectionList query={LOAD_AUTHORS} />,
           },
 
           {
@@ -77,7 +80,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/publishers',
-            element: <List query={LOAD_PUBLISHERS} />,
+            element: <CollectionList query={LOAD_PUBLISHERS} />,
           },
 
           { path: '/apps/collection/add/genre', element: <AddGenre /> },
