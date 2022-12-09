@@ -6,7 +6,7 @@
   color: $fifth-color;
   h3 {
     padding-top: 5px;
-    font-size: $font-size-headings;
+    font-size: $font-size-large;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -17,12 +17,12 @@
     h4 {
       text-align: center;
       text-transform: uppercase;
-      font-size: $font-size-large;
+      font-size: $font-size-medium;
       padding: 5px 5px;
       letter-spacing: 0.5px;
     }
     div {
-      width: 85%;
+      width: 75%;
       margin: 0 auto;
       img {
         width: 100%;
@@ -30,10 +30,27 @@
       }
     }
     p {
-      font-size: 5vw;
       width: 85%;
       text-align: justify;
       margin: 10px auto 5px;
+    }
+  }
+}
+@media (min-width: $breakpoint-360) {
+  .scroller__projects {
+    h3 {
+      font-size: $font-size-headings;
+    }
+    &_container {
+      h4 {
+        font-size: $font-size-large;
+      }
+      div {
+        width: 85%;
+      }
+      p {
+        // font-size: $font-size-medium;
+      }
     }
   }
 }

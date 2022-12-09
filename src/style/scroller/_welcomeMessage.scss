@@ -31,3 +31,10 @@
     }
   }
 }
+@media (min-width: $breakpoint-360) {
+  .scroller__welcome_message {
+    p {
+      font-size: $font-size-medium;
+    }
+  }
+}
