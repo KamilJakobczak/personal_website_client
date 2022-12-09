@@ -2,6 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   color: $fifth-color;
   h3 {
     padding-top: 5px;
@@ -12,6 +13,7 @@
   }
   &_container {
     flex-basis: 40%;
+
     h4 {
       text-align: center;
       text-transform: uppercase;
