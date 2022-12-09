@@ -1,45 +1,83 @@
+// .scroller__business {
+//
+//
+
+//   h3 {
+//     margin-top: 1vh;
+//     font-size: $font-size-headings;
+//     letter-spacing: 0.5px;
+//     text-align: center;
+//     text-transform: uppercase;
+//     color: $fifth-color;
+//   }
+//   &_skills {
+//     h4 {
+//       border-bottom: 1px solid black;
+//       margin: 5px 0 3px;
+//       padding-bottom: 2px;
+//       font-size: $font-size-medium;
+//       line-height: calc($font-size-medium * 1.1);
+//       letter-spacing: 0.25px;
+//       text-align: justify;
+//       color: $fifth-color;
+//     }
+//     ul {
+//       margin: 0 7vw 0 2vw;
+//       li {
+//         font-size: $font-size-medium;
+//         color: rgba($color: $fifth-color, $alpha: 0.8);
+//         text-indent: 10px;
+//         width: 80%;
+//         padding-bottom: 1px;
+//         letter-spacing: 0.5px;
+//       }
+//     }
+//   }
+
 .scroller__business {
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
+  align-content: space-between;
   h3 {
-    margin-top: 1vh;
-    // flex-basis: 95%;
-    font-size: $font-size-headings;
-    letter-spacing: 0.5px;
+    margin-top: 2vh;
+    font-size: $font-size-large;
+    color: $fifth-color;
     text-align: center;
     text-transform: uppercase;
-    color: $fifth-color;
   }
   &_skills {
-    h4 {
-      border-bottom: 1px solid black;
-      margin: 5px 0 3px;
-      padding-bottom: 2px;
-      font-size: $font-size-medium;
-      line-height: calc($font-size-medium * 1.1);
-      letter-spacing: 0.25px;
-      text-align: justify;
-      color: $fifth-color;
-    }
-    ul {
-      // width: 85%;
-      margin: 0 7vw 0 2vw;
-      li {
+    div {
+      margin: 0 8vw 0 2vw;
+      h4 {
+        width: 100%;
+        border-bottom: 1px solid black;
+        margin-bottom: 5px;
+        // padding-bottom: 2px;
         font-size: $font-size-medium;
-        color: rgba($color: $fifth-color, $alpha: 0.8);
-        text-indent: 10px;
-        width: 80%;
-        padding-bottom: 1px;
-        letter-spacing: 0.5px;
+        line-height: calc($font-size-medium * 1.1);
+        letter-spacing: 0.25px;
+        text-align: justify;
+        color: $fifth-color;
+      }
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-bottom: 10px;
+        li {
+          color: rgba($color: $fifth-color, $alpha: 0.8);
+          text-indent: 10px;
+          font-size: $font-size-medium;
+          // margin-top: 2px;
+          // letter-spacing: 0.5px;
+        }
       }
     }
   }
   &_contact {
     flex-basis: 90%;
-
     h5 {
       border-bottom: 1px solid black;
       font-size: $font-size-large;
@@ -50,9 +88,7 @@
     ul {
       display: flex;
       justify-content: space-between;
-
       li {
-        color: rgba($color: $fifth-color, $alpha: 0.8);
         flex-basis: 18%;
         margin: 10px 0 0;
       }
