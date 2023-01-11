@@ -48,8 +48,38 @@
       div {
         width: 85%;
       }
+    }
+  }
+}
+@media (min-width: $breakpoint-480) {
+  .scroller__projects {
+    h3 {
+      font-size: 6vw;
+    }
+    &_container {
+      h4 {
+        font-size: $font-size-headings;
+      }
+      div {
+      }
       p {
-        // font-size: $font-size-medium;
+        font-size: $font-size-large;
+      }
+    }
+  }
+}
+
+@media (min-width: 540px) and (min-height: 720px) {
+  .scroller__projects {
+    &_container {
+      h4 {
+        font-size: $font-size-large;
+      }
+      div {
+        width: 65%;
+      }
+      p {
+        font-size: $font-size-medium;
       }
     }
   }

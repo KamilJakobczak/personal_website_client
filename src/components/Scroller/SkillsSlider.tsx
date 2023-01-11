@@ -1,12 +1,12 @@
-import { ReactComponent as CssIcon } from '../../images/skills_slider_icons/css_icon.svg';
-import { ReactComponent as GraphQLIcon } from '../../images/skills_slider_icons/graphql_icon.svg';
-import { ReactComponent as HTMLIcon } from '../../images/skills_slider_icons/html_icon.svg';
-import { ReactComponent as JSIcon } from '../../images/skills_slider_icons/js_icon.svg';
-import { ReactComponent as ReactIcon } from '../../images/skills_slider_icons/react_icon.svg';
-import { ReactComponent as TSIcon } from '../../images/skills_slider_icons/typescript_icon.svg';
-import { ReactComponent as NodeIcon } from '../../images/skills_slider_icons/node_icon.svg';
-import { ReactComponent as ApolloIcon } from '../../images/skills_slider_icons/apollo_icon.svg';
-import { ReactComponent as ReduxIcon } from '../../images/skills_slider_icons/redux_icon.svg';
+import { ReactComponent as CssIcon } from '../../images/skills_slider_icons/50px/css_icon.svg';
+import { ReactComponent as GraphQLIcon } from '../../images/skills_slider_icons/50px/graphql_icon.svg';
+import { ReactComponent as HTMLIcon } from '../../images/skills_slider_icons/50px/html_icon.svg';
+import { ReactComponent as JSIcon } from '../../images/skills_slider_icons/50px/js_icon.svg';
+import { ReactComponent as ReactIcon } from '../../images/skills_slider_icons/50px/react_icon.svg';
+import { ReactComponent as TSIcon } from '../../images/skills_slider_icons/50px/typescript_icon.svg';
+import { ReactComponent as NodeIcon } from '../../images/skills_slider_icons/50px/node_icon.svg';
+import { ReactComponent as ApolloIcon } from '../../images/skills_slider_icons/50px/apollo_icon.svg';
+import { ReactComponent as ReduxIcon } from '../../images/skills_slider_icons/50px/redux_icon.svg';
 
 const SkillsSlider = () => {
   const icons = [

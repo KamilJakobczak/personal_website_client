@@ -27,3 +27,11 @@
     }
   }
 }
+
+@media (min-width: 540px) and (min-height: 720px) {
+  .scroller__homepage {
+    &_title {
+      top: 20vh;
+    }
+  }
+}

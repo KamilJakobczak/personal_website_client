@@ -3,9 +3,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: space-between;
+  // align-content: space-between;
   h3 {
-    margin-top: 2vh;
+    flex-basis: 90%;
+    margin-top: 1vh;
     font-size: $font-size-large;
     color: $fifth-color;
     text-align: center;
@@ -61,12 +62,11 @@
 @media (min-width: $breakpoint-360) {
   .scroller__business {
     h3 {
+      margin-top: 20px;
       font-size: $font-size-headings;
     }
     &_skills {
       div {
-        h4 {
-        }
         ul {
           justify-content: space-evenly;
           li {
@@ -78,6 +78,69 @@
     }
     &_contact {
       margin-bottom: 10px;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-480) {
+  .scroller__business {
+    h3 {
+      font-size: 7vw;
+    }
+    &_skills {
+      div {
+        h4 {
+          font-size: $font-size-large;
+          line-height: calc($font-size-large * 1.1);
+        }
+        ul {
+          li {
+            font-size: $font-size-large;
+          }
+        }
+      }
+    }
+    &_contact {
+      margin-bottom: 10px;
+      h5 {
+        font-size: $font-size-headings;
+      }
+      ul {
+        li {
+          flex-basis: 10%;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 540px) and (min-height: 720px) {
+  .scroller__business {
+    &_skills {
+      div {
+        h4 {
+          font-size: $font-size-large;
+          line-height: calc($font-size-large * 1.1);
+        }
+        ul {
+          justify-content: space-between;
+          li {
+            flex-basis: 40%;
+            font-size: $font-size-large;
+          }
+        }
+      }
+    }
+    &_contact {
+      margin-bottom: 10px;
+      h5 {
+        font-size: $font-size-headings;
+      }
+      ul {
+        li {
+          flex-basis: 10%;
+        }
+      }
     }
   }
 }

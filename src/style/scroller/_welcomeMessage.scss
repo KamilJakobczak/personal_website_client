@@ -38,3 +38,10 @@
     }
   }
 }
+@media (min-width: $breakpoint-480) {
+  .scroller__welcome_message {
+    p {
+      font-size: $font-size-large;
+    }
+  }
+}

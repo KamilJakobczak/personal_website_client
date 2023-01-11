@@ -1,56 +1,70 @@
 .scroller__business_slider {
-  flex-basis: calc(3 * 48px + 3 * 10px);
+  --svg-size: 48px;
+
+  flex-basis: calc(3 * var(--svg-size) + 3 * 10px);
   overflow: hidden;
   display: flex;
 
   div {
-    display: block;
     margin-right: 10px;
     animation: slider 10s linear infinite;
     animation-delay: 2s;
+    svg {
+      width: var(--svg-size);
+      height: var(--svg-size);
+    }
+  }
+  @keyframes slider {
+    0% {
+      transform: translateX(0);
+    }
+    10% {
+      transform: translateX(calc((calc(var(--svg-size) * -1) - 10px) * 3));
+    }
+    20% {
+      transform: translateX(calc((calc(var(--svg-size) * -1) - 10px) * 3));
+    }
+    30% {
+      transform: translateX(calc((calc(var(--svg-size) * -1) - 10px) * 6));
+    }
+    40% {
+      transform: translateX(calc((calc(var(--svg-size) * -1) - 10px) * 6));
+    }
+    50% {
+      transform: translateX(calc((calc(var(--svg-size) * -1) - 10px) * 9));
+    }
+    60% {
+      transform: translate(calc((calc(var(--svg-size) * -1) - 10px) * 9), 0);
+    }
+    61% {
+      transform: translate(calc((calc(var(--svg-size) * -1) - 10px) * 9), 0);
+    }
+    65% {
+      transform: translate(
+        calc((calc(var(--svg-size) * -1) - 10px) * 9),
+        -100px
+      );
+    }
+    69% {
+      transform: translate(calc(((var(--svg-size)) + 10px) * 3), -100px);
+    }
+    70% {
+      transform: translate(calc(((var(--svg-size)) + 10px) * 3), 0);
+    }
+    80% {
+      transform: translate(calc(((var(--svg-size)) + 10px) * 3));
+    }
+    90% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }
 }
-@keyframes slider {
-  0% {
-    transform: translateX(0);
-  }
-  10% {
-    transform: translateX(calc((-48px - 10px) * 3));
-  }
-  20% {
-    transform: translateX(calc((-48px - 10px) * 3));
-  }
-  30% {
-    transform: translateX(calc((-48px - 10px) * 6));
-  }
-  40% {
-    transform: translateX(calc((-48px - 10px) * 6));
-  }
-  50% {
-    transform: translateX(calc((-48px - 10px) * 9));
-  }
-  60% {
-    transform: translate(calc((-48px - 10px) * 9), 0);
-  }
-  61% {
-    transform: translate(calc((-48px - 10px) * 9), 0);
-  }
-  65% {
-    transform: translate(calc((-48px - 10px) * 9), -100px);
-  }
-  69% {
-    transform: translate(calc((48px + 10px) * 3), -100px);
-  }
-  70% {
-    transform: translate(calc((48px + 10px) * 3), 0);
-  }
-  80% {
-    transform: translate(calc((48px + 10px) * 3));
-  }
-  90% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(0);
+
+@media (min-width: $breakpoint-480) or (min-height: 750px) {
+  .scroller__business_slider {
+    --svg-size: 96px;
   }
 }
