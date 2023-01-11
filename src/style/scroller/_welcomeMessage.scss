@@ -45,3 +45,11 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-700) {
+  .scroller__welcome_message {
+    p {
+      font-size: $font-size-headings;
+    }
+  }
+}

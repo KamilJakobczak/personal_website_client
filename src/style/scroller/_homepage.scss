@@ -9,8 +9,6 @@
     top: 28vh;
     width: 85%;
     margin: 0 auto;
-    // opacity: 1;
-    // color: rgb(188, 247, 255);
     text-align: center;
     color: $third-color;
     &_h1 {
@@ -21,7 +19,7 @@
       letter-spacing: 1px;
     }
     &_h2 {
-      font-size: $font-size-large;
+      font-size: 6vw;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -32,6 +30,19 @@
   .scroller__homepage {
     &_title {
       top: 20vh;
+    }
+  }
+}
+
+@media (orientation: landscape) and (min-width: 800px) {
+  .scroller__homepage {
+    &_title {
+      top: 9vh;
+
+      &_h1 {
+        font-size: 10vw;
+        line-height: calc(10vw * 1.2);
+      }
     }
   }
 }

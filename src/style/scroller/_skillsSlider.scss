@@ -42,11 +42,14 @@
     65% {
       transform: translate(
         calc((calc(var(--svg-size) * -1) - 10px) * 9),
-        -100px
+        calc(var(--svg-size) * -1)
       );
     }
     69% {
-      transform: translate(calc(((var(--svg-size)) + 10px) * 3), -100px);
+      transform: translate(
+        calc(((var(--svg-size)) + 10px) * 3),
+        calc(var(--svg-size) * -1)
+      );
     }
     70% {
       transform: translate(calc(((var(--svg-size)) + 10px) * 3), 0);
@@ -64,6 +67,16 @@
 }
 
 @media (min-width: $breakpoint-480) or (min-height: 750px) {
+  .scroller__business_slider {
+    --svg-size: 96px;
+  }
+}
+@media (min-width: $breakpoint-700) {
+  .scroller__business_slider {
+    --svg-size: 144px;
+  }
+}
+@media (orientation: landscape) and (min-width: 800px) {
   .scroller__business_slider {
     --svg-size: 96px;
   }

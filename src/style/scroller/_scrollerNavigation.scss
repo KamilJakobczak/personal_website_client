@@ -10,8 +10,8 @@
     position: absolute;
     top: 43vh;
     bottom: 43vh;
-    right: 3vw;
-    left: 95vw;
+    right: 1.5vw;
+    left: 96.5vw;
 
     li {
       background-color: $fourth-color;
@@ -24,8 +24,12 @@
       }
     }
   }
-  // &:hover {
-  //   cursor: pointer;
-  //   background-color: $third-color;
-  // }
+}
+@media (orientation: landscape) and (min-width: 800px) {
+  .scroller {
+    &__navigation {
+      top: 35vh;
+      bottom: 35vh;
+    }
+  }
 }
