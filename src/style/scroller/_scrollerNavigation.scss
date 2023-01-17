@@ -33,3 +33,21 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-1025) {
+  .scroller {
+    &__navigation {
+      right: 2vw;
+      left: 96vw;
+      li {
+        width: 3vw;
+        height: 3vw;
+        transition: 0.2s;
+        &:hover {
+          cursor: pointer;
+          background-color: rgba($color: $fourth-color, $alpha: 0.5);
+        }
+      }
+    }
+  }
+}

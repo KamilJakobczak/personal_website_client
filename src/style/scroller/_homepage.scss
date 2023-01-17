@@ -46,3 +46,10 @@
     }
   }
 }
+@media (min-width: $breakpoint-1025) {
+  .scroller__homepage {
+    &_title {
+      top: 17%;
+    }
+  }
+}
