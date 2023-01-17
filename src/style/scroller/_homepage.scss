@@ -53,3 +53,18 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-1025) {
+  .scroller__homepage {
+    &_title {
+      top: 12%;
+      &_h1 {
+        font-size: 7vw;
+        line-height: calc(7vw * 1.2);
+      }
+      &_h2 {
+        font-size: 4vw;
+      }
+    }
+  }
+}

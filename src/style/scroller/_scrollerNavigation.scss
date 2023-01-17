@@ -51,3 +51,13 @@
     }
   }
 }
+@media (min-width: $breakpoint-1025) {
+  .scroller {
+    &__navigation {
+      li {
+        width: 2vw;
+        height: 2vw;
+      }
+    }
+  }
+}

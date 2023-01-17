@@ -81,3 +81,12 @@
     --svg-size: 96px;
   }
 }
+@media (min-width: $breakpoint-1201) {
+  .scroller__business_slider {
+    flex-basis: 90%;
+    div {
+      margin: 0 auto;
+      animation: none;
+    }
+  }
+}

@@ -3,7 +3,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  // align-content: space-between;
   h3 {
     flex-basis: 90%;
     margin-top: 1vh;
@@ -222,6 +221,14 @@
           margin-top: 10px;
         }
       }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-1201) {
+  .scroller__business {
+    &_skills {
+      flex-basis: 90%;
     }
   }
 }
