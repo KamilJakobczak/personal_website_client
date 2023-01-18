@@ -1,22 +1,24 @@
 header {
   width: 100%;
+  padding: 5px 0 5px;
   background-color: $apps_background;
-  width: 100%;
-  flex-basis: 10vh;
   border-bottom: 1px solid $fourth-color;
   color: $fourth-color;
+
   a {
     color: $fourth-color;
     text-decoration: none;
-  }
-  span.header {
-    display: block;
-    line-height: 10vh;
-    text-transform: uppercase;
-    text-align: center;
-    font-family: Monoton;
-    font-size: $font-size-large;
+    span.header {
+      display: block;
+      margin: auto 0;
+      font-family: Monoton;
+      font-size: $font-size-medium;
+      line-height: calc($font-size-medium * 1.3);
 
-    letter-spacing: 4px;
+      text-transform: uppercase;
+      text-align: center;
+
+      letter-spacing: 4px;
+    }
   }
 }

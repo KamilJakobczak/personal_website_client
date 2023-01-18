@@ -1,16 +1,16 @@
 .navigation {
-  width: 90%;
   margin: 15px auto;
 
   &_ul {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 
     li {
-      flex-basis: 22%;
+      flex-basis: 34%;
       padding: 5px 0;
       text-align: center;
-      font-size: $font-size-medium;
+      font-size: $font-size-basic;
       a {
         padding: 0px 10px;
         color: $fourth-color;

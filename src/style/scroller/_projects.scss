@@ -1,9 +1,12 @@
 .scroller__projects {
+  // max-width: 1400px;
+  // margin: 0 auto;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   color: $fifth-color;
+
   h3 {
     padding-top: 5px;
     font-size: $font-size-large;
@@ -24,9 +27,12 @@
     div {
       width: 75%;
       margin: 0 auto;
-      img {
-        width: 100%;
-        height: 100%;
+      a {
+        cursor: none;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     p {
@@ -125,6 +131,20 @@
       p {
         line-height: calc($font-size-large * 1.1);
         width: 90%;
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-1201) {
+  .scroller__projects {
+    &_container {
+      div {
+        a {
+          cursor: pointer;
+        }
+      }
+      p {
+        font-size: $font-size-large;
       }
     }
   }

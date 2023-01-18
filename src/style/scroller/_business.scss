@@ -1,4 +1,6 @@
 .scroller__business {
+  max-width: 1400px;
+  margin: 0 auto;
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
@@ -227,7 +229,19 @@
 
 @media (min-width: $breakpoint-1201) {
   .scroller__business {
+    h3 {
+      font-size: $font-size-huge;
+    }
     &_skills {
+      div {
+        margin: 0 auto;
+        width: 100%;
+        ul {
+          li {
+            flex-basis: 51%;
+          }
+        }
+      }
       flex-basis: 90%;
     }
   }
