@@ -27,6 +27,7 @@ const Author: React.FC<AuthorProps> = ({ data }) => {
         </p>
       </div>
       <div className='author__books'>
+        <h5>books</h5>
         <List data={books} nested={true} />
       </div>
     </div>

@@ -1,0 +1,39 @@
+.single_record {
+  div:nth-child(1) {
+    width: 90%;
+    margin: 0 auto;
+    h4 {
+      width: 100%;
+      margin-bottom: 5px;
+      font-size: $font-size-medium;
+
+      text-align: center;
+    }
+    p {
+      font-size: $font-size-basic;
+      margin-bottom: 2px;
+      span {
+        margin-left: 5px;
+      }
+    }
+    h5 {
+      width: 100%;
+      margin: 10px 0 5px;
+      font-size: $font-size-medium;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  }
+  .author {
+    &__data {
+      &_nationality {
+        text-transform: capitalize;
+      }
+    }
+  }
+  .book {
+  }
+  .publisher {
+  }
+}

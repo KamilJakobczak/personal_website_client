@@ -65,9 +65,7 @@ const Book: React.FC<BookProps> = ({ data }) => {
 
   return (
     <div className='book'>
-      <div className='book_title'>
-        <h4>{data.title}</h4>
-      </div>
+      <h4 className='book__title'>{data.title}</h4>
       <div className='book__cover'>
         <div className='book__cover_img'>
           <img src='' alt='' />

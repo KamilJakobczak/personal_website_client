@@ -23,16 +23,12 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
   return (
     <div className='publisher'>
       <h4 className='publisher__name'>{name}</h4>
+      <div className='publisher__website'>
+        <p className='publisher__website_address'>
+          Website: <span>{website}</span>
+        </p>
+      </div>
       <div className='publisher__address'>
-        <p className='publisher__address_country'>
-          Country: <span>{country}</span>
-        </p>
-        <p className='publisher__address_zipCode'>
-          Zip Code: <span>{zipCode}</span>
-        </p>
-        <p className='publisher__address_city'>
-          City: <span>{city}</span>
-        </p>
         <p className='publisher__address_street_address'>
           Address:{' '}
           <span>
@@ -40,13 +36,19 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
             {placeNr ? `/${placeNr}` : null}
           </span>
         </p>
-      </div>
-      <div className='publisher__website'>
-        <p className='publisher__website_address'>
-          Website: <span>{website}</span>
+        <p className='publisher__address_city'>
+          City: <span>{city}</span>
+        </p>
+        <p className='publisher__address_zipCode'>
+          Zip Code: <span>{zipCode}</span>
+        </p>
+        <p className='publisher__address_country'>
+          Country: <span>{country}</span>
         </p>
       </div>
+
       <div className='publisher__books'>
+        <h5>books</h5>
         <List data={books} nested={true} />
       </div>
     </div>
