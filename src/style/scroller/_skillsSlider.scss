@@ -81,3 +81,18 @@
     --svg-size: 96px;
   }
 }
+
+@media (min-width: 1200px) {
+  .scroller__business_slider {
+    // overflow: hidden;
+    margin: 20px 0;
+    display: flex;
+
+    justify-content: space-evenly;
+    flex-basis: 90%;
+
+    div {
+      animation: none;
+    }
+  }
+}
