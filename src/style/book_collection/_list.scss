@@ -1,10 +1,15 @@
 .book_collection__list {
-  width: 95%;
-
-  margin: 15px auto 0;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  // background-color: aliceblue;
   &_element {
-    font-size: $font-size-medium;
-    margin: 5px 10px;
+    flex-basis: 90%;
+    font-size: $font-size-basic;
+    margin-top: 7px;
+    // letter-spacing: 0.25px;
 
     a.router-link {
     }

@@ -34,7 +34,7 @@ const BookList: React.FC = () => {
         {filtersVisible ? <BookFilters refetchQuery={refetch} /> : null}
 
         {data && (
-          <div className='book_collection__books_list'>
+          <div className='book_collection__books_list book_collection__list'>
             <List data={data.books} />
           </div>
         )}
