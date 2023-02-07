@@ -18,6 +18,7 @@ const BookList: React.FC = () => {
   const showContent = () => {
     return (
       <>
+        {filtersVisible ? <BookFilters refetchQuery={refetch} /> : null}
         {filtersVisible ? (
           <Button
             className='book_collection__books__filter_showButton'
@@ -31,8 +32,6 @@ const BookList: React.FC = () => {
             handleClick={handleFiltersClick}
           />
         )}
-        {filtersVisible ? <BookFilters refetchQuery={refetch} /> : null}
-
         {data && (
           <div className='book_collection__books_list book_collection__list'>
             <List data={data.books} />

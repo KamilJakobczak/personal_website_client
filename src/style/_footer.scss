@@ -1,16 +1,30 @@
-footer {
-  flex-basis: 5vh;
+footer.footer {
+  flex-grow: 1;
+  position: relative;
+  bottom: 0;
+  left: 0;
   background-color: $apps_background;
   div {
     width: 80%;
     border-top: 1px solid $fourth-color;
     margin: 0 auto;
+    color: $fourth-color;
     span {
       display: block;
-      margin: 1vh auto 0;
-      color: $fourth-color;
+      margin-top: 5px;
+
       letter-spacing: 1.75px;
       text-align: center;
+    }
+    a {
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-360) {
+  footer.footer {
+    div {
     }
   }
 }

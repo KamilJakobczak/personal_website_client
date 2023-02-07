@@ -3,13 +3,18 @@ body {
   font-size: $font-size-basic;
 
   #root {
+    height: 100vh;
+    position: relative;
     display: flex;
     flex-direction: column;
   }
   #apps {
+    position: relative;
+    margin-bottom: 25px;
+    top: 5vh;
+    left: 0;
     background-color: $apps_background;
     color: $fourth-color;
-    flex-basis: 85vh;
-    flex-grow: 1;
+    flex-grow: 20;
   }
 }

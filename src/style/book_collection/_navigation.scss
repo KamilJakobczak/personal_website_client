@@ -8,7 +8,7 @@
       text-align: center;
       font-size: $font-size-basic;
       a {
-        padding: 1px;
+        padding: 2px 3px;
         font-weight: bold;
         color: $fourth-color;
 
@@ -26,6 +26,15 @@
         //   background-color: rgba($fourth-color, 0.9);
         //   color: rgba($apps_background, 0.7);
         // }
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-360) {
+  .navigation {
+    &_ul {
+      li {
+        font-size: $font-size-medium;
       }
     }
   }

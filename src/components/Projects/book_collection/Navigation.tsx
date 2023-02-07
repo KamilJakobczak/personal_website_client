@@ -17,7 +17,7 @@ const Navigation: React.FC<NavigationProps> = ({ elements, parentClass }) => {
   };
 
   return (
-    <nav className={`${parentClass} navigation`}>
+    <nav className={`${parentClass}_navigation navigation`}>
       <ul className='navigation_ul'>{renderElements()}</ul>
     </nav>
   );

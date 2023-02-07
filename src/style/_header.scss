@@ -1,5 +1,10 @@
 header {
   width: 100%;
+  flex-basis: 5%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
   padding: 10px 0 10px;
   background-color: $apps_background;
   border-bottom: 1px solid $fourth-color;
@@ -13,12 +18,20 @@ header {
       margin: auto 0;
       font-family: Monoton;
       font-size: $font-size-basic;
-      line-height: calc($font-size-basic * 1.3);
-
       text-transform: uppercase;
       text-align: center;
 
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-360) {
+  header {
+    a {
+      span.header {
+        font-size: $font-size-medium;
+      }
     }
   }
 }

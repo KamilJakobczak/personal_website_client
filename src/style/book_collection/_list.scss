@@ -15,3 +15,13 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-360) {
+  .book_collection__list {
+    font-size: $font-size-medium;
+
+    &_element {
+      font-size: $font-size-medium;
+    }
+  }
+}

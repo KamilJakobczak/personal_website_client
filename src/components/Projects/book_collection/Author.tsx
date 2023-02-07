@@ -18,6 +18,11 @@ const Author: React.FC<AuthorProps> = ({ data }) => {
       <h4 className='author__name'>
         {firstName} {lastName}
       </h4>
+      <div className='author__cover'>
+        <div className='author__cover_img'>
+          <img src='' alt='' />
+        </div>
+      </div>
       <div className='author__data'>
         <p className='author__data_nationality'>
           Nationality: <span>{nationality}</span>

@@ -28,34 +28,50 @@ const Book: React.FC<BookProps> = ({ data }) => {
   const { authors, bookGenres, publisher } = data;
 
   const showAuthors = () => {
+    let counter = 1;
     return authors.map(author => {
       const { id } = author;
       const pathId = author.id.slice(-10);
-      return (
-        <span className='book__data_element_value_span' key={id}>
-          <Link to={`../authors/${pathId}`} state={{ id }}>
-            {author.firstName.concat(' ', author.lastName)}
-          </Link>
-        </span>
-      );
+      if (counter === authors.length) {
+        return (
+          <span key={id}>
+            <Link to={`../authors/${pathId}`} state={{ id }}>
+              {author.firstName.concat(' ', author.lastName)}
+            </Link>
+          </span>
+        );
+      } else {
+        counter++;
+        return (
+          <span key={id}>
+            <Link to={`../authors/${pathId}`} state={{ id }}>
+              {author.firstName.concat(' ', author.lastName, ',')}
+            </Link>
+          </span>
+        );
+      }
     });
   };
 
   const showGenres = () => {
-    return bookGenres.map(genre => {
-      return (
-        <span key={genre.name} className='book__data_element_value_span'>
-          {genre.name}
-        </span>
-      );
-    });
+    let counter = 1;
+    if (counter === bookGenres.length) {
+      return bookGenres.map(genre => {
+        return <span key={genre.name}>{genre.name}</span>;
+      });
+    } else {
+      counter++;
+      return bookGenres.map(genre => {
+        return <span key={genre.name}>{genre.name.concat(',')}</span>;
+      });
+    }
   };
 
   const showPublisher = () => {
     const { id, name } = publisher;
     const pathId = id.slice(-10);
     return (
-      <span className='book__data_element_value_span'>
+      <span>
         <Link to={`../publishers/${pathId}`} state={{ id }}>
           {name}
         </Link>
@@ -72,36 +88,24 @@ const Book: React.FC<BookProps> = ({ data }) => {
         </div>
       </div>
       <div className='book__data'>
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>Author:</p>
-          <div className='book__data_element_value'>{showAuthors()}</div>
-        </div>
+        <p className='book__data_authors'>
+          Authors: <span>{showAuthors()}</span>
+        </p>
+        <p className='book__data_genres'>Genre: {showGenres()}</p>
+        <p className='book__data_pages'>
+          Pages: <span>{data.pages}</span>
+        </p>
+        <p className='book__data_language'>
+          Language: <span>{data.language}</span>
+        </p>
+        <p className='book__data_publisher'>Publisher: {showPublisher()}</p>
 
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>Genre:</p>
-          <div className='book__data_element_value'>{showGenres()}</div>
-        </div>
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>Pages:</p>
-          <p className='book__data_element_value'>{data.pages}</p>
-        </div>
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>Language:</p>
-          <p className='book__data_element_value'>{data.language}</p>
-        </div>
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>Publisher:</p>
-          <div className='book__data_element_value'>{showPublisher()}</div>
-        </div>
-
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>First edition:</p>
-          <p className='book__data_element_value'>{data.firstEdition}</p>
-        </div>
-        <div className='book__data_element'>
-          <p className='book__data_element_key'>ISBN:</p>
-          <p className='book__data_element_value'>{data.isbn}</p>
-        </div>
+        <p className='book__data_firstEdition'>
+          First edition: <span>{data.firstEdition}</span>
+        </p>
+        <p className='book__data_isbn'>
+          ISBN: <span>{data.isbn}</span>
+        </p>
       </div>
     </div>
   );

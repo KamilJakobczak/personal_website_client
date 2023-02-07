@@ -1,8 +1,8 @@
 const Footer: React.FC = () => {
   return (
-    <footer>
+    <footer className='footer'>
       <div>
-        <span>&copy;Kamil Jakóbczak 2022</span>
+        <span>&copy;Kamil Jakóbczak 2023</span>
         <a href='https://icons8.com/'>Icons by ICONS8</a>
       </div>
     </footer>
