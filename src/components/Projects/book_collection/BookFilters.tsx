@@ -9,9 +9,13 @@ interface BookFiltersProps {
   refetchQuery: (
     variables?: Partial<OperationVariables> | undefined
   ) => Promise<ApolloQueryResult<any>>;
+  hideWhenDone: () => void;
 }
 
-const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery }) => {
+const BookFilters: React.FC<BookFiltersProps> = ({
+  refetchQuery,
+  hideWhenDone,
+}) => {
   const [genresFilter, setGenresFilter] = useState<string[]>([]);
   const [publishersFilter, setPublishersFilter] = useState<string[]>([]);
 
@@ -31,6 +35,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery }) => {
         },
       },
     });
+    hideWhenDone();
   };
   const handleCheckboxChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -77,7 +82,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery }) => {
           />
         )}
         <div
-          className='book_collection__books_filters_button collection_button'
+          className='book_collection__books__filters_button collection_button'
           onClick={e => handleFilterClick()}
         >
           Filter
@@ -87,7 +92,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery }) => {
   };
 
   return (
-    <div className='book_collection__books_filters'>
+    <div className='book_collection__books__filters'>
       {!loading && !loadingP && showContent()}
       {error && <Error text={error.message} />}
       {errorP && <Error text={errorP.message} />}

@@ -1,3 +1,5 @@
+import Checkbox from './Checkbox';
+
 interface FilterProps {
   handleCheckboxChange: (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -14,21 +16,24 @@ const Filter: React.FC<FilterProps> = ({
   filterOptions,
 }) => {
   const { name, data } = filterOptions;
-  const className = `book_filters__${name}`;
+  const className = `book_collection__books__filters_${name}`;
 
   return (
     <div className={className}>
-      <legend className={`${className}_legend`}>Pick one or more {name}</legend>
+      <legend className={`${className}_legend`}>
+        Pick one or more {name}:
+      </legend>
       {data.map((item: any) => {
         return (
           <div key={item.name} className={`${className}_item`}>
-            <input
-              type='checkbox'
-              id={item.id}
-              name={item.name}
-              onChange={e => handleCheckboxChange(e, name)}
-            />
-            <label htmlFor={item.name}>{item.name}</label>
+            <label className='form-control' htmlFor={item.name}>
+              <Checkbox
+                name={name}
+                id={item.id}
+                handleCheckboxChange={handleCheckboxChange}
+              />
+              {item.name}
+            </label>
           </div>
         );
       })}

@@ -21,9 +21,9 @@ interface RecordType {
 }
 
 const List: React.FC<ListProps> = ({ data, nested }) => {
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
 
   const linkPath = (record: RecordType) => {
     const pathId = record.id.slice(-10);

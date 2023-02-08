@@ -6,9 +6,11 @@
   justify-content: space-around;
   // background-color: aliceblue;
   &_element {
-    flex-basis: 90%;
+    flex-basis: 95%;
     font-size: $font-size-basic;
-    margin-top: 7px;
+    & + .book_collection__list_element {
+      margin-top: 5px;
+    }
     // letter-spacing: 0.25px;
 
     a.router-link {

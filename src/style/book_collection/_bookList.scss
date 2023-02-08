@@ -1,0 +1,31 @@
+.book_collection {
+  &__books {
+    &__filter {
+      &_hideButton {
+        margin-top: 10px;
+      }
+    }
+    &__filters {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      > div {
+        flex-basis: 95%;
+        margin: 0px auto 5px;
+        & + div {
+          margin-top: 2px;
+        }
+
+        legend {
+          margin-bottom: 3px;
+        }
+        div {
+        }
+      }
+      > div:nth-last-child(1) {
+        flex-basis: 100%;
+        margin-top: 5px;
+      }
+    }
+  }
+}
