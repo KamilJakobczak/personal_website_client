@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 interface NavigationProps {
   elements: { id: number; element: string }[];
@@ -6,11 +6,27 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ elements, parentClass }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleSamePageRefresh = (element: string) => {
+    const path = location.pathname.slice(17);
+    if (element === path) {
+      navigate(0);
+    }
+  };
   const renderElements = () => {
     return elements.map(({ id, element }) => {
       return (
         <li key={id} className='navigation_li'>
-          <NavLink to={element}>{element}</NavLink>
+          <NavLink
+            onClick={() => {
+              handleSamePageRefresh(element);
+            }}
+            to={element}
+          >
+            {element}
+          </NavLink>
         </li>
       );
     });

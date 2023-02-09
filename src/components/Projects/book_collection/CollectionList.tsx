@@ -1,7 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 import { useEffect, useState } from 'react';
-
 import Error from '../../Error';
 import LoadingSpinner from '../../LoadingSpinner';
 import List from './List';
@@ -13,7 +12,6 @@ interface ListProps {
 const CollectionList: React.FC<ListProps> = ({ query }) => {
   const { data, loading, error } = useQuery(query);
   const [listData, setListData] = useState([]);
-  // console.log(location);
 
   useEffect(() => {
     if (data) {

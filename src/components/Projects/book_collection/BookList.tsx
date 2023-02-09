@@ -8,7 +8,11 @@ import List from './List';
 import Button from './Button';
 
 const BookList: React.FC = () => {
-  const { data, error, loading, refetch } = useQuery(LOAD_BOOKS);
+  const { data, error, loading, refetch } = useQuery(LOAD_BOOKS, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-first',
+  });
+
   const [filtersVisible, setFiltersVisible] = useState(false);
 
   const handleFiltersClick = () => {
@@ -19,7 +23,6 @@ const BookList: React.FC = () => {
   };
 
   const showContent = () => {
-    console.log(data);
     return (
       <>
         {filtersVisible ? (

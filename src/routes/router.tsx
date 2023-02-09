@@ -47,20 +47,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: '/apps/collection/books',
-            element: (
-              <BookList />
-              // <div>
-              /* <Filter
-                  filterOptions={[
-                    {
-                      name: 'genre',
-                      values: ['fantasy', 'sci-fi', 'history'],
-                    },
-                  ]}
-                />
-                <List query={LOAD_BOOKS} /> */
-              /* </div> */
-            ),
+            element: <BookList />,
           },
           {
             path: '/apps/collection/books/:id',
