@@ -120,3 +120,24 @@ export const LOAD_TRANSLATORS = gql`
     }
   }
 `;
+
+export const LOAD_SEARCH = gql`
+  query Search($contains: String!, $type: String!) {
+    search(contains: $contains, type: $type) {
+      __typename
+      ... on Book {
+        id
+        title
+      }
+      ... on Author {
+        id
+        firstName
+        lastName
+      }
+      ... on Publisher {
+        id
+        name
+      }
+    }
+  }
+`;

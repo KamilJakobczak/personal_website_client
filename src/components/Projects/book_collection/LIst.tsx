@@ -11,7 +11,7 @@ interface ListProps {
   }[];
   nested?: boolean;
 }
-interface RecordType {
+export interface RecordType {
   id: string;
   title?: string;
   firstName?: string;

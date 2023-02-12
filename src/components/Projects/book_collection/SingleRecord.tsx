@@ -27,11 +27,11 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     );
   };
   return (
-    <div className='single_record'>
+    <>
+      <div className='single_record'>{data && renderedElement()}</div>
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}
-      {data && renderedElement()}
-    </div>
+    </>
   );
 };
 

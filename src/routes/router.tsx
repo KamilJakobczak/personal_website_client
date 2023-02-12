@@ -94,14 +94,14 @@ export const router = createBrowserRouter([
         path: '/apps/coding',
         element: <CodePlayground />,
       },
-      {
-        path: '/apps/gallery',
-        element: <Gallery />,
-      },
-      {
-        path: '/apps/blog',
-        element: <Blog />,
-      },
+      // {
+      //   path: '/apps/gallery',
+      //   element: <Gallery />,
+      // },
+      // {
+      //   path: '/apps/blog',
+      //   element: <Blog />,
+      // },
     ],
   },
 ]);

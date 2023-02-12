@@ -1,4 +1,10 @@
+import { useLazyQuery } from '@apollo/client';
 import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { LOAD_SEARCH } from '../../../GraphQL/queries';
+import Error from '../../Error';
+import LoadingSpinner from '../../LoadingSpinner';
+import { RecordType } from './List';
 
 enum SearchCategories {
   Author = 'Author',
@@ -9,8 +15,11 @@ enum SearchCategories {
 const Search: React.FC = () => {
   const [searchInput, setSearchInput] = useState('');
   const [activeCategory, setActiveCategory] = useState('Book');
-
   const dropdown = useRef<HTMLUListElement>(null);
+  const [loadSearch, { called, loading, data, error }] = useLazyQuery(
+    LOAD_SEARCH,
+    { variables: { contains: searchInput, type: activeCategory } }
+  );
 
   const dropdownCloseListener = (event: MouseEvent) => {
     const target = event.target as Element;
@@ -23,6 +32,20 @@ const Search: React.FC = () => {
       dropdown &&
         dropdown.current &&
         dropdown.current.classList.remove('active');
+    }
+  };
+  const searchResultsCloseListener = (event: MouseEvent) => {
+    const target = event.target as Element;
+    const resultsContainer = document.querySelector(
+      '.bookCollection__search__searchBox_searchField_results'
+    );
+
+    if (
+      target.className.includes('bookCollection__search') ||
+      target.className.includes('fa-search')
+    ) {
+    } else {
+      resultsContainer?.classList.remove('active');
     }
   };
 
@@ -42,6 +65,54 @@ const Search: React.FC = () => {
     defaultElement && (defaultElement.innerHTML = text);
     document.body.removeEventListener('click', dropdownCloseListener);
     setActiveCategory(text);
+  };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+    if (e.target.value.length >= 2) {
+      setTimeout(() => {
+        loadSearch();
+      }, 200);
+    }
+  };
+  const showSearchResults = () => {
+    const dataArr = data.search;
+    const resultsContainer = document.querySelector(
+      '.bookCollection__search__searchBox_searchField_results'
+    );
+    resultsContainer?.classList.add('active');
+    document.body.addEventListener('click', searchResultsCloseListener);
+
+    return dataArr.map((record: RecordType) => {
+      let linkPath = '';
+      switch (activeCategory) {
+        case 'Author':
+          linkPath = 'authors';
+          break;
+        case 'Book':
+          linkPath = 'books';
+          break;
+        case 'Publisher':
+          linkPath = 'publishers';
+          break;
+        default:
+          break;
+      }
+      return (
+        <div
+          className='bookCollection__search__searchBox_searchField_results_item'
+          key={record.id}
+        >
+          <Link
+            to={`${linkPath}/${record.id.slice(-10)}`}
+            state={{ id: record.id }}
+          >
+            {record.title ? record.title : null}
+            {record.lastName ? `${record.lastName} ${record.firstName}` : null}
+            {record.name ? record.name : null}
+          </Link>
+        </div>
+      );
+    });
   };
 
   return (
@@ -85,12 +156,15 @@ const Search: React.FC = () => {
             className='bookCollection__search__searchBox_searchField_input'
             placeholder='Search'
             value={searchInput}
-            onChange={e => {
-              setSearchInput(e.target.value);
-            }}
+            onChange={e => handleInputChange(e)}
             type='text'
           />
           <i className='fas fa-search'></i>
+          <div className='bookCollection__search__searchBox_searchField_results'>
+            {called && error && <Error text={error.message} />}
+            {called && loading && !data && <LoadingSpinner />}
+            {data && !loading && !error && showSearchResults()}
+          </div>
         </div>
       </div>
     </div>
