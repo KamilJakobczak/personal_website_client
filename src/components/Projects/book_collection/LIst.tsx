@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 interface ListProps {
@@ -21,10 +20,6 @@ export interface RecordType {
 }
 
 const List: React.FC<ListProps> = ({ data, nested }) => {
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   const linkPath = (record: RecordType) => {
     const pathId = record.id.slice(-10);
     if (!nested) {
@@ -44,7 +39,6 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
             <Link
               className='router_link'
               to={linkPath(record) || ''}
-              // relative='apps/collection/books/'
               state={{ id: record.id }}
             >
               {record.title ? record.title : null}

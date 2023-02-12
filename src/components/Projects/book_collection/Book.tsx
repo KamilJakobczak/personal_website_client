@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { imageApi } from '../../../server';
 
 interface BookProps {
   data: {
+    id: string;
     title: string;
     language: string;
     authors: {
@@ -26,7 +28,33 @@ interface BookProps {
 
 const Book: React.FC<BookProps> = ({ data }) => {
   const { authors, bookGenres, publisher } = data;
+  const [coverSize, setCoverSize] = useState('');
+  // let windowWidth = window.innerWidth;
+  // useEffect(() => {
+  //   windowWidth = window.innerWidth;
+  // }, [windowWidth]);
+  useEffect(() => {
+    function handleResize() {
+      const currentWidth = window.innerWidth;
+      if (currentWidth > 768) {
+        if (currentWidth > 1200) {
+          setCoverSize('big');
+        } else {
+          setCoverSize('medium');
+        }
+      } else {
+        setCoverSize('small');
+      }
+    }
 
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
+  console.log(data);
   const showAuthors = () => {
     let counter = 1;
     return authors.map(author => {
@@ -84,7 +112,10 @@ const Book: React.FC<BookProps> = ({ data }) => {
       <h4 className='book__title'>{data.title}</h4>
       <div className='book__cover'>
         <div className='book__cover_img'>
-          <img src='' alt='' />
+          <img
+            src={`${imageApi}/covers/${data.id}/${coverSize}`}
+            alt='book_cover'
+          />
         </div>
       </div>
       <div className='book__data'>
