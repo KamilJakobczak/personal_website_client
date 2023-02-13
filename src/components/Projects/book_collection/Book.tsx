@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { imageApi } from '../../../server';
+import { resizeHelper } from './handlers/resizeHelper';
 
 interface BookProps {
   data: {
@@ -29,22 +30,15 @@ interface BookProps {
 const Book: React.FC<BookProps> = ({ data }) => {
   const { authors, bookGenres, publisher } = data;
   const [coverSize, setCoverSize] = useState('');
-  // let windowWidth = window.innerWidth;
-  // useEffect(() => {
-  //   windowWidth = window.innerWidth;
-  // }, [windowWidth]);
+
+  useEffect(() => {
+    resizeHelper(window.innerWidth, setCoverSize);
+  }, []);
+
   useEffect(() => {
     function handleResize() {
       const currentWidth = window.innerWidth;
-      if (currentWidth > 768) {
-        if (currentWidth > 1200) {
-          setCoverSize('big');
-        } else {
-          setCoverSize('medium');
-        }
-      } else {
-        setCoverSize('small');
-      }
+      resizeHelper(currentWidth, setCoverSize);
     }
 
     window.addEventListener('resize', handleResize);
@@ -54,7 +48,6 @@ const Book: React.FC<BookProps> = ({ data }) => {
     };
   });
 
-  console.log(data);
   const showAuthors = () => {
     let counter = 1;
     return authors.map(author => {
