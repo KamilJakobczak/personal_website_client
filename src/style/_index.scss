@@ -9,10 +9,7 @@ body {
     flex-direction: column;
   }
   #apps {
-    position: relative;
-    margin-bottom: 25px;
-    top: 5vh;
-    left: 0;
+    flex-basis: 90;
     background-color: $apps_background;
     color: $fourth-color;
     flex-grow: 20;

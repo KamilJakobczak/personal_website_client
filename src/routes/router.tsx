@@ -18,7 +18,7 @@ import {
 } from '../GraphQL/queries';
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
-import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
+import AddBookForm from '../components/Projects/book_collection/adding_records/AddBookForm';
 import AddPublisher from '../components/Projects/book_collection/adding_records/AddPublisher';
 import NewRecords from '../components/Projects/book_collection/adding_records/NewRecords';
 import AddGenre from '../components/Projects/book_collection/adding_records/AddGenre';
@@ -27,6 +27,9 @@ import AddTranslator from '../components/Projects/book_collection/adding_records
 import AddAuthor from '../components/Projects/book_collection/adding_records/AddAuthor';
 import BookList from '../components/Projects/book_collection/BookList';
 import CollectionList from '../components/Projects/book_collection/CollectionList';
+import UploadBook from '../components/Projects/book_collection/adding_records/UploadBook';
+import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
+import AddBookOptions from '../components/Projects/book_collection/adding_records/AddBookOptions';
 
 export const router = createBrowserRouter([
   {
@@ -68,7 +71,25 @@ export const router = createBrowserRouter([
           },
 
           { path: '/apps/collection/add/genre', element: <AddGenre /> },
-          { path: '/apps/collection/add/book/manual', element: <AddBook /> },
+          {
+            path: '/apps/collection/add/book',
+            element: <AddBook />,
+            children: [
+              {
+                path: '/apps/collection/add/book',
+                element: <AddBookOptions />,
+              },
+              {
+                path: '/apps/collection/add/book/upload',
+                element: <UploadBook />,
+              },
+              {
+                path: '/apps/collection/add/book/manual',
+                element: <AddBookForm />,
+              },
+            ],
+          },
+
           { path: '/apps/collection/add/author', element: <AddAuthor /> },
           { path: '/apps/collection/add/publisher', element: <AddPublisher /> },
           {

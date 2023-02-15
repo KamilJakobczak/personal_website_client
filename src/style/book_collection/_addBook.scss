@@ -1,27 +1,66 @@
-@mixin noArrowsNumberInput {
-  input {
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+// @mixin noArrowsNumberInput {
+//   input {
+//     &::-webkit-outer-spin-button,
+//     &::-webkit-inner-spin-button {
+//       -webkit-appearance: none;
+//       margin: 0;
+//     }
+//     &[type='number'] {
+//       -moz-appearance: textfield;
+//     }
+//   }
+// }
+
+.bookCollection {
+  &__addBook {
+    min-height: 200px;
+    width: 80%;
+    margin: 0 auto;
+    &_options {
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &_button {
+        height: 50px;
+      }
     }
-    &[type='number'] {
-      -moz-appearance: textfield;
+    &__upload {
+      &_file-details {
+      }
+      form {
+        margin-top: 25px;
+      }
+      &_submit {
+        &.collection_button {
+          margin-top: 10px;
+          font-size: $font-size-medium;
+        }
+      }
+      &_uploader {
+        &.file-uploader {
+          margin: 10px auto;
+          // padding: 10px;
+          font-size: $font-size-medium;
+        }
+      }
     }
   }
 }
 
-.add_book {
-  .upload {
-  }
-  .add_book__form {
-    &_element {
-      &__pages {
-        @include noArrowsNumberInput();
-      }
-      &__firstEdition {
-        @include noArrowsNumberInput();
-      }
-    }
-  }
-}
+// .add_book {
+//   .upload {
+//   }
+//   .add_book__form {
+//     &_element {
+//       &__pages {
+//         @include noArrowsNumberInput();
+//       }
+//       &__firstEdition {
+//         @include noArrowsNumberInput();
+//       }
+//     }
+//   }
+// }

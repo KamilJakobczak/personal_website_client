@@ -7,7 +7,7 @@ const BookCollection: React.FC = () => {
     { id: 0, element: 'books' },
     { id: 1, element: 'authors' },
     { id: 2, element: 'publishers' },
-    // { id: 3, element: 'add' },
+    { id: 3, element: 'add' },
   ];
 
   return (

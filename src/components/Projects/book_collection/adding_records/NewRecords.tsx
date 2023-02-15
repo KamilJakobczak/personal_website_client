@@ -9,41 +9,9 @@ import Button from '../Button';
 // }
 
 const NewRecords: React.FC = () => {
-  const [buttons, setButtons] = useState(true);
-  const [book, setBook] = useState(false);
-
-  const showBookOptions = () => {
-    return (
-      <div className='new_records__add_book_options'>
-        <Button
-          className='new_records__add_book_options__button'
-          text='go back'
-          handleClick={() => {
-            setButtons(true);
-            setBook(false);
-          }}
-        />
-        <Button
-          className='new_records__add_book_options__button'
-          linkPath='/apps/collection/add/book/upload'
-          text='upload an epub file'
-        />
-        <Button
-          className='new_records__add_book_options__button'
-          linkPath='/apps/collection/add/book/manual'
-          text='input info by yourself'
-        />
-      </div>
-    );
-  };
-
-  const handleBookButtonClick = () => {
-    setBook(true);
-    setButtons(false);
-  };
-
   const showButtons = () => {
     const elements = [
+      'book',
       'author',
       'genre',
       'publisher',
@@ -52,11 +20,6 @@ const NewRecords: React.FC = () => {
     ];
     return (
       <>
-        <Button
-          className='new_records__item'
-          text='book'
-          handleClick={handleBookButtonClick}
-        />
         {elements.map(element => {
           return (
             <Button
@@ -72,11 +35,6 @@ const NewRecords: React.FC = () => {
     );
   };
 
-  return (
-    <div className='new_records'>
-      {book && showBookOptions()}
-      {buttons && showButtons()}
-    </div>
-  );
+  return <div className='new_records'>{showButtons()}</div>;
 };
 export default NewRecords;
