@@ -16,6 +16,19 @@
     min-height: 200px;
     width: 80%;
     margin: 0 auto;
+    &__bookForm {
+      &__form {
+        .addBookForm_element {
+          &_cover:nth-child(1) {
+            width: 100px;
+            height: 200px;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
     &_options {
       width: 50%;
       position: absolute;

@@ -2,9 +2,11 @@ import FileUploader from '../FileUploader';
 import { useState } from 'react';
 import axios from 'axios';
 import { uploadAPI } from '../../../../server';
+import AddBookForm from './AddBookForm';
 const UploadBook: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showDetails, setShowDetails] = useState(false);
+  const [parsedData, setParsedData] = useState<{}>();
 
   const onFileSelectSuccess = (file: File) => {
     console.log(file);
@@ -18,7 +20,8 @@ const UploadBook: React.FC = () => {
     axios
       .post(`${uploadAPI}`, formData)
       .then(res => {
-        console.log(res);
+        setParsedData(res.data);
+        console.log(res.data);
         alert('file upload success');
       })
       .catch(err => {
@@ -46,22 +49,25 @@ const UploadBook: React.FC = () => {
           available data will be processed and sent back here for verification.
         </p>
       )}
-      <form>
-        {showDetails && fileDetails()}
-        {selectedFile && (
-          <div
-            className='bookCollection__addBook__upload_submit collection_button'
-            onClick={submitForm}
-          >
-            Submit
-          </div>
-        )}
-        <FileUploader
-          onFileSelectSuccess={onFileSelectSuccess}
-          className='bookCollection__addBook__upload_uploader collection_button'
-          text={showDetails ? 'Pick a different file' : null}
-        />
-      </form>
+      {!parsedData && (
+        <form>
+          {showDetails && fileDetails()}
+          {selectedFile && (
+            <div
+              className='bookCollection__addBook__upload_submit collection_button'
+              onClick={submitForm}
+            >
+              Submit
+            </div>
+          )}
+          <FileUploader
+            onFileSelectSuccess={onFileSelectSuccess}
+            className='bookCollection__addBook__upload_uploader collection_button'
+            text={showDetails ? 'Pick a different file' : null}
+          />
+        </form>
+      )}
+      {parsedData && <AddBookForm uploadedData={parsedData} />}
     </div>
   );
 };

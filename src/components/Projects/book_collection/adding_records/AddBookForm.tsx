@@ -9,14 +9,36 @@ import { checkIsbn } from '../handlers/checkIsbn';
 import { useMutation } from '@apollo/client';
 import { ADD_BOOK } from '../../../../GraphQL/mutations';
 import SuccessMessage from '../SuccessMessage';
+import Button from '../Button';
+
+interface AddBookFormProps {
+  uploadedData?: {
+    author?: string;
+    genre?: string;
+    publisher?: {
+      id: string;
+      name: string;
+    };
+    title?: string;
+    language?: string;
+    cover?: string;
+  };
+}
 
 enum Language {
-  Polish = 'POLISH',
-  English = 'ENGLISH',
+  Polish = 'Polish',
+  English = 'English',
 }
-const AddBookForm: React.FC = () => {
+const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
   // FETCHING DATA
+  console.log(uploadedData);
   const { data, errors, loading } = useQueries();
+  const uploadedAuthor = uploadedData?.author;
+  const uploadedGenre = uploadedData?.genre;
+  const uploadedPublisher = uploadedData?.publisher;
+  const uploadedTitle = uploadedData?.title;
+  const uploadedLanguage = uploadedData?.language;
+  const uploadedCover = uploadedData?.cover;
 
   // CONTROL STATES
   const [authorsSelectCounter, setAuthorsSelectCounter] = useState([0]);
@@ -30,10 +52,10 @@ const AddBookForm: React.FC = () => {
 
   // FORM VALUES
 
-  const [title, setTitle] = useState('');
-  const [language, setLanguage] = useState('POLISH');
+  const [title, setTitle] = useState(uploadedTitle || '');
+  const [language, setLanguage] = useState(uploadedLanguage || 'POLISH');
   const [genres, setGenres] = useState<string[]>([]);
-  const [publisher, setPublisher] = useState('');
+  const [publisher, setPublisher] = useState(uploadedPublisher || '');
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [collections, setCollections] = useState<string[]>([]);
@@ -101,11 +123,7 @@ const AddBookForm: React.FC = () => {
     }
   };
 
-  const handleBookSubmit = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
-
+  const handleBookSubmit = () => {
     addBook({
       variables: {
         title,
@@ -125,10 +143,11 @@ const AddBookForm: React.FC = () => {
   // RENDER ELEMENTS
   const showForm = () => {
     return (
-      <form
-        className='bookCollection__addBook__bookForm__form addBookForm'
-        action=''
-      >
+      <form className='bookCollection__addBook__bookForm__form addBookForm'>
+        <div className='addBookForm_element addBookForm_element_cover'>
+          <img src={uploadedCover} alt='' />
+        </div>
+
         <div className='addBookForm_element addBookForm_element_title'>
           <label htmlFor='title'>title:</label>
           <input
@@ -207,7 +226,9 @@ const AddBookForm: React.FC = () => {
             name='publishers'
             onChange={e => setPublisher(e.target.value)}
           >
-            <option value=''>-- find me --</option>
+            <option value={uploadedPublisher ? uploadedPublisher.id : ''}>
+              {uploadedPublisher ? uploadedPublisher.name : '-- find me --'}
+            </option>
             {data.publishers.map((publisher: { id: string; name: string }) => {
               return (
                 <option
@@ -299,7 +320,7 @@ const AddBookForm: React.FC = () => {
             })}
           </div>
         )}
-        <button onClick={e => handleBookSubmit(e)}>submit</button>
+        <Button handleClick={handleBookSubmit} text='submit' className='' />
       </form>
     );
   };
