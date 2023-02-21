@@ -1,6 +1,6 @@
 import { useQueries } from '../hooks/useQueries';
 import Select from '../Select';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoadingSpinner from '../../../LoadingSpinner';
 import Error from '../../../Error';
 import { regexValidator } from '../handlers';
@@ -11,17 +11,21 @@ import { ADD_BOOK } from '../../../../GraphQL/mutations';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
 
-interface AddBookFormProps {
+export interface AddBookFormProps {
   uploadedData?: {
-    author?: string;
-    genre?: string;
-    publisher?: {
-      id: string;
-      name: string;
-    };
+    authors: { existing: string[] | null; new: string[] | null } | null;
+    genres: { existing: string[] | null; new: string[] | null } | null;
+    publisher: {
+      existing: {
+        id: string;
+        name: string;
+      } | null;
+      new: string | null;
+    } | null;
     title?: string;
     language?: string;
     cover?: string;
+    description?: string;
   };
 }
 
@@ -31,10 +35,11 @@ enum Language {
 }
 const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
   // FETCHING DATA
-  console.log(uploadedData);
+  // console.log(uploadedData);
   const { data, errors, loading } = useQueries();
-  const uploadedAuthor = uploadedData?.author;
-  const uploadedGenre = uploadedData?.genre;
+  const uploadedAuthors = uploadedData?.authors;
+  const uploadedGenres = uploadedData?.genres;
+  const uploadedDescription = uploadedData?.description;
   const uploadedPublisher = uploadedData?.publisher;
   const uploadedTitle = uploadedData?.title;
   const uploadedLanguage = uploadedData?.language;
@@ -55,13 +60,42 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
   const [title, setTitle] = useState(uploadedTitle || '');
   const [language, setLanguage] = useState(uploadedLanguage || 'POLISH');
   const [genres, setGenres] = useState<string[]>([]);
-  const [publisher, setPublisher] = useState(uploadedPublisher || '');
+  const [publisher, setPublisher] = useState(
+    uploadedPublisher ? uploadedPublisher.existing : ''
+  );
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [collections, setCollections] = useState<string[]>([]);
   const [isbn, setIsbn] = useState('');
   const [pages, setPages] = useState('');
   const [firstEdition, setFirstEdition] = useState('');
+
+  const loadReceivedData = (
+    item: { existing: string[] | null; new: string[] | null } | null,
+    setItemState: React.Dispatch<React.SetStateAction<string[]>>,
+    setCounterState: React.Dispatch<React.SetStateAction<number[]>>
+  ) => {
+    if (item && item.existing) {
+      const dataArr = item.existing;
+
+      for (let i = 0; i < dataArr.length; i++) {
+        const element = item.existing[i];
+        if (i === 0) {
+          setItemState([element]);
+        } else {
+          setCounterState(prevState => [...prevState, i]);
+          setItemState(prevState => [...prevState, element]);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    uploadedAuthors &&
+      loadReceivedData(uploadedAuthors, setAuthors, setAuthorsSelectCounter);
+    uploadedGenres &&
+      loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
+  }, []);
 
   const [
     addBook,
@@ -226,8 +260,14 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
             name='publishers'
             onChange={e => setPublisher(e.target.value)}
           >
-            <option value={uploadedPublisher ? uploadedPublisher.id : ''}>
-              {uploadedPublisher ? uploadedPublisher.name : '-- find me --'}
+            <option
+              value={
+                uploadedPublisher?.existing ? uploadedPublisher.existing.id : ''
+              }
+            >
+              {uploadedPublisher?.existing
+                ? uploadedPublisher.existing.name
+                : '-- find me --'}
             </option>
             {data.publishers.map((publisher: { id: string; name: string }) => {
               return (

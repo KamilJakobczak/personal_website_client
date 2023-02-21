@@ -6,10 +6,9 @@ import AddBookForm from './AddBookForm';
 const UploadBook: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [parsedData, setParsedData] = useState<{}>();
+  const [parsedData, setParsedData] = useState();
 
   const onFileSelectSuccess = (file: File) => {
-    console.log(file);
     setSelectedFile(file);
     setShowDetails(true);
   };
@@ -21,7 +20,6 @@ const UploadBook: React.FC = () => {
       .post(`${uploadAPI}`, formData)
       .then(res => {
         setParsedData(res.data);
-        console.log(res.data);
         alert('file upload success');
       })
       .catch(err => {
