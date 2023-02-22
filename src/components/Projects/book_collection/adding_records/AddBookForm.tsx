@@ -11,9 +11,9 @@ import { ADD_BOOK } from '../../../../GraphQL/mutations';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
 
-export interface AddBookFormProps {
+interface AddBookFormProps {
   uploadedData?: {
-    authors: { existing: string[] | null; new: string[] | null } | null;
+    authors: { existing: string[] | null; new: string[][] | null } | null;
     genres: { existing: string[] | null; new: string[] | null } | null;
     publisher: {
       existing: {
@@ -71,10 +71,14 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
   const [firstEdition, setFirstEdition] = useState('');
 
   const loadReceivedData = (
-    item: { existing: string[] | null; new: string[] | null } | null,
+    item: {
+      existing: string[] | null;
+      new: string[] | string[][] | null;
+    } | null,
     setItemState: React.Dispatch<React.SetStateAction<string[]>>,
     setCounterState: React.Dispatch<React.SetStateAction<number[]>>
   ) => {
+    console.log(item);
     if (item && item.existing) {
       const dataArr = item.existing;
 
@@ -87,6 +91,9 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
           setItemState(prevState => [...prevState, element]);
         }
       }
+    }
+
+    if (item && item.new) {
     }
   };
 
