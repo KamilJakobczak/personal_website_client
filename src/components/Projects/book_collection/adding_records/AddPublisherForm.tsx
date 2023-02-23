@@ -8,8 +8,20 @@ import SuccessMessage from '../SuccessMessage';
 import LoadingSpinner from '../../../LoadingSpinner';
 import { lastNameRegex, nameRegex, websiteRegex } from '../regex';
 
-const AddPublisher: React.FC = () => {
-  const [name, setName] = useState('');
+interface AddPublisherFormProps {
+  goBackButton: boolean;
+  className?: string;
+  publisher?: string;
+  onAdded?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
+  goBackButton,
+  className,
+  publisher,
+  onAdded,
+}) => {
+  const [name, setName] = useState(publisher || '');
   const [website, setWebsite] = useState('');
   const [country, setCountry] = useState('');
   const [zipCode, setZipCode] = useState('');
@@ -29,6 +41,7 @@ const AddPublisher: React.FC = () => {
   const onCompleted = (data: any) => {
     if (data.addPublisher.userErrors[0].message) {
       setUserError(data.addPublisher.userErrors[0].message);
+      onAdded && onAdded(' ');
     }
     if (data.addPublisher.publisher) {
       setName('');
@@ -41,6 +54,7 @@ const AddPublisher: React.FC = () => {
       setPlaceNr('');
       setUserError('');
       setSuccessMessage(data.addPublisher.publisher.name);
+      onAdded && onAdded(data.addPublisher.publisher.id);
 
       setTimeout(() => {
         setSuccessMessage('');
@@ -198,8 +212,12 @@ const AddPublisher: React.FC = () => {
   };
 
   return (
-    <div className='add_publisher new'>
-      <Button className='add_publisher__button' text='go back' goBack={true} />
+    <div className={`${className} addPublisher`}>
+      <Button
+        className='add_publisher__button'
+        text='go back'
+        goBack={goBackButton}
+      />
       {data && successMessage ? (
         <SuccessMessage item='publisher' successMessage={successMessage} />
       ) : null}
@@ -210,4 +228,4 @@ const AddPublisher: React.FC = () => {
   );
 };
 
-export default AddPublisher;
+export default AddPublisherForm;

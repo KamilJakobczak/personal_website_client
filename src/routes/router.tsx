@@ -19,17 +19,17 @@ import {
 
 import SingleRecord from '../components/Projects/book_collection/SingleRecord';
 import AddBookForm from '../components/Projects/book_collection/adding_records/AddBookForm';
-import AddPublisher from '../components/Projects/book_collection/adding_records/AddPublisher';
+import AddPublisherForm from '../components/Projects/book_collection/adding_records/AddPublisherForm';
 import NewRecords from '../components/Projects/book_collection/adding_records/NewRecords';
-import AddGenre from '../components/Projects/book_collection/adding_records/AddGenre';
+import AddGenreForm from '../components/Projects/book_collection/adding_records/AddGenreForm';
 import AddCollection from '../components/Projects/book_collection/adding_records/AddCollection';
 import AddTranslator from '../components/Projects/book_collection/adding_records/AddTranslator';
-import AddAuthor from '../components/Projects/book_collection/adding_records/AddAuthor';
 import BookList from '../components/Projects/book_collection/BookList';
 import CollectionList from '../components/Projects/book_collection/CollectionList';
 import UploadBook from '../components/Projects/book_collection/adding_records/UploadBook';
 import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
 import AddBookOptions from '../components/Projects/book_collection/adding_records/AddBookOptions';
+import AddAuthorForm from '../components/Projects/book_collection/adding_records/AddAuthorForm';
 
 export const router = createBrowserRouter([
   {
@@ -70,7 +70,10 @@ export const router = createBrowserRouter([
             element: <CollectionList query={LOAD_PUBLISHERS} />,
           },
 
-          { path: '/apps/collection/add/genre', element: <AddGenre /> },
+          {
+            path: '/apps/collection/add/genre',
+            element: <AddGenreForm goBackButton={true} />,
+          },
           {
             path: '/apps/collection/add/book',
             element: <AddBook />,
@@ -90,8 +93,14 @@ export const router = createBrowserRouter([
             ],
           },
 
-          { path: '/apps/collection/add/author', element: <AddAuthor /> },
-          { path: '/apps/collection/add/publisher', element: <AddPublisher /> },
+          {
+            path: '/apps/collection/add/author',
+            element: <AddAuthorForm className='' goBackButton={true} />,
+          },
+          {
+            path: '/apps/collection/add/publisher',
+            element: <AddPublisherForm goBackButton={true} />,
+          },
           {
             path: '/apps/collection/add/translator',
             element: <AddTranslator />,

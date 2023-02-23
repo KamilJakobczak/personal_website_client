@@ -8,9 +8,28 @@ import { invalidValue, regexValidator } from '../handlers';
 import { lastNameRegex, nameRegex, numbersRegex, websiteRegex } from '../regex';
 import SuccessMessage from '../SuccessMessage';
 
-const AddAuthor: React.FC = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+interface AddAuthorFormProps {
+  goBackButton: boolean;
+  className: string;
+  author?: {
+    firstName: string;
+    secondName: string;
+    thirdName: string;
+    lastName: string;
+  };
+  onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
+  goBackButton,
+  className,
+  author,
+  onAdded,
+}) => {
+  const [firstName, setFirstName] = useState(author?.firstName || '');
+  const [lastName, setLastName] = useState(author?.lastName || '');
+  const [secondName, setSecondName] = useState(author?.secondName || '');
+  const [thirdName, setThirdName] = useState(author?.thirdName || '');
   const [nationality, setNationality] = useState('');
   const [birthYear, setBirthYear] = useState('');
   const [deathYear, setDeathYear] = useState('');
@@ -30,9 +49,12 @@ const AddAuthor: React.FC = () => {
   const onCompleted = (data: any) => {
     if (data.addAuthor.userErrors[0].message) {
       setUserError(data.addAuthor.userErrors[0].message);
+      onAdded && onAdded(prevState => [...prevState, ' ']);
     }
     if (data.addAuthor.author) {
       setFirstName('');
+      setSecondName('');
+      setThirdName('');
       setLastName('');
       setNationality('');
       setBirthYear('');
@@ -44,6 +66,7 @@ const AddAuthor: React.FC = () => {
       setSuccessMessage(
         data.addAuthor.author.firstName + ' ' + data.addAuthor.author.lastName
       );
+      onAdded && onAdded(prevState => [...prevState, data.addAuthor.author.id]);
 
       setTimeout(() => {
         setSuccessMessage('');
@@ -57,6 +80,12 @@ const AddAuthor: React.FC = () => {
     switch (id) {
       case 'firstName':
         regexValidator(nameRegex, value, setFirstName);
+        break;
+      case 'secondName':
+        regexValidator(nameRegex, value, setSecondName);
+        break;
+      case 'thirdName':
+        regexValidator(nameRegex, value, setThirdName);
         break;
       case 'lastName':
         regexValidator(lastNameRegex, value, setLastName);
@@ -119,8 +148,8 @@ const AddAuthor: React.FC = () => {
 
   const showForm = () => {
     return (
-      <form action='add_author__form' autoComplete='off'>
-        <div className='add_author__form_element'>
+      <form className='addAuthor__form' autoComplete='off'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='firstName'>first name</label>
           <input
             type='text'
@@ -130,7 +159,27 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
+          <label htmlFor='secondName'>first name</label>
+          <input
+            type='text'
+            id='secondName'
+            required
+            value={secondName}
+            onChange={e => handleInputs(e)}
+          />
+        </div>
+        <div className='addAuthor__form_element'>
+          <label htmlFor='thirdName'>first name</label>
+          <input
+            type='text'
+            id='thirdName'
+            required
+            value={thirdName}
+            onChange={e => handleInputs(e)}
+          />
+        </div>
+        <div className='addAuthor__form_element'>
           <label htmlFor='lastName'>last name</label>
           <input
             type='text'
@@ -140,7 +189,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='nationality'>nationality</label>
           <input
             type='text'
@@ -149,7 +198,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='birth'>born in</label>
           <input
             type='text'
@@ -158,7 +207,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='death'>died in</label>
           <input
             type='text'
@@ -167,7 +216,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='wiki'>Wikipedia</label>
           <input
             name='link'
@@ -177,7 +226,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='goodreads'>goodreads</label>
           <input
             name='link'
@@ -187,7 +236,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='add_author__form_element'>
+        <div className='addAuthor__form_element'>
           <label htmlFor='lubimyczytac'>lubimyczytac</label>
           <input
             name='link'
@@ -197,10 +246,7 @@ const AddAuthor: React.FC = () => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <Button
-          className='add_author__form_button'
-          handleClick={handleSubmit}
-        />
+        <Button className='addAuthor__form_button' handleClick={handleSubmit} />
       </form>
     );
   };
@@ -214,8 +260,12 @@ const AddAuthor: React.FC = () => {
   };
 
   return (
-    <div className='add_author new'>
-      <Button className='add_author__button' text='go back' goBack={true} />
+    <div className={`${className} addAuthor`}>
+      <Button
+        className='addAuthor__button'
+        text='go back'
+        goBack={goBackButton}
+      />
       {data && successMessage ? (
         <SuccessMessage item='author' successMessage={successMessage} />
       ) : null}
@@ -226,4 +276,4 @@ const AddAuthor: React.FC = () => {
   );
 };
 
-export default AddAuthor;
+export default AddAuthorForm;

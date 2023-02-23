@@ -8,8 +8,20 @@ import { regexValidator } from '../handlers/regexValidator';
 import { smallLettersRegex } from '../regex';
 import SuccessMessage from '../SuccessMessage';
 
-const AddGenre: React.FC = () => {
-  const [name, setName] = useState('');
+interface AddGenreFormProps {
+  goBackButton: boolean;
+  className?: string;
+  genre?: string;
+  onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const AddGenreForm: React.FC<AddGenreFormProps> = ({
+  goBackButton,
+  className,
+  genre,
+  onAdded,
+}) => {
+  const [name, setName] = useState(genre || '');
   const [successMessage, setSuccessMessage] = useState('');
   const [userError, setUserError] = useState('');
 
@@ -18,10 +30,12 @@ const AddGenre: React.FC = () => {
       setName('');
       if (data.addGenre.userErrors[0].message) {
         setUserError(data.addGenre.userErrors[0].message);
+        onAdded && onAdded(prevState => [...prevState, ' ']);
       }
       if (data.addGenre.genre) {
         setUserError('');
         setSuccessMessage(data.addGenre.genre.name);
+        onAdded && onAdded(prevState => [...prevState, data.addGenre.genre.id]);
 
         setTimeout(() => {
           setSuccessMessage('');
@@ -72,8 +86,12 @@ const AddGenre: React.FC = () => {
   };
 
   return (
-    <div className='add_genre new'>
-      <Button className='add_genre__button' text='go back' goBack={true} />
+    <div className={`${className} addGenre`}>
+      <Button
+        className='add_genre__button'
+        text='go back'
+        goBack={goBackButton}
+      />
       {data && successMessage ? (
         <SuccessMessage item='genre' successMessage={successMessage} />
       ) : null}
@@ -85,4 +103,4 @@ const AddGenre: React.FC = () => {
   );
 };
 
-export default AddGenre;
+export default AddGenreForm;

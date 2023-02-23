@@ -11,21 +11,15 @@ import { ADD_BOOK } from '../../../../GraphQL/mutations';
 import SuccessMessage from '../SuccessMessage';
 import Button from '../Button';
 
-interface AddBookFormProps {
-  uploadedData?: {
-    authors: { existing: string[] | null; new: string[][] | null } | null;
-    genres: { existing: string[] | null; new: string[] | null } | null;
-    publisher: {
-      existing: {
-        id: string;
-        name: string;
-      } | null;
-      new: string | null;
-    } | null;
-    title?: string;
-    language?: string;
-    cover?: string;
-    description?: string;
+export interface AddBookFormProps {
+  epubData?: {
+    title: string;
+    authors: string[] | null;
+    genres: string[] | null;
+    publisher: { id: string; name: string } | null;
+    description: string;
+    language: string;
+    cover: string;
   };
 }
 
@@ -33,17 +27,17 @@ enum Language {
   Polish = 'Polish',
   English = 'English',
 }
-const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
+const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   // FETCHING DATA
-  // console.log(uploadedData);
+  console.log(epubData);
   const { data, errors, loading } = useQueries();
-  const uploadedAuthors = uploadedData?.authors;
-  const uploadedGenres = uploadedData?.genres;
-  const uploadedDescription = uploadedData?.description;
-  const uploadedPublisher = uploadedData?.publisher;
-  const uploadedTitle = uploadedData?.title;
-  const uploadedLanguage = uploadedData?.language;
-  const uploadedCover = uploadedData?.cover;
+  const uploadedAuthors = epubData?.authors;
+  const uploadedGenres = epubData?.genres;
+  const uploadedDescription = epubData?.description;
+  const uploadedPublisher = epubData?.publisher;
+  const uploadedTitle = epubData?.title;
+  const uploadedLanguage = epubData?.language;
+  const uploadedCover = epubData?.cover;
 
   // CONTROL STATES
   const [authorsSelectCounter, setAuthorsSelectCounter] = useState([0]);
@@ -60,9 +54,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
   const [title, setTitle] = useState(uploadedTitle || '');
   const [language, setLanguage] = useState(uploadedLanguage || 'POLISH');
   const [genres, setGenres] = useState<string[]>([]);
-  const [publisher, setPublisher] = useState(
-    uploadedPublisher ? uploadedPublisher.existing : ''
-  );
+  const [publisher, setPublisher] = useState(uploadedPublisher || '');
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [collections, setCollections] = useState<string[]>([]);
@@ -71,19 +63,16 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
   const [firstEdition, setFirstEdition] = useState('');
 
   const loadReceivedData = (
-    item: {
-      existing: string[] | null;
-      new: string[] | string[][] | null;
-    } | null,
+    item: string[] | null,
     setItemState: React.Dispatch<React.SetStateAction<string[]>>,
     setCounterState: React.Dispatch<React.SetStateAction<number[]>>
   ) => {
     console.log(item);
-    if (item && item.existing) {
-      const dataArr = item.existing;
+    if (item) {
+      const dataArr = item;
 
       for (let i = 0; i < dataArr.length; i++) {
-        const element = item.existing[i];
+        const element = item[i];
         if (i === 0) {
           setItemState([element]);
         } else {
@@ -91,9 +80,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
           setItemState(prevState => [...prevState, element]);
         }
       }
-    }
-
-    if (item && item.new) {
     }
   };
 
@@ -267,14 +253,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ uploadedData }) => {
             name='publishers'
             onChange={e => setPublisher(e.target.value)}
           >
-            <option
-              value={
-                uploadedPublisher?.existing ? uploadedPublisher.existing.id : ''
-              }
-            >
-              {uploadedPublisher?.existing
-                ? uploadedPublisher.existing.name
-                : '-- find me --'}
+            <option value={uploadedPublisher?.id || ''}>
+              {uploadedPublisher?.name || '-- find me --'}
             </option>
             {data.publishers.map((publisher: { id: string; name: string }) => {
               return (
