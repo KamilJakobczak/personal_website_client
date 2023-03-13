@@ -56,17 +56,19 @@ const UploadBook: React.FC = () => {
   const [newPublisher, setNewPublisher] = useState<string | null>();
   const [publisherAdded, setPublisherAdded] = useState('');
 
+  console.log(updatedData);
   useEffect(() => {
+    console.log(parsedData);
     if (parsedData) {
-      if (parsedData.authors && !newAuthors) {
+      if (parsedData.authors?.new && !newAuthors) {
         setNewAuthors(parsedData.authors.new);
         console.log('new authors');
       }
-      if (parsedData.genres && !newGenres) {
+      if (parsedData.genres?.new && !newGenres) {
         setNewGenres(parsedData.genres.new);
         console.log('new genres');
       }
-      if (parsedData.publisher && !newPublisher) {
+      if (parsedData.publisher?.new && !newPublisher) {
         setNewPublisher(parsedData.publisher.new);
         console.log('new publisher');
       }
@@ -84,15 +86,19 @@ const UploadBook: React.FC = () => {
       publisherAdded.includes(' ') === false
     ) {
       updateData();
-    } else if (
-      parsedData?.authors?.existing ||
-      parsedData?.genres?.existing ||
-      parsedData?.publisher?.existing
+    }
+    if (
+      parsedData &&
+      !parsedData.genres?.new &&
+      !parsedData.publisher?.new &&
+      !parsedData.authors?.new
     ) {
       updateData();
     }
-  }, [parsedData, authorsAdded, genresAdded, publisherAdded]);
 
+    /*eslint-disable*/
+  }, [parsedData, authorsAdded, genresAdded, publisherAdded]);
+  /*eslint-enable*/
   const showAddAuthor = () => {
     return (
       newAuthors &&
@@ -145,7 +151,35 @@ const UploadBook: React.FC = () => {
       )
     );
   };
-
+  const showAddMissingRecords = () => {
+    return (
+      (parsedData?.authors?.new ||
+        parsedData?.genres?.new ||
+        parsedData?.publisher?.new) && (
+        <div className='bookCollection__addBook__upload_missing'>
+          <p>Add following records to the database </p>
+          {parsedData?.authors?.new && (
+            <div className='bookCollection__addBook__upload_missing_authors'>
+              <p>Add new authors</p>
+              {showAddAuthor()}
+            </div>
+          )}
+          {parsedData?.genres?.new && (
+            <div className='bookCollection__addBook__upload_missing_genres'>
+              <p>Add new genres</p>
+              {showAddGenre()}
+            </div>
+          )}
+          {parsedData?.publisher?.new && (
+            <div className='bookCollection__addBook__upload_missing_publisher'>
+              <p>Add new publisher</p>
+              {showAddPublisher()}
+            </div>
+          )}
+        </div>
+      )
+    );
+  };
   const updateData = () => {
     if (parsedData) {
       const mergedAuthors = () => {
@@ -208,9 +242,7 @@ const UploadBook: React.FC = () => {
   return (
     <div className='bookCollection__addBook__upload'>
       {!parsedData && <UploadBookForm setParsedData={setParsedData} />}
-      {parsedData?.authors?.new && showAddAuthor()}
-      {parsedData?.genres?.new && showAddGenre()}
-      {parsedData?.publisher?.new && showAddPublisher()}
+      {showAddMissingRecords()}
       {updatedData && <AddBookForm epubData={updatedData} />}
     </div>
   );
