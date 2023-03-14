@@ -19,9 +19,9 @@ const Author: React.FC<AuthorProps> = ({ data }) => {
         {firstName} {lastName}
       </h4>
       <div className='author__cover'>
-        <div className='author__cover_img'>
+        {/* <div className='author__cover_img'>
           <img src='' alt='' />
-        </div>
+        </div> */}
       </div>
       <div className='author__data'>
         <p className='author__data_nationality'>

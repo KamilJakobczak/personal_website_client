@@ -1,0 +1,14 @@
+.filter_category {
+  flex-basis: 90%;
+  margin-top: 5px;
+  &_legend {
+    text-transform: capitalize;
+    padding-bottom: 1px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid;
+    font-size: $font-size-basic;
+  }
+  &_item {
+    margin-top: 1px;
+  }
+}

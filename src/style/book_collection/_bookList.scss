@@ -1,30 +1,25 @@
-.book_collection {
+.bookCollection {
   &__books {
+    width: 100%;
     &__filter {
+      width: 100%;
       &_hideButton {
-        margin-top: 10px;
+        width: 90%;
+        margin: 5px auto 5px;
+      }
+      &_showButton {
+        width: 90%;
+        margin: 0 auto;
       }
     }
     &__filters {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      > div {
-        flex-basis: 95%;
-        margin: 0px auto 5px;
-        & + div {
-          margin-top: 2px;
-        }
-
-        legend {
-          margin-bottom: 3px;
-        }
-        div {
-        }
-      }
+      justify-content: space-around;
       > div:nth-last-child(1) {
-        flex-basis: 100%;
-        margin-top: 5px;
+        flex-basis: 90%;
+        margin: 10px 0;
       }
     }
   }

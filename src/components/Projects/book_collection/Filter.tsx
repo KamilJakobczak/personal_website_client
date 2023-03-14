@@ -16,16 +16,14 @@ const Filter: React.FC<FilterProps> = ({
   filterOptions,
 }) => {
   const { name, data } = filterOptions;
-  const className = `book_collection__books__filters_${name}`;
+  const className = `filter_${name}`;
 
   return (
-    <div className={className}>
-      <legend className={`${className}_legend`}>
-        Pick one or more {name}:
-      </legend>
+    <div className={`filter_category ${className}`}>
+      <legend className={'filter_category_legend'}>{name}</legend>
       {data.map((item: any) => {
         return (
-          <div key={item.name} className={`${className}_item`}>
+          <div key={item.name} className={'filter_category_item'}>
             <label className='form-control' htmlFor={item.name}>
               <Checkbox
                 name={name}

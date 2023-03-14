@@ -35,7 +35,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     <>
       {data.map(record => {
         return (
-          <div className='book_collection__list_element' key={record.id}>
+          <div className='bookCollection__list_element' key={record.id}>
             <Link
               className='router_link'
               to={linkPath(record) || ''}

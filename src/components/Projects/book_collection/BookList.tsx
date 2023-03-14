@@ -25,24 +25,31 @@ const BookList: React.FC = () => {
   const showContent = () => {
     return (
       <>
+        {filtersVisible && (
+          <Button
+            className='bookCollection__books__filter_hideButton'
+            text='click to hide filters'
+            handleClick={handleFiltersClick}
+          />
+        )}
         {filtersVisible ? (
           <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} />
         ) : null}
         {filtersVisible ? (
           <Button
-            className='book_collection__books__filter_hideButton'
+            className='bookCollection__books__filter_hideButton'
             text='click to hide filters'
             handleClick={handleFiltersClick}
           />
         ) : (
           <Button
-            className='book_collection__books__filter_showButton'
+            className='bookCollection__books__filter_showButton'
             text='click to expand filters'
             handleClick={handleFiltersClick}
           />
         )}
         {data && (
-          <div className='book_collection__books_list book_collection__list'>
+          <div className='bookCollection__books_list bookCollection__list'>
             <List data={data.books} />
           </div>
         )}

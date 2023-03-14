@@ -22,7 +22,7 @@ const CollectionList: React.FC<ListProps> = ({ query }) => {
   }, [data]);
 
   return (
-    <div className='book_collection__list'>
+    <div className='bookCollection__list'>
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}
       {data && <List data={listData} />}

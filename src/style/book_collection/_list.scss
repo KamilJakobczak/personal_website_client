@@ -1,4 +1,4 @@
-.book_collection__list {
+.bookCollection__list {
   width: 100%;
   margin-top: 20px;
   display: flex;
@@ -6,9 +6,9 @@
   justify-content: space-around;
   // background-color: aliceblue;
   &_element {
-    flex-basis: 95%;
+    flex-basis: 90%;
     font-size: $font-size-basic;
-    & + .book_collection__list_element {
+    & + .bookCollection__list_element {
       margin-top: 5px;
     }
     // letter-spacing: 0.25px;
@@ -19,7 +19,7 @@
 }
 
 @media (min-width: $breakpoint-360) {
-  .book_collection__list {
+  .bookCollection__list {
     font-size: $font-size-medium;
 
     &_element {

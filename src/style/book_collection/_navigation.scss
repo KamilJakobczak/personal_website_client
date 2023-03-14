@@ -3,18 +3,18 @@
 
   &_ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     li {
       text-align: center;
       font-size: $font-size-basic;
       a {
-        padding: 2px 3px;
+        padding: 3px;
         font-weight: bold;
         color: $fourth-color;
 
         text-decoration: none;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
 
         transition: 0.25s;
         &.active {

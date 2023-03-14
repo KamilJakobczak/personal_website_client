@@ -1,12 +1,12 @@
 .new_records {
   width: 90%;
-  height: 50vh;
+  min-height: 40vh;
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-content: space-between;
   justify-content: space-around;
   &__item {
-    flex-basis: 40%;
+    flex-basis: 70%;
   }
 }

@@ -24,16 +24,16 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
     <div className='publisher'>
       <h4 className='publisher__name'>{name}</h4>
       <div className='publisher__logo'>
-        <div className='publisher__logo_img'>
+        {/* <div className='publisher__logo_img'>
           <img src='' alt='' />
-        </div>
+        </div> */}
       </div>
       <div className='publisher__data'>
         <p className='publisher__data_website'>
           Website: <span>{website}</span>
         </p>
         <p className='publisher__data_street'>
-          Address:{' '}
+          Address:
           <span>
             {street} {buildingNr}
             {placeNr ? `/${placeNr}` : null}

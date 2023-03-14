@@ -82,7 +82,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({
           />
         )}
         <div
-          className='book_collection__books__filters_button collection_button'
+          className='bookCollection__books__filters_button collection_button'
           onClick={e => handleFilterClick()}
         >
           Filter
@@ -92,7 +92,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({
   };
 
   return (
-    <div className='book_collection__books__filters'>
+    <div className='bookCollection__books__filters'>
       {!loading && !loadingP && showContent()}
       {error && <Error text={error.message} />}
       {errorP && <Error text={errorP.message} />}

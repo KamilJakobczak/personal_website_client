@@ -1,22 +1,27 @@
 header {
-  width: 100%;
+  position: relative;
   flex-basis: 5%;
+  width: 100%;
+
   padding: 10px 0 10px;
-  background-color: $apps_background;
   border-bottom: 1px solid $fourth-color;
+
+  background-color: $apps_background;
   color: $fourth-color;
 
   a {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     color: $fourth-color;
     text-decoration: none;
     span.header {
       display: block;
-      margin: auto 0;
+
       font-family: Monoton;
       font-size: $font-size-basic;
       text-transform: uppercase;
       text-align: center;
-
       letter-spacing: 0.5px;
     }
   }
