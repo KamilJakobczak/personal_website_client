@@ -128,7 +128,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             onChange={e => handleWebsiteChange(e)}
           />
         </div>
-        <div className='add_publisher__form_element__address'>
+        <div className='add_publisher__form_element address'>
           <p>address</p>
           <div className='address_item'>
             <label htmlFor='country'>country</label>

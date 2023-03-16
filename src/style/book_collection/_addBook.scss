@@ -13,8 +13,7 @@
 
 .bookCollection {
   &__addBook {
-    min-height: 200px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     &__bookForm {
       &__form {
@@ -29,35 +28,43 @@
         }
       }
     }
-    &_options {
-      width: 50%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    &__options {
+      width: 70%;
+      margin: 20px auto;
 
       &_button {
-        height: 50px;
       }
     }
     &__upload {
+      margin-top: 20px;
+      p {
+        text-align: justify;
+      }
       &_file-details {
       }
       form {
-        margin-top: 25px;
+        margin-top: 20px;
+      }
+      &_missing {
+        > p {
+          text-transform: uppercase;
+          text-align: center;
+          line-height: 110%;
+        }
+        > div {
+          > p {
+            text-transform: uppercase;
+            margin-top: 10px;
+            padding-bottom: 3px;
+            border-bottom: 1px solid $fourth-color;
+          }
+        }
       }
       &_submit {
         &.collection_button {
-          margin-top: 10px;
-          font-size: $font-size-medium;
         }
       }
       &_uploader {
-        &.file-uploader {
-          margin: 10px auto;
-          // padding: 10px;
-          font-size: $font-size-medium;
-        }
       }
     }
   }

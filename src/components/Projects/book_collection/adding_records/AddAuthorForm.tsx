@@ -160,7 +160,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
           />
         </div>
         <div className='addAuthor__form_element'>
-          <label htmlFor='secondName'>first name</label>
+          <label htmlFor='secondName'>second name</label>
           <input
             type='text'
             id='secondName'
@@ -170,7 +170,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
           />
         </div>
         <div className='addAuthor__form_element'>
-          <label htmlFor='thirdName'>first name</label>
+          <label htmlFor='thirdName'>third name</label>
           <input
             type='text'
             id='thirdName'

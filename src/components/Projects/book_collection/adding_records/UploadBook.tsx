@@ -157,7 +157,7 @@ const UploadBook: React.FC = () => {
         parsedData?.genres?.new ||
         parsedData?.publisher?.new) && (
         <div className='bookCollection__addBook__upload_missing'>
-          <p>Add following records to the database </p>
+          <p>Add following records to the database before the book</p>
           {parsedData?.authors?.new && (
             <div className='bookCollection__addBook__upload_missing_authors'>
               <p>Add new authors</p>

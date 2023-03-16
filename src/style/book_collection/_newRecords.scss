@@ -1,12 +1,61 @@
-.new_records {
+.bookCollection__newRecords {
   width: 90%;
-  min-height: 40vh;
-  margin: 20px auto;
+  margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  align-content: space-between;
   justify-content: space-around;
-  &__item {
+  &_item {
     flex-basis: 70%;
+  }
+}
+
+.addAuthor,
+.addBook,
+.addGenre,
+.addPublisher,
+.addTranslator {
+  width: 90%;
+  margin: 0 auto;
+  form {
+    width: 100%;
+    margin: 10px auto 0;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      & + div {
+        margin-top: 2px;
+
+        &:nth-last-child(1) {
+          margin-top: 10px;
+        }
+        &.address {
+          display: flex;
+          flex-wrap: wrap;
+          p {
+            text-align: center;
+            flex-basis: 100%;
+            text-transform: uppercase;
+            margin: 5px auto 2px;
+          }
+          div.address_item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-basis: 100%;
+            margin-top: 2px;
+          }
+        }
+      }
+      label {
+        text-transform: capitalize;
+        flex-basis: 35%;
+      }
+      input {
+        min-width: 0;
+        padding-left: 5px;
+        flex-basis: 60%;
+      }
+    }
   }
 }

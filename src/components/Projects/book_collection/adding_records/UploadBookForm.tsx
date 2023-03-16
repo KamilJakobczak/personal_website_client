@@ -3,6 +3,7 @@ import axios from 'axios';
 import FileUploader from '../FileUploader';
 import { ParsedDataInterface } from './UploadBook';
 import { uploadAPI } from '../../../../server';
+import Button from '../Button';
 
 interface UploadBookFormProps {
   setParsedData: React.Dispatch<
@@ -55,12 +56,11 @@ const UploadBookForm: React.FC<UploadBookFormProps> = ({ setParsedData }) => {
       <form>
         {showDetails && fileDetails()}
         {selectedFile && (
-          <div
-            className='bookCollection__addBook__upload_submit collection_button'
-            onClick={submitForm}
-          >
-            Submit
-          </div>
+          <Button
+            handleClick={submitForm}
+            className='bookCollection__addBook__upload_submit'
+            text='submit'
+          />
         )}
         <FileUploader
           onFileSelectSuccess={onFileSelectSuccess}

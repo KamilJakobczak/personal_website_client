@@ -8,7 +8,7 @@ const AddBookOptions: React.FC = () => {
   //   setButtons(false);
   // };
   return (
-    <div className='bookCollection__addBook_options'>
+    <div className='bookCollection__addBook__options'>
       <Button
         // handleClick={handleBookButtonClick}
         className='bookCollection__addBook__options_button'

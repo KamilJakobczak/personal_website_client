@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import Button from './Button';
 
 interface FileUploaderProps {
   className?: string;
@@ -15,8 +16,9 @@ const FileUploader: React.FC<FileUploaderProps> = ({
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.files && onFileSelectSuccess(e.target.files[0]);
   };
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
+  // e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  const handleClick = () => {
+    // e.preventDefault();
     fileInput.current && fileInput.current.click();
   };
   return (
@@ -27,8 +29,12 @@ const FileUploader: React.FC<FileUploaderProps> = ({
         type='file'
         onChange={e => handleFileInput(e)}
       />
-
-      <div onClick={e => handleClick(e)}>{text ? text : 'Pick a file'}</div>
+      <Button
+        className='file-uploader'
+        handleClick={handleClick}
+        text={text || 'Pick a file'}
+      />
+      {/* <div onClick={e => handleClick(e)}>{text ? text : 'Pick a file'}</div> */}
     </div>
   );
 };

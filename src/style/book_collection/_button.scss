@@ -1,14 +1,20 @@
 .collection_button {
-  display: block;
+  // overflow: hidden;
+  // width: 90%;
+  margin: 10px auto 0;
   background-color: $fourth-color;
-  padding: 5px;
-  position: relative;
-  overflow: hidden;
-  color: $apps_background;
-  // cursor: pointer;
-  // margin-top: 20px;
-  text-align: center;
   font-size: $font-size-basic;
   text-transform: uppercase;
-  // transition: 0.5s;
+  color: $apps_background;
+
+  span {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    text-align: center;
+  }
+  a {
+    padding: 5px 0;
+    text-align: center;
+  }
 }

@@ -24,7 +24,7 @@ const NewRecords: React.FC = () => {
           return (
             <Button
               key={element}
-              className='new_records__item'
+              className='bookCollection__newRecords_item'
               linkEnd={element}
               text={element}
               linkPath='/apps/collection/add'
@@ -35,6 +35,6 @@ const NewRecords: React.FC = () => {
     );
   };
 
-  return <div className='new_records'>{showButtons()}</div>;
+  return <div className='bookCollection__newRecords'>{showButtons()}</div>;
 };
 export default NewRecords;
