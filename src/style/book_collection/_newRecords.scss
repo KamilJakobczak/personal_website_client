@@ -11,6 +11,7 @@
 
 .addAuthor,
 .addBook,
+.addCollection,
 .addGenre,
 .addPublisher,
 .addTranslator {
@@ -48,8 +49,10 @@
         }
       }
       label {
-        text-transform: capitalize;
         flex-basis: 35%;
+        &::first-letter {
+          text-transform: capitalize;
+        }
       }
       input {
         min-width: 0;

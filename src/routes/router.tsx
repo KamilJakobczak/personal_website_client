@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
             path: '/apps/collection/add/genre',
             element: (
               <AddGenreForm
-                className='bookCollection_addGenre'
+                className='bookCollection__addGenre'
                 goBackButton={true}
               />
             ),
@@ -102,7 +102,7 @@ export const router = createBrowserRouter([
             path: '/apps/collection/add/author',
             element: (
               <AddAuthorForm
-                className='bookCollection_addAuthor'
+                className='bookCollection__addAuthor'
                 goBackButton={true}
               />
             ),
@@ -111,18 +111,28 @@ export const router = createBrowserRouter([
             path: '/apps/collection/add/publisher',
             element: (
               <AddPublisherForm
-                className='bookCollection_addPublisher'
+                className='bookCollection__addPublisher'
                 goBackButton={true}
               />
             ),
           },
           {
             path: '/apps/collection/add/translator',
-            element: <AddTranslator />,
+            element: (
+              <AddTranslator
+                goBackButton={true}
+                className='bookCollection__addTranslator'
+              />
+            ),
           },
           {
             path: '/apps/collection/add/collection',
-            element: <AddCollection />,
+            element: (
+              <AddCollection
+                className='bookCollection__addCollection'
+                goBackButton={true}
+              />
+            ),
           },
 
           {

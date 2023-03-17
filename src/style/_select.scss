@@ -1,0 +1,31 @@
+.select_wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  label {
+    flex-basis: 20%;
+  }
+  .custom-select {
+    font-family: $font-basic;
+    font-size: $font-size-basic;
+    min-width: 0;
+    flex: 1;
+  }
+  button {
+    margin-left: 5px;
+    border: none;
+
+    &.select_add-button {
+      flex-basis: 30%;
+      padding: 0;
+
+      background-color: $main-color;
+    }
+    &.select_remove-button {
+      padding: 0 4px;
+      flex-basis: 5%;
+      background: $second-color;
+    }
+  }
+}

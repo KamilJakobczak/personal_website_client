@@ -13,7 +13,9 @@
 @import './loadingSpinner';
 @import './errorMessage';
 @import './checkboxes';
+@import './radioInput';
 @import './uploader';
+@import './select';
 
 // Scroller
 @import './scroller/scrollerNavigation';
@@ -36,6 +38,7 @@
 @import './coding_playground/textEditor';
 
 // Book Collection
+@import './book_collection/addCollection';
 @import './book_collection/bookCollection';
 @import './book_collection/addBook';
 @import './book_collection/navigation';

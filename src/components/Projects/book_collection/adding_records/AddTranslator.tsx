@@ -8,7 +8,15 @@ import { regexValidator } from '../handlers/regexValidator';
 import { lastNameRegex, nameRegex } from '../regex';
 import SuccessMessage from '../SuccessMessage';
 
-const AddTranslator: React.FC = () => {
+interface AddTranslatorProps {
+  goBackButton: boolean;
+  className: string;
+}
+
+const AddTranslator: React.FC<AddTranslatorProps> = ({
+  goBackButton,
+  className,
+}) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userError, setUserError] = useState('');
@@ -65,8 +73,8 @@ const AddTranslator: React.FC = () => {
 
   const showForm = () => {
     return (
-      <form action='add_translator__form'>
-        <div className='add_translator__form_element'>
+      <form action='addTranslator__form'>
+        <div className='addTranslator__form_element'>
           <label htmlFor='firstName'>first name:</label>
           <input
             type='text'
@@ -77,7 +85,7 @@ const AddTranslator: React.FC = () => {
             onChange={e => handleNamesChange(e)}
           />
         </div>
-        <div className='add_translator__form_element'>
+        <div className='addTranslator__form_element'>
           <label htmlFor='lastName'>last name:</label>
           <input
             type='text'
@@ -89,7 +97,7 @@ const AddTranslator: React.FC = () => {
           />
         </div>
         <Button
-          className='add_translator__form_button'
+          className='addTranslator__form_button'
           handleClick={handleSubmit}
         />
       </form>
@@ -105,8 +113,12 @@ const AddTranslator: React.FC = () => {
   };
 
   return (
-    <div className='add_translator new'>
-      <Button className='add_translator__button' text='go back' goBack={true} />
+    <div className={`${className} addTranslator`}>
+      <Button
+        className='addTranslator__button'
+        text='go back'
+        goBack={goBackButton}
+      />
       {data && successMessage ? (
         <SuccessMessage item='translator' successMessage={successMessage} />
       ) : null}

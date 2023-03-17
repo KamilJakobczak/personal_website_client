@@ -8,7 +8,7 @@
       text-align: center;
       font-size: $font-size-basic;
       a {
-        padding: 3px;
+        // padding: 3px;
         font-weight: bold;
         color: $fourth-color;
 
@@ -20,7 +20,7 @@
         &.active {
           background-color: $fourth-color;
           color: $apps_background;
-          transition: 0.4s;
+          transition: 0.2s;
         }
         // &:hover {
         //   background-color: rgba($fourth-color, 0.9);

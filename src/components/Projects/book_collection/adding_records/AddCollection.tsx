@@ -11,7 +11,15 @@ import LoadingSpinner from '../../../LoadingSpinner';
 import SuccessMessage from '../SuccessMessage';
 import { numbersRegex } from '../regex';
 
-const AddCollection: React.FC = () => {
+interface AddCollectionProps {
+  className: string;
+  goBackButton: boolean;
+}
+
+const AddCollection: React.FC<AddCollectionProps> = ({
+  className,
+  goBackButton,
+}) => {
   const [name, setName] = useState('');
   const [addBooks, setAddBooks] = useState(false);
   const [books, setBooks] = useState<string[]>(['']);
@@ -92,8 +100,8 @@ const AddCollection: React.FC = () => {
 
   const showForm = () => {
     return (
-      <form action='' className='add_collection__form'>
-        <div className='add_collection__form_element'>
+      <form action='' className='addCollection__form'>
+        <div className='addCollection__form_element'>
           <label htmlFor='name'>name</label>
           <input
             type='text'
@@ -104,11 +112,11 @@ const AddCollection: React.FC = () => {
             onChange={e => setName(e.target.value)}
           />
         </div>
-        <div className='add_collection__form_element'>
-          <label htmlFor='books'>
-            do you want to add existing books to the collection?
+        <div className='addCollection__form_element addBooksInput'>
+          <label className='addBooksInput_label' htmlFor='books'>
+            add books to the collection?
           </label>
-          <label>
+          <label className='form-control-radio'>
             <input
               type='radio'
               name='books'
@@ -117,7 +125,7 @@ const AddCollection: React.FC = () => {
             />
             yes
           </label>
-          <label>
+          <label className='form-control-radio'>
             <input
               type='radio'
               name='books'
@@ -133,7 +141,7 @@ const AddCollection: React.FC = () => {
           <Error text='Duplication error(s) detected, correct mistakes before continuing' />
         )}
         <Button
-          className='add_collection__form_button'
+          className='addCollection__form_button'
           handleClick={handleSubmit}
         />
       </form>
@@ -142,11 +150,11 @@ const AddCollection: React.FC = () => {
 
   const showAddBooks = () => {
     return (
-      <div className='add_collection__form_element'>
-        <label htmlFor='bookList'>
-          {booksSelectionCounter.map(selection => {
-            return (
-              <React.Fragment key={selection}>
+      <div className='addCollection__form_element collectionBookList'>
+        {booksSelectionCounter.map(selection => {
+          return (
+            <React.Fragment key={selection}>
+              <div>
                 <label htmlFor='tome'>tome</label>
                 <input
                   autoComplete='off'
@@ -156,22 +164,23 @@ const AddCollection: React.FC = () => {
                   value={tomes[selection] || ''}
                   onChange={e => handleTomeInput(e)}
                 />
-                <Select
-                  item='book'
-                  id={selection}
-                  data={dataB.books}
-                  selectedValues={books}
-                  inputValues={tomes}
-                  selectCounter={booksSelectionCounter}
-                  setSelectCounter={setBooksSelectionCounter}
-                  setSelectedValues={setBooks}
-                  setInputValues={setTomes}
-                  setDuplicationError={setDuplicationError}
-                />
-              </React.Fragment>
-            );
-          })}
-        </label>
+              </div>
+
+              <Select
+                item='book'
+                id={selection}
+                data={dataB.books}
+                selectedValues={books}
+                inputValues={tomes}
+                selectCounter={booksSelectionCounter}
+                setSelectCounter={setBooksSelectionCounter}
+                setSelectedValues={setBooks}
+                setInputValues={setTomes}
+                setDuplicationError={setDuplicationError}
+              />
+            </React.Fragment>
+          );
+        })}
       </div>
     );
   };
@@ -187,8 +196,12 @@ const AddCollection: React.FC = () => {
   };
 
   return (
-    <div className='add_collection'>
-      <Button className='add_collection__button' text='go back' goBack={true} />
+    <div className={`${className} addCollection`}>
+      <Button
+        className='addCollection__button'
+        text='go back'
+        goBack={goBackButton}
+      />
       {data && successMessage ? (
         <SuccessMessage item='collection' successMessage={successMessage} />
       ) : null}

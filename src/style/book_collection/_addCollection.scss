@@ -1,0 +1,45 @@
+.addCollection__form_element {
+  &.addBooksInput {
+    display: flex;
+    margin: 10px 0;
+    justify-content: space-between;
+    label {
+      flex-basis: 20%;
+
+      &:first-child {
+        display: block;
+        flex-basis: 55%;
+      }
+    }
+  }
+}
+
+div.addCollection__form_element.collectionBookList {
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    flex-basis: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &:nth-child(even) {
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
+      margin-bottom: 6px;
+      margin-top: 2px;
+    }
+    &:last-child {
+      border: none;
+      padding-bottom: 0;
+    }
+
+    > label {
+      min-width: 0;
+      flex-basis: 20%;
+    }
+    input {
+      min-width: 0;
+      flex: 1;
+    }
+  }
+}

@@ -89,20 +89,32 @@ const Select: React.FC<SelectProps> = ({
       return null;
     }
 
-    return <button onClick={e => handleAddClick(e)}>add {item}</button>;
+    return (
+      <button className='select_add-button' onClick={e => handleAddClick(e)}>
+        {/* add {item} */}
+        Add more
+      </button>
+    );
   };
 
   const removeButton = () => {
     if (selectCounter.length > 1) {
-      return <button onClick={e => handleSelectRemove(e)}>X</button>;
+      return (
+        <button
+          className='select_remove-button'
+          onClick={e => handleSelectRemove(e)}
+        >
+          X
+        </button>
+      );
     }
   };
 
   return (
-    <>
+    <div className='select_wrapper'>
       <label htmlFor={item}>{item}</label>
       <select
-        className='form_select'
+        className='custom-select'
         id={`${id}`}
         name={item}
         onChange={e => handleSelectChange(e)}
@@ -119,7 +131,7 @@ const Select: React.FC<SelectProps> = ({
       </select>
       {addButton()}
       {removeButton()}
-    </>
+    </div>
   );
 };
 
