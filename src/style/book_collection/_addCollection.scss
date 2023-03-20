@@ -10,6 +10,9 @@
         display: block;
         flex-basis: 55%;
       }
+      input[type='radio'] {
+        grid-template-columns: 1em;
+      }
     }
   }
 }
@@ -17,6 +20,7 @@
 div.addCollection__form_element.collectionBookList {
   display: flex;
   flex-wrap: wrap;
+
   > div {
     flex-basis: 100%;
     display: flex;
@@ -25,8 +29,8 @@ div.addCollection__form_element.collectionBookList {
     &:nth-child(even) {
       border-bottom: 1px solid currentColor;
       padding-bottom: 2px;
-      margin-bottom: 6px;
-      margin-top: 2px;
+      margin-bottom: 10px;
+      margin-top: 3px;
     }
     &:last-child {
       border: none;

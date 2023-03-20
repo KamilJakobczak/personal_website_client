@@ -176,7 +176,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
         </div>
 
         <div className='addBookForm_element addBookForm_element_title'>
-          <label htmlFor='title'>title:</label>
+          <label htmlFor='title'>title</label>
           <input
             value={title}
             id='title'
@@ -187,7 +187,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           />
         </div>
         <div className='addBookForm_element addBookForm_element_language'>
-          <label htmlFor='language'>language:</label>
+          <label htmlFor='language'>language</label>
           <select
             id='language'
             name='language'
@@ -215,7 +215,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           })}
         </div>
         <div className='addBookForm_element addBookForm_element_pages'>
-          <label htmlFor='pages'>pages:</label>
+          <label htmlFor='pages'>pages</label>
           <input
             autoComplete='off'
             id='pages'
@@ -245,7 +245,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           })}
         </div>
         <div className='addBookForm_element addBookForm_element_publisher'>
-          <label htmlFor='publisher'>publisher:</label>
+          <label htmlFor='publisher'>publisher</label>
 
           <select
             className='form_select'
@@ -298,7 +298,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           />
         </div>
         <div className='addBookForm_element addBookForm_element_firstEdition'>
-          <label htmlFor='firstEdition'>first edition(global):</label>
+          <label htmlFor='firstEdition'>first edition</label>
           <input
             autoComplete='off'
             type='text'
@@ -307,29 +307,33 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='addBookForm_element addBookForm_element_cover'>
+        <div className='addBookForm_element addBookForm_element_cover-upload'>
           <label htmlFor='cover'>upload cover</label>
           <input id='cover' type='file' />
         </div>
         <div className='addBookForm_element addBookForm_element_isCollection'>
           <label htmlFor='in_collection'>Part of a collection?</label>
-          <input
-            type='radio'
-            name='in_collection'
-            id='yes'
-            onClick={() => setInCollection(true)}
-          />
-          <label htmlFor='yes'>Yes</label>
-          <input
-            type='radio'
-            name='in_collection'
-            id='no'
-            onClick={() => setInCollection(false)}
-          />
-          <label htmlFor='no'>No</label>
+          <label htmlFor='yes' className='form-control-radio'>
+            <input
+              type='radio'
+              name='in_collection'
+              id='yes'
+              onClick={() => setInCollection(true)}
+            />
+            Yes
+          </label>
+          <label htmlFor='no' className='form-control-radio'>
+            <input
+              type='radio'
+              name='in_collection'
+              id='no'
+              onClick={() => setInCollection(false)}
+            />
+            No
+          </label>
         </div>
         {inCollection && (
-          <div className='aaddBookForm_element addBookForm_element_collections'>
+          <div className='addBookForm_element addBookForm_element_collections'>
             {collectionsSelectCounter.map(input => {
               return (
                 <Select

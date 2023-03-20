@@ -1,9 +1,10 @@
 .collection_button {
   // overflow: hidden;
-  // width: 90%;
+  width: 90%;
   margin: 10px auto 0;
   background-color: $fourth-color;
   font-size: $font-size-basic;
+
   text-transform: uppercase;
   color: $apps_background;
 
@@ -11,6 +12,7 @@
     display: block;
     width: 100%;
     padding: 5px 0;
+
     text-align: center;
   }
   a {

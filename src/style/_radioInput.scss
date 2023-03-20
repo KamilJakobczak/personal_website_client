@@ -13,10 +13,11 @@
 
 input[type='radio'] {
   display: grid;
-  grid-template-columns: 1em;
+  // grid-template-columns: 1em;
   appearance: none;
   background-color: #fff;
   margin: 0;
+  padding: 0;
   font: inherit;
   color: currentColor;
   width: 1.15em;

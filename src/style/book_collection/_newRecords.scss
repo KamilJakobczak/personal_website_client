@@ -10,7 +10,6 @@
 }
 
 .addAuthor,
-.addBook,
 .addCollection,
 .addGenre,
 .addPublisher,
@@ -37,7 +36,9 @@
             text-align: center;
             flex-basis: 100%;
             text-transform: uppercase;
-            margin: 5px auto 2px;
+            padding-bottom: 1px;
+            margin: 10px auto 5px;
+            border-bottom: 1px solid currentColor;
           }
           div.address_item {
             display: flex;

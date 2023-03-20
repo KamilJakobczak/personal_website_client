@@ -17,10 +17,49 @@
     margin: 0 auto;
     &__bookForm {
       &__form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
         .addBookForm_element {
+          flex-basis: 100%;
+          max-width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          > label {
+            flex-basis: 25%;
+            &::first-letter {
+              text-transform: capitalize;
+            }
+          }
+          > input {
+            flex: 1;
+          }
+          > select {
+            font-family: $font-basic;
+            font-size: $font-size-basic;
+            min-width: 0;
+            flex: 1;
+            text-align: center;
+          }
+          &_cover-upload {
+            display: flex;
+            justify-content: space-between;
+            > label {
+              flex-basis: 25%;
+            }
+            > input {
+              min-width: 0;
+            }
+          }
+          + .addBookForm_element {
+            margin-top: 2.5px;
+          }
           &_cover:nth-child(1) {
-            width: 100px;
-            height: 200px;
+            max-width: 100px;
+            max-height: 200px;
             img {
               width: 100%;
             }

@@ -4,6 +4,7 @@ import { LOAD_GENRES, LOAD_PUBLISHERS } from '../../../GraphQL/queries';
 import Filter from './Filter';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
 import Error from '../../Error';
+import Button from './Button';
 
 interface BookFiltersProps {
   refetchQuery: (
@@ -81,12 +82,11 @@ const BookFilters: React.FC<BookFiltersProps> = ({
             handleCheckboxChange={handleCheckboxChange}
           />
         )}
-        <div
-          className='bookCollection__books__filters_button collection_button'
-          onClick={e => handleFilterClick()}
-        >
-          Filter
-        </div>
+        <Button
+          text='filter'
+          handleClick={handleFilterClick}
+          className='bookCollection__books__filters_submit'
+        />
       </>
     );
   };

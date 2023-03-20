@@ -2,15 +2,21 @@
   width: 100%;
   display: flex;
   align-items: center;
-
+  + .select_wrapper {
+    margin-top: 2px;
+  }
   label {
-    flex-basis: 20%;
+    flex-basis: 25%;
+    &::first-letter {
+      text-transform: capitalize;
+    }
   }
   .custom-select {
     font-family: $font-basic;
     font-size: $font-size-basic;
     min-width: 0;
     flex: 1;
+    text-align: center;
   }
   button {
     margin-left: 5px;
