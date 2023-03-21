@@ -101,6 +101,7 @@ const AddCollection: React.FC<AddCollectionProps> = ({
   const showForm = () => {
     return (
       <form action='' className='addCollection__form'>
+        <h5>new collection</h5>
         <div className='addCollection__form_element'>
           <label htmlFor='name'>name</label>
           <input

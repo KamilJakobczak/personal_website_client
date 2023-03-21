@@ -60,6 +60,7 @@ const AddGenreForm: React.FC<AddGenreFormProps> = ({
   const showForm = () => {
     return (
       <form action='' className='add_genre__form'>
+        <h5>new genre</h5>
         <div className='add_publisher__form_element'>
           <label htmlFor='name'>name</label>
           <input

@@ -107,6 +107,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
   const showForm = () => {
     return (
       <form className='add_publisher__form' action='' autoComplete='off'>
+        <h5>new publisher</h5>
         <div className='add_publisher__form_element'>
           <label htmlFor='name'>name</label>
           <input
@@ -142,7 +143,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             />
           </div>
           <div className='address_item'>
-            <label htmlFor='zipCode'>zipCode</label>
+            <label htmlFor='zipCode'>zip code</label>
             <input
               autoComplete='zipCodeOff'
               type='text'
@@ -175,7 +176,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             />
           </div>
           <div className='address_item'>
-            <label htmlFor='buildingNr'>buildingNr</label>
+            <label htmlFor='buildingNr'>building number</label>
             <input
               type='text'
               id='buildingNr'
@@ -185,7 +186,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             />
           </div>
           <div className='address_item'>
-            <label htmlFor='placeNr'>placeNr</label>
+            <label htmlFor='placeNr'>place number</label>
             <input
               type='text'
               id='placeNr'

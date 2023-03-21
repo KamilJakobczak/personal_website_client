@@ -74,6 +74,7 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({
   const showForm = () => {
     return (
       <form action='addTranslator__form'>
+        <h5>new translator</h5>
         <div className='addTranslator__form_element'>
           <label htmlFor='firstName'>first name:</label>
           <input

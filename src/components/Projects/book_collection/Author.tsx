@@ -24,12 +24,16 @@ const Author: React.FC<AuthorProps> = ({ data }) => {
         </div> */}
       </div>
       <div className='author__data'>
-        <p className='author__data_nationality'>
-          Nationality: <span>{nationality}</span>
-        </p>
-        <p className='author__data_birth_year'>
-          Year of birth: <span>{birthYear}</span>
-        </p>
+        <div className='author__data_nationality'>
+          <p>Nationality</p>
+          <span>-</span>
+          <span>{nationality}</span>
+        </div>
+        <div className='author__data_birth_year'>
+          <p>Year of birth</p>
+          <span>-</span>
+          <span>{birthYear}</span>
+        </div>
       </div>
       <div className='author__books'>
         <h5>books</h5>

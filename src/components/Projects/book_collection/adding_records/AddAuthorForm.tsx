@@ -149,6 +149,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   const showForm = () => {
     return (
       <form className='addAuthor__form' autoComplete='off'>
+        <h5>new author</h5>
         <div className='addAuthor__form_element'>
           <label htmlFor='firstName'>first name</label>
           <input

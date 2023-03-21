@@ -7,6 +7,7 @@ import Publisher from './Publisher';
 import { DocumentNode } from 'graphql';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import Button from './Button';
 
 interface SingleRecordProps {
   query: DocumentNode;
@@ -27,11 +28,14 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     );
   };
   return (
-    <>
-      <div className='single_record'>{data && renderedElement()}</div>
+    <div className='single-record'>
+      <Button text='return' className='single-record__return' goBack={true} />
+      <div className='single-record__container'>
+        {data && renderedElement()}
+      </div>
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}
-    </>
+    </div>
   );
 };
 

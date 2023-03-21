@@ -29,25 +29,34 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
         </div> */}
       </div>
       <div className='publisher__data'>
-        <p className='publisher__data_website'>
-          Website: <span>{website}</span>
-        </p>
-        <p className='publisher__data_street'>
-          Address:
+        <div className='publisher__data_website'>
+          <p>Website</p>
+          <span>-</span>
+          <span>{website}</span>
+        </div>
+        <div className='publisher__data_street'>
+          <p>Street</p>
+          <span>-</span>
           <span>
             {street} {buildingNr}
             {placeNr ? `/${placeNr}` : null}
           </span>
-        </p>
-        <p className='publisher__data_city'>
-          City: <span>{city}</span>
-        </p>
-        <p className='publisher__data_zipCode'>
-          Zip Code: <span>{zipCode}</span>
-        </p>
-        <p className='publisher__data_country'>
-          Country: <span>{country}</span>
-        </p>
+        </div>
+        <div className='publisher__data_city'>
+          <p>City</p>
+          <span>-</span>
+          <span>{city}</span>
+        </div>
+        <div className='publisher__data_zipCode'>
+          <p>Zip Code</p>
+          <span>-</span>
+          <span>{zipCode}</span>
+        </div>
+        <div className='publisher__data_country'>
+          <p>Country</p>
+          <span>-</span>
+          <span>{country}</span>
+        </div>
       </div>
 
       <div className='publisher__books'>

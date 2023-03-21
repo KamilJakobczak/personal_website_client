@@ -28,7 +28,7 @@ const BookList: React.FC = () => {
         {filtersVisible && (
           <Button
             className='bookCollection__books__filter_hideButton'
-            text='click to hide filters'
+            text='hide filters'
             handleClick={handleFiltersClick}
           />
         )}
@@ -38,13 +38,13 @@ const BookList: React.FC = () => {
         {filtersVisible ? (
           <Button
             className='bookCollection__books__filter_hideButton'
-            text='click to hide filters'
+            text='hide filters'
             handleClick={handleFiltersClick}
           />
         ) : (
           <Button
             className='bookCollection__books__filter_showButton'
-            text='click to expand filters'
+            text='expand filters'
             handleClick={handleFiltersClick}
           />
         )}

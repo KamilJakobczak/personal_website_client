@@ -112,24 +112,42 @@ const Book: React.FC<BookProps> = ({ data }) => {
         </div>
       </div>
       <div className='book__data'>
-        <p className='book__data_authors'>
-          Authors: <span>{showAuthors()}</span>
-        </p>
-        <p className='book__data_genres'>Genre: {showGenres()}</p>
-        <p className='book__data_pages'>
-          Pages: <span>{data.pages}</span>
-        </p>
-        <p className='book__data_language'>
-          Language: <span>{data.language}</span>
-        </p>
-        <p className='book__data_publisher'>Publisher: {showPublisher()}</p>
+        <div className='book__data_authors'>
+          <p>Authors</p>
+          <span>-</span>
+          <span>{showAuthors()}</span>
+        </div>
+        <div className='book__data_genres'>
+          <p>Genres</p>
+          <span>-</span>
+          <span>{showGenres()}</span>
+        </div>
+        <div className='book__data_pages'>
+          <p>Pages</p>
+          <span>-</span>
+          <span>{data.pages}</span>
+        </div>
+        <div className='book__data_language'>
+          <p>Language</p>
+          <span>-</span>
+          <span>{data.language}</span>
+        </div>
+        <div className='book__data_publisher'>
+          <p>Publisher</p>
+          <span>-</span>
+          <span>{showPublisher()}</span>
+        </div>
 
-        <p className='book__data_firstEdition'>
-          First edition: <span>{data.firstEdition}</span>
-        </p>
-        <p className='book__data_isbn'>
-          ISBN: <span>{data.isbn}</span>
-        </p>
+        <div className='book__data_firstEdition'>
+          <p>First edition</p>
+          <span>-</span>
+          <span>{data.firstEdition}</span>
+        </div>
+        <div className='book__data_isbn'>
+          <p>ISBN</p>
+          <span>-</span>
+          <span>{data.isbn}</span>
+        </div>
       </div>
     </div>
   );

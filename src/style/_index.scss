@@ -23,4 +23,9 @@ body {
     font-family: $font-basic;
     font-size: $font-size-basic;
   }
+  a {
+    // -webkit-tap-highlight-color: transparent; might be needed
+
+    cursor: none;
+  }
 }

@@ -19,15 +19,25 @@
   form {
     width: 100%;
     margin: 10px auto 0;
+    h5 {
+      width: 100%;
+      margin: 15px auto 10px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 1.3em;
+    }
+
     > div {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       & + div {
         margin-top: 2px;
 
         &:nth-last-child(1) {
-          margin-top: 10px;
+          margin-top: 20px;
         }
         &.address {
           display: flex;
@@ -36,6 +46,7 @@
             text-align: center;
             flex-basis: 100%;
             text-transform: uppercase;
+            font-size: 1.1em;
             padding-bottom: 1px;
             margin: 10px auto 5px;
             border-bottom: 1px solid currentColor;
