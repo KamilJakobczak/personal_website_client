@@ -1,8 +1,17 @@
-.error_message {
+.error-message {
   width: 90%;
-  margin: 0 auto 15px;
+  margin: 15px auto 15px;
   font-size: $font-size-medium;
-  span {
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+  // &_label {
+  //   display: block;
+  //   flex-basis: 20% !important;
+  // }
+  &_span {
+    width: 100%;
+    text-align: center;
     color: $second-color;
   }
 }

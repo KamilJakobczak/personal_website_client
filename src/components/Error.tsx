@@ -4,8 +4,9 @@ interface ErrorProps {
 
 const Error: React.FC<ErrorProps> = ({ text }) => {
   return (
-    <div className='error_message'>
-      Error: <span>{text}</span>
+    <div className='error-message'>
+      {/* <label className='error-message_label'>Error:</label> */}
+      <span className='error-message_span'>{text}</span>
     </div>
   );
 };
