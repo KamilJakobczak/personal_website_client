@@ -134,3 +134,18 @@ export const ADD_BOOK = gql`
     }
   }
 `;
+
+export const SIGNUP = gql`
+  mutation signup(
+    $credentials: CredentialsInput!
+    $name: String!
+    $bio: String
+  ) {
+    signup(name: $name, bio: $bio, credentials: $credentials) {
+      userErrors {
+        message
+      }
+      token
+    }
+  }
+`;

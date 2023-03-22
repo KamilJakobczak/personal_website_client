@@ -30,6 +30,8 @@ import UploadBook from '../components/Projects/book_collection/adding_records/Up
 import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
 import AddBookOptions from '../components/Projects/book_collection/adding_records/AddBookOptions';
 import AddAuthorForm from '../components/Projects/book_collection/adding_records/AddAuthorForm';
+import LogIn from '../components/Projects/book_collection/LogIn';
+import SignUp from '../components/Projects/book_collection/SignUp';
 
 export const router = createBrowserRouter([
   {
@@ -142,6 +144,17 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection/publishers/:id',
             element: <SingleRecord query={LOAD_PUBLISHER} />,
+          },
+          {
+            path: '/apps/collection/user/register',
+          },
+          {
+            path: '/apps/collection/user/login',
+            element: <LogIn />,
+          },
+          {
+            path: '/apps/collection/user/signup',
+            element: <SignUp />,
           },
         ],
       },

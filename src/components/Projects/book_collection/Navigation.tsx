@@ -1,7 +1,7 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 interface NavigationProps {
-  elements: { id: number; element: string }[];
+  elements: { id: number; path?: string; element: string }[];
   parentClass: string;
 }
 
@@ -16,14 +16,15 @@ const Navigation: React.FC<NavigationProps> = ({ elements, parentClass }) => {
     }
   };
   const renderElements = () => {
-    return elements.map(({ id, element }) => {
+    return elements.map(({ id, path, element }) => {
+      const noSpaceElement = element.replaceAll(' ', '');
       return (
         <li key={id} className='navigation_li'>
           <NavLink
             onClick={() => {
-              handleSamePageRefresh(element);
+              handleSamePageRefresh(noSpaceElement);
             }}
-            to={element}
+            to={path ? `${path}/${noSpaceElement}` : noSpaceElement}
           >
             {element}
           </NavLink>
