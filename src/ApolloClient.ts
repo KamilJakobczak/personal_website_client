@@ -13,7 +13,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
-const link = from([errorLink, new HttpLink({ uri: graphqlApi })]);
+const link = from([
+  errorLink,
+  new HttpLink({ uri: graphqlApi, credentials: 'include' }),
+]);
 
 export const apollo_client = new ApolloClient({
   cache: new InMemoryCache(),

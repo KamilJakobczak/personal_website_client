@@ -42,12 +42,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=3333 && react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=./localhost.pem&&set SSL_KEY_FILE=./localhost-key.pem&&set PORT=3333&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://192.168.0.199:3333",
+  "homepage": "https://localhost:3333",
   "eslintConfig": {
     "extends": [
       "react-app",
