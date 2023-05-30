@@ -142,10 +142,27 @@ export const SIGNUP = gql`
     $bio: String
   ) {
     signup(name: $name, bio: $bio, credentials: $credentials) {
+      authenticated
       userErrors {
         message
       }
-      token
+      user{
+        id
+      }
+    }
+  }
+`;
+
+export const SIGNIN = gql`
+  mutation signin($credentials: CredentialsInput!) {
+    signin(credentials: $credentials) {
+      authenticated
+      userErrors {
+        message
+      }
+      user{
+        id
+      }
     }
   }
 `;

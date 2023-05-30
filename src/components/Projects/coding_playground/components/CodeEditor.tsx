@@ -3,7 +3,7 @@ import MonacoEditor, { OnMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 import { parse } from '@babel/parser';
-import traverse from '@babel/traverse';
+// import traverse from '@babel/traverse';
 import MonacoJSXHighlighter from 'monaco-jsx-highlighter';
 
 interface CodeEditorProps {
@@ -24,7 +24,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
     const monacoJSXHighlighter = new MonacoJSXHighlighter(
       monaco,
       parse,
-      traverse,
+      // traverse,
       editor
     );
 

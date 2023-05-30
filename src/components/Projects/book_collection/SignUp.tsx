@@ -21,6 +21,7 @@ const SignUp = () => {
         setUserError(data.signup.userErrors[0].message);
       }
       if (data.signup.token) {
+        setSuccessMessage('User created');
       }
     },
   });

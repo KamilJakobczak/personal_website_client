@@ -1,6 +1,6 @@
 interface SuccessMessageProps {
-  item: string;
-  successMessage: string;
+  item?: string;
+  successMessage?: string;
 }
 
 const SuccessMessage: React.FC<SuccessMessageProps> = ({
@@ -10,7 +10,7 @@ const SuccessMessage: React.FC<SuccessMessageProps> = ({
   return (
     <div className='success_message'>
       <p>
-        {`${item}:`} <span>{successMessage}</span> added succesfully
+        <span>{item ? `${item} added successfully` : successMessage}</span>
       </p>
     </div>
   );
