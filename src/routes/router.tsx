@@ -1,9 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 
-import BookCollection from '../components/Projects/BookCollection';
+import BookCollection, {
+  useStatus,
+} from '../components/Projects/BookCollection';
 import App from '../components/App';
-import Gallery from '../components/Projects/Gallery';
-import Blog from '../components/Projects/Blog';
+
 import CodePlayground from '../components/Projects/CodePlayground';
 import ScrollerComponent from '../components/Scroller/Scroller';
 import { apollo_client } from '../ApolloClient';
@@ -32,6 +33,7 @@ import AddBookOptions from '../components/Projects/book_collection/adding_record
 import AddAuthorForm from '../components/Projects/book_collection/adding_records/AddAuthorForm';
 import LogIn from '../components/Projects/book_collection/LogIn';
 import SignUp from '../components/Projects/book_collection/SignUp';
+import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +51,29 @@ export const router = createBrowserRouter([
             <BookCollection />
           </ApolloProvider>
         ),
+
         children: [
+          {
+            path: '/apps/collection',
+            element: (
+              <div>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
+                consequatur accusamus, perferendis, nemo magni illum quis
+                voluptas sed exercitationem beatae odit temporibus sunt, vel
+                eligendi asperiores voluptates deserunt excepturi porro vero!
+                Suscipit illum praesentium quidem pariatur obcaecati alias
+                ullam, fugit quibusdam! Iste ipsam similique commodi soluta
+                possimus voluptates amet quisquam deserunt dolorum molestias
+                distinctio, dolor eos consequatur odio! Tenetur fugit dolor in,
+                ullam ab temporibus, reiciendis dicta iusto quam quaerat odio?
+                Necessitatibus corrupti doloremque sit deserunt. Maxime
+                explicabo, et laborum ipsa non vero corrupti voluptatem!
+                Perferendis officia sunt incidunt aliquid assumenda saepe
+                dolorum sapiente! Repellendus inventore vel ipsam corrupti
+                ipsum!
+              </div>
+            ),
+          },
           {
             path: '/apps/collection/books',
             element: <BookList />,
@@ -103,10 +127,14 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection/add/author',
             element: (
-              <AddAuthorForm
-                className='bookCollection__addAuthor'
-                goBackButton={true}
-              />
+              <ProtectedRoute
+                nestedElement={
+                  <AddAuthorForm
+                    className='bookCollection__addAuthor'
+                    goBackButton={true}
+                  />
+                }
+              ></ProtectedRoute>
             ),
           },
           {
@@ -146,11 +174,14 @@ export const router = createBrowserRouter([
             element: <SingleRecord query={LOAD_PUBLISHER} />,
           },
           {
-            path: '/apps/collection/user/register',
-          },
-          {
             path: '/apps/collection/user/login',
             element: <LogIn />,
+          },
+          {
+            path: '/apps/collection/user/logout',
+            loader: () => {
+              return redirect('/apps/collection');
+            },
           },
           {
             path: '/apps/collection/user/signup',

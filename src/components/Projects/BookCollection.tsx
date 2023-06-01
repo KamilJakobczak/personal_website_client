@@ -1,18 +1,66 @@
-import { useState } from 'react';
-import useCookies from 'react-cookie/cjs/useCookies';
-import { Outlet } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import {
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useOutletContext,
+} from 'react-router-dom';
 import Navigation from './book_collection/Navigation';
 import Search from './book_collection/Search';
+import { useMutation, useQuery } from '@apollo/client';
+import { CHECK_LOGIN } from '../../GraphQL/queries';
+import { SIGNOUT } from '../../GraphQL/mutations';
+import { history } from '../../routes/history';
+
+type ContextType = {
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setUserRole: React.Dispatch<React.SetStateAction<string>>;
+};
 
 const BookCollection: React.FC = () => {
-  const [cookies, setCookie] = useCookies();
-  console.log(cookies);
+  const { error, loading, data } = useQuery(CHECK_LOGIN);
+  const [loggedIn, setLoggedIn] = useState<boolean>();
+  const [userRole, setUserRole] = useState('');
+
+  useEffect(() => {
+    if (data) {
+      if (data.checkLogin) {
+        setLoggedIn(data.checkLogin.authenticated);
+        if (data.checkLogin.user) {
+          setUserRole(data.checkLogin.user.role);
+        }
+      }
+    }
+  }, [data]);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (
+      location.pathname === '/apps/collection' &&
+      location.state &&
+      location.state._isRedirect
+    ) {
+      setLoggedIn(false);
+      setUserRole('');
+    }
+  }, [location]);
+
+  const [
+    logout,
+    { error: errorLogout, loading: loadingLogout, data: dataLogout },
+  ] = useMutation(SIGNOUT, {
+    onCompleted(data) {
+      console.log(data);
+      setLoggedIn(data.signout.authenticated);
+    },
+  });
+
   const elements = [
     { id: 0, element: 'books' },
     { id: 1, element: 'authors' },
     { id: 2, element: 'publishers' },
   ];
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const adminNavElements = [{ id: 1, element: 'add' }];
   const userNavElements = [
@@ -21,20 +69,32 @@ const BookCollection: React.FC = () => {
   ];
   const loggedInUserNavElements = [
     { id: 0, path: 'user', element: 'my books' },
-    { id: 1, path: 'user', element: 'log out' },
+    { id: 1, path: 'user', element: 'log out', handler: logout },
   ];
 
   return (
     <div className='bookCollection'>
       <Navigation elements={elements} parentClass='bookCollection__main' />
       <Search />
-      <Navigation
-        elements={cookies.loggedIn ? loggedInUserNavElements : userNavElements}
-        parentClass='bookCollection__user'
-      />
-      <Outlet />
+      {!loading && (
+        <Navigation
+          elements={loggedIn ? loggedInUserNavElements : userNavElements}
+          parentClass='bookCollection__user'
+        />
+      )}
+      {userRole === 'ADMIN' && (
+        <Navigation
+          elements={adminNavElements}
+          parentClass='bookCollection__admin'
+        />
+      )}
+      <Outlet context={{ setLoggedIn, setUserRole }} />
     </div>
   );
 };
 
 export default BookCollection;
+
+export function useStatus() {
+  return useOutletContext<ContextType>();
+}

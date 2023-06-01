@@ -6,12 +6,17 @@ import { SIGNIN } from '../../../GraphQL/mutations';
 import Error from '../../Error';
 import LoadingSpinner from '../../LoadingSpinner';
 import SuccessMessage from './SuccessMessage';
+import { useNavigate } from 'react-router-dom';
+import { useStatus } from '../BookCollection';
 
 const LogIn: React.FC = () => {
-  const [username, setUsername] = useState('');
+  const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  const { setLoggedIn, setUserRole } = useStatus();
+  const navigate = useNavigate();
 
   const [signin, { error, data, loading }] = useMutation(SIGNIN, {
     onCompleted(data) {
@@ -20,18 +25,24 @@ const LogIn: React.FC = () => {
         setUserError(data.signin.userErrors[0].message);
       } else if (data.signin.user) {
         setSuccessMessage('You were successfully logged in');
+        setLoggedIn(true);
+        console.log(data.signin.user);
+        setUserRole(data.signin.user.role);
+        setTimeout(() => {
+          navigate('/apps/collection');
+        }, 1000);
       }
     },
   });
 
   const handleClick = () => {
-    if (username === '' || password === '') {
+    if (email === '' || password === '') {
       setUserError('Provide both username/email and password');
     }
     signin({
       variables: {
         credentials: {
-          username,
+          email,
           password,
         },
       },
@@ -46,7 +57,7 @@ const LogIn: React.FC = () => {
           <input
             type='text'
             id='username'
-            value={username}
+            value={email}
             onChange={e => setUsername(e.target.value)}
           />
         </div>

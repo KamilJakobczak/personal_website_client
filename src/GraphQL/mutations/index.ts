@@ -162,7 +162,22 @@ export const SIGNIN = gql`
       }
       user{
         id
+        role
+        profile{
+          id
+        }
       }
     }
   }
+`;
+
+export const SIGNOUT = gql`
+mutation signout {
+  signout{
+    authenticated
+    userErrors {
+      message
+    }
+  }
+}
 `;
