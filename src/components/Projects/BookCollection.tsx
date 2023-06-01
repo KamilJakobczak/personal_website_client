@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
-import {
-  Outlet,
-  useLoaderData,
-  useLocation,
-  useOutletContext,
-} from 'react-router-dom';
+import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
 import Navigation from './book_collection/Navigation';
 import Search from './book_collection/Search';
 import { useMutation, useQuery } from '@apollo/client';
 import { CHECK_LOGIN } from '../../GraphQL/queries';
 import { SIGNOUT } from '../../GraphQL/mutations';
-import { history } from '../../routes/history';
 
 type ContextType = {
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,8 +13,21 @@ type ContextType = {
 
 const BookCollection: React.FC = () => {
   const { error, loading, data } = useQuery(CHECK_LOGIN);
+
   const [loggedIn, setLoggedIn] = useState<boolean>();
   const [userRole, setUserRole] = useState('');
+
+  const location = useLocation();
+
+  const [
+    logout,
+    { error: errorLogout, loading: loadingLogout, data: dataLogout },
+  ] = useMutation(SIGNOUT, {
+    onCompleted(data) {
+      console.log(data);
+      setLoggedIn(data.signout.authenticated);
+    },
+  });
 
   useEffect(() => {
     if (data) {
@@ -33,8 +40,6 @@ const BookCollection: React.FC = () => {
     }
   }, [data]);
 
-  const location = useLocation();
-
   useEffect(() => {
     if (
       location.pathname === '/apps/collection' &&
@@ -46,22 +51,11 @@ const BookCollection: React.FC = () => {
     }
   }, [location]);
 
-  const [
-    logout,
-    { error: errorLogout, loading: loadingLogout, data: dataLogout },
-  ] = useMutation(SIGNOUT, {
-    onCompleted(data) {
-      console.log(data);
-      setLoggedIn(data.signout.authenticated);
-    },
-  });
-
   const elements = [
     { id: 0, element: 'books' },
     { id: 1, element: 'authors' },
     { id: 2, element: 'publishers' },
   ];
-
   const adminNavElements = [{ id: 1, element: 'add' }];
   const userNavElements = [
     { id: 0, path: 'user', element: 'sign up' },
@@ -69,7 +63,7 @@ const BookCollection: React.FC = () => {
   ];
   const loggedInUserNavElements = [
     { id: 0, path: 'user', element: 'my books' },
-    { id: 1, path: 'user', element: 'log out', handler: logout },
+    { id: 1, path: 'user', element: 'log out' },
   ];
 
   return (

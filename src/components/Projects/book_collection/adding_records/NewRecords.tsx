@@ -3,11 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../Button';
 
-// interface NewRecordsProps {
-//   resetComponent: string;
-//   resetBooleans: boolean;
-// }
-
 const NewRecords: React.FC = () => {
   const showButtons = () => {
     const elements = [

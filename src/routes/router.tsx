@@ -95,35 +95,6 @@ export const router = createBrowserRouter([
             path: '/apps/collection/publishers',
             element: <CollectionList query={LOAD_PUBLISHERS} />,
           },
-
-          {
-            path: '/apps/collection/add/genre',
-            element: (
-              <AddGenreForm
-                className='bookCollection__addGenre'
-                goBackButton={true}
-              />
-            ),
-          },
-          {
-            path: '/apps/collection/add/book',
-            element: <AddBook />,
-            children: [
-              {
-                path: '/apps/collection/add/book',
-                element: <AddBookOptions />,
-              },
-              {
-                path: '/apps/collection/add/book/upload',
-                element: <UploadBook />,
-              },
-              {
-                path: '/apps/collection/add/book/manual',
-                element: <AddBookForm />,
-              },
-            ],
-          },
-
           {
             path: '/apps/collection/add/author',
             element: (
@@ -134,33 +105,76 @@ export const router = createBrowserRouter([
                     goBackButton={true}
                   />
                 }
-              ></ProtectedRoute>
+              />
+            ),
+          },
+          {
+            path: '/apps/collection/add/book',
+            element: <ProtectedRoute nestedElement={<AddBook />} />,
+            children: [
+              {
+                path: '/apps/collection/add/book',
+                element: <ProtectedRoute nestedElement={<AddBookOptions />} />,
+              },
+              {
+                path: '/apps/collection/add/book/upload',
+                element: <ProtectedRoute nestedElement={<UploadBook />} />,
+              },
+              {
+                path: '/apps/collection/add/book/manual',
+                element: <ProtectedRoute nestedElement={<AddBookForm />} />,
+              },
+            ],
+          },
+          {
+            path: '/apps/collection/add/collection',
+            element: (
+              <ProtectedRoute
+                nestedElement={
+                  <AddCollection
+                    className='bookCollection__addCollection'
+                    goBackButton={true}
+                  />
+                }
+              />
+            ),
+          },
+          {
+            path: '/apps/collection/add/genre',
+            element: (
+              <ProtectedRoute
+                nestedElement={
+                  <AddGenreForm
+                    className='bookCollection__addGenre'
+                    goBackButton={true}
+                  />
+                }
+              />
             ),
           },
           {
             path: '/apps/collection/add/publisher',
             element: (
-              <AddPublisherForm
-                className='bookCollection__addPublisher'
-                goBackButton={true}
+              <ProtectedRoute
+                nestedElement={
+                  <AddPublisherForm
+                    className='bookCollection__addPublisher'
+                    goBackButton={true}
+                  />
+                }
               />
             ),
           },
           {
             path: '/apps/collection/add/translator',
             element: (
-              <AddTranslator
-                goBackButton={true}
-                className='bookCollection__addTranslator'
-              />
-            ),
-          },
-          {
-            path: '/apps/collection/add/collection',
-            element: (
-              <AddCollection
-                className='bookCollection__addCollection'
-                goBackButton={true}
+              <ProtectedRoute
+                nestedElement={
+                  <AddTranslator
+                    goBackButton={true}
+                    className='bookCollection__addTranslator'
+                  />
+                }
               />
             ),
           },
