@@ -26,6 +26,7 @@ const BookCollection: React.FC = () => {
     onCompleted(data) {
       console.log(data);
       setLoggedIn(data.signout.authenticated);
+      setUserRole('');
     },
   });
 
@@ -40,17 +41,6 @@ const BookCollection: React.FC = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (
-      location.pathname === '/apps/collection' &&
-      location.state &&
-      location.state._isRedirect
-    ) {
-      setLoggedIn(false);
-      setUserRole('');
-    }
-  }, [location]);
-
   const elements = [
     { id: 0, element: 'books' },
     { id: 1, element: 'authors' },
@@ -63,7 +53,7 @@ const BookCollection: React.FC = () => {
   ];
   const loggedInUserNavElements = [
     { id: 0, path: 'user', element: 'my books' },
-    { id: 1, path: 'user', element: 'log out' },
+    { id: 1, path: 'user', element: 'log out', handler: logout },
   ];
 
   return (

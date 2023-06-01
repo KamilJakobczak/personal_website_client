@@ -1,8 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
-import BookCollection, {
-  useStatus,
-} from '../components/Projects/BookCollection';
+import BookCollection from '../components/Projects/BookCollection';
 import App from '../components/App';
 
 import CodePlayground from '../components/Projects/CodePlayground';
@@ -34,6 +32,7 @@ import AddAuthorForm from '../components/Projects/book_collection/adding_records
 import LogIn from '../components/Projects/book_collection/LogIn';
 import SignUp from '../components/Projects/book_collection/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
+import UserBooks from '../components/Projects/book_collection/user/UserBooks';
 
 export const router = createBrowserRouter([
   {
@@ -181,11 +180,15 @@ export const router = createBrowserRouter([
 
           {
             path: '/apps/collection/add',
-            element: <NewRecords />,
+            element: <ProtectedRoute nestedElement={<NewRecords />} />,
           },
           {
             path: '/apps/collection/publishers/:id',
             element: <SingleRecord query={LOAD_PUBLISHER} />,
+          },
+          {
+            path: '/apps/collection/user/mybooks',
+            element: <ProtectedRoute nestedElement={<UserBooks />} />,
           },
           {
             path: '/apps/collection/user/login',
