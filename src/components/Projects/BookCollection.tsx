@@ -9,6 +9,7 @@ import { SIGNOUT } from '../../GraphQL/mutations';
 type ContextType = {
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setUserRole: React.Dispatch<React.SetStateAction<string>>;
+  loggedIn: boolean;
 };
 
 const BookCollection: React.FC = () => {
@@ -52,8 +53,8 @@ const BookCollection: React.FC = () => {
     { id: 1, path: 'user', element: 'log in' },
   ];
   const loggedInUserNavElements = [
-    { id: 0, path: 'user', element: 'my books' },
-    { id: 1, path: 'user', element: 'log out', handler: logout },
+    { id: 0, path: 'user', element: 'profile' },
+    { id: 2, path: 'user', element: 'log out', handler: logout },
   ];
 
   return (
@@ -72,7 +73,7 @@ const BookCollection: React.FC = () => {
           parentClass='bookCollection__admin'
         />
       )}
-      <Outlet context={{ setLoggedIn, setUserRole }} />
+      <Outlet context={{ setLoggedIn, setUserRole, loggedIn }} />
     </div>
   );
 };

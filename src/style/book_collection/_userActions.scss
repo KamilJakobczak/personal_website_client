@@ -1,0 +1,20 @@
+.userActions {
+  width: 90%;
+  margin: 20px auto;
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    &_element-status {
+    }
+    div {
+      flex-basis: 90%;
+      display: flex;
+      justify-content: space-between;
+    }
+    &_element-submit {
+      flex-basis: 100%;
+    }
+  }
+}

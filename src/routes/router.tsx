@@ -32,7 +32,9 @@ import AddAuthorForm from '../components/Projects/book_collection/adding_records
 import LogIn from '../components/Projects/book_collection/LogIn';
 import SignUp from '../components/Projects/book_collection/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
-import UserBooks from '../components/Projects/book_collection/user/UserBooks';
+import UserBooks from '../components/Projects/book_collection/user/Profile';
+import UserLibrary from '../components/Projects/book_collection/user/UserLibrary';
+import Profile from '../components/Projects/book_collection/user/Profile';
 
 export const router = createBrowserRouter([
   {
@@ -187,8 +189,14 @@ export const router = createBrowserRouter([
             element: <SingleRecord query={LOAD_PUBLISHER} />,
           },
           {
-            path: '/apps/collection/user/mybooks',
-            element: <ProtectedRoute nestedElement={<UserBooks />} />,
+            path: '/apps/collection/user/profile',
+            element: <Profile />,
+            children: [
+              {
+                path: '/apps/collection/user/profile/library',
+                element: <UserLibrary />,
+              },
+            ],
           },
           {
             path: '/apps/collection/user/login',
