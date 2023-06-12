@@ -1,6 +1,6 @@
 import Button from '../Button';
 import { useState } from 'react';
-import Select from '../Select';
+
 interface UserActionsInterface {
   parentClass: string;
 }
@@ -56,7 +56,7 @@ const UserActions: React.FC<UserActionsInterface> = ({ parentClass }) => {
           className={`${parentClass}__userActions__options_form userActions__form`}
         >
           <div className='userActionsForm_element userActions__form_element-status '>
-            <label htmlFor='bookStatus'>Book status</label>
+            <label htmlFor='bookStatus'>Status:</label>
             <select
               name='bookStatus'
               id='bookStatus'
@@ -77,72 +77,74 @@ const UserActions: React.FC<UserActionsInterface> = ({ parentClass }) => {
           {bookStatus === BookStatus.READ && (
             <>
               <div className='userActionsForm_element userActions__form_element-coverType'>
-                <label htmlFor='coverType'>
-                  Pick your book's cover type (select more than one if needed):
-                </label>
-                <label>
-                  paperback
+                <label htmlFor='coverType'>Cover:</label>
+                <div>
+                  <label htmlFor='paperback'>paperback</label>
                   <input
                     type='checkbox'
                     name='coverType'
                     id='paperback'
                     onChange={e => handleCoverTypeChecboxes(e)}
                   />
-                </label>
-                <label>
-                  hardcover
+                </div>
+                <div>
+                  <label htmlFor='hardcover'>hardcover</label>
                   <input
                     type='checkbox'
                     name='coverType'
                     id='hardcover'
                     onChange={e => handleCoverTypeChecboxes(e)}
                   />
-                </label>
-                <label>
-                  ebook
+                </div>
+                <div>
+                  <label htmlFor='ebook'>ebook</label>
                   <input
                     type='checkbox'
                     name='coverType'
                     id='ebook'
                     onChange={e => handleCoverTypeChecboxes(e)}
                   />
-                </label>
+                </div>
               </div>
               <div className='userActionsForm_element userActions__form_element-editions'>
-                <label htmlFor=''>
-                  Edition number
+                <label htmlFor=''>Edition:</label>
+                <div>
+                  <label htmlFor='editionNumber'>number</label>
                   <input
+                    id='editionNumber'
                     type='number'
                     min={0}
                     max={20}
                     value={editionNumber}
                     onChange={e => setEditionNumber(e.target.value)}
                   />
-                </label>
-                <label htmlFor=''>
-                  Edition year
+                </div>
+                <div>
+                  <label htmlFor='editionYear'>year</label>
                   <input
+                    id='editionYear'
                     type='number'
                     min={1900}
                     max={2100}
                     value={editionYear}
                     onChange={e => setEditionYear(e.target.value)}
                   />
-                </label>
+                </div>
               </div>
 
               <div className='userActionsForm_element userActions__form_element-price'>
-                <label htmlFor='price'>
-                  Price
+                <div>
+                  <label htmlFor='price'>Price:</label>
                   <input type='number' min={0} max={200} id='price' />
-                </label>
-
-                <label htmlFor='currency'>Currency</label>
-                <select className='' name='currency' id='currency'>
-                  <option value={Currency.PLN}>PLN</option>
-                  <option value={Currency.EUR}>EUR</option>
-                  <option value={Currency.USD}>USD</option>
-                </select>
+                </div>
+                <div>
+                  <label htmlFor='currency'>Currency:</label>
+                  <select className='' name='currency' id='currency'>
+                    <option value={Currency.PLN}>PLN</option>
+                    <option value={Currency.EUR}>EUR</option>
+                    <option value={Currency.USD}>USD</option>
+                  </select>
+                </div>
               </div>
             </>
           )}
