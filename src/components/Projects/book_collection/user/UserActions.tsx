@@ -1,8 +1,12 @@
+import { useMutation } from '@apollo/client';
 import Button from '../Button';
 import { useState } from 'react';
+import { ADD_USERBOOKDETAILS } from '../../../../GraphQL/mutations';
+import PurchasedBookDetails from '../PurchasedBookDetails';
 
 interface UserActionsInterface {
   parentClass: string;
+  recordId: string;
 }
 enum BookStatus {
   READ = 'READ',
@@ -10,42 +14,148 @@ enum BookStatus {
   WANTEDTOBUY = 'WANTEDTOBUY',
   WANTEDTOREAD = 'WANTEDTOREAD',
 }
-enum Currency {
+
+enum CoverTypes {
+  PAPERBACK = 'PAPERBACK',
+  HARDCOVER = 'HARDCOVER',
+  EBOOK = 'EBOOK',
+}
+export enum Currency {
   EUR = 'EUR',
   PLN = 'PLN',
   USD = 'USD',
 }
 
-const UserActions: React.FC<UserActionsInterface> = ({ parentClass }) => {
-  const [showOptions, setShowOptions] = useState(false);
-  const [coverTypes, setCoverTypes] = useState<{
-    paperback: boolean;
-    hardcover: boolean;
-    ebook: boolean;
-  }>({ paperback: false, hardcover: false, ebook: false });
-  const [editionNumber, setEditionNumber] = useState<string>('');
-  const [editionYear, setEditionYear] = useState<string>('');
+type Edition = {
+  editionNumber: number;
+  editionYear: number;
+};
+
+export type CoverCheckboxes = {
+  type: CoverTypes;
+  checked: boolean;
+  edition?: Edition;
+  buyPrice?: number;
+  currency?: Currency;
+};
+
+const UserActions: React.FC<UserActionsInterface> = ({
+  parentClass,
+  recordId,
+}) => {
+  // initial state
+  const initialPurchasedBooksState = [
+    { type: CoverTypes.PAPERBACK, checked: false },
+    { type: CoverTypes.HARDCOVER, checked: false },
+    { type: CoverTypes.EBOOK, checked: false },
+  ];
+  // status states
   const [bookStatus, setBookStatus] = useState('');
+  const [showOptions, setShowOptions] = useState(false);
+  // value states
+  const [owned, setOwned] = useState<boolean>();
+  const [whenRead, setWhenRead] = useState('');
+  const [rating, setRating] = useState('');
+  const [purchasedBooksInfo, setPurchasedBooksInfo] = useState<
+    CoverCheckboxes[]
+  >(initialPurchasedBooksState);
+  // fetch/send data
+  const [addUserBookDetails, { data, loading, error }] = useMutation(
+    ADD_USERBOOKDETAILS,
+    {
+      onCompleted(data) {
+        console.log(data);
+      },
+    }
+  );
+  // handlers
+  const updatePurchasedBooksState = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPurchasedBooksInfo(prevState => {
+      const newState = prevState.map(book => {
+        if (book.type === e.target.id) {
+          return { ...book, checked: !book.checked };
+        }
+        return book;
+      });
+      return newState;
+    });
+  };
 
-  const handleCoverTypeChecboxes = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let updatedCover: {};
+  const handleRating = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    setRating(e.currentTarget.value);
+  };
 
-    setCoverTypes(prevState => {
-      switch (e.target.id) {
-        case 'paperback':
-          updatedCover = { paperback: !prevState.paperback };
-          break;
-        case 'hardcover':
-          updatedCover = { hardcover: !prevState.hardcover };
-          break;
-        case 'ebook':
-          updatedCover = { ebook: !prevState.ebook };
-          break;
+  const handleOwnedCheckboxes = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const ownedBox = document.getElementById('owned') as HTMLInputElement;
+    const notOwnedBox = document.getElementById('notOwned') as HTMLInputElement;
+
+    if (ownedBox && notOwnedBox) {
+      if (e.target.id === 'owned') {
+        if (notOwnedBox.checked === false) {
+          setOwned(true);
+        } else if (notOwnedBox.checked === true) {
+          notOwnedBox.checked = false;
+          setOwned(true);
+        }
+      } else if (e.target.id === 'notOwned') {
+        if (ownedBox.checked === false) {
+          setOwned(false);
+        } else if (ownedBox.checked === true) {
+          ownedBox.checked = false;
+          setOwned(false);
+        }
       }
-      return {
-        ...prevState,
-        ...updatedCover,
-      };
+    }
+  };
+
+  const handleSubmit = () => {
+    let purchasedBookInfo: {}[];
+
+    addUserBookDetails({
+      variables: {
+        bookId: recordId,
+        bookStatus,
+        whenRead,
+        rating,
+      },
+    });
+  };
+  // elements
+  const showRating = () => {
+    const ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    return ratings.map(rating => {
+      return (
+        <label
+          key={rating}
+          htmlFor={`rating-${rating}`}
+          className='form-control-radio'
+        >
+          <input
+            type='radio'
+            name='rating'
+            id={`rating-${rating}`}
+            value={rating}
+            onClick={e => handleRating(e)}
+          />
+          {rating}
+        </label>
+      );
+    });
+  };
+
+  const showCoverOptions = () => {
+    return purchasedBooksInfo.map(cover => {
+      if (cover.checked === true) {
+        return (
+          <PurchasedBookDetails
+            cover={cover}
+            key={cover.type}
+            updateState={() => setPurchasedBooksInfo}
+          />
+        );
+      } else return null;
     });
   };
 
@@ -55,12 +165,11 @@ const UserActions: React.FC<UserActionsInterface> = ({ parentClass }) => {
         <form
           className={`${parentClass}__userActions__options_form userActions__form`}
         >
-          <div className='userActionsForm_element userActions__form_element-status '>
+          <div className='userActionsForm_element userActions__form_element-status'>
             <label htmlFor='bookStatus'>Status:</label>
             <select
               name='bookStatus'
               id='bookStatus'
-              className=''
               onChange={e => setBookStatus(e.target.value)}
             >
               <option value=''>-- select --</option>
@@ -76,86 +185,89 @@ const UserActions: React.FC<UserActionsInterface> = ({ parentClass }) => {
           </div>
           {bookStatus === BookStatus.READ && (
             <>
+              <div className='userActionsForm_element userActions__form_element-rating'>
+                <legend>Rating:</legend>
+                <>{showRating()}</>
+              </div>
+              <div className='userActionsForm_element userActions__form_element-whenRead'>
+                <label htmlFor='whenRead'>Read in:</label>
+                <input
+                  id='whenRead'
+                  type='number'
+                  min={1950}
+                  max={2050}
+                  value={whenRead}
+                  onChange={e => setWhenRead(e.target.value)}
+                />
+              </div>
+            </>
+          )}
+          <div className='userActionsForm_element userActions__form_element-owned'>
+            <legend>Owned:</legend>
+            <div>
+              <label htmlFor='owned'>owned</label>
+              <input
+                type='checkbox'
+                name='owned'
+                id='owned'
+                onChange={e => handleOwnedCheckboxes(e)}
+              />
+            </div>
+            <div>
+              <label htmlFor='notOwned'>not owned</label>
+              <input
+                type='checkbox'
+                name='notOwned'
+                id='notOwned'
+                onChange={e => handleOwnedCheckboxes(e)}
+              />
+            </div>
+          </div>
+          {owned && (
+            <>
               <div className='userActionsForm_element userActions__form_element-coverType'>
                 <label htmlFor='coverType'>Cover:</label>
                 <div>
-                  <label htmlFor='paperback'>paperback</label>
+                  <label htmlFor={CoverTypes.PAPERBACK}>paperback</label>
                   <input
                     type='checkbox'
                     name='coverType'
-                    id='paperback'
-                    onChange={e => handleCoverTypeChecboxes(e)}
+                    id={CoverTypes.PAPERBACK}
+                    onChange={e => updatePurchasedBooksState(e)}
                   />
                 </div>
                 <div>
-                  <label htmlFor='hardcover'>hardcover</label>
+                  <label htmlFor={CoverTypes.HARDCOVER}>hardcover</label>
                   <input
                     type='checkbox'
                     name='coverType'
-                    id='hardcover'
-                    onChange={e => handleCoverTypeChecboxes(e)}
+                    id={CoverTypes.HARDCOVER}
+                    onChange={e => updatePurchasedBooksState(e)}
                   />
                 </div>
                 <div>
-                  <label htmlFor='ebook'>ebook</label>
+                  <label htmlFor={CoverTypes.EBOOK}>ebook</label>
                   <input
                     type='checkbox'
                     name='coverType'
-                    id='ebook'
-                    onChange={e => handleCoverTypeChecboxes(e)}
+                    id={CoverTypes.EBOOK}
+                    onChange={e => updatePurchasedBooksState(e)}
                   />
                 </div>
               </div>
-              <div className='userActionsForm_element userActions__form_element-editions'>
-                <label htmlFor=''>Edition:</label>
-                <div>
-                  <label htmlFor='editionNumber'>number</label>
-                  <input
-                    id='editionNumber'
-                    type='number'
-                    min={0}
-                    max={20}
-                    value={editionNumber}
-                    onChange={e => setEditionNumber(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='editionYear'>year</label>
-                  <input
-                    id='editionYear'
-                    type='number'
-                    min={1900}
-                    max={2100}
-                    value={editionYear}
-                    onChange={e => setEditionYear(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className='userActionsForm_element userActions__form_element-price'>
-                <div>
-                  <label htmlFor='price'>Price:</label>
-                  <input type='number' min={0} max={200} id='price' />
-                </div>
-                <div>
-                  <label htmlFor='currency'>Currency:</label>
-                  <select className='' name='currency' id='currency'>
-                    <option value={Currency.PLN}>PLN</option>
-                    <option value={Currency.EUR}>EUR</option>
-                    <option value={Currency.USD}>USD</option>
-                  </select>
-                </div>
-              </div>
+              {showCoverOptions()}
             </>
           )}
           <Button
             className={`${parentClass}__userActions__submit userActions__form_element-submit`}
             text='add to library'
+            handleClick={handleSubmit}
           />
         </form>
       </div>
     );
   };
+
   return (
     <div className={`${parentClass}__userActions`}>
       {!showOptions && (

@@ -12,44 +12,59 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        label {
+          margin-right: 5px;
+        }
+      }
+    }
+    input {
+      line-height: 16px;
     }
     &_element-status {
     }
+    &_element-rating {
+      legend {
+        flex-basis: 15%;
+      }
+      label {
+        font-size: calc($font-size-basic * 0.6);
+        flex-basis: 8%;
+      }
+    }
+    &_element-whenRead {
+      input {
+      }
+    }
     &_element-coverType {
       label {
-        line-height: 16px;
       }
       div {
-        display: flex;
-        align-items: center;
         label {
-          margin-right: 5px;
         }
         input {
         }
       }
     }
     &_element-editions {
-      justify-content: space-evenly;
       label {
         flex-basis: 20%;
       }
       div {
-        flex-basis: 35%;
+        flex-basis: 30%;
         input {
-          margin-left: 5px;
-          line-height: 16px;
         }
       }
     }
     &_element-price {
       div {
-        flex-basis: 45%;
+        flex-basis: 30%;
         label {
-          margin-right: 5px;
         }
         input {
-          line-height: 16px;
         }
       }
     }

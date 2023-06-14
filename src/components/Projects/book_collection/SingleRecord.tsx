@@ -37,7 +37,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
         {data && renderedElement()}
       </div>
       {!loading && data.book && loggedIn === true && (
-        <UserActions parentClass='single-record' />
+        <UserActions parentClass='single-record' recordId={id} />
       )}
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}

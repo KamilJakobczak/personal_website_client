@@ -172,12 +172,39 @@ export const SIGNIN = gql`
 `;
 
 export const SIGNOUT = gql`
-mutation signout {
-  signout{
-    authenticated
-    userErrors {
-      message
+  mutation signout {
+    signout{
+      authenticated
+      userErrors {
+        message
     }
   }
 }
+`;
+
+export const ADD_USERBOOKDETAILS = gql`
+  mutation addUserBookDetails(
+    $bookId: String!
+    $status: Status!
+    $whenRead: Int
+    $rating: Int
+    $purchasedBookInfo: [PurchasedBookInfo]!
+     ) {
+      addUserBookDetails(
+        input: {
+          bookID: $bookId
+          bookDetails: {
+            status: $status
+            whenRead: $whenRead
+            rating: $rating
+            purchasedBookInfo: $purchasedBookInfo
+            }
+        }) {
+        userErrors {
+        message
+        }
+        userBookDetails
+    }
+
+  }
 `;
