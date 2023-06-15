@@ -188,7 +188,7 @@ export const ADD_USERBOOKDETAILS = gql`
     $status: Status!
     $whenRead: Int
     $rating: Int
-    $purchasedBookInfo: [PurchasedBookInfo]!
+    $purchasedBookInfo: [purchasedBookInfoInput]!
      ) {
       addUserBookDetails(
         input: {
@@ -203,7 +203,18 @@ export const ADD_USERBOOKDETAILS = gql`
         userErrors {
         message
         }
-        userBookDetails
+        userBookDetails {
+          status
+          purchasedBookInfo{
+            coverType
+            edition{
+              editionNumber
+              editionYear
+            }
+            buyPrice
+            currency
+          }
+        }
     }
 
   }

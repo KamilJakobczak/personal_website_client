@@ -27,15 +27,16 @@ export enum Currency {
 }
 
 type Edition = {
-  editionNumber: number;
-  editionYear: number;
+  editionNumber: string;
+  editionYear: string;
 };
 
 export type CoverCheckboxes = {
+  id: number;
   type: CoverTypes;
   checked: boolean;
-  edition?: Edition;
-  buyPrice?: number;
+  edition: Edition;
+  buyPrice: string;
   currency?: Currency;
 };
 
@@ -45,9 +46,27 @@ const UserActions: React.FC<UserActionsInterface> = ({
 }) => {
   // initial state
   const initialPurchasedBooksState = [
-    { type: CoverTypes.PAPERBACK, checked: false },
-    { type: CoverTypes.HARDCOVER, checked: false },
-    { type: CoverTypes.EBOOK, checked: false },
+    {
+      id: 0,
+      type: CoverTypes.PAPERBACK,
+      checked: false,
+      buyPrice: '',
+      edition: { editionNumber: '', editionYear: '' },
+    },
+    {
+      id: 1,
+      type: CoverTypes.HARDCOVER,
+      checked: false,
+      buyPrice: '',
+      edition: { editionNumber: '', editionYear: '' },
+    },
+    {
+      id: 2,
+      type: CoverTypes.EBOOK,
+      checked: false,
+      buyPrice: '',
+      edition: { editionNumber: '', editionYear: '' },
+    },
   ];
   // status states
   const [bookStatus, setBookStatus] = useState('');
@@ -69,6 +88,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
     }
   );
   // handlers
+
   const updatePurchasedBooksState = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -111,14 +131,30 @@ const UserActions: React.FC<UserActionsInterface> = ({
   };
 
   const handleSubmit = () => {
-    let purchasedBookInfo: {}[];
+    const purchasedBooksInfoInput = purchasedBooksInfo.map(book => {
+      if (book.checked === true) {
+        return {
+          coverType: book.type,
+          buyPrice: parseInt(book.buyPrice),
+          currency: book.currency,
+          edition: {
+            editionNumber: parseInt(book.edition.editionNumber),
+            editionYear: parseInt(book.edition.editionYear),
+          },
+        };
+      } else
+        return {
+          coverType: book.type,
+        };
+    });
 
     addUserBookDetails({
       variables: {
         bookId: recordId,
-        bookStatus,
-        whenRead,
-        rating,
+        status: bookStatus,
+        whenRead: whenRead === '' ? null : whenRead,
+        rating: 5,
+        purchasedBookInfo: purchasedBooksInfoInput,
       },
     });
   };
@@ -145,14 +181,14 @@ const UserActions: React.FC<UserActionsInterface> = ({
     });
   };
 
-  const showCoverOptions = () => {
+  const purchasedBooksOptions = () => {
     return purchasedBooksInfo.map(cover => {
       if (cover.checked === true) {
         return (
           <PurchasedBookDetails
             cover={cover}
             key={cover.type}
-            updateState={() => setPurchasedBooksInfo}
+            updateState={setPurchasedBooksInfo}
           />
         );
       } else return null;
@@ -255,7 +291,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
                   />
                 </div>
               </div>
-              {showCoverOptions()}
+              {purchasedBooksOptions()}
             </>
           )}
           <Button
