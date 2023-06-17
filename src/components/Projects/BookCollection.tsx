@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
-import Navigation from './book_collection/Navigation';
-import Search from './book_collection/Search';
+import Navigation from './book_collection/components/general-purpose/Navigation';
+import Search from './book_collection/components/general-purpose/Search';
 import { useMutation, useQuery } from '@apollo/client';
 import { CHECK_LOGIN } from '../../GraphQL/queries';
 import { SIGNOUT } from '../../GraphQL/mutations';

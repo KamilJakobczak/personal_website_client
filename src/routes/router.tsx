@@ -16,25 +16,25 @@ import {
   LOAD_PUBLISHERS,
 } from '../GraphQL/queries';
 
-import SingleRecord from '../components/Projects/book_collection/SingleRecord';
-import AddBookForm from '../components/Projects/book_collection/adding_records/AddBookForm';
-import AddPublisherForm from '../components/Projects/book_collection/adding_records/AddPublisherForm';
-import NewRecords from '../components/Projects/book_collection/adding_records/NewRecords';
-import AddGenreForm from '../components/Projects/book_collection/adding_records/AddGenreForm';
-import AddCollection from '../components/Projects/book_collection/adding_records/AddCollection';
-import AddTranslator from '../components/Projects/book_collection/adding_records/AddTranslator';
-import BookList from '../components/Projects/book_collection/BookList';
-import CollectionList from '../components/Projects/book_collection/CollectionList';
-import UploadBook from '../components/Projects/book_collection/adding_records/UploadBook';
-import AddBook from '../components/Projects/book_collection/adding_records/AddBook';
-import AddBookOptions from '../components/Projects/book_collection/adding_records/AddBookOptions';
-import AddAuthorForm from '../components/Projects/book_collection/adding_records/AddAuthorForm';
-import LogIn from '../components/Projects/book_collection/LogIn';
-import SignUp from '../components/Projects/book_collection/SignUp';
+import SingleRecord from '../components/Projects/book_collection/components/single_records/SingleRecord';
+import AddBookForm from '../components/Projects/book_collection/components/adding_records/AddBookForm';
+import AddPublisherForm from '../components/Projects/book_collection/components/adding_records/AddPublisherForm';
+import NewRecords from '../components/Projects/book_collection/components/adding_records/NewRecords';
+import AddGenreForm from '../components/Projects/book_collection/components/adding_records/AddGenreForm';
+import AddCollection from '../components/Projects/book_collection/components/adding_records/AddCollection';
+import AddTranslator from '../components/Projects/book_collection/components/adding_records/AddTranslator';
+import BookList from '../components/Projects/book_collection/components/lists/BookList';
+import CollectionList from '../components/Projects/book_collection/components/lists/CollectionList';
+import UploadBook from '../components/Projects/book_collection/components/adding_records/UploadBook';
+import AddBook from '../components/Projects/book_collection/components/adding_records/AddBook';
+import AddBookOptions from '../components/Projects/book_collection/components/adding_records/AddBookOptions';
+import AddAuthorForm from '../components/Projects/book_collection/components/adding_records/AddAuthorForm';
+import LogIn from '../components/Projects/book_collection/components/user/LogIn';
+import SignUp from '../components/Projects/book_collection/components/user/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
-import UserBooks from '../components/Projects/book_collection/user/Profile';
-import UserLibrary from '../components/Projects/book_collection/user/UserLibrary';
-import Profile from '../components/Projects/book_collection/user/Profile';
+import UserBooks from '../components/Projects/book_collection/components/user/Profile';
+import UserLibrary from '../components/Projects/book_collection/components/user/UserLibrary';
+import Profile from '../components/Projects/book_collection/components/user/Profile';
 
 export const router = createBrowserRouter([
   {
