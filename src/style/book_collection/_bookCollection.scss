@@ -1,4 +1,4 @@
-.book_collection {
+.bookCollection {
   margin: 10px auto;
   // height: 100%;
   .list {
@@ -18,4 +18,10 @@
 }
 .invalid {
   border: red 1px solid;
+}
+
+@media (min-width: $breakpoint-480) {
+  .bookCollection {
+    font-size: $font-size-medium;
+  }
 }

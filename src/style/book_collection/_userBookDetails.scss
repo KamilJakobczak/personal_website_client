@@ -1,4 +1,46 @@
 .userBookDetails {
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
+  > div {
+    width: 100%;
+    margin: 0 auto 10px;
+    > i,
+    p {
+      text-align: center;
+    }
+  }
+  &_status {
+    p {
+    }
+  }
+  &_rating {
+    &-wrapper {
+      width: 50%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      i {
+        font-size: $font-size-basic;
+      }
+    }
+  }
+  &_purchased {
+    > div {
+      > p:nth-child(1) {
+      }
+      div {
+        &:nth-last-child(1) {
+          margin-bottom: 3px;
+        }
+        p {
+          line-height: $font-size-basic * 1.1;
+        }
+      }
+      width: 80%;
+      margin: 0 auto;
+      padding-bottom: 2px;
+    }
+  }
 }

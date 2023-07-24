@@ -23,7 +23,7 @@ const SkillsSlider = () => {
   return (
     <div className='scroller__business_slider'>
       {icons.map(icon => {
-        return <div key={''}>{icon}</div>;
+        return <div key={`${icons.indexOf(icon)}`}>{icon}</div>;
       })}
     </div>
   );

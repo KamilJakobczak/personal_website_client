@@ -97,3 +97,26 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-480) {
+  .singleRecord {
+    &__container {
+      > div:nth-child(1) {
+        h4 {
+          font-size: $font-size-large;
+        }
+        > div:nth-child(2) {
+          div:nth-child(1) {
+          }
+        }
+        div:nth-child(3) {
+          div {
+            p {
+              font-size: $font-size-medium;
+            }
+          }
+        }
+      }
+    }
+  }
+}

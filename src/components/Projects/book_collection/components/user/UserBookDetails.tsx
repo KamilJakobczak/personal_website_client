@@ -37,21 +37,27 @@ const UserBookDetails: React.FC<UserBookDetailsInterface> = ({
       for (let i = 0; i < rating; i++) {
         stars.push(<i key={i} className='fa-solid fa-star'></i>);
       }
-      return stars.map(star => {
-        return star;
-      });
+      return (
+        <div className='userBookDetails_rating-wrapper'>
+          {stars.map(star => {
+            return star;
+          })}
+        </div>
+      );
     }
   };
   const purchasedElement = () => {
+    console.log(purchasedBookInfo);
     return purchasedBookInfo.map(book => {
-      const { edition } = book;
+      const { edition, coverType } = book;
 
       if (edition) {
         const { editionNumber, editionYear } = edition;
         const editionOrdinal = getOrdinal(parseInt(editionNumber));
 
         return (
-          <div key={editionYear}>
+          <div key={`${coverType}-${editionYear}`}>
+            <p>{coverType}</p>
             <div>
               <p>
                 {editionNumber &&
@@ -59,16 +65,16 @@ const UserBookDetails: React.FC<UserBookDetailsInterface> = ({
                     editionYear ? 'from ' + editionYear : ''
                   }`}
               </p>
-              <p></p>
             </div>
             <div>
               <p>
-                Bought for<span>{`${book.buyPrice} ${book.currency}`}</span>
+                Bought for <span>{`${book.buyPrice} ${book.currency}`}</span>
               </p>
             </div>
           </div>
         );
       }
+      return null;
     });
   };
   return (
