@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { CoverCheckboxes, Currency } from './UserActions';
+import React from 'react';
+import { CoverCheckboxes, Currency } from '../../types';
 
 interface PurchasedBookDetailsInterface {
   cover: CoverCheckboxes;

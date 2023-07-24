@@ -3,42 +3,12 @@ import Button from '../general-purpose/Button';
 import { useState } from 'react';
 import { ADD_USERBOOKDETAILS } from '../../../../../GraphQL/mutations';
 import PurchasedBookDetails from './PurchasedBookDetails';
+import { CoverTypes, BookStatus, CoverCheckboxes } from '../../types';
 
 interface UserActionsInterface {
   parentClass: string;
   recordId: string;
 }
-enum BookStatus {
-  READ = 'READ',
-  UNREAD = 'UNREAD',
-  WANTEDTOBUY = 'WANTEDTOBUY',
-  WANTEDTOREAD = 'WANTEDTOREAD',
-}
-
-enum CoverTypes {
-  PAPERBACK = 'PAPERBACK',
-  HARDCOVER = 'HARDCOVER',
-  EBOOK = 'EBOOK',
-}
-export enum Currency {
-  EUR = 'EUR',
-  PLN = 'PLN',
-  USD = 'USD',
-}
-
-type Edition = {
-  editionNumber: string;
-  editionYear: string;
-};
-
-export type CoverCheckboxes = {
-  id: number;
-  type: CoverTypes;
-  checked: boolean;
-  edition: Edition;
-  buyPrice: string;
-  currency?: Currency;
-};
 
 const UserActions: React.FC<UserActionsInterface> = ({
   parentClass,
@@ -74,7 +44,8 @@ const UserActions: React.FC<UserActionsInterface> = ({
   // value states
   const [owned, setOwned] = useState<boolean>();
   const [whenRead, setWhenRead] = useState('');
-  const [rating, setRating] = useState('');
+  const [ratingState, setRatingState] = useState('');
+
   const [purchasedBooksInfo, setPurchasedBooksInfo] = useState<
     CoverCheckboxes[]
   >(initialPurchasedBooksState);
@@ -103,8 +74,17 @@ const UserActions: React.FC<UserActionsInterface> = ({
     });
   };
 
-  const handleRating = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    setRating(e.currentTarget.value);
+  // const handleRating = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  //   setRating(e.currentTarget.value);
+  // };
+  const handleBookStatus = (status: string) => {
+    setRatingState('');
+    setWhenRead('');
+    setBookStatus(status);
+  };
+  const handleRating = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const rating = e.currentTarget.id.slice(5);
+    setRatingState(rating);
   };
 
   const handleOwnedCheckboxes = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,6 +117,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
           coverType: book.type,
           buyPrice: parseInt(book.buyPrice),
           currency: book.currency,
+
           edition: {
             editionNumber: parseInt(book.edition.editionNumber),
             editionYear: parseInt(book.edition.editionYear),
@@ -152,8 +133,8 @@ const UserActions: React.FC<UserActionsInterface> = ({
       variables: {
         bookId: recordId,
         status: bookStatus,
-        whenRead: whenRead === '' ? null : whenRead,
-        rating: 5,
+        whenRead: whenRead !== '' ? whenRead : null,
+        rating: ratingState !== '' ? parseInt(ratingState) : null,
         purchasedBookInfo: purchasedBooksInfoInput,
       },
     });
@@ -161,22 +142,17 @@ const UserActions: React.FC<UserActionsInterface> = ({
   // elements
   const showRating = () => {
     const ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
     return ratings.map(rating => {
+      const classVariant =
+        rating <= parseInt(ratingState) ? 'solid' : `regular`;
       return (
-        <label
-          key={rating}
-          htmlFor={`rating-${rating}`}
-          className='form-control-radio'
-        >
-          <input
-            type='radio'
-            name='rating'
-            id={`rating-${rating}`}
-            value={rating}
-            onClick={e => handleRating(e)}
-          />
-          {rating}
-        </label>
+        <i
+          onClick={e => handleRating(e)}
+          key={`rating-${rating}`}
+          id={`star-${rating}`}
+          className={`fa-sharp fa-${classVariant} fa-star`}
+        ></i>
       );
     });
   };
@@ -206,7 +182,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
             <select
               name='bookStatus'
               id='bookStatus'
-              onChange={e => setBookStatus(e.target.value)}
+              onChange={e => handleBookStatus(e.target.value)}
             >
               <option value=''>-- select --</option>
               <option value={BookStatus.READ}>{BookStatus.READ}</option>
@@ -223,7 +199,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
             <>
               <div className='userActionsForm_element userActions__form_element-rating'>
                 <legend>Rating:</legend>
-                <>{showRating()}</>
+                <div>{showRating()}</div>
               </div>
               <div className='userActionsForm_element userActions__form_element-whenRead'>
                 <label htmlFor='whenRead'>Read in:</label>

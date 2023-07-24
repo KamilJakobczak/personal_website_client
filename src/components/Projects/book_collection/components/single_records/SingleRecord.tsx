@@ -29,7 +29,8 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     error: errorUserBookDetails,
     data: dataUserBookDetails,
   } = useQuery(LOAD_USER_BOOK_DETAILS, { variables: { bookId: id } });
-  console.log(dataUserBookDetails);
+
+  const details = dataUserBookDetails?.userBookDetails.userBookDetails;
 
   const renderedElement = () => {
     return (
@@ -39,21 +40,20 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     );
   };
   return (
-    <div className='single-record'>
+    <div className='singleRecord'>
       {/* <Button text='return' className='single-record__return' goBack={true} /> */}
-      <div className='single-record__container'>
-        {data && renderedElement()}
-      </div>
-      {!loading &&
+
+      <div className='singleRecord__container'>{data && renderedElement()}</div>
+      {data &&
+        data.book &&
+        !loading &&
         !loadingUserBookDetails &&
-        !dataUserBookDetails &&
+        !details &&
         loggedIn === true && (
-          <UserActions parentClass='single-record' recordId={id} />
+          <UserActions parentClass='singleRecord' recordId={id} />
         )}
-      {!loadingUserBookDetails && dataUserBookDetails && (
-        <UserBookDetails
-          details={dataUserBookDetails.userBookDetails.userBookDetails}
-        />
+      {data && data.book && !loadingUserBookDetails && details && (
+        <UserBookDetails className={'singleRecord'} details={details} />
       )}
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}

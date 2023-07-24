@@ -27,13 +27,24 @@
     &_element-status {
     }
     &_element-rating {
-      legend {
-        flex-basis: 15%;
+      justify-content: space-evenly;
+      div {
+        color: $fourth-color;
+        width: 100%;
+        justify-content: space-between;
+
+        &.hovered {
+          color: $fourth-color;
+        }
       }
-      label {
-        font-size: calc($font-size-basic * 0.6);
-        flex-basis: 8%;
-      }
+
+      // legend {
+      //   flex-basis: 15%;
+      // }
+      // label {
+      //   font-size: calc($font-size-basic * 0.6);
+      //   flex-basis: 8%;
+      // }
     }
     &_element-whenRead {
       input {
