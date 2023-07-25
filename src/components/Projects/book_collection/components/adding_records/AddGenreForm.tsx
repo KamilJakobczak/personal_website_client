@@ -9,14 +9,12 @@ import { smallLettersRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 
 interface AddGenreFormProps {
-  goBackButton: boolean;
   className?: string;
   genre?: string;
   onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const AddGenreForm: React.FC<AddGenreFormProps> = ({
-  goBackButton,
   className,
   genre,
   onAdded,
@@ -88,11 +86,6 @@ const AddGenreForm: React.FC<AddGenreFormProps> = ({
 
   return (
     <div className={`${className} addGenre`}>
-      <Button
-        className='add_genre__button'
-        text='go back'
-        goBack={goBackButton}
-      />
       {data && successMessage ? (
         <SuccessMessage item='genre' successMessage={successMessage} />
       ) : null}

@@ -14,7 +14,6 @@ import {
 import SuccessMessage from '../general-purpose/SuccessMessage';
 
 interface AddAuthorFormProps {
-  goBackButton: boolean;
   className: string;
   author?: {
     firstName: string;
@@ -26,7 +25,6 @@ interface AddAuthorFormProps {
 }
 
 const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
-  goBackButton,
   className,
   author,
   onAdded,
@@ -267,13 +265,6 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
 
   return (
     <div className={`${className} addAuthor`}>
-      {goBackButton && (
-        <Button
-          className='addAuthor__button'
-          text='go back'
-          goBack={goBackButton}
-        />
-      )}
       {data && successMessage ? (
         <SuccessMessage item='author' successMessage={successMessage} />
       ) : null}

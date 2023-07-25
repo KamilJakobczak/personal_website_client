@@ -1,4 +1,4 @@
-.collection_button {
+.collectionButton {
   // overflow: hidden;
   width: 90%;
   margin: 10px auto 0;
@@ -7,20 +7,26 @@
 
   text-transform: uppercase;
   color: $apps_background;
-
+  a,
   span {
-    display: block;
-    width: 100%;
     padding: 5px 0;
-
     text-align: center;
     font-weight: bold;
     letter-spacing: 1px;
   }
-  a {
-    padding: 5px 0;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 1px;
+  span {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (min-width: $breakpoint-700) {
+  .collectionButton {
+    font-size: $font-size-medium;
+
+    a,
+    span {
+      padding: 10px 0;
+    }
   }
 }

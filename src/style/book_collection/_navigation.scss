@@ -42,3 +42,12 @@
     }
   }
 }
+@media (min-width: $breakpoint-700) {
+  .navigation {
+    &_ul {
+      li {
+        flex-basis: 25%;
+      }
+    }
+  }
+}

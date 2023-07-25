@@ -109,7 +109,6 @@ const UploadBook: React.FC = () => {
             key={author.lastName}
           >
             <AddAuthor
-              goBackButton={false}
               className='bookCollection__addBook__upload_addAuthor'
               author={author}
               onAdded={setAuthorsAdded}
@@ -127,7 +126,6 @@ const UploadBook: React.FC = () => {
         return (
           <div className='bookCollection__addBook__upload_addGenre' key={genre}>
             <AddGenre
-              goBackButton={false}
               className='bookCollection__addBook__upload_addGenre'
               genre={genre}
               onAdded={setGenresAdded}
@@ -142,7 +140,6 @@ const UploadBook: React.FC = () => {
       newPublisher && (
         <div>
           <AddPublisherForm
-            goBackButton={false}
             className='bookCollection__addBook__upload_addPublisher'
             publisher={newPublisher}
             onAdded={setPublisherAdded}

@@ -9,14 +9,10 @@ import { lastNameRegex, nameRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 
 interface AddTranslatorProps {
-  goBackButton: boolean;
   className: string;
 }
 
-const AddTranslator: React.FC<AddTranslatorProps> = ({
-  goBackButton,
-  className,
-}) => {
+const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userError, setUserError] = useState('');
@@ -115,11 +111,6 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({
 
   return (
     <div className={`${className} addTranslator`}>
-      <Button
-        className='addTranslator__button'
-        text='go back'
-        goBack={goBackButton}
-      />
       {data && successMessage ? (
         <SuccessMessage item='translator' successMessage={successMessage} />
       ) : null}

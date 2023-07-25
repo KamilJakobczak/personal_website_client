@@ -9,14 +9,12 @@ import LoadingSpinner from '../../../../LoadingSpinner';
 import { lastNameRegex, nameRegex, websiteRegex } from '../../utility/regex';
 
 interface AddPublisherFormProps {
-  goBackButton: boolean;
   className?: string;
   publisher?: string;
   onAdded?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
-  goBackButton,
   className,
   publisher,
   onAdded,
@@ -214,11 +212,6 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
 
   return (
     <div className={`${className} addPublisher`}>
-      <Button
-        className='add_publisher__button'
-        text='go back'
-        goBack={goBackButton}
-      />
       {data && successMessage ? (
         <SuccessMessage item='publisher' successMessage={successMessage} />
       ) : null}

@@ -13,13 +13,9 @@ import { numbersRegex } from '../../utility/regex';
 
 interface AddCollectionProps {
   className: string;
-  goBackButton: boolean;
 }
 
-const AddCollection: React.FC<AddCollectionProps> = ({
-  className,
-  goBackButton,
-}) => {
+const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
   const [name, setName] = useState('');
   const [addBooks, setAddBooks] = useState(false);
   const [books, setBooks] = useState<string[]>(['']);
@@ -198,11 +194,6 @@ const AddCollection: React.FC<AddCollectionProps> = ({
 
   return (
     <div className={`${className} addCollection`}>
-      <Button
-        className='addCollection__button'
-        text='go back'
-        goBack={goBackButton}
-      />
       {data && successMessage ? (
         <SuccessMessage item='collection' successMessage={successMessage} />
       ) : null}

@@ -15,6 +15,16 @@
     color: $fourth-color;
     text-decoration: none;
   }
+  &__welcome {
+    width: 90%;
+    margin: 0 auto;
+  }
+  &__admin {
+    &_navigation {
+      padding-bottom: 10px;
+      border-bottom: 1px solid;
+    }
+  }
 }
 .invalid {
   border: red 1px solid;

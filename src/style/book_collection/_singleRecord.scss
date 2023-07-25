@@ -120,3 +120,35 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-700) {
+  .singleRecord {
+    &__container {
+      > div:nth-child(1) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        h4 {
+          flex-basis: 100%;
+          font-size: $font-size-large;
+        }
+        > div:nth-child(2) {
+          flex-basis: 30%;
+        }
+        > div:nth-child(3) {
+          flex-basis: 60%;
+        }
+        div:nth-child(4) {
+          h5 {
+            font-size: $font-size-large;
+          }
+          div {
+            a {
+              font-size: $font-size-medium;
+            }
+          }
+        }
+      }
+    }
+  }
+}

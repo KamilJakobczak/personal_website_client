@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
   };
   return (
     <div
-      className={`${className} collection_button`}
+      className={`${className} collectionButton`}
       onClick={e => handleSubmit(e)}
     >
       {!linkPath && <span>{text || 'submit'}</span>}

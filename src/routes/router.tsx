@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection',
             element: (
-              <div>
+              <div className='bookCollection__welcome'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
                 consequatur accusamus, perferendis, nemo magni illum quis
                 voluptas sed exercitationem beatae odit temporibus sunt, vel
@@ -94,17 +94,16 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/publishers',
-            element: <CollectionList query={LOAD_PUBLISHERS} />,
+            element: (
+              <CollectionList query={LOAD_PUBLISHERS} listClass='publishers' />
+            ),
           },
           {
             path: '/apps/collection/add/author',
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddAuthorForm
-                    className='bookCollection__addAuthor'
-                    goBackButton={true}
-                  />
+                  <AddAuthorForm className='bookCollection__addAuthor' />
                 }
               />
             ),
@@ -132,10 +131,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddCollection
-                    className='bookCollection__addCollection'
-                    goBackButton={true}
-                  />
+                  <AddCollection className='bookCollection__addCollection' />
                 }
               />
             ),
@@ -145,10 +141,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddGenreForm
-                    className='bookCollection__addGenre'
-                    goBackButton={true}
-                  />
+                  <AddGenreForm className='bookCollection__addGenre' />
                 }
               />
             ),
@@ -158,10 +151,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddPublisherForm
-                    className='bookCollection__addPublisher'
-                    goBackButton={true}
-                  />
+                  <AddPublisherForm className='bookCollection__addPublisher' />
                 }
               />
             ),
@@ -171,10 +161,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddTranslator
-                    goBackButton={true}
-                    className='bookCollection__addTranslator'
-                  />
+                  <AddTranslator className='bookCollection__addTranslator' />
                 }
               />
             ),

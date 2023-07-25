@@ -7,9 +7,10 @@ import List from './List';
 
 interface ListProps {
   query: DocumentNode;
+  listClass?: string;
 }
 
-const CollectionList: React.FC<ListProps> = ({ query }) => {
+const CollectionList: React.FC<ListProps> = ({ query, listClass }) => {
   const { data, loading, error } = useQuery(query);
   const [listData, setListData] = useState([]);
 
@@ -22,7 +23,7 @@ const CollectionList: React.FC<ListProps> = ({ query }) => {
   }, [data]);
 
   return (
-    <div className='bookCollection__list'>
+    <div className={`bookCollection__list ${listClass}`}>
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}
       {data && <List data={listData} />}

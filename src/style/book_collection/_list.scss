@@ -1,6 +1,6 @@
 .bookCollection__list {
-  width: 100%;
-  margin-top: 20px;
+  width: 90%;
+  margin: 20px auto 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -8,9 +8,10 @@
   &_element {
     flex-basis: 90%;
     font-size: $font-size-basic;
-    & + .bookCollection__list_element {
-      margin-top: 15px;
-    }
+    margin-bottom: 15px;
+    // & + .bookCollection__list_element {
+    //   margin-top: 15px;
+    // }
     // letter-spacing: 0.25px;
 
     a.router-link {
@@ -24,6 +25,16 @@
 
     &_element {
       font-size: $font-size-medium;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-700) {
+  .publishers {
+    align-items: center;
+    justify-content: space-between;
+    > div {
+      flex-basis: 40%;
     }
   }
 }

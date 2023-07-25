@@ -113,12 +113,12 @@ const Book: React.FC<BookProps> = ({ data }) => {
       </div>
       <div className='book__data'>
         <div className='book__data_authors'>
-          <p>Authors</p>
+          <p>{authors.length === 1 ? 'Author' : 'Authors'}</p>
           <span>-</span>
           <span>{showAuthors()}</span>
         </div>
         <div className='book__data_genres'>
-          <p>Genres</p>
+          <p>{bookGenres.length === 1 ? 'Genre' : 'Genres'}</p>
           <span>-</span>
           <span>{showGenres()}</span>
         </div>
