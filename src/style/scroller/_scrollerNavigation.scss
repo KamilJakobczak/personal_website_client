@@ -15,8 +15,8 @@
 
     li {
       background-color: $fourth-color;
-      width: 4vw;
-      height: 4vw;
+      width: 3vw;
+      height: 3vw;
       border-radius: 50%;
 
       &.active {
@@ -25,7 +25,7 @@
     }
   }
 }
-@media (orientation: landscape) and (min-width: 800px) {
+@media (orientation: landscape) {
   .scroller {
     &__navigation {
       top: 35vh;
@@ -34,30 +34,30 @@
   }
 }
 
-@media (min-width: $breakpoint-1025) {
-  .scroller {
-    &__navigation {
-      right: 2vw;
-      left: 96vw;
-      li {
-        width: 3vw;
-        height: 3vw;
-        transition: 0.2s;
-        &:hover {
-          cursor: pointer;
-          background-color: rgba($color: $fourth-color, $alpha: 0.5);
-        }
-      }
-    }
-  }
-}
-@media (min-width: $breakpoint-1025) {
-  .scroller {
-    &__navigation {
-      li {
-        width: 2vw;
-        height: 2vw;
-      }
-    }
-  }
-}
+// @media (min-width: $breakpoint-1025) {
+//   .scroller {
+//     &__navigation {
+//       right: 2vw;
+//       left: 96vw;
+//       li {
+//         width: 2vw;
+//         height: 2vw;
+//         transition: 0.2s;
+//         &:hover {
+//           cursor: pointer;
+//           background-color: rgba($color: $fourth-color, $alpha: 0.5);
+//         }
+//       }
+//     }
+//   }
+// }
+// @media (min-width: $breakpoint-1025) {
+//   .scroller {
+//     &__navigation {
+//       li {
+//         width: 2vw;
+//         height: 2vw;
+//       }
+//     }
+//   }
+// }

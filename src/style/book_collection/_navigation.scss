@@ -51,3 +51,16 @@
     }
   }
 }
+
+@media (min-width: $breakpoint-1025) {
+  .navigation {
+    &_ul {
+      li {
+        font-size: $font-size-large;
+        a {
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+}

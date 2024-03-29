@@ -19,7 +19,7 @@
       letter-spacing: 1px;
     }
     &_h2 {
-      font-size: 6vw;
+      font-size: calc(11vw * 0.45);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -37,11 +37,14 @@
 @media (orientation: landscape) and (min-width: 800px) {
   .scroller__homepage {
     &_title {
-      top: 9vh;
+      top: 28vh;
 
       &_h1 {
-        font-size: 10vw;
-        line-height: calc(10vw * 1.2);
+        font-size: 5vw;
+        line-height: calc(5vw * 1.2);
+      }
+      &_h2 {
+        font-size: 4vw;
       }
     }
   }

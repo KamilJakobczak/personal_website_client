@@ -4,18 +4,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  // background-color: aliceblue;
+
   &_element {
     flex-basis: 90%;
     font-size: $font-size-basic;
     margin-bottom: 15px;
-    // & + .bookCollection__list_element {
-    //   margin-top: 15px;
-    // }
-    // letter-spacing: 0.25px;
-
-    a.router-link {
-    }
+    letter-spacing: 0.25px;
   }
 }
 
@@ -35,6 +29,21 @@
     justify-content: space-between;
     > div {
       flex-basis: 40%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-1025) {
+  .bookCollection__list {
+    font-size: $font-size-large;
+
+    &_element {
+      font-size: $font-size-large;
+    }
+  }
+  .publishers {
+    > div {
+      flex-basis: 30%;
     }
   }
 }

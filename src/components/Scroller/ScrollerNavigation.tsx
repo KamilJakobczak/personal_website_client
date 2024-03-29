@@ -29,7 +29,9 @@ const ScrollerNavigation: React.FC<ScrollerNavigationProps> = ({
             className={active === index ? 'active' : ''}
             key={index}
             onClick={e => handleClick(index)}
-          ></li>
+          >
+            {/* <img src='../../images/icons8-dot-32.png' alt='' /> */}
+          </li>
         );
       })}
     </ul>

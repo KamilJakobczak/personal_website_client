@@ -36,3 +36,13 @@ header {
     }
   }
 }
+
+@media (min-width: $breakpoint-1025) {
+  header {
+    a {
+      span.header {
+        font-size: $font-size-large;
+      }
+    }
+  }
+}

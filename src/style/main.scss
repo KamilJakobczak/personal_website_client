@@ -2,20 +2,20 @@
 @import './reset';
 @import './variables';
 
-@import './links';
-@import './location';
-
 @import './index';
 @import './header';
 @import './footer';
 
 // Utility
-@import './loadingSpinner';
-@import './errorMessage';
-@import './checkboxes';
-@import './radioInput';
-@import './uploader';
-@import './select';
+
+@import './utility/checkboxes';
+@import './utility/errorMessage';
+@import './utility/links';
+@import './utility/loadingSpinner';
+@import './utility/location';
+@import './utility/radioInput';
+@import './utility/uploader';
+@import './utility/select';
 
 // Scroller
 @import './scroller/scrollerNavigation';
