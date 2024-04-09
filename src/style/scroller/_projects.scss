@@ -7,20 +7,18 @@
   justify-content: space-evenly;
   color: $fifth-color;
 
-  h3 {
-    padding-top: 5px;
-    font-size: $font-size-large;
+  h2 {
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
   &_container {
     flex-basis: 40%;
 
-    h4 {
+    h3 {
       text-align: center;
       text-transform: uppercase;
-      font-size: $font-size-medium;
+
       padding: 5px 5px;
       letter-spacing: 0.5px;
     }
@@ -39,89 +37,80 @@
       width: 85%;
       text-align: justify;
       margin: 10px auto 5px;
+      font-size: $font-size-p;
     }
   }
 }
 
-@media (min-width: $breakpoint-360) {
-  .scroller__projects {
-    h3 {
-      font-size: $font-size-headings;
-    }
-    &_container {
-      h4 {
-        font-size: $font-size-large;
-      }
-      div {
-        width: 85%;
-      }
-    }
-  }
-}
-@media (min-width: $breakpoint-480) {
-  .scroller__projects {
-    h3 {
-      font-size: 6vw;
-    }
-    &_container {
-      h4 {
-        font-size: $font-size-headings;
-      }
-      p {
-        font-size: $font-size-large;
-      }
-    }
-  }
-}
+// @media (min-width: $breakpoint-360) {
+//   .scroller__projects {
+//     h3 {
+//     }
+//     &_container {
+//       h4 {
+//       }
+//       div {
+//         width: 85%;
+//       }
+//     }
+//   }
+// }
+// @media (min-width: $breakpoint-480) {
+//   .scroller__projects {
+//     h3 {
+//     }
+//     &_container {
+//       h4 {
+//       }
+//       p {
+//       }
+//     }
+//   }
+// }
 
-@media (width: 540px) and (height: 720px) {
-  .scroller__projects {
-    &_container {
-      h4 {
-        font-size: $font-size-large;
-      }
-      div {
-        width: 65%;
-      }
-      p {
-        font-size: $font-size-medium;
-      }
-    }
-  }
-}
-@media (min-width: $breakpoint-700) {
-  .scroller__projects {
-    &_container {
-      h4 {
-        font-size: $font-size-headings;
-      }
-      div {
-        width: 70%;
-      }
-      p {
-        font-size: $font-size-large;
-      }
-    }
-  }
-}
+// @media (width: 540px) and (height: 720px) {
+//   .scroller__projects {
+//     &_container {
+//       h4 {
+//       }
+//       div {
+//         width: 65%;
+//       }
+//       p {
+//       }
+//     }
+//   }
+// }
+// @media (min-width: $breakpoint-700) {
+//   .scroller__projects {
+//     &_container {
+//       h4 {
+//       }
+//       div {
+//         width: 70%;
+//       }
+//       p {
+//       }
+//     }
+//   }
+// }
 @media (orientation: landscape) and (min-width: 800px) {
   .scroller__projects {
     justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
-    h3 {
+    h2 {
       flex-basis: 90%;
       margin-top: 10px;
-      font-size: $font-size-huge;
     }
     &_container {
       height: 80vh;
       flex-basis: 45%;
 
-      h4 {
+      h3 {
         text-align: center;
         text-transform: uppercase;
-        font-size: $font-size-headings;
+
         padding: 5px 5px;
         letter-spacing: 0.5px;
       }
@@ -129,7 +118,6 @@
         width: 90%;
       }
       p {
-        line-height: calc($font-size-large * 1.1);
         width: 90%;
       }
     }

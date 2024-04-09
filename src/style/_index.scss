@@ -1,7 +1,8 @@
-body {
+html {
+  font-size: $font-size-root;
   font-family: $font-basic;
-  font-size: $font-size-basic;
-
+}
+body {
   #root {
     height: 100vh;
     max-height: 100%;
@@ -17,15 +18,28 @@ body {
   }
   button {
     font-family: $font-basic;
-    font-size: $font-size-basic;
+    font-size: 50px;
   }
   input {
     font-family: $font-basic;
-    font-size: $font-size-basic;
+    font-size: 50px;
   }
   a {
     // -webkit-tap-highlight-color: transparent; might be needed
 
     cursor: none;
+  }
+  h1 {
+    font-family: $font-heading;
+    font-size: $font-size-h1;
+  }
+  h2 {
+    font-size: $font-size-h2;
+  }
+  h3 {
+    font-size: $font-size-h3;
+  }
+  h4 {
+    font-size: $font-size-h4;
   }
 }

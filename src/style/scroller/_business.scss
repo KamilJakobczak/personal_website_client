@@ -5,10 +5,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  h3 {
+  h2 {
     flex-basis: 90%;
     margin-top: 1vh;
-    font-size: $font-size-large;
     color: $fifth-color;
     text-align: center;
     text-transform: uppercase;
@@ -20,8 +19,7 @@
         width: 100%;
         border-bottom: 1px solid black;
         margin-bottom: 5px;
-        font-size: $font-size-medium;
-        line-height: calc($font-size-medium * 1.1);
+
         letter-spacing: 0.25px;
         text-align: justify;
         color: $fifth-color;
@@ -34,7 +32,7 @@
         li {
           color: rgba($color: $fifth-color, $alpha: 0.8);
           text-indent: 10px;
-          font-size: $font-size-medium;
+          font-size: $font-size-p;
         }
       }
     }
@@ -42,9 +40,9 @@
   &_contact {
     flex-basis: 90%;
 
-    h5 {
+    h3 {
       border-bottom: 1px solid black;
-      font-size: $font-size-large;
+
       color: $fifth-color;
       text-align: center;
       text-transform: uppercase;
@@ -62,9 +60,8 @@
 
 @media (min-width: $breakpoint-360) {
   .scroller__business {
-    h3 {
-      margin-top: 20px;
-      font-size: $font-size-headings;
+    h2 {
+      // margin-top: 20px;
     }
     &_skills {
       div {
@@ -85,27 +82,19 @@
 
 @media (min-width: $breakpoint-480) {
   .scroller__business {
-    h3 {
-      font-size: 7vw;
+    h2 {
     }
     &_skills {
       div {
-        h4 {
-          font-size: $font-size-large;
-          line-height: calc($font-size-large * 1.1);
-        }
         ul {
           li {
-            font-size: $font-size-large;
           }
         }
       }
     }
     &_contact {
       margin-bottom: 10px;
-      h5 {
-        font-size: $font-size-headings;
-      }
+
       ul {
         li {
           flex-basis: 10%;
@@ -119,24 +108,17 @@
   .scroller__business {
     &_skills {
       div {
-        h4 {
-          font-size: $font-size-large;
-          line-height: calc($font-size-large * 1.1);
-        }
         ul {
           justify-content: space-between;
           li {
             flex-basis: 40%;
-            font-size: $font-size-large;
           }
         }
       }
     }
     &_contact {
       margin-bottom: 10px;
-      h5 {
-        font-size: $font-size-headings;
-      }
+
       ul {
         li {
           flex-basis: 10%;
@@ -150,30 +132,19 @@
   .scroller__business {
     h3 {
       margin-top: 3vh;
-      font-size: 8vw;
     }
     &_skills {
       div {
-        h4 {
-          border-bottom: 1.5px solid black;
-          font-size: $font-size-huge;
-          line-height: calc($font-size-huge * 1.1);
-        }
         ul {
           justify-content: space-between;
           margin-bottom: 10px;
           li {
             margin-top: 3px;
-            font-size: $font-size-huge;
           }
         }
       }
     }
     &_contact {
-      h5 {
-        border-bottom: 1.5px solid black;
-        font-size: $font-size-huge;
-      }
       ul {
         li {
           flex-basis: 15%;
@@ -187,24 +158,16 @@
   .scroller__business {
     h3 {
       margin-top: 3vh;
-      font-size: $font-size-headings;
     }
     &_skills {
       div {
         margin: 0 8vw 0 2vw;
-        h4 {
-          border-bottom: 1.5px solid black;
 
-          font-size: $font-size-large;
-          line-height: calc($font-size-large * 1.1);
-        }
         ul {
           justify-content: space-between;
 
           li {
             flex-basis: 40%;
-
-            font-size: $font-size-large;
           }
         }
       }
@@ -212,10 +175,6 @@
     &_contact {
       flex-basis: 90%;
 
-      h5 {
-        border-bottom: 1.5px solid black;
-        font-size: $font-size-headings;
-      }
       ul {
         justify-content: space-evenly;
         li {
@@ -229,9 +188,6 @@
 
 @media (min-width: $breakpoint-1201) {
   .scroller__business {
-    h3 {
-      font-size: $font-size-huge;
-    }
     &_skills {
       div {
         margin: 0 auto;

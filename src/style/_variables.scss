@@ -9,8 +9,17 @@ $font-size-medium: 20px;
 $font-size-large: 26px;
 $font-size-headings: 32px;
 $font-size-huge: 40px;
+
+$font-size-root: 10px;
+$font-size-h1: clamp(2.5rem, 1.579rem + 5.26vw, 10rem);
+$font-size-h2: clamp(2rem, 1.509rem + 2.81vw, 6rem);
+$font-size-h3: clamp(1.6rem, 1.182rem + 2.39vw, 5rem);
+$font-size-h4: clamp(1.6rem, 1.367rem + 1.33vw, 3.5rem);
+$font-size-p: clamp(1.4rem, 1.204rem + 1.12vw, 3rem);
+
 $font-basic: 'Kanit', Arial, Helvetica, sans-serif;
 $font-heading: 'Monoton', Arial, Helvetica, sans-serif;
+// $font-size-body: clamp(1rem,)
 
 // Apps variables
 $apps_background: #1f2d3b;

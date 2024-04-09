@@ -30,28 +30,7 @@
       color: $fifth-color;
       text-align: justify;
       letter-spacing: 0.5px;
-    }
-  }
-}
-@media (min-width: $breakpoint-360) {
-  .scroller__welcome_message {
-    p {
-      font-size: $font-size-medium;
-    }
-  }
-}
-@media (min-width: $breakpoint-480) {
-  .scroller__welcome_message {
-    p {
-      font-size: $font-size-large;
-    }
-  }
-}
-
-@media (min-width: $breakpoint-700) {
-  .scroller__welcome_message {
-    p {
-      font-size: $font-size-headings;
+      font-size: $font-size-p;
     }
   }
 }

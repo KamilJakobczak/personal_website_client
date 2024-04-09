@@ -17,7 +17,7 @@ const Business: React.FC = () => {
 
   return (
     <section className='scroller__business'>
-      <h3>Skills and contact</h3>
+      <h2>Skills and contact</h2>
       <SkillsSlider />
       <div className='scroller__business_skills'>
         <div className='skills__main'>
@@ -52,7 +52,7 @@ const Business: React.FC = () => {
         </div>
       </div>
       <div className='scroller__business_contact'>
-        <h5>send me a message!</h5>
+        <h3>send me a message!</h3>
         <ul>
           <li>
             <a href='https://github.com/KamilJakobczak'>

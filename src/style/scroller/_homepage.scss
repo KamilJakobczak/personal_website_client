@@ -6,68 +6,60 @@
 
   &_title {
     position: relative;
-    top: 28vh;
-    width: 85%;
+    top: 15vh;
+    // width: 80%;
     margin: 0 auto;
+    padding: 20px 10px;
     text-align: center;
     color: $third-color;
+    background-color: rgba(16, 13, 13, 0.3);
+
     &_h1 {
-      font-family: $font-heading;
-      font-size: 11vw;
-      line-height: calc(11vw * 1.2);
+      line-height: calc($font-size-h1 * 1.25);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
-    &_h2 {
-      font-size: calc(11vw * 0.45);
+    &_h3 {
+      margin-top: 3px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
   }
 }
+// @media (orientation: landscape) and (max-height: 400px) {
+// }
 
-@media (min-width: 540px) and (min-height: 720px) {
-  .scroller__homepage {
-    &_title {
-      top: 20vh;
-    }
-  }
-}
+// @media (min-width: 540px) and (min-height: 720px) {
+//   .scroller__homepage {
+//     &_title {
+//     }
+//   }
+// }
 
-@media (orientation: landscape) and (min-width: 800px) {
-  .scroller__homepage {
-    &_title {
-      top: 28vh;
+// @media (orientation: landscape) and (min-width: 800px) {
+//   .scroller__homepage {
+//     &_title {
+//       &_h1 {
+//       }
+//       &_h2 {
+//       }
+//     }
+//   }
+// }
+// @media (min-width: $breakpoint-1025) {
+//   .scroller__homepage {
+//     &_title {
+//     }
+//   }
+// }
 
-      &_h1 {
-        font-size: 5vw;
-        line-height: calc(5vw * 1.2);
-      }
-      &_h2 {
-        font-size: 4vw;
-      }
-    }
-  }
-}
-@media (min-width: $breakpoint-1025) {
-  .scroller__homepage {
-    &_title {
-      top: 17%;
-    }
-  }
-}
-
-@media (min-width: $breakpoint-1025) {
-  .scroller__homepage {
-    &_title {
-      top: 12%;
-      &_h1 {
-        font-size: 7vw;
-        line-height: calc(7vw * 1.2);
-      }
-      &_h2 {
-        font-size: 4vw;
-      }
-    }
-  }
-}
+// @media (min-width: $breakpoint-1025) {
+//   .scroller__homepage {
+//     &_title {
+//       &_h1 {
+//       }
+//       &_h2 {
+//       }
+//     }
+//   }
+// }

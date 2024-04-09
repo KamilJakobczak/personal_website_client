@@ -4,10 +4,10 @@ import book_collection from '../../images/book_collection.jpg';
 const Projects: React.FC = () => {
   return (
     <section className='scroller__projects'>
-      <h3>Projects</h3>
+      <h2>Projects</h2>
 
       <div className='scroller__projects_container'>
-        <h4>JS coding playground</h4>
+        <h3>JS coding playground</h3>
         <div>
           <Link to='apps/coding'>
             <img src={coding_playground} alt='' />
@@ -22,7 +22,7 @@ const Projects: React.FC = () => {
       </div>
 
       <div className='scroller__projects_container'>
-        <h4>book collection</h4>
+        <h3>book collection</h3>
         <div>
           <Link to='apps/collection'>
             <img src={book_collection} alt='' />
