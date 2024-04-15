@@ -7,19 +7,9 @@
 
   &_element {
     flex-basis: 90%;
-    font-size: $font-size-basic;
+    font-size: $font-size-p;
     margin-bottom: 15px;
     letter-spacing: 0.25px;
-  }
-}
-
-@media (min-width: $breakpoint-360) {
-  .bookCollection__list {
-    font-size: $font-size-medium;
-
-    &_element {
-      font-size: $font-size-medium;
-    }
   }
 }
 
@@ -35,10 +25,7 @@
 
 @media (min-width: $breakpoint-1025) {
   .bookCollection__list {
-    font-size: $font-size-large;
-
     &_element {
-      font-size: $font-size-large;
     }
   }
   .publishers {

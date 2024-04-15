@@ -25,7 +25,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         text-transform: uppercase;
-        font-size: $font-size-basic;
+        font-size: $font-size-p;
       }
       ul {
         display: none;
@@ -74,18 +74,18 @@
         width: 80%;
         padding: 0 0 0 20px;
         border: none;
-        font-size: $font-size-basic;
+        font-size: $font-size-p;
         color: $apps_background;
       }
       .fas {
         // background-color: #9fa3b1;
 
         position: absolute;
-        top: calc((var(--search_height) - $font-size-basic) / 2);
+        top: calc((var(--search_height) - $font-size-p) / 2);
 
-        right: $font-size-basic;
+        right: $font-size-p;
 
-        font-size: $font-size-basic;
+        font-size: $font-size-p;
         color: #5078ef;
       }
       &_results {
@@ -99,7 +99,7 @@
         padding: 20px;
         box-shadow: 8px 8px 6px -10px #b3c6ff;
         color: $apps_background;
-        font-size: $font-size-basic;
+        font-size: $font-size-p;
         &.active {
           display: block;
           z-index: 1;

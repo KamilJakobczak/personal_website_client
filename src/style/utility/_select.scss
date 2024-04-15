@@ -6,6 +6,7 @@
     margin-top: 2px;
   }
   label {
+    font-size: $font-size-p;
     flex-basis: 25%;
     &::first-letter {
       text-transform: capitalize;
@@ -13,12 +14,13 @@
   }
   .custom-select {
     font-family: $font-basic;
-    font-size: $font-size-basic;
+    font-size: $font-size-p;
     min-width: 0;
     flex: 1;
     text-align: center;
   }
   button {
+    font-size: $font-size-p;
     margin-left: 5px;
     border: none;
 

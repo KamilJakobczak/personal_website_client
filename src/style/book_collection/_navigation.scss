@@ -6,7 +6,7 @@
     justify-content: space-evenly;
     li {
       text-align: center;
-      font-size: $font-size-basic;
+      font-size: $font-size-p;
 
       a {
         padding: 3px;
@@ -37,7 +37,6 @@
   .navigation {
     &_ul {
       li {
-        font-size: $font-size-medium;
       }
     }
   }
@@ -56,7 +55,6 @@
   .navigation {
     &_ul {
       li {
-        font-size: $font-size-large;
         a {
           letter-spacing: 1px;
         }

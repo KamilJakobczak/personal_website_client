@@ -3,7 +3,7 @@
   width: 90%;
   margin: 10px auto 0;
   background-color: $fourth-color;
-  font-size: $font-size-basic;
+  font-size: $font-size-p;
 
   text-transform: uppercase;
   color: $apps_background;
@@ -22,8 +22,6 @@
 
 @media (min-width: $breakpoint-700) {
   .collectionButton {
-    font-size: $font-size-medium;
-
     a,
     span {
       padding: 10px 0;

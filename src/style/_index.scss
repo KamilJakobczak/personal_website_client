@@ -42,4 +42,15 @@ body {
   h4 {
     font-size: $font-size-h4;
   }
+  p {
+    font-size: $font-size-p;
+  }
+}
+
+@media (hover: hover) {
+  body {
+    a {
+      cursor: pointer;
+    }
+  }
 }
