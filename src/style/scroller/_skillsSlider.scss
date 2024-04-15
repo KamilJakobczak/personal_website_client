@@ -89,10 +89,16 @@
     display: flex;
 
     justify-content: space-evenly;
-    flex-basis: 90%;
+    flex-basis: 60%;
 
     div {
       animation: none;
     }
+  }
+}
+
+@media (min-width: 1921px) {
+  .scroller__business_slider {
+    flex-basis: 50%;
   }
 }

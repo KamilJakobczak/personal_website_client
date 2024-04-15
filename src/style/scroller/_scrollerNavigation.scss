@@ -8,15 +8,15 @@
     align-items: center;
 
     position: absolute;
-    top: 43vh;
-    bottom: 43vh;
+    top: 46vh;
+    bottom: 40vh;
     right: 2vw;
     left: 94vw;
 
     li {
       background-color: $fourth-color;
-      width: 3vw;
-      height: 3vw;
+      width: clamp(10px, 7.5439px + 0.8772vi, 30px);
+      height: clamp(10px, 7.5439px + 0.8772vi, 30px);
       border-radius: 50%;
 
       &.active {
@@ -28,8 +28,8 @@
 @media (orientation: landscape) {
   .scroller {
     &__navigation {
-      top: 35vh;
-      bottom: 35vh;
+      top: 45vh;
+      bottom: 30vh;
     }
   }
 }

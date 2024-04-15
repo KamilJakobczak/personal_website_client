@@ -1,12 +1,12 @@
 .scroller__business {
-  max-width: 1400px;
+  // max-width: 1400px;
   margin: 0 auto;
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   h2 {
-    flex-basis: 90%;
+    flex-basis: 100%;
     margin-top: 1vh;
     color: $fifth-color;
     text-align: center;
@@ -15,6 +15,7 @@
   &_skills {
     div {
       margin: 0 8vw 0 2vw;
+      max-width: 1000px;
       h4 {
         width: 100%;
         border-bottom: 1px solid black;
@@ -38,7 +39,7 @@
     }
   }
   &_contact {
-    flex-basis: 90%;
+    flex-basis: 100%;
 
     h3 {
       border-bottom: 1px solid black;
@@ -48,10 +49,12 @@
       text-transform: uppercase;
     }
     ul {
+      width: 90%;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       li {
-        flex-basis: 18%;
+        flex-basis: 12%;
         margin: 10px 0 0;
       }
     }
@@ -82,8 +85,6 @@
 
 @media (min-width: $breakpoint-480) {
   .scroller__business {
-    h2 {
-    }
     &_skills {
       div {
         ul {
@@ -173,13 +174,15 @@
       }
     }
     &_contact {
-      flex-basis: 90%;
+      flex-basis: 100%;
 
       ul {
         justify-content: space-evenly;
+        max-width: 1200px;
+
         li {
-          flex-basis: 6%;
-          margin-top: 10px;
+          flex-basis: 3%;
+          margin-top: 20px;
         }
       }
     }

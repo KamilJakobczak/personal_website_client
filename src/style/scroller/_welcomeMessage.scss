@@ -1,12 +1,14 @@
 .scroller__welcome_message {
   height: 100vh;
+  width: 85%;
   max-width: 1400px;
   margin: 0 auto;
   &_container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    width: 85%;
+    // width: 85%;
+    max-width: 1000px;
     height: 100%;
     margin: 0 auto;
     div {
