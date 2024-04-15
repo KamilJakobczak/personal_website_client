@@ -19,7 +19,7 @@ const Filter: React.FC<FilterProps> = ({
   const className = `filter_${name}`;
 
   return (
-    <div className={`filter_category ${className}`}>
+    <div className={`filter_category ${className} `}>
       <legend className={'filter_category_legend'}>{name}</legend>
       {data.map((item: any) => {
         return (

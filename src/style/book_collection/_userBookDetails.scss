@@ -32,48 +32,17 @@
   &_purchased {
     > div {
       > p:nth-child(1) {
+        width: 60%;
+        margin: 0 auto 2px;
+
         letter-spacing: 0.5px;
+        border-bottom: 1px solid;
       }
       div {
         &:nth-last-child(1) {
           margin-bottom: 5px;
         }
         p {
-          line-height: calc($font-size-p * 1.1);
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: $breakpoint-360) {
-  .userBookDetails_purchased {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    > div {
-      flex-basis: 40%;
-    }
-  }
-}
-
-@media (min-width: $breakpoint-700) {
-  .userBookDetails {
-    &_rating {
-      &-wrapper {
-        i {
-          font-size: $font-size-p;
-        }
-      }
-    }
-    &_purchased {
-      > div {
-        > p:nth-child(1) {
-        }
-        div {
-          p {
-            line-height: calc($font-size-p * 1.2);
-          }
         }
       }
     }

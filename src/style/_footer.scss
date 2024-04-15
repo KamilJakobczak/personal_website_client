@@ -14,18 +14,13 @@ footer.footer {
     span {
       display: block;
       margin-top: 5px;
+      font-size: $font-size-p;
       letter-spacing: 1.75px;
       text-align: center;
     }
     a {
+      font-size: $font-size-small;
       text-align: center;
-    }
-  }
-}
-
-@media (min-width: $breakpoint-360) {
-  footer.footer {
-    div {
     }
   }
 }

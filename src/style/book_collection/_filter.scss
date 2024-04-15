@@ -10,5 +10,11 @@
   }
   &_item {
     margin-top: 1px;
+    label {
+      font-size: $font-size-p;
+      input {
+        font-size: $font-size-p;
+      }
+    }
   }
 }

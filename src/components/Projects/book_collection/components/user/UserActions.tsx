@@ -214,9 +214,9 @@ const UserActions: React.FC<UserActionsInterface> = ({
               </div>
             </>
           )}
-          <div className='userActionsForm_element userActions__form_element-owned'>
+          <div className='userActionsForm_element userActions__form_element-owned '>
             <legend>Owned:</legend>
-            <div>
+            <div className='form-control'>
               <label htmlFor='owned'>owned</label>
               <input
                 type='checkbox'
@@ -225,7 +225,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
                 onChange={e => handleOwnedCheckboxes(e)}
               />
             </div>
-            <div>
+            <div className='form-control'>
               <label htmlFor='notOwned'>not owned</label>
               <input
                 type='checkbox'

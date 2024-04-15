@@ -19,6 +19,7 @@ interface PublisherProps {
 const Publisher: React.FC<PublisherProps> = ({ data }) => {
   const { address, name, books, website } = data;
   const { country, zipCode, city, street, buildingNr, placeNr } = address;
+  console.log(website);
 
   return (
     <div className='publisher'>
@@ -32,7 +33,15 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
         <div className='publisher__data_website'>
           <p>Website</p>
           <span>-</span>
-          <span>{website}</span>
+          <span>
+            <a
+              href={`https://${website}`}
+              rel='noreferrer noopener'
+              target='_blank'
+            >
+              click
+            </a>
+          </span>
         </div>
         <div className='publisher__data_street'>
           <p>Street</p>

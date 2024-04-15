@@ -2,13 +2,6 @@
   &_bio {
     width: 90%;
     margin: 0 auto;
-  }
-}
-
-@media (min-width: $breakpoint-480) {
-  .bookCollection__my__profile {
-    &_bio {
-      font-size: $font-size-medium;
-    }
+    font-size: $font-size-p;
   }
 }
