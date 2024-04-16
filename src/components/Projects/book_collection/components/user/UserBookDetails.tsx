@@ -79,6 +79,7 @@ const UserBookDetails: React.FC<UserBookDetailsInterface> = ({
   };
   return (
     <div className={`${className}__userBookDetails userBookDetails`}>
+      <h5>Your details</h5>
       <div className={`userBookDetails_rating`}>{ratingElement()}</div>
       <div className={`userBookDetails_status`}>{statusElement()}</div>
 

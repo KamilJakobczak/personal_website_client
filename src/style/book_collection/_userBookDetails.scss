@@ -1,8 +1,13 @@
 .userBookDetails {
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-
+  h5 {
+    margin: 0 auto 10px;
+    font-size: $font-size-h5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
   > div {
     flex-basis: 90%;
     margin: 0 auto 10px;
@@ -32,8 +37,8 @@
   &_purchased {
     > div {
       > p:nth-child(1) {
-        width: 60%;
-        margin: 0 auto 2px;
+        width: 40%;
+        margin: 5px auto 3px;
 
         letter-spacing: 0.5px;
         border-bottom: 1px solid;

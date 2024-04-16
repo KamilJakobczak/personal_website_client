@@ -19,6 +19,7 @@
       border-right: 2px solid #dde2f1;
       color: $apps_background;
       position: relative;
+      font-size: $font-size-small;
       &_default {
         position: relative;
         top: 50%;
@@ -81,7 +82,7 @@
         // background-color: #9fa3b1;
 
         position: absolute;
-        top: calc((var(--search_height) - $font-size-p) / 2);
+        top: calc((var(--search_height) - $font-size-p));
 
         right: $font-size-p;
 
@@ -144,6 +145,7 @@
       }
       &_searchField {
         flex-basis: 60%;
+
         &_results {
           width: 80%;
           top: 30px;
