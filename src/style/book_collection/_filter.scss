@@ -1,7 +1,11 @@
 .filter_category {
-  flex-basis: 90%;
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 5px;
+  justify-content: space-between;
+
   &_legend {
+    flex-basis: 100%;
     text-transform: capitalize;
     padding-bottom: 0px;
     margin: 3px 0 5px;
@@ -9,12 +13,67 @@
     font-size: $font-size-p;
   }
   &_item {
-    margin-top: 2px;
+    flex-basis: 45%;
+    margin-top: 3px;
     label {
-      font-size: $font-size-p;
       input {
-        font-size: $font-size-p;
+        font-size: $font-size-small;
       }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-480) {
+  .filter_category {
+    &_item {
+      flex-basis: 30%;
+    }
+  }
+  .filter_publishers .filter_category {
+    &_item {
+      flex-basis: 45%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-700) {
+  .filter_category {
+    justify-content: flex-start;
+    &_item {
+      flex-basis: 25%;
+    }
+  }
+  .filter_publishers .filter_category {
+    &_item {
+      flex-basis: 33%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-1025) {
+  .filter_category {
+    justify-content: space-between;
+    &_item {
+      flex-basis: 30%;
+    }
+  }
+  .filter_publishers .filter_category {
+    &_item {
+      flex-basis: 50%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-1501) {
+  .filter_category {
+    // justify-content: space-between;
+    &_item {
+      flex-basis: 45%;
+    }
+  }
+  .filter_publishers .filter_category {
+    &_item {
+      flex-basis: 100%;
     }
   }
 }

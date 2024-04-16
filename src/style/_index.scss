@@ -49,6 +49,12 @@ body {
 
 @media (hover: hover) {
   body {
+    input {
+      cursor: pointer;
+    }
+    div.collectionButton {
+      cursor: pointer;
+    }
     a {
       cursor: pointer;
     }

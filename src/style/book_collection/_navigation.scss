@@ -2,9 +2,12 @@
   margin: 10px auto;
 
   &_ul {
+    width: 90%;
+    margin: 0 auto;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     li {
+      flex-basis: 25%;
       text-align: center;
       font-size: $font-size-p;
 
@@ -33,19 +36,12 @@
     }
   }
 }
-@media (min-width: $breakpoint-360) {
-  .navigation {
-    &_ul {
-      li {
-      }
-    }
-  }
-}
+
 @media (min-width: $breakpoint-700) {
   .navigation {
     &_ul {
       li {
-        flex-basis: 25%;
+        // flex-basis: 25%;
       }
     }
   }
@@ -53,8 +49,10 @@
 
 @media (min-width: $breakpoint-1025) {
   .navigation {
+    width: 100%;
     &_ul {
       li {
+        flex-basis: 33%;
         a {
           letter-spacing: 1px;
         }

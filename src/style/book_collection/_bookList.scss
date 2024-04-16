@@ -1,8 +1,9 @@
 .bookCollection {
+  max-width: 1600px;
   &__books {
-    width: 100%;
+    // width: 100%;
     &__filter {
-      width: 100%;
+      // width: 100%;
       &_hideButton {
         width: 90%;
         margin: 5px auto 5px;
@@ -15,15 +16,58 @@
         font-weight: bold;
         letter-spacing: 1px;
       }
+      &_filters {
+        width: 90%;
+        margin: 0 auto;
+        > div:nth-last-child(1) {
+          width: 100%;
+          margin: 10px 0;
+        }
+      }
     }
-    &__filters {
-      width: 100%;
+  }
+}
+
+@media (min-width: $breakpoint-1025) {
+  .bookCollection {
+    &__books {
+      width: 90%;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      > div:nth-last-child(1) {
-        flex-basis: 90%;
-        margin: 10px 0;
+      margin: 0 auto;
+      justify-content: space-between;
+      &__filter {
+        flex-basis: 40%;
+        &_filters {
+          width: 100%;
+        }
+      }
+      &__list {
+        flex-basis: 50%;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-1201) {
+  .bookCollection {
+    &__books {
+      &__filter {
+        flex-basis: 35%;
+      }
+      &__list {
+        flex-basis: 55%;
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-1501) {
+  .bookCollection {
+    &__books {
+      &__filter {
+        flex-basis: 20%;
+      }
+      &__list {
+        flex-basis: 55%;
       }
     }
   }

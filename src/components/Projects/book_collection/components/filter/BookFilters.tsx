@@ -85,14 +85,14 @@ const BookFilters: React.FC<BookFiltersProps> = ({
         <Button
           text='filter'
           handleClick={handleFilterClick}
-          className='bookCollection__books__filters_submit'
+          className='bookCollection__books__filter_filters_submit'
         />
       </>
     );
   };
 
   return (
-    <div className='bookCollection__books__filters'>
+    <div className='bookCollection__books__filter_filters'>
       {!loading && !loadingP && showContent()}
       {error && <Error text={error.message} />}
       {errorP && <Error text={errorP.message} />}

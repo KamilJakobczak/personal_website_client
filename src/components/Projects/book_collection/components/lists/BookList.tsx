@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LOAD_BOOKS } from '../../../../../GraphQL/queries';
 import Error from '../../../../Error';
 import LoadingSpinner from '../../../../LoadingSpinner';
@@ -14,6 +14,7 @@ const BookList: React.FC = () => {
   });
 
   const [filtersVisible, setFiltersVisible] = useState(false);
+  const [higherWidth, setHigherWidth] = useState(false);
 
   const handleFiltersClick = () => {
     setFiltersVisible(prevState => !prevState);
@@ -21,11 +22,32 @@ const BookList: React.FC = () => {
   const hideFilters = () => {
     setFiltersVisible(false);
   };
+  const windowResize = () => {
+    const width = window.innerWidth;
+    if (width > 1025) {
+      setFiltersVisible(true);
+      setHigherWidth(true);
+    } else {
+      setFiltersVisible(false);
+      setHigherWidth(false);
+    }
+  };
+  useEffect(() => {
+    if (window.innerWidth > 1024) {
+      setHigherWidth(true);
+      setFiltersVisible(true);
+    }
+    window.addEventListener('resize', windowResize);
 
-  const showContent = () => {
+    return () => {
+      window.removeEventListener('resize', windowResize);
+    };
+  }, []);
+
+  const showFilters = () => {
     return (
       <>
-        {filtersVisible && (
+        {filtersVisible && !higherWidth && (
           <Button
             className='bookCollection__books__filter_hideButton'
             text='hide filters'
@@ -35,7 +57,7 @@ const BookList: React.FC = () => {
         {filtersVisible ? (
           <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} />
         ) : null}
-        {filtersVisible ? (
+        {/* {filtersVisible ? (
           <Button
             className='bookCollection__books__filter_hideButton'
             text='hide filters'
@@ -47,18 +69,25 @@ const BookList: React.FC = () => {
             text='expand filters'
             handleClick={handleFiltersClick}
           />
-        )}
-        {data && (
-          <div className='bookCollection__books_list bookCollection__list'>
-            <List data={data.books} />
-          </div>
+        )} */}
+        {filtersVisible ? null : (
+          <Button
+            className='bookCollection__books__filter_showButton'
+            text='show filters'
+            handleClick={handleFiltersClick}
+          />
         )}
       </>
     );
   };
   return (
-    <div className='book_collection__books'>
-      {showContent()}
+    <div className='bookCollection__books'>
+      <div className='bookCollection__books__filter'>{showFilters()}</div>
+      {data && (
+        <div className='bookCollection__books__list bookCollection__list'>
+          <List data={data.books} />
+        </div>
+      )}
       {error && <Error text={error.message} />}
       {loading && <LoadingSpinner />}
     </div>
