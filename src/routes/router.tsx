@@ -85,7 +85,9 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/authors',
-            element: <CollectionList query={LOAD_AUTHORS} />,
+            element: (
+              <CollectionList query={LOAD_AUTHORS} listClass='authors' />
+            ),
           },
 
           {

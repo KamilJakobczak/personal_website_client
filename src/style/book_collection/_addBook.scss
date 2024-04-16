@@ -28,32 +28,34 @@
           flex-wrap: wrap;
           align-items: center;
           justify-content: space-between;
-          > label {
+          label {
             font-size: $font-size-p;
             flex-basis: 25%;
             &::first-letter {
               text-transform: capitalize;
             }
           }
-          > input {
+          input {
             font-size: $font-size-p;
+
             flex: 1;
           }
-          > select {
+          select {
             font-family: $font-basic;
             font-size: $font-size-p;
             min-width: 0;
             flex: 1;
+
             text-align: center;
           }
           &_cover-upload {
             display: flex;
             justify-content: space-between;
-            > label {
+            label {
               font-size: $font-size-p;
               flex-basis: 25%;
             }
-            > input {
+            input {
               min-width: 0;
             }
           }

@@ -49,7 +49,6 @@ const Select: React.FC<SelectProps> = ({
     e.preventDefault();
     if (selectedValues) {
       if (inputValues) {
-        console.log('hmmm');
         if (
           !checkDuplicates(selectedValues) &&
           !checkDuplicates(inputValues) &&
@@ -60,7 +59,6 @@ const Select: React.FC<SelectProps> = ({
         }
       }
       if (!checkDuplicates(selectedValues) && selectedValues[id]) {
-        console.log('hhmmm');
         setSelectCounter([...selectCounter, selectCounter.length]);
       }
     }
@@ -112,11 +110,15 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className='select_wrapper'>
-      <label htmlFor={item}>{item}</label>
+      {id === 0 ? (
+        <label htmlFor={item}>{item}</label>
+      ) : (
+        <label htmlFor={`${item}${id}`}>{`${item} ${id + 1}`}</label>
+      )}
       <select
         className='custom-select'
         id={`${id}`}
-        name={item}
+        name={id === 0 ? item : `${item}${id}`}
         onChange={e => handleSelectChange(e)}
         value={selectedValues[id] || ''}
       >
