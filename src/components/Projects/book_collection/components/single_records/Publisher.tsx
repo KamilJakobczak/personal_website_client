@@ -34,13 +34,15 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
           <p>Website</p>
           <span>-</span>
           <span>
-            <a
-              href={`https://${website}`}
-              rel='noreferrer noopener'
-              target='_blank'
-            >
-              click
-            </a>
+            {website && (
+              <a
+                href={`https://${website}`}
+                rel='noreferrer noopener'
+                target='_blank'
+              >
+                click
+              </a>
+            )}
           </span>
         </div>
         <div className='publisher__data_street'>

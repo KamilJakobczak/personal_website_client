@@ -1,7 +1,10 @@
 .bookCollection {
   max-width: 1400px;
   &__books {
-    // width: 100%;
+    // width: 100%
+    &__list.bookCollection__list {
+      display: block;
+    }
     &__filter {
       // width: 100%;
       &_hideButton {
