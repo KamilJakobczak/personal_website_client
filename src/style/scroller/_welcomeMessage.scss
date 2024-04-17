@@ -5,7 +5,9 @@
   margin: 0 auto;
   &_container {
     display: flex;
-    align-items: center;
+    // align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
     flex-wrap: wrap;
     // width: 85%;
     max-width: 1000px;
@@ -28,11 +30,34 @@
       }
     }
     p {
-      margin-bottom: 10px;
+      flex-basis: 12%;
+      // margin-bottom: 5px;
       color: $fifth-color;
       text-align: justify;
       letter-spacing: 0.5px;
       font-size: $font-size-p;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-360) {
+  .scroller__welcome_message {
+    &_container {
+      justify-content: flex-start;
+      div {
+        margin-bottom: 10px;
+        p {
+          margin-top: 5vh;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-700) {
+  .scroller__welcome_message {
+    width: 60%;
+    &_container {
     }
   }
 }
