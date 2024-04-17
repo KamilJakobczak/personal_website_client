@@ -54,21 +54,21 @@
   .filter_category {
     justify-content: space-between;
     &_item {
-      flex-basis: 30%;
+      flex-basis: 50%;
     }
   }
   .filter_publishers .filter_category {
     &_item {
-      flex-basis: 50%;
+      flex-basis: 90%;
     }
   }
 }
 
-@media (min-width: $breakpoint-1501) {
+@media (min-width: $breakpoint-1400) {
   .filter_category {
     // justify-content: space-between;
     &_item {
-      flex-basis: 45%;
+      // flex-basis: 45%;
     }
   }
   .filter_publishers .filter_category {

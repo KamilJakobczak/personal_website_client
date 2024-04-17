@@ -60,11 +60,11 @@
             }
           }
           + .addBookForm_element {
-            margin-top: 2.5px;
+            margin-top: 2px;
           }
           &_cover:nth-child(1) {
-            max-width: 100px;
-            max-height: 200px;
+            // max-width: 100px;
+            // max-height: 200px;
             img {
               width: 100%;
             }
@@ -128,3 +128,81 @@
 //     }
 //   }
 // }
+@media (min-width: $breakpoint-700) {
+  .bookCollection {
+    &__addBook {
+      width: 75%;
+      &__bookForm {
+        &__form {
+          .addBookForm_element {
+            + .addBookForm_element {
+              &_isCollection {
+                margin: 8px 0 4px;
+              }
+              // flex-grow: 1;
+              // flex-basis: 60%;
+            }
+            // input{}
+            // select{}
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-1025) {
+  .bookCollection {
+    &__addBook {
+      width: 90%;
+      &__bookForm {
+        &__form {
+          flex-wrap: wrap;
+          justify-content: space-between;
+          .addBookForm_element {
+            + .addBookForm_element {
+              flex-basis: 48%;
+              margin-top: 6px;
+
+              &_cover {
+                // width: 500px;
+                // flex-basis: 100%;
+                &-upload {
+                  flex-basis: 100%;
+                }
+              }
+              &_title {
+                flex-basis: 100%;
+                justify-content: space-between;
+                label {
+                  flex-basis: 12%;
+                }
+                input {
+                  flex: 1;
+                }
+              }
+              &_genres {
+                // flex-basis: 100%;plo
+              }
+
+              &_isCollection {
+                flex-basis: 80%;
+                margin: 12px 0 8px;
+              }
+              // flex-grow: 1;
+              // flex-basis: 60%;
+            }
+            // input{}
+            // select{}
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-1400) {
+  .bookCollection {
+    &__addBook {
+      width: 70%;
+    }
+  }
+}

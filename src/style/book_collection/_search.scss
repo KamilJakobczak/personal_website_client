@@ -82,11 +82,11 @@
         // background-color: #9fa3b1;
 
         position: absolute;
-        top: calc((var(--search_height) - $font-size-p));
+        top: calc((var(--search_height) - $font-size-small));
 
         right: $font-size-p;
 
-        font-size: $font-size-p;
+        font-size: $font-size-small;
         color: #5078ef;
       }
       &_results {
