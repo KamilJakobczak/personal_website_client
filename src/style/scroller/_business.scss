@@ -6,24 +6,23 @@
   flex-wrap: wrap;
   justify-content: center;
   h2 {
+    margin-top: 20px;
     flex-basis: 100%;
-    margin-top: 1vh;
-    color: $fifth-color;
+    // margin-top: 1vh;
+    // color: $fifth-color;
     text-align: center;
     text-transform: uppercase;
   }
   &_skills {
     div {
-      margin: 0 8vw 0 2vw;
       max-width: 1000px;
+      margin: 0 8vw 0 2vw;
       h4 {
         width: 100%;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $scroller-text-color;
         margin-bottom: 5px;
-
         letter-spacing: 0.25px;
         text-align: justify;
-        color: $fifth-color;
       }
       ul {
         display: flex;
@@ -31,7 +30,6 @@
         justify-content: space-around;
         margin-bottom: 10px;
         li {
-          color: rgba($color: $fifth-color, $alpha: 0.8);
           text-indent: 10px;
           font-size: $font-size-p;
         }
@@ -42,9 +40,9 @@
     flex-basis: 100%;
 
     h3 {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $scroller-text-color;
 
-      color: $fifth-color;
+      // color: $fifth-color;
       text-align: center;
       text-transform: uppercase;
     }
@@ -56,6 +54,7 @@
       li {
         flex-basis: 12%;
         margin: 10px 0 0;
+        color: $scroller-text-color;
       }
     }
   }

@@ -4,16 +4,15 @@ import { ReactComponent as MailIcon } from '../../images/mail_icon.svg';
 import SkillsSlider from './SkillsSlider';
 
 const Business: React.FC = () => {
-  const mainSkills = ['React', 'Typescript', 'CSS (SASS)', 'HTML'];
-  const secondarySkills = [
+  const mainSkills = [
+    'React',
     'Javascript',
+    'Typescript',
     'GraphQL',
-    'Apollo',
-    'Redux',
-    'MongoDB',
-    'Prisma',
-    'NodeJS',
+    'CSS (SASS)',
+    'HTML',
   ];
+  const secondarySkills = ['Apollo', 'Redux', 'MongoDB', 'Prisma', 'NodeJS'];
 
   return (
     <section className='scroller__business'>

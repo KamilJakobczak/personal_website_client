@@ -39,7 +39,7 @@ const ScrollerComponent: React.FC = () => {
     setVisibleElementIndex(index);
   };
   return (
-    <div className='scroller'>
+    <div className='scroller' id='scroller'>
       {elements[visibleElementIndex]}
       <ScrollerNavigation
         elements={elements}

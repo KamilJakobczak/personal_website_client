@@ -16,6 +16,10 @@ body {
     color: $fourth-color;
     flex-grow: 20;
   }
+  #scroller {
+    background-color: $scroller-background-color;
+    color: $scroller-text-color;
+  }
   button {
     font-family: $font-basic;
     font-size: 50px;

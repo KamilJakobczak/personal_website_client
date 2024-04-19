@@ -1,6 +1,5 @@
 .scroller__welcome_message {
   height: 100vh;
-  width: 85%;
   max-width: 1400px;
   margin: 0 auto;
   &_container {
@@ -13,7 +12,9 @@
     max-width: 1000px;
     height: 100%;
     margin: 0 auto;
+    // padding-top: 20px;
     div {
+      margin-top: 20px;
       .image_container {
         padding-top: 1vh;
         padding-right: 3vw;
@@ -32,7 +33,7 @@
     p {
       flex-basis: 12%;
       // margin-bottom: 5px;
-      color: $fifth-color;
+      // color: $fifth-color;
       text-align: justify;
       letter-spacing: 0.5px;
       font-size: $font-size-p;
@@ -56,7 +57,7 @@
 
 @media (min-width: $breakpoint-700) {
   .scroller__welcome_message {
-    width: 60%;
+    // width: 60%;
     &_container {
     }
   }
