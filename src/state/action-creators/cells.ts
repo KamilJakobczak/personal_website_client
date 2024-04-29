@@ -82,6 +82,7 @@ export const saveCells = () => {
     const cells = order.map((id: string) => data[id]);
 
     try {
+      console.log(sessionId);
       await axios.post(
         `${codingApi}/cells/${sessionId}`,
         { cells },

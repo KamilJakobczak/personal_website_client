@@ -1,8 +1,7 @@
-import Consent from '../../../Consent';
+import Consent from './Consent';
 import { useState, useEffect } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { getCookie } from '../../../../utility/getCookie';
 import LoadingSpinner from '../../../LoadingSpinner';
 
 const CodingGuide: React.FC = () => {
@@ -10,21 +9,20 @@ const CodingGuide: React.FC = () => {
   const [infoVisible, setInfoVisible] = useState(true);
   const [showSessionSuccess, setShowSessionSuccess] = useState(false);
 
-  const { createSession, fetchCells } = useActions();
+  const { checkSession, createSession, fetchCells } = useActions();
   const { error, sessionId, loading } = useTypedSelector(
     state => state.session
   );
-  const cookie = getCookie('sessionId');
+  console.log(sessionId);
 
   useEffect(() => {
-    if (!cookie) {
+    if (!sessionId) {
+      checkSession();
       return;
     }
-    if (cookie && !sessionId) {
-      return;
-    }
-    if (cookie && sessionId) {
+    if (sessionId) {
       setShowSessionSuccess(true);
+      fetchCells(sessionId);
       setTimeout(() => {
         setShowSessionSuccess(false);
       }, 5000);
@@ -32,13 +30,14 @@ const CodingGuide: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId]);
 
-  useEffect(() => {
-    if (cookie) {
-      createSession(cookie);
-      fetchCells(cookie);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   console.log(sessionId, 'useffect, CodingGuide');
+  //   if (sessionId) {
+  //     createSession();
+  //     fetchCells(sessionId);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const handleConsentClick = (answer: string) => {
     setConsentVisible('hide');

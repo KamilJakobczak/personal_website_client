@@ -55,10 +55,10 @@
   }
 }
 
-@media (min-width: $breakpoint-700) {
+@media (min-width: $breakpoint-1400) {
   .scroller__welcome_message {
-    // width: 60%;
     &_container {
+      max-width: 800px;
     }
   }
 }

@@ -1,4 +1,8 @@
 export enum ActionType {
+  CHECK_SESSION = 'check_session',
+  CHECK_SESSION_COMPLETE = 'check_session_complete',
+  CHECK_SESSION_ERROR = 'check_session_error',
+
   CREATE_SESSION = 'create_session',
   CREATE_SESSION_COMPLETE = 'create_session_complete',
   CREATE_SESSION_ERROR = 'create_session_error',

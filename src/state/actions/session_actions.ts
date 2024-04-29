@@ -1,4 +1,21 @@
 import { ActionType } from '../action-types';
+
+export interface CheckSessionAction {
+  type: ActionType.CHECK_SESSION;
+}
+export interface CheckSessionCompleteAction {
+  type: ActionType.CHECK_SESSION_COMPLETE;
+  payload: {
+    sessionId: string;
+  };
+}
+export interface CheckSessionErrorAction {
+  type: ActionType.CHECK_SESSION_ERROR;
+  payload: {
+    err: string;
+  };
+}
+
 export interface CreateSessionAction {
   type: ActionType.CREATE_SESSION;
 }
@@ -18,6 +35,9 @@ export interface CreateSessionActionError {
 }
 
 export type SessionActions =
+  | CheckSessionAction
+  | CheckSessionCompleteAction
+  | CheckSessionErrorAction
   | CreateSessionAction
   | CreateSessionCompleteAction
   | CreateSessionActionError;

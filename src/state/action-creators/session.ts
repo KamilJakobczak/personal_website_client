@@ -5,43 +5,64 @@ import { Dispatch } from 'redux';
 import { codingApi } from '../../server';
 import { saveCells } from './cells';
 
-export const createSession = (cookie?: string) => {
+export const createSession = () => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.CREATE_SESSION });
 
-    if (cookie) {
+    try {
+      const { data } = await axios.get(`${codingApi}/cells/session`, {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (data.sessionId) {
+        setInterval(() => {
+          saveCells();
+        }, 6000);
+      }
       dispatch({
         type: ActionType.CREATE_SESSION_COMPLETE,
         payload: {
-          sessionId: cookie,
+          sessionId: data.sessionId,
         },
       });
-    } else {
-      try {
-        const { data } = await axios.get(`${codingApi}/cells/session`, {
-          withCredentials: true,
-        });
-        if (data.sessionId) {
-          setInterval(() => {
-            saveCells();
-          }, 6000);
-        }
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
         dispatch({
-          type: ActionType.CREATE_SESSION_COMPLETE,
+          type: ActionType.CREATE_SESSION_ERROR,
           payload: {
-            sessionId: data.sessionId,
+            err: err.message,
           },
         });
-      } catch (err) {
-        if (err instanceof Error) {
-          console.log(err.message);
-          dispatch({
-            type: ActionType.CREATE_SESSION_ERROR,
-            payload: {
-              err: err.message,
-            },
-          });
-        }
+      }
+      // }
+    }
+  };
+};
+export const checkSession = () => {
+  return async (dispatch: Dispatch<Action>) => {
+    dispatch({ type: ActionType.CHECK_SESSION });
+    console.log('dispatching check session');
+    try {
+      const { data } = await axios.get(`${codingApi}/cells/session`, {
+        withCredentials: true,
+      });
+
+      dispatch({
+        type: ActionType.CHECK_SESSION_COMPLETE,
+        payload: {
+          sessionId: data.sessionId,
+        },
+      });
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+        dispatch({
+          type: ActionType.CHECK_SESSION_ERROR,
+          payload: {
+            err: err.message,
+          },
+        });
       }
     }
   };

@@ -5,6 +5,7 @@ import Search from './book_collection/components/general-purpose/Search';
 import { useMutation, useQuery } from '@apollo/client';
 import { CHECK_LOGIN } from '../../GraphQL/queries';
 import { SIGNOUT } from '../../GraphQL/mutations';
+import { getCookie } from '../../utility/getCookie';
 
 type ContextType = {
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;

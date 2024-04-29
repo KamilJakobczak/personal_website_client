@@ -8,6 +8,7 @@ import LoadingSpinner from '../../../../LoadingSpinner';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { useNavigate } from 'react-router-dom';
 import { useStatus } from '../../../BookCollection';
+import { getCookie } from '../../../../../utility/getCookie';
 
 const LogIn: React.FC = () => {
   const [email, setUsername] = useState('');
@@ -27,6 +28,7 @@ const LogIn: React.FC = () => {
         setSuccessMessage('You were successfully logged in');
         setLoggedIn(true);
         console.log(data.signin.user);
+
         setUserRole(data.signin.user.role);
         setTimeout(() => {
           navigate('/apps/collection');
