@@ -13,7 +13,6 @@ const CodingGuide: React.FC = () => {
   const { error, sessionId, loading } = useTypedSelector(
     state => state.session
   );
-  console.log(sessionId);
 
   useEffect(() => {
     if (!sessionId) {
@@ -21,23 +20,15 @@ const CodingGuide: React.FC = () => {
       return;
     }
     if (sessionId) {
-      setShowSessionSuccess(true);
       fetchCells(sessionId);
+      setShowSessionSuccess(true);
+
       setTimeout(() => {
         setShowSessionSuccess(false);
       }, 5000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId]);
-
-  // useEffect(() => {
-  //   console.log(sessionId, 'useffect, CodingGuide');
-  //   if (sessionId) {
-  //     createSession();
-  //     fetchCells(sessionId);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   const handleConsentClick = (answer: string) => {
     setConsentVisible('hide');

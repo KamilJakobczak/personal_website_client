@@ -32,6 +32,7 @@ export const fetchCells = (cookie?: string) => {
       const { data }: { data: Cell[] } = await axios.get(
         `${codingApi}/cells/${sessionId}`
       );
+      console.log(data);
 
       dispatch({ type: ActionType.FETCH_CELLS_COMPLETE, payload: data });
     } catch (err) {
@@ -82,13 +83,12 @@ export const saveCells = () => {
     const cells = order.map((id: string) => data[id]);
 
     try {
-      console.log(sessionId);
       await axios.post(
         `${codingApi}/cells/${sessionId}`,
-        { cells },
-        {
-          withCredentials: true,
-        }
+        { cells }
+        // {
+        //   withCredentials: true,
+        // }
       );
     } catch (err) {
       if (err instanceof Error) {
