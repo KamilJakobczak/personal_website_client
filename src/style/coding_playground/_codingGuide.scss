@@ -1,35 +1,45 @@
 .coding_info {
-  font-size: $font-size-medium;
+  max-width: 1600px;
+  margin: 0 auto;
+  h2 {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: $font-size-h2;
+    text-transform: uppercase;
+  }
   button {
     border: none;
     font-weight: bold;
+    font-size: $font-size-h2;
     display: block;
-    margin: 10px auto 0;
+    margin: 10px auto;
     text-transform: uppercase;
     background: none;
-    cursor: pointer;
     color: $main-color;
   }
   &__guide {
-    // position: relative;
-    width: 75%;
-    margin: 30px auto;
-    padding: 30px;
+    width: 90%;
+    margin: 15px auto;
+    border: 1px solid $fourth-color;
 
-    border: 1px solid #dee5ed;
-    button {
-    }
     p {
+      margin-top: 5px;
+      font-size: $font-size-p;
+      line-height: 1.15;
+      text-align: justify;
+      padding: 7px;
       letter-spacing: 0.5px;
     }
     ul {
-      margin-top: 10px;
-      list-style: circle;
+      padding: 0 10px;
+      list-style: disc;
+      list-style-position: inside;
+
       li {
-        line-height: calc($font-size-basic * 1.5);
-        letter-spacing: 0.5px;
-        text-align: justify;
-        font-size: $font-size-medium;
+        line-height: 1.15;
+        letter-spacing: 0.25px;
+        font-size: $font-size-p;
         &::first-letter {
           text-transform: capitalize;
         }
@@ -41,26 +51,24 @@
   &__autosave__error,
   &__autosave__success {
     display: flex;
-    width: 75%;
-    margin: 30px auto 15px;
-    border: 1px solid #dee5ed;
-    padding: 30px;
+    width: 90%;
+    margin: 20px auto;
+    padding-top: 5px;
+    border: 1px solid $fourth-color;
     flex-wrap: wrap;
     p {
       flex-basis: 100%;
-    }
-    button {
-    }
-    &__fold {
-      cursor: pointer;
-      padding: 15px 30px;
+      padding: 7px;
+      text-align: center;
     }
     &__error {
-      cursor: pointer;
-      padding: 15px 30px;
+      padding-top: 7px;
       &__content {
         width: 100%;
-        text-align: center;
+        p {
+          text-align: center;
+          font-size: $font-size-p;
+        }
       }
     }
   }

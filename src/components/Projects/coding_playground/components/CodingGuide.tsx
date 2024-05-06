@@ -48,7 +48,7 @@ const CodingGuide: React.FC = () => {
         className='coding_info__autosave__fold'
         onClick={() => setConsentVisible('show')}
       >
-        Click here to edit your settings
+        <p>Click here to edit your settings</p>
       </div>
     );
   };
@@ -64,7 +64,9 @@ const CodingGuide: React.FC = () => {
   const sessionErrorEl = () => {
     return (
       <div className='coding_info__autosave__error'>
-        <div className='coding_info__autosave__error__content'>{error}</div>
+        <div className='coding_info__autosave__error__content'>
+          <p>{error}</p>
+        </div>
         <button onClick={() => handleConsentClick('yes')}>try again</button>
       </div>
     );
@@ -75,8 +77,8 @@ const CodingGuide: React.FC = () => {
       <div className='coding_info__guide'>
         <p>
           Here you can create your own React application. <br />
-          Some of the features included:
         </p>
+        <p>Some of the features included:</p>
         <ul>
           <li>Two types of cells: code and text</li>
           <li>
@@ -100,6 +102,7 @@ const CodingGuide: React.FC = () => {
   };
   return (
     <div className='coding_info'>
+      <h2>Coding playground</h2>
       {infoVisible && info()}
       {consentVisible === 'show' && !sessionId && (
         <Consent
