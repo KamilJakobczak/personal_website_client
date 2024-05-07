@@ -10,31 +10,35 @@ const CodingGuide: React.FC = () => {
   const [showSessionSuccess, setShowSessionSuccess] = useState(false);
 
   const { checkSession, createSession, fetchCells } = useActions();
-  const { error, sessionId, loading } = useTypedSelector(
+  const { autosave, error, sessionId, loading } = useTypedSelector(
     state => state.session
   );
 
   useEffect(() => {
-    if (!sessionId) {
+    // checkSession();
+    if (!autosave) {
       checkSession();
       return;
     }
-    if (sessionId) {
+    // if (!sessionId) {
+    //   checkSession();
+    //   return;
+    // }
+    if (sessionId && autosave) {
       fetchCells(sessionId);
       setShowSessionSuccess(true);
-
       setTimeout(() => {
         setShowSessionSuccess(false);
       }, 5000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionId]);
+  }, [autosave]);
 
   const handleConsentClick = (answer: string) => {
     setConsentVisible('hide');
 
     if (answer === 'yes') {
-      if (!sessionId) {
+      if (!sessionId && !autosave) {
         createSession();
       }
     } else if (answer === 'no') {
@@ -56,7 +60,7 @@ const CodingGuide: React.FC = () => {
   const sessionSuccessEl = () => {
     return (
       <div className='coding_info__autosave__success'>
-        Session (re)created successfully
+        <p>Session (re)created successfully</p>
       </div>
     );
   };
@@ -108,7 +112,7 @@ const CodingGuide: React.FC = () => {
         <Consent
           handleClick={handleConsentClick}
           className='coding_info__autosave'
-          question='Do you want to enable cookies and autosave every 60 seconds?'
+          question='Do you want to enable cookies and autosave every 120 seconds?'
         />
       )}
       {consentVisible === 'fold' && consentFoldedEl()}

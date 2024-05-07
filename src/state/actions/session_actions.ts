@@ -7,6 +7,7 @@ export interface CheckSessionCompleteAction {
   type: ActionType.CHECK_SESSION_COMPLETE;
   payload: {
     sessionId: string;
+    autosave: boolean;
   };
 }
 export interface CheckSessionErrorAction {
@@ -24,6 +25,7 @@ export interface CreateSessionCompleteAction {
   type: ActionType.CREATE_SESSION_COMPLETE;
   payload: {
     sessionId: string;
+    autosave: boolean;
   };
 }
 

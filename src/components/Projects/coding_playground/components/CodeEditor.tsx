@@ -1,10 +1,9 @@
 import { useRef } from 'react';
-import MonacoEditor, { OnMount } from '@monaco-editor/react';
+import Editor, { OnMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
-import { parse } from '@babel/parser';
-// import traverse from '@babel/traverse';
-import MonacoJSXHighlighter from 'monaco-jsx-highlighter';
+import traverse from '@babel/traverse';
+import MonacoJSXHighlighter, { makeBabelParse } from 'monaco-jsx-highlighter';
 
 interface CodeEditorProps {
   initialValue: string;
@@ -12,6 +11,12 @@ interface CodeEditorProps {
 }
 const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
   const editorRef = useRef<any>();
+
+  // const babelParse = (code: any) =>
+  //   parse(code, {
+  //     sourceType: 'module',
+  //     plugins: ['jsx'],
+  //   });
 
   const onEditorDidMount: OnMount = (editor, monaco) => {
     editorRef.current = editor;
@@ -23,13 +28,13 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
 
     const monacoJSXHighlighter = new MonacoJSXHighlighter(
       monaco,
-      parse,
+      makeBabelParse,
       // traverse,
       editor
     );
 
-    monacoJSXHighlighter.highLightOnDidChangeModelContent(100);
-    monacoJSXHighlighter.addJSXCommentCommand();
+    // monacoJSXHighlighter.highLightOnDidChangeModelContent(100);
+    // monacoJSXHighlighter.addJSXCommentCommand();
   };
 
   const onFormatClick = () => {
@@ -52,11 +57,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
       <button className='editor_wrapper__button' onClick={onFormatClick}>
         Format
       </button>
-      <MonacoEditor
+      <Editor
         onMount={onEditorDidMount}
         value={initialValue}
         theme='vs-dark'
-        language='javascript'
+        defaultLanguage='javascript'
         height='100%'
         options={{
           wordWrap: 'on',

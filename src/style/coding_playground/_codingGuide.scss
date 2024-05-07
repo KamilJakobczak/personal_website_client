@@ -11,7 +11,7 @@
   button {
     border: none;
     font-weight: bold;
-    font-size: $font-size-h2;
+    font-size: $font-size-h4;
     display: block;
     margin: 10px auto;
     text-transform: uppercase;
@@ -54,6 +54,7 @@
     width: 90%;
     margin: 20px auto;
     padding-top: 5px;
+    padding-bottom: 5px;
     border: 1px solid $fourth-color;
     flex-wrap: wrap;
     p {

@@ -10,19 +10,19 @@ export const createSession = () => {
     dispatch({ type: ActionType.CREATE_SESSION });
 
     try {
-      const { data } = await axios.get(`${codingApi}/cells/session`, {
+      const { data } = await axios.post(`${codingApi}/cells/session`, {
         withCredentials: true,
       });
-      console.log(data);
       if (data.sessionId) {
         setInterval(() => {
           saveCells();
-        }, 6000);
+        }, 12000);
       }
       dispatch({
         type: ActionType.CREATE_SESSION_COMPLETE,
         payload: {
           sessionId: data.sessionId,
+          autosave: data.autosave,
         },
       });
     } catch (err) {
@@ -47,11 +47,16 @@ export const checkSession = () => {
       const { data } = await axios.get(`${codingApi}/cells/session`, {
         withCredentials: true,
       });
-
+      if (data.sessionId) {
+        setInterval(() => {
+          saveCells();
+        }, 12000);
+      }
       dispatch({
         type: ActionType.CHECK_SESSION_COMPLETE,
         payload: {
           sessionId: data.sessionId,
+          autosave: data.autosave,
         },
       });
     } catch (err) {
