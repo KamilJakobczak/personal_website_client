@@ -12,7 +12,7 @@ const BookList: React.FC = () => {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-first',
   });
-
+  console.log(data);
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [higherWidth, setHigherWidth] = useState(false);
 

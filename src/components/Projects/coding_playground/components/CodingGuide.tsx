@@ -15,15 +15,11 @@ const CodingGuide: React.FC = () => {
   );
 
   useEffect(() => {
-    // checkSession();
     if (!autosave) {
       checkSession();
       return;
     }
-    // if (!sessionId) {
-    //   checkSession();
-    //   return;
-    // }
+
     if (sessionId && autosave) {
       fetchCells(sessionId);
       setShowSessionSuccess(true);

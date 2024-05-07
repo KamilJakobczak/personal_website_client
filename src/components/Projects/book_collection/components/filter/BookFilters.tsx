@@ -20,6 +20,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({
   const [genresFilter, setGenresFilter] = useState<string[]>([]);
   const [publishersFilter, setPublishersFilter] = useState<string[]>([]);
 
+  console.log(genresFilter, publishersFilter);
   const { data, loading, error } = useQuery(LOAD_GENRES);
   const {
     data: dataP,

@@ -8,7 +8,7 @@ export const setupBundler = () => {
   if (!esbuildInit) {
     esbuildInit = esbuild.initialize({
       worker: true,
-      wasmURL: 'https://unpkg.com/esbuild-wasm@0.15.11/esbuild.wasm',
+      wasmURL: 'https://unpkg.com/esbuild-wasm@0.15.18/esbuild.wasm',
     });
   }
 };
