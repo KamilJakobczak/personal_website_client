@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import AZList from './AZ-list';
+import { useState } from 'react';
 
 interface ListProps {
   data: {
@@ -20,6 +22,9 @@ export interface RecordType {
 }
 
 const List: React.FC<ListProps> = ({ data, nested }) => {
+  const [letter, setLetter] = useState('');
+  console.log(letter);
+
   const linkPath = (record: RecordType) => {
     const pathId = record.id.slice(-10);
     if (!nested) {
@@ -31,9 +36,21 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     }
   };
 
+  const sortData = () => {
+    return data.filter((record: RecordType) => {
+      if (
+        record.title?.charAt(0) === letter.toUpperCase() ||
+        record.lastName?.charAt(0) === letter.toUpperCase() ||
+        record.name?.charAt(0) === letter.toUpperCase()
+      ) {
+        return record;
+      } else return false;
+    });
+  };
+
   return (
     <>
-      {data.map(record => {
+      {(letter ? sortData() : data).map((record: RecordType) => {
         return (
           <div className='bookCollection__list_element' key={record.id}>
             <Link
@@ -50,34 +67,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
           </div>
         );
       })}
-      <div>
-        <span>a</span>
-        <span>b</span>
-        <span>c</span>
-        <span>d</span>
-        <span>e</span>
-        <span>f</span>
-        <span>g</span>
-        <span>h</span>
-        <span>i</span>
-        <span>j</span>
-        <span>k</span>
-        <span>l</span>
-        <span>m</span>
-        <span>n</span>
-        <span>o</span>
-        <span>p</span>
-        <span>q</span>
-        <span>r</span>
-        <span>s</span>
-        <span>t</span>
-        <span>u</span>
-        <span>v</span>
-        <span>w</span>
-        <span>x</span>
-        <span>y</span>
-        <span>z</span>
-      </div>
+      <AZList sort={setLetter} />
     </>
   );
 };

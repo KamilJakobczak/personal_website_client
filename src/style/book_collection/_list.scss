@@ -11,6 +11,19 @@
     margin-bottom: 15px;
     letter-spacing: 0.25px;
   }
+  &__az {
+    flex-basis: 90%;
+    display: flex;
+    margin-top: 100px;
+
+    justify-content: space-evenly;
+    font-size: $font-size-small;
+    text-transform: uppercase;
+
+    border: 1px green dotted;
+    &_element {
+    }
+  }
 }
 
 @media (min-width: $breakpoint-700) {
@@ -18,7 +31,7 @@
   .authors {
     align-items: center;
     justify-content: flex-start;
-    > div {
+    > div.bookCollection__list_element {
       flex-basis: 45%;
     }
   }
@@ -31,7 +44,7 @@
   .publishers,
   .authors {
     justify-content: space-between;
-    > div {
+    > div.bookCollection__list_element {
       flex-basis: 30%;
     }
   }
