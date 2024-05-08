@@ -34,6 +34,13 @@ const AZList: React.FC<AZListProps> = ({ sort }) => {
 
   const handleClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     if (e.target instanceof Element) {
+      const letters = document.querySelectorAll(
+        `span.bookCollection__list__az_element`
+      );
+      letters.forEach(element => {
+        element.classList.remove('active');
+      });
+      e.target.classList.add('active');
       sort(e.target.innerHTML);
     }
   };

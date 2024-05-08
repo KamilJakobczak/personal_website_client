@@ -1,27 +1,36 @@
 .bookCollection__list {
   width: 80%;
   margin: 20px auto 0;
+  min-height: 60vh;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
 
   &_element {
     flex-basis: 90%;
     font-size: $font-size-p;
-    margin-bottom: 15px;
+    margin-top: 10px;
     letter-spacing: 0.25px;
+    text-align: center;
   }
   &__az {
     flex-basis: 90%;
     display: flex;
-    margin-top: 100px;
-
+    margin: 0 auto;
+    align-self: flex-end;
     justify-content: space-evenly;
     font-size: $font-size-small;
     text-transform: uppercase;
-
-    border: 1px green dotted;
     &_element {
+      padding: 3px;
+      &:hover {
+        background-color: $fourth-color;
+        color: $apps_background;
+        transition: 0.25s;
+      }
+      &.active {
+        background-color: $fourth-color;
+        color: $apps_background;
+      }
     }
   }
 }
@@ -29,8 +38,8 @@
 @media (min-width: $breakpoint-700) {
   .publishers,
   .authors {
-    align-items: center;
-    justify-content: flex-start;
+    // align-items: center;
+    // justify-content: flex-start;
     > div.bookCollection__list_element {
       flex-basis: 45%;
     }
@@ -43,7 +52,7 @@
   }
   .publishers,
   .authors {
-    justify-content: space-between;
+    // justify-content: space-between;
     > div.bookCollection__list_element {
       flex-basis: 30%;
     }
