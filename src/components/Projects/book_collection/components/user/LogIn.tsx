@@ -53,7 +53,7 @@ const LogIn: React.FC = () => {
 
   const showForm = () => {
     return (
-      <form action=''>
+      <form action='' onSubmit={handleClick}>
         <div className='login_username'>
           <label htmlFor='username'>e-mail</label>
           <input

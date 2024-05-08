@@ -24,8 +24,7 @@ const WelcomeMessage: React.FC = () => {
           goal but here I am now and I really enjoy what I'm doing!
         </p>
         <p>
-          I'm hosting some of my projects on this page. Currently there are two
-          of them: coding playground and book collection. You can check them out
+          I'm hosting some of my projects on this page. You can check them out
           in the next section. My next project will be some kind of a blog as I
           sometimes feel the urge of letting out my thoughts on some topics. It
           should be quite a learning process as well.

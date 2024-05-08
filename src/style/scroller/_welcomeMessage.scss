@@ -5,7 +5,7 @@
   &_container {
     display: flex;
     // align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-direction: column;
     flex-wrap: wrap;
     width: 85%;
@@ -14,7 +14,7 @@
     margin: 0 auto;
     // padding-top: 20px;
     div {
-      margin-top: 20px;
+      margin-top: 5px;
       .image_container {
         padding-top: 1vh;
         padding-right: 3vw;
@@ -35,7 +35,7 @@
       // margin-bottom: 5px;
       // color: $fifth-color;
       text-align: justify;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.25px;
       font-size: $font-size-p;
     }
   }

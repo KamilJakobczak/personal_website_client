@@ -25,7 +25,7 @@
       letter-spacing: 0.5px;
     }
     div {
-      width: 80%;
+      width: 60%;
       margin: 0 auto;
       a {
         cursor: none;
@@ -38,7 +38,7 @@
     p {
       width: 85%;
       text-align: justify;
-      margin: 10px auto 5px;
+      margin: 5px auto 5px;
       font-size: $font-size-p;
     }
   }
@@ -129,9 +129,6 @@
   .scroller__projects {
     &_container {
       div {
-        a {
-          cursor: pointer;
-        }
       }
     }
   }

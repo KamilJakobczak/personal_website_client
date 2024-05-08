@@ -67,12 +67,12 @@
 
 @media (min-width: $breakpoint-480) or (min-height: 750px) {
   .scroller__business_slider {
-    --svg-size: 96px;
+    --svg-size: 72px;
   }
 }
 @media (min-width: $breakpoint-700) {
   .scroller__business_slider {
-    --svg-size: 144px;
+    --svg-size: 96px;
   }
 }
 @media (orientation: landscape) and (min-width: 800px) {
