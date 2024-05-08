@@ -7,10 +7,16 @@
 
   &_element {
     flex-basis: 90%;
+    display: flex;
     font-size: $font-size-p;
     margin-top: 10px;
     letter-spacing: 0.25px;
     text-align: center;
+    align-items: center;
+
+    &_thumbnail {
+      flex-basis: 30%;
+    }
   }
   &__az {
     flex-basis: 90%;

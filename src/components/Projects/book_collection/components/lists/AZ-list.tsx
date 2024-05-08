@@ -1,8 +1,9 @@
 interface AZListProps {
+  letter: string;
   sort: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const AZList: React.FC<AZListProps> = ({ sort }) => {
+const AZList: React.FC<AZListProps> = ({ letter, sort }) => {
   const letters = [
     'a',
     'b',
@@ -33,15 +34,22 @@ const AZList: React.FC<AZListProps> = ({ sort }) => {
   ];
 
   const handleClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    const letters = document.querySelectorAll(
+      `span.bookCollection__list__az_element`
+    );
+
     if (e.target instanceof Element) {
-      const letters = document.querySelectorAll(
-        `span.bookCollection__list__az_element`
-      );
-      letters.forEach(element => {
-        element.classList.remove('active');
-      });
-      e.target.classList.add('active');
-      sort(e.target.innerHTML);
+      console.log(letter, e.target.innerHTML);
+      if (letter === e.target.innerHTML) {
+        sort('');
+        e.target.classList.remove('active');
+      } else {
+        letters.forEach(element => {
+          element.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        sort(e.target.innerHTML);
+      }
     }
   };
   return (

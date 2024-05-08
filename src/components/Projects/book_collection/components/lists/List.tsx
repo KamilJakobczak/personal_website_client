@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import AZList from './AZ-list';
 import { useState } from 'react';
+import { imageApi } from '../../../../../server';
 
 interface ListProps {
   data: {
@@ -53,6 +54,9 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
       {(letter ? sortData() : data).map((record: RecordType) => {
         return (
           <div className='bookCollection__list_element' key={record.id}>
+            <div className='bookCollection__list_element_thumbnail'>
+              <img src={`${imageApi}/covers/${record.id}/thumbnail`} alt='' />
+            </div>
             <Link
               className='router_link'
               to={linkPath(record) || ''}
@@ -67,7 +71,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
           </div>
         );
       })}
-      <AZList sort={setLetter} />
+      <AZList letter={letter} sort={setLetter} />
     </>
   );
 };
