@@ -94,6 +94,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
         regexValidator(lastNameRegex, value, setLastName);
         break;
       case 'nationality':
+        console.log(value);
         regexValidator(nameRegex, value, setNationality);
         break;
       case 'birth':

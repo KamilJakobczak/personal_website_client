@@ -39,7 +39,6 @@ const AZList: React.FC<AZListProps> = ({ letter, sort }) => {
     );
 
     if (e.target instanceof Element) {
-      console.log(letter, e.target.innerHTML);
       if (letter === e.target.innerHTML) {
         sort('');
         e.target.classList.remove('active');

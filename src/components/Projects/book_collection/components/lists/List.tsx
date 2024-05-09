@@ -52,11 +52,14 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
   return (
     <>
       {(letter ? sortData() : data).map((record: RecordType) => {
+        const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
         return (
           <div className='bookCollection__list_element' key={record.id}>
-            <div className='bookCollection__list_element_thumbnail'>
-              <img src={`${imageApi}/covers/${record.id}/thumbnail`} alt='' />
-            </div>
+            {thumbnail ? (
+              <div className='bookCollection__list_element_thumbnail'>
+                <img src={thumbnail} alt='' />
+              </div>
+            ) : null}
             <Link
               className='router_link'
               to={linkPath(record) || ''}

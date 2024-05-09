@@ -1,4 +1,4 @@
-export const nameRegex = /^[a-zA-Z]+$/;
+export const nameRegex = /[\p{Mn}\p{P}\p{Z}\p{L}À-ÿ\w]+/;
 export const lastNameRegex = /^[a-zA-Z]*[-']*[a-zA-Z]+/;
 export const smallLettersRegex = /^[a-z]+$/;
 export const websiteRegex =

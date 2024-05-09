@@ -1,12 +1,6 @@
 import Button from '../general-purpose/Button';
-// import { useState } from 'react';
 
 const AddBookOptions: React.FC = () => {
-  // const [buttons, setButtons] = useState(true);
-
-  // const handleBookButtonClick = () => {
-  //   setButtons(false);
-  // };
   return (
     <div className='bookCollection__addBook__options'>
       <Button
@@ -15,7 +9,6 @@ const AddBookOptions: React.FC = () => {
         linkPath='/apps/collection/add/book/upload'
         text='upload an epub file'
       />
-
       <Button
         // handleClick={handleBookButtonClick}
         className='bookCollection__addBook__options_button'

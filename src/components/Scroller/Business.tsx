@@ -41,6 +41,7 @@ const Business: React.FC = () => {
             <li>Webpack</li>
             <li>Bootstrap</li>
             <li>Docker</li>
+            <li>Git</li>
           </ul>
         </div>
         <div className='skills__in_progress'>
