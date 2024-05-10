@@ -16,6 +16,9 @@
 
     &_thumbnail {
       flex-basis: 30%;
+      img {
+        color: $fourth-color;
+      }
     }
   }
   &__az {

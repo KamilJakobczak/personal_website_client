@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AZList from './AZ-list';
 import { useState } from 'react';
 import { imageApi } from '../../../../../server';
+import ThumbnailWithFallback from '../general-purpose/ThumbnailWithFallback';
 
 interface ListProps {
   data: {
@@ -24,7 +25,8 @@ export interface RecordType {
 
 const List: React.FC<ListProps> = ({ data, nested }) => {
   const [letter, setLetter] = useState('');
-  console.log(letter);
+
+  const location = useLocation();
 
   const linkPath = (record: RecordType) => {
     const pathId = record.id.slice(-10);
@@ -49,17 +51,22 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     });
   };
 
+  const checkLocation = () => {
+    const path = location.pathname;
+    if (path.includes('authors/') || path.includes('/publishers')) return false;
+    return true;
+  };
+
   return (
     <>
       {(letter ? sortData() : data).map((record: RecordType) => {
         const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
         return (
           <div className='bookCollection__list_element' key={record.id}>
-            {thumbnail ? (
-              <div className='bookCollection__list_element_thumbnail'>
-                <img src={thumbnail} alt='' />
-              </div>
-            ) : null}
+            <ThumbnailWithFallback
+              url={thumbnail}
+              recordType={record.__typename}
+            />
             <Link
               className='router_link'
               to={linkPath(record) || ''}
@@ -74,7 +81,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
           </div>
         );
       })}
-      <AZList letter={letter} sort={setLetter} />
+      {checkLocation() ? <AZList letter={letter} sort={setLetter} /> : null}
     </>
   );
 };
