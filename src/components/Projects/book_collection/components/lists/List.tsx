@@ -11,6 +11,7 @@ interface ListProps {
     firstName?: string;
     lastName?: string;
     name?: string;
+    __typename: string;
   }[];
   nested?: boolean;
 }
@@ -20,7 +21,7 @@ export interface RecordType {
   firstName?: string;
   lastName?: string;
   name?: string;
-  __typename?: string;
+  __typename: string;
 }
 
 const List: React.FC<ListProps> = ({ data, nested }) => {
@@ -40,7 +41,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
   };
 
   const sortData = () => {
-    return data.filter((record: RecordType) => {
+    return data.filter(record => {
       if (
         record.title?.charAt(0) === letter.toUpperCase() ||
         record.lastName?.charAt(0) === letter.toUpperCase() ||
@@ -59,24 +60,27 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
 
   return (
     <>
-      {(letter ? sortData() : data).map((record: RecordType) => {
+      {(letter ? sortData() : data).map(record => {
         const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
+        console.log(linkPath(record));
         return (
           <div className='bookCollection__list_element' key={record.id}>
-            <ThumbnailWithFallback
-              url={thumbnail}
-              recordType={record.__typename}
-            />
             <Link
               className='router_link'
               to={linkPath(record) || ''}
               state={{ id: record.id }}
             >
-              {record.title ? record.title : null}
-              {record.lastName
-                ? `${record.lastName} ${record.firstName}`
-                : null}
-              {record.name ? record.name : null}
+              <ThumbnailWithFallback
+                url={thumbnail}
+                recordType={record.__typename}
+              />
+              <span>
+                {record.title ? record.title : null}
+                {record.lastName
+                  ? `${record.lastName} ${record.firstName}`
+                  : null}
+                {record.name ? record.name : null}
+              </span>
             </Link>
           </div>
         );

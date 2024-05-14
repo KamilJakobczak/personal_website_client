@@ -1,36 +1,42 @@
 .bookCollection__list {
-  width: 80%;
+  display: flex;
+  width: 100%;
   margin: 20px auto 0;
   min-height: 60vh;
-  display: flex;
+
   flex-wrap: wrap;
 
   &_element {
     flex-basis: 90%;
-    display: flex;
-    font-size: $font-size-p;
-    margin-top: 10px;
-    letter-spacing: 0.25px;
-    text-align: center;
-    align-items: center;
+    margin: 0 auto;
+    a {
+      display: flex;
+      align-items: center;
+      border: 1px solid red;
+      .bookCollection__list_element_thumbnail {
+        max-width: 50px;
 
-    &_thumbnail {
-      flex-basis: 30%;
-      img {
-        color: $fourth-color;
+        img {
+          width: 100%;
+        }
+      }
+      span {
+        font-size: $font-size-p;
+        text-align: center;
+        margin: 0 auto;
       }
     }
   }
   &__az {
     flex-basis: 90%;
     display: flex;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     align-self: flex-end;
-    justify-content: space-evenly;
-    font-size: $font-size-small;
+    justify-content: space-between;
+    font-size: $font-size-p;
     text-transform: uppercase;
     &_element {
-      padding: 3px;
+      padding: 2px;
       &:hover {
         background-color: $fourth-color;
         color: $apps_background;
@@ -50,7 +56,7 @@
     // align-items: center;
     // justify-content: flex-start;
     > div.bookCollection__list_element {
-      flex-basis: 45%;
+      // flex-basis: 45%;
     }
   }
 }
@@ -63,7 +69,7 @@
   .authors {
     // justify-content: space-between;
     > div.bookCollection__list_element {
-      flex-basis: 30%;
+      // flex-basis: 30%;
     }
   }
 }

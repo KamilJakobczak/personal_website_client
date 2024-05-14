@@ -10,6 +10,9 @@ import { useMutation } from '@apollo/client';
 import { ADD_BOOK } from '../../../../../GraphQL/mutations';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import Button from '../general-purpose/Button';
+import FileInput from '../general-purpose/FileInput';
+import axios from 'axios';
+import { imageApi } from '../../../../../server';
 
 export interface AddBookFormProps {
   epubData?: {
@@ -52,12 +55,13 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   // FORM VALUES
 
   const [title, setTitle] = useState(uploadedTitle || '');
-  const [language, setLanguage] = useState(uploadedLanguage || 'POLISH');
+  const [language, setLanguage] = useState(uploadedLanguage || 'Polish');
   const [genres, setGenres] = useState<string[]>([]);
   const [publisher, setPublisher] = useState(uploadedPublisher || '');
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [collections, setCollections] = useState<string[]>([]);
+  const [cover, setCover] = useState<File>();
   const [isbn, setIsbn] = useState('');
   const [pages, setPages] = useState('');
   const [firstEdition, setFirstEdition] = useState('');
@@ -111,7 +115,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
       setTranslatorsSelectCounter([0]);
       setSuccessMessage(data.addBook.book.title);
       setTitle('');
-      setLanguage('POLISH');
+      setLanguage('Polish');
       setGenres([]);
       setTranslators([]);
       setAuthors([]);
@@ -147,6 +151,34 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
 
       default:
         break;
+    }
+  };
+
+  const handleCoverUpload = (files: FileList) => {
+    const validExtensions = ['.jpg', '.jpeg', '.png'];
+    const validSize = 8000000;
+    if (files) {
+      console.log(files);
+      const coverFile = files[0];
+      const checkFileExt = () => {
+        for (let i = 0; i < validExtensions.length; i++) {
+          if (coverFile.name.endsWith(validExtensions[i])) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      };
+      if (checkFileExt() && coverFile.size < validSize) {
+        // axios.post(`${imageApi}/uploaded/covers`, coverFile);
+        setCover(coverFile);
+      } else {
+        alert(
+          `Sorry, ${
+            coverFile.name
+          } is invalid, allowed extensions are ${validExtensions.join(', ')}`
+        );
+      }
     }
   };
 
@@ -304,12 +336,16 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             type='text'
             id='firstEdition'
             value={firstEdition}
-            onChange={e => handleInputs(e)}
+            onChange={e => handleCoverUpload}
           />
         </div>
         <div className='addBookForm_element addBookForm_element_cover-upload'>
           <label htmlFor='cover'>upload cover</label>
-          <input id='cover' type='file' />
+          <FileInput
+            id='cover'
+            fileList={cover ? [cover] : []}
+            onChange={handleCoverUpload}
+          />
         </div>
         <div className='addBookForm_element addBookForm_element_isCollection'>
           <label htmlFor='in_collection'>Part of a collection?</label>
@@ -368,7 +404,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
       {errors && <Error text={errors} />}
 
       {data && successMessage ? (
-        <SuccessMessage item='publisher' successMessage={successMessage} />
+        <SuccessMessage item='book' successMessage={successMessage} />
       ) : null}
 
       {data && !loading && !successMessage && showForm()}

@@ -3,11 +3,15 @@ import { invalidValue } from './InvalidValue';
 
 export const checkIsbn = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { value } = e.target;
+
   if (isbnRegex.test(value)) {
+    console.log(isbnRegex.test(value));
     // Remove non ISBN digits, then split into an array
     let chars = value.replace(/[- ]|^ISBN(?:-1[03])?:?/g, '').split('');
+
     // Remove the final ISBN digit from `chars`, and assign it to `last`
     let last = chars.pop();
+    console.log(last);
     let sum = 0;
     let check, i;
 
@@ -33,8 +37,8 @@ export const checkIsbn = (e: React.ChangeEvent<HTMLInputElement>) => {
         check = '0';
       }
     }
-
-    if (check === last) {
+    console.log(check, last);
+    if (check.toString() === last?.toString()) {
       invalidValue(e, true);
     } else {
       alert('Invalid ISBN check digit');

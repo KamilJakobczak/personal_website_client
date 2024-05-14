@@ -7,7 +7,8 @@ import axios from 'axios';
 
 interface ThumbnailWithFallbackProps extends ImgHTMLAttributes<any> {
   url?: string;
-  recordType?: string;
+  recordType: string;
+  linkTo?: string;
 }
 
 const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({
@@ -23,12 +24,15 @@ const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({
           switch (recordType) {
             case 'Book':
               setImgSrc(book_thumbnail);
+
               break;
             case 'Author':
               setImgSrc(author_thumbnail);
+
               break;
             case 'Publisher':
               setImgSrc(publisher_thumbnail);
+
               break;
             default:
               break;
