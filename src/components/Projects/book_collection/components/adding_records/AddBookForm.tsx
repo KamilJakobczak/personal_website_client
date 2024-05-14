@@ -102,12 +102,31 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
       onCompletedMutation(data);
     },
   });
+  const uploadCover = (id: string) => {
+    axios
+      .post(
+        `${imageApi}/uploaded/covers`,
+        {
+          file: cover,
+          id: id,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      .then(({ data }) => {
+        console.log(data);
+      });
+  };
 
   const onCompletedMutation = (data: any) => {
     if (data.addBook.userErrors[0].message) {
       setUserError(data.addBook.userErrors[0].message);
     }
     if (data.addBook.book) {
+      uploadCover(data.addBook.book.id);
       setInCollection(false);
       setAuthorsSelectCounter([0]);
       setCollectionsSelectCounter([0]);
@@ -156,9 +175,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
 
   const handleCoverUpload = (files: FileList) => {
     const validExtensions = ['.jpg', '.jpeg', '.png'];
-    const validSize = 8000000;
+    const validSize = 5000000;
     if (files) {
-      console.log(files);
       const coverFile = files[0];
       const checkFileExt = () => {
         for (let i = 0; i < validExtensions.length; i++) {
@@ -170,7 +188,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
         }
       };
       if (checkFileExt() && coverFile.size < validSize) {
-        // axios.post(`${imageApi}/uploaded/covers`, coverFile);
         setCover(coverFile);
       } else {
         alert(
