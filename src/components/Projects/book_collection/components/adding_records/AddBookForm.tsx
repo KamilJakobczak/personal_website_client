@@ -55,13 +55,15 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   // FORM VALUES
 
   const [title, setTitle] = useState(uploadedTitle || '');
+  const [titleEnglish, setTitleEnglish] = useState('');
+  const [titleOriginal, setTitleOriginal] = useState('');
   const [language, setLanguage] = useState(uploadedLanguage || 'Polish');
   const [genres, setGenres] = useState<string[]>([]);
   const [publisher, setPublisher] = useState(uploadedPublisher || '');
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [collections, setCollections] = useState<string[]>([]);
-  const [cover, setCover] = useState<File>();
+  const [cover, setCover] = useState<File | null>();
   const [isbn, setIsbn] = useState('');
   const [pages, setPages] = useState('');
   const [firstEdition, setFirstEdition] = useState('');
@@ -116,8 +118,11 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           },
         }
       )
-      .then(({ data }) => {
-        console.log(data);
+      .then(({ status, data }) => {
+        if (status === 200) {
+          setCover(null);
+          console.log(data);
+        }
       });
   };
 
@@ -134,6 +139,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
       setTranslatorsSelectCounter([0]);
       setSuccessMessage(data.addBook.book.title);
       setTitle('');
+      setTitleEnglish('');
+      setTitleOriginal('');
       setLanguage('Polish');
       setGenres([]);
       setTranslators([]);
@@ -153,9 +160,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.target;
     switch (id) {
-      case 'title':
-        setTitle(value);
-        break;
       case 'pages':
         regexValidator(numbersRegex, value, setPages);
         break;
@@ -203,6 +207,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
     addBook({
       variables: {
         title,
+        titleEnglish,
+        titleOriginal,
         authors,
         language,
         pages: pages ? Number(pages) : null,
@@ -233,6 +239,27 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             autoComplete='off'
             required
             onChange={e => setTitle(e.target.value)}
+          />
+        </div>
+        <div className='addBookForm_element addBookForm_element_title'>
+          <label htmlFor='titleEnglish'>English title</label>
+          <input
+            value={titleEnglish}
+            id='titleEnglish'
+            type='text'
+            autoComplete='off'
+            onChange={e => setTitleEnglish(e.target.value)}
+          />
+        </div>
+        <div className='addBookForm_element addBookForm_element_title'>
+          <label htmlFor='titleOriginal'>Original title</label>
+          <input
+            value={titleOriginal}
+            id='titleOriginal'
+            type='text'
+            autoComplete='off'
+            required
+            onChange={e => setTitleOriginal(e.target.value)}
           />
         </div>
         <div className='addBookForm_element addBookForm_element_language'>
@@ -295,7 +322,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
         </div>
         <div className='addBookForm_element addBookForm_element_publisher'>
           <label htmlFor='publisher'>publisher</label>
-
           <select
             className='form_select'
             id='publishers'
@@ -316,7 +342,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             })}
           </select>
         </div>
-        {language === Language.English && (
+
+        {language === Language.Polish && (
           <div className='addBookForm_element addBookForm_element_translators'>
             {translatorsSelectCounter.map(input => {
               return (
@@ -353,7 +380,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             type='text'
             id='firstEdition'
             value={firstEdition}
-            onChange={e => handleCoverUpload}
+            onChange={e => handleInputs(e)}
           />
         </div>
         <div className='addBookForm_element addBookForm_element_cover-upload'>

@@ -2,18 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { imageApi } from '../../../../../server';
 import { resizeHelper } from '../../utility/handlers/resizeHelper';
+import { useCoverResize } from '../../utility/hooks/useCoverResize';
 
 interface BookProps {
   data: {
     id: string;
     title: string;
+    titleEnglish: string;
+    titleOriginal: string;
     language: string;
     authors: {
       id: string;
       firstName: string;
       lastName: string;
     }[];
-    translators: string[];
+    translators: {
+      id: string;
+      firstName: string;
+      lastName: string;
+    }[];
     bookGenres: {
       name: string;
     }[];
@@ -28,25 +35,15 @@ interface BookProps {
 }
 
 const Book: React.FC<BookProps> = ({ data }) => {
-  const { authors, bookGenres, publisher } = data;
-  const [coverSize, setCoverSize] = useState('');
-
-  useEffect(() => {
-    resizeHelper(window.innerWidth, setCoverSize);
-  }, []);
-
-  useEffect(() => {
-    function handleResize() {
-      const currentWidth = window.innerWidth;
-      resizeHelper(currentWidth, setCoverSize);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
+  const {
+    authors,
+    bookGenres,
+    publisher,
+    translators,
+    titleEnglish,
+    titleOriginal,
+  } = data;
+  const { coverSize } = useCoverResize();
 
   const showAuthors = () => {
     let counter = 1;
@@ -100,6 +97,32 @@ const Book: React.FC<BookProps> = ({ data }) => {
     );
   };
 
+  const showTranslators = () => {
+    let counter = 1;
+    return translators.map(translator => {
+      const { id } = translator;
+      // const pathId = translator.id.slice(-10);
+      if (counter === translators.length) {
+        return (
+          <span key={id}>
+            {/* <Link to={`../translators/${pathId}`} state={{ id }}> */}
+            {translator.firstName.concat(' ', translator.lastName)}
+            {/* </Link> */}
+          </span>
+        );
+      } else {
+        counter++;
+        return (
+          <span key={id}>
+            {/* <Link to={`../translators/${pathId}`} state={{ id }}> */}
+            {translator.firstName.concat(' ', translator.lastName, ',')}
+            {/* </Link> */}
+          </span>
+        );
+      }
+    });
+  };
+
   return (
     <div className='book'>
       <h4 className='book__title'>{data.title}</h4>
@@ -137,7 +160,6 @@ const Book: React.FC<BookProps> = ({ data }) => {
           <span>-</span>
           <span>{showPublisher()}</span>
         </div>
-
         <div className='book__data_firstEdition'>
           <p>First edition</p>
           <span>-</span>
@@ -148,6 +170,27 @@ const Book: React.FC<BookProps> = ({ data }) => {
           <span>-</span>
           <span>{data.isbn}</span>
         </div>
+        {translators ? (
+          <div className='book__data_translators'>
+            <p>{translators.length === 1 ? 'Translator' : 'Translators'}</p>
+            <span>-</span>
+            <span>{showTranslators()}</span>
+          </div>
+        ) : null}
+        {titleEnglish ? (
+          <div className='book__data_titleEnglish'>
+            <p>English title</p>
+            <span>-</span>
+            <span>{titleEnglish}</span>
+          </div>
+        ) : null}
+        {titleOriginal ? (
+          <div className='book__data_titleOriginal'>
+            <p>Original title</p>
+            <span>-</span>
+            <span>{titleOriginal}</span>
+          </div>
+        ) : null}
       </div>
     </div>
   );
