@@ -3,40 +3,38 @@
   width: 100%;
   margin: 20px auto 0;
   min-height: 60vh;
-
   flex-wrap: wrap;
-
+  justify-content: space-around;
+  align-items: center;
   &_element {
     flex-basis: 90%;
-    margin: 0 auto;
+    margin-bottom: 2px;
     a {
       display: flex;
       align-items: center;
-      border: 1px solid red;
+      justify-content: space-evenly;
       .bookCollection__list_element_thumbnail {
-        max-width: 50px;
-
+        max-width: 30px;
         img {
           width: 100%;
         }
       }
       span {
+        flex-basis: 80%;
         font-size: $font-size-p;
-        text-align: center;
-        margin: 0 auto;
       }
     }
   }
   &__az {
     flex-basis: 90%;
     display: flex;
-    margin: 0 auto 20px;
+    margin: 10px auto 20px;
     align-self: flex-end;
     justify-content: space-between;
     font-size: $font-size-p;
     text-transform: uppercase;
     &_element {
-      padding: 2px;
+      padding: 0.9px;
       &:hover {
         background-color: $fourth-color;
         color: $apps_background;
@@ -49,27 +47,78 @@
     }
   }
 }
+@media (min-width: $breakpoint-360) {
+  .bookCollection__list {
+    &_element {
+      a {
+        .bookCollection__list_element_thumbnail {
+          max-width: 40px;
+          img {
+          }
+        }
+        span {
+        }
+      }
+    }
+    &__az {
+      &_element {
+        padding: 1.5px;
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-480) {
+  .bookCollection__list {
+    &_element {
+      a {
+        .bookCollection__list_element_thumbnail {
+          max-width: 50px;
+          img {
+          }
+        }
+        span {
+        }
+      }
+    }
+    &__az {
+      &_element {
+        padding: 2px;
+      }
+    }
+  }
+  .publishers,
+  .authors {
+    justify-content: space-evenly;
+
+    div.bookCollection__list_element {
+      flex-basis: 38%;
+    }
+  }
+}
 
 @media (min-width: $breakpoint-700) {
   .publishers,
   .authors {
-    // align-items: center;
-    // justify-content: flex-start;
+    justify-content: space-evenly;
     > div.bookCollection__list_element {
-      // flex-basis: 45%;
+      flex-basis: 35%;
     }
   }
 }
 @media (min-width: $breakpoint-1025) {
-  .bookCollection__list {
-    &_element {
-    }
-  }
   .publishers,
   .authors {
-    // justify-content: space-between;
     > div.bookCollection__list_element {
-      // flex-basis: 30%;
+      flex-basis: 32%;
     }
   }
 }
+
+// @media (min-width: $breakpoint-1201) {
+//   .publishers,
+//   .authors {
+//     > div.bookCollection__list_element {
+//       flex-basis: 32%;
+//     }
+//   }
+// }
