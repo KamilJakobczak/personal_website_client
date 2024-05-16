@@ -1,3 +1,4 @@
+import { checkURL } from '../../utility/handlers/checkURL';
 import List from '../lists/List';
 
 interface PublisherProps {
@@ -36,7 +37,7 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
           <span>
             {website && (
               <a
-                href={`https://${website}`}
+                href={checkURL(website)}
                 rel='noreferrer noopener'
                 target='_blank'
               >

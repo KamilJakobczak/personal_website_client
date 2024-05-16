@@ -8,7 +8,7 @@
   align-items: center;
   &_element {
     flex-basis: 90%;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
     a {
       display: flex;
       align-items: center;
@@ -106,19 +106,28 @@
   }
 }
 @media (min-width: $breakpoint-1025) {
-  .publishers,
-  .authors {
-    > div.bookCollection__list_element {
-      flex-basis: 32%;
+  .bookCollection__list {
+    &_element {
+      flex-basis: 100%;
+      a {
+        .bookCollection__list_element_thumbnail {
+          max-width: 60px;
+        }
+        span {
+          flex-basis: 80%;
+        }
+      }
+      &__az {
+        &_element {
+          padding: 3px;
+        }
+      }
+    }
+    &.publishers,
+    &.authors {
+      div.bookCollection__list_element {
+        flex-basis: 32%;
+      }
     }
   }
 }
-
-// @media (min-width: $breakpoint-1201) {
-//   .publishers,
-//   .authors {
-//     > div.bookCollection__list_element {
-//       flex-basis: 32%;
-//     }
-//   }
-// }

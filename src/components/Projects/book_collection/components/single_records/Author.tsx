@@ -1,3 +1,4 @@
+import { checkURL } from '../../utility/handlers/checkURL';
 import List from '../lists/List';
 
 interface AuthorProps {
@@ -6,13 +7,18 @@ interface AuthorProps {
     lastName: string;
     nationality?: string;
     birthYear?: number;
+    bioPages?: {
+      wiki: string;
+      goodreads: string;
+      lubimyczytac: string;
+    };
     books: [];
   };
 }
 
 const Author: React.FC<AuthorProps> = ({ data }) => {
-  const { firstName, lastName, nationality, birthYear, books } = data;
-
+  const { firstName, lastName, nationality, birthYear, books, bioPages } = data;
+  console.log(data);
   return (
     <div className='author'>
       <h4 className='author__name'>
@@ -33,6 +39,51 @@ const Author: React.FC<AuthorProps> = ({ data }) => {
           <p>Year of birth</p>
           <span>-</span>
           <span>{birthYear}</span>
+        </div>
+        <div className='author__data_wiki'>
+          <p>Wikipedia</p>
+          <span>-</span>
+          <span>
+            {bioPages && bioPages.wiki ? (
+              <a
+                href={checkURL(bioPages.wiki)}
+                rel='noreferrer noopener'
+                target='_blank'
+              >
+                click
+              </a>
+            ) : null}
+          </span>
+        </div>
+        <div className='author__data_goodreads'>
+          <p>Goodreads</p>
+          <span>-</span>
+          <span>
+            {bioPages && bioPages.goodreads ? (
+              <a
+                href={checkURL(bioPages.goodreads)}
+                rel='noreferrer noopener'
+                target='_blank'
+              >
+                click
+              </a>
+            ) : null}
+          </span>
+        </div>
+        <div className='author__data_lubimyczytac'>
+          <p>Lubimyczytac</p>
+          <span>-</span>
+          <span>
+            {bioPages && bioPages.lubimyczytac ? (
+              <a
+                href={checkURL(bioPages.lubimyczytac)}
+                rel='noreferrer noopener'
+                target='_blank'
+              >
+                click
+              </a>
+            ) : null}
+          </span>
         </div>
       </div>
       <div className='author__books'>

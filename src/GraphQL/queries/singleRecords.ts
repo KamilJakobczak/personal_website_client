@@ -7,6 +7,11 @@ export const LOAD_AUTHOR = gql`
       lastName
       nationality
       birthYear
+      bioPages{
+        wiki
+        goodreads
+        lubimyczytac
+      }
       books {
         id
         title
