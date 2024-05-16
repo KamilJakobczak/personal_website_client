@@ -20,7 +20,6 @@ interface PublisherProps {
 const Publisher: React.FC<PublisherProps> = ({ data }) => {
   const { address, name, books, website } = data;
   const { country, zipCode, city, street, buildingNr, placeNr } = address;
-  console.log(website);
 
   return (
     <div className='publisher'>
@@ -71,10 +70,12 @@ const Publisher: React.FC<PublisherProps> = ({ data }) => {
         </div>
       </div>
 
-      <div className='publisher__books'>
-        <h5>books</h5>
-        <List data={books} nested={true} />
-      </div>
+      {books.length > 0 ? (
+        <div className='publisher__books'>
+          <h5>books</h5>
+          <List data={books} nested={true} />
+        </div>
+      ) : null}
     </div>
   );
 };

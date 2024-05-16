@@ -86,10 +86,12 @@ const Author: React.FC<AuthorProps> = ({ data }) => {
           </span>
         </div>
       </div>
-      <div className='author__books'>
-        <h5>books</h5>
-        <List data={books} nested={true} />
-      </div>
+      {books.length > 0 ? (
+        <div className='author__books'>
+          <h5>books</h5>
+          <List data={books} nested={true} />
+        </div>
+      ) : null}
     </div>
   );
 };
