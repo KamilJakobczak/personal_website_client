@@ -1,23 +1,27 @@
-.addCollection__form_element {
-  &.addBooksInput {
-    display: flex;
-    margin: 10px 0;
-    justify-content: space-between;
-    label {
-      flex-basis: 20%;
+.addBookSeries {
+  &.bookCollection__addBookSeries {
+  }
+  &__form_element {
+    &.addBooksInput {
+      display: flex;
+      margin: 10px 0;
+      justify-content: space-between;
+      label {
+        flex-basis: 20%;
 
-      &:first-child {
-        display: block;
-        flex-basis: 55%;
-      }
-      input[type='radio'] {
-        grid-template-columns: 1em;
+        &:first-child {
+          display: block;
+          flex-basis: 55%;
+        }
+        // input[type='radio'] {
+        //   grid-template-columns: 1em;
+        // }
       }
     }
   }
 }
 
-div.addCollection__form_element.collectionBookList {
+div.addBookSeries__form_element.collectionBookList {
   display: flex;
   flex-wrap: wrap;
 

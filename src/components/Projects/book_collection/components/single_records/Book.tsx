@@ -35,6 +35,7 @@ interface BookProps {
 }
 
 const Book: React.FC<BookProps> = ({ data }) => {
+  console.log(data);
   const {
     authors,
     bookGenres,

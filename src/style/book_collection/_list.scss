@@ -169,7 +169,7 @@
     &.authors {
       justify-content: space-evenly;
       > div.bookCollection__list_element {
-        flex-basis: 22%;
+        flex-basis: 23%;
       }
     }
   }
@@ -187,7 +187,18 @@
     &.publishers {
       justify-content: space-evenly;
       > div.bookCollection__list_element {
-        // flex-basis: 22%;
+        flex-basis: 23%;
+        flex-grow: 1;
+      }
+    }
+    &.authors {
+      > div.bookCollection__list_element {
+        &:nth-last-child(2) {
+          flex-basis: 23%;
+          a {
+            // justify-content: flex-start;
+          }
+        }
       }
     }
   }

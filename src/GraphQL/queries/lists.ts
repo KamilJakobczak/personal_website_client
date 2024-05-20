@@ -23,9 +23,9 @@ export const LOAD_BOOKS = gql`
   }
 `;
 
-export const LOAD_COLLECTIONS = gql`
-  query Collections {
-    collections {
+export const LOAD_BOOKSERIES = gql`
+  query BookSeries { 
+    bookSeries {
       id
       name
     }

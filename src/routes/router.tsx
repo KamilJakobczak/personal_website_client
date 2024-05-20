@@ -21,7 +21,6 @@ import AddBookForm from '../components/Projects/book_collection/components/addin
 import AddPublisherForm from '../components/Projects/book_collection/components/adding_records/AddPublisherForm';
 import NewRecords from '../components/Projects/book_collection/components/adding_records/NewRecords';
 import AddGenreForm from '../components/Projects/book_collection/components/adding_records/AddGenreForm';
-import AddCollection from '../components/Projects/book_collection/components/adding_records/AddCollection';
 import AddTranslator from '../components/Projects/book_collection/components/adding_records/AddTranslator';
 import BookList from '../components/Projects/book_collection/components/lists/BookList';
 import CollectionList from '../components/Projects/book_collection/components/lists/CollectionList';
@@ -35,6 +34,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import UserBooks from '../components/Projects/book_collection/components/user/Profile';
 import UserLibrary from '../components/Projects/book_collection/components/user/UserLibrary';
 import Profile from '../components/Projects/book_collection/components/user/Profile';
+import AddBookSeries from '../components/Projects/book_collection/components/adding_records/AddBookSeries';
 
 export const router = createBrowserRouter([
   {
@@ -129,11 +129,11 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: '/apps/collection/add/collection',
+            path: '/apps/collection/add/bookseries',
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddCollection className='bookCollection__addCollection' />
+                  <AddBookSeries className='bookCollection__addBookSeries' />
                 }
               />
             ),

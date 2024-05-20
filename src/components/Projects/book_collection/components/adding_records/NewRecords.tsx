@@ -11,7 +11,7 @@ const NewRecords: React.FC = () => {
       'genre',
       'publisher',
       'translator',
-      'collection',
+      'book series',
     ];
     return (
       <>
@@ -20,7 +20,7 @@ const NewRecords: React.FC = () => {
             <Button
               key={element}
               className='bookCollection__newRecords_item'
-              linkEnd={element}
+              linkEnd={element.replace(' ', '')}
               text={element}
               linkPath='/apps/collection/add'
             />

@@ -1,17 +1,17 @@
 import { gql } from '@apollo/client';
 
-export const ADD_COLLECTION = gql`
-  mutation addCollection(
+export const ADD_BOOKSERIES = gql`
+  mutation addBookSeries(
     $name: String!
-    $booksInCollection: [BookInCollectionInput]
+    $booksInBookSeries: [BookInBookSeriesInput]
   ) {
-    addCollection(
-      input: { name: $name, booksInCollection: $booksInCollection }
+    addBookSeries(
+      input: { name: $name, booksInBookSeries: $booksInBookSeries }
     ) {
       userErrors {
         message
       }
-      collection {
+      bookSeries {
         name
         id
       }

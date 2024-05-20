@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { processSelectionData } from '../../utility/handlers';
 import Error from '../../../../Error';
 import React, { useState } from 'react';
-import { ADD_COLLECTION } from '../../../../../GraphQL/mutations';
+import { ADD_BOOKSERIES } from '../../../../../GraphQL/mutations';
 import { LOAD_BOOKS } from '../../../../../GraphQL/queries';
 import Button from '../general-purpose/Button';
 import Select from '../general-purpose/Select';
@@ -11,13 +11,13 @@ import LoadingSpinner from '../../../../LoadingSpinner';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { numbersRegex } from '../../utility/regex';
 
-interface AddCollectionProps {
+interface AddBookSeriesProps {
   className: string;
 }
 
-const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
+const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
   const [name, setName] = useState('');
-  const [addBooks, setAddBooks] = useState(false);
+  // const [addBooks, setAddBooks] = useState(false);
   const [books, setBooks] = useState<string[]>(['']);
   const [tomes, setTomes] = useState<string[]>(['']);
   const [booksSelectionCounter, setBooksSelectionCounter] = useState([0]);
@@ -29,8 +29,8 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
     error: errorB,
     loading: loadingB,
   } = useQuery(LOAD_BOOKS);
-  const [addCollection, { data, loading, error }] = useMutation(
-    ADD_COLLECTION,
+  const [addBookSeries, { data, loading, error }] = useMutation(
+    ADD_BOOKSERIES,
     {
       onCompleted(data) {
         onCompletedMutation(data);
@@ -42,12 +42,12 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
     setName('');
     setBooks(['']);
     setTomes(['']);
-    setAddBooks(false);
-    if (data.addCollection.userErrors[0].message) {
-      setUserError(data.addCollection.userErrors[0].message);
+    // setAddBooks(false);
+    if (data.addBookSeries.userErrors[0].message) {
+      setUserError(data.addBookSeries.userErrors[0].message);
     }
-    if (data.addCollection.collection) {
-      setSuccessMessage(data.addCollection.collection.name);
+    if (data.addBookSeries.bookSeries) {
+      setSuccessMessage(data.addBookSeries.bookSeries.name);
 
       setBooksSelectionCounter([0]);
       setTimeout(() => {
@@ -82,23 +82,32 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
       });
     }
     console.log(
-      `Counter: ${booksSelectionCounter}; Tomes: ${tomes}; Books: ${books}; `
+      `Counter: ${booksSelectionCounter}; Tomes: ${tomes}; Books: ${books}; `,
+      arr.length
     );
-    // addCollection({
-    //   variables: {
-    //     name: name,
-    //     booksInCollection: arr,
-    //   },
-    // });
+
+    if (arr[0].bookId === '') {
+      setUserError('Book series must have at least one book');
+      return;
+    } else if (name === '' && name.length < 2) {
+      setUserError("Provide a book series' name");
+    } else {
+      addBookSeries({
+        variables: {
+          name: name,
+          booksInBookSeries: arr,
+        },
+      });
+    }
   };
 
   // RENDER ELEMENTS
 
   const showForm = () => {
     return (
-      <form action='' className='addCollection__form'>
-        <h5>new collection</h5>
-        <div className='addCollection__form_element'>
+      <form action='' className='addBookSeries__form'>
+        <h5>new book series</h5>
+        <div className='addBookSeries__form_element'>
           <label htmlFor='name'>name</label>
           <input
             type='text'
@@ -109,7 +118,7 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
             onChange={e => setName(e.target.value)}
           />
         </div>
-        <div className='addCollection__form_element addBooksInput'>
+        {/* <div className='addBookSeries__form_element addBooksInput'>
           <label className='addBooksInput_label' htmlFor='books'>
             add books to the collection?
           </label>
@@ -131,14 +140,14 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
             />
             no
           </label>
-        </div>
-        {!loading && addBooks && showAddBooks()}
+        </div> */}
+        {!loading && showAddBooks()}
         {showErrors()}
         {duplicationError && (
           <Error text='Duplication error(s) detected, correct mistakes before continuing' />
         )}
         <Button
-          className='addCollection__form_button'
+          className='addBookSeries__form_button'
           handleClick={handleSubmit}
         />
       </form>
@@ -147,7 +156,7 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
 
   const showAddBooks = () => {
     return (
-      <div className='addCollection__form_element collectionBookList'>
+      <div className='addBookSeries__form_element collectionBookList'>
         {booksSelectionCounter.map(selection => {
           return (
             <React.Fragment key={selection}>
@@ -193,9 +202,9 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
   };
 
   return (
-    <div className={`${className} addCollection`}>
+    <div className={`${className} addBookSeries`}>
       {data && successMessage ? (
-        <SuccessMessage item='collection' successMessage={successMessage} />
+        <SuccessMessage item='book series' successMessage={successMessage} />
       ) : null}
       {(loading || loadingB) && <LoadingSpinner />}
       {!loading && !loadingB && !successMessage ? showForm() : null}
@@ -203,4 +212,4 @@ const AddCollection: React.FC<AddCollectionProps> = ({ className }) => {
   );
 };
 
-export default AddCollection;
+export default AddBookSeries;

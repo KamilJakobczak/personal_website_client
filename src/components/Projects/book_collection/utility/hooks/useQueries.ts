@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import {
   LOAD_AUTHORS,
-  LOAD_COLLECTIONS,
+  LOAD_BOOKSERIES,
   LOAD_GENRES,
   LOAD_PUBLISHERS,
   LOAD_TRANSLATORS,
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 
 interface useQueriesType {
   authors: [];
-  collections: [];
+  bookSeries: [];
   genres: [];
   publishers: [];
   translators: [];
@@ -19,7 +19,7 @@ interface useQueriesType {
 export const useQueries = () => {
   const [data, setData] = useState<useQueriesType>({
     authors: [],
-    collections: [],
+    bookSeries: [],
     genres: [],
     publishers: [],
     translators: [],
@@ -47,21 +47,21 @@ export const useQueries = () => {
     data: dataT,
   } = useQuery(LOAD_TRANSLATORS);
   const {
-    error: errorC,
-    loading: loadingC,
-    data: dataC,
-  } = useQuery(LOAD_COLLECTIONS);
+    error: errorBS,
+    loading: loadingBS,
+    data: dataBS,
+  } = useQuery(LOAD_BOOKSERIES);
 
   useEffect(() => {
-    if (loadingA || loadingC || loadingG || loadingP || loadingT) {
+    if (loadingA || loadingBS || loadingG || loadingP || loadingT) {
       setLoading(true);
     }
-  }, [loadingA, loadingC, loadingG, loadingP, loadingT]);
+  }, [loadingA, loadingBS, loadingG, loadingP, loadingT]);
 
   useEffect(() => {
-    if (errorA || errorC || errorG || errorP || errorT) {
+    if (errorA || errorBS || errorG || errorP || errorT) {
       const errA = errorA ? errorA.message : '';
-      const errC = errorC ? errorC.message : '';
+      const errBS = errorBS ? errorBS.message : '';
       const errG = errorG ? errorG.message : '';
       const errP = errorP ? errorP.message : '';
       const errT = errorT ? errorT.message : '';
@@ -69,7 +69,7 @@ export const useQueries = () => {
       const errorString = `Following errors occured: `.concat(
         errA,
         '\n',
-        errC,
+        errBS,
         '\n',
         errG,
         '\n',
@@ -80,20 +80,20 @@ export const useQueries = () => {
 
       setErrors(errorString);
     }
-  }, [errorA, errorC, errorG, errorP, errorT]);
+  }, [errorA, errorBS, errorG, errorP, errorT]);
 
   useEffect(() => {
-    if (dataA && dataC && dataG && dataP && dataT) {
+    if (dataA && dataBS && dataG && dataP && dataT) {
       setData({
         authors: dataA.authors,
-        collections: dataC.collections,
+        bookSeries: dataBS.bookSeries,
         genres: dataG.genres,
         publishers: dataP.publishers,
         translators: dataT.translators,
       });
       setLoading(false);
     }
-  }, [dataA, dataC, dataG, dataP, dataT]);
+  }, [dataA, dataBS, dataG, dataP, dataT]);
 
   const payload = {
     data,

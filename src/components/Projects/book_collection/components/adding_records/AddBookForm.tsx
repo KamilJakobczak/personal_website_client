@@ -46,8 +46,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   const [authorsSelectCounter, setAuthorsSelectCounter] = useState([0]);
   const [genresSelectCounter, setGenresSelectCounter] = useState([0]);
   const [translatorsSelectCounter, setTranslatorsSelectCounter] = useState([0]);
-  const [collectionsSelectCounter, setCollectionsSelectCounter] = useState([0]);
-  const [inCollection, setInCollection] = useState(false);
+  const [bookSeriesSelectCounter, setBookSeriesSelectCounter] = useState([0]);
+  const [inBookSeries, setInBookSeries] = useState(false);
   const [duplicationError, setDuplicationError] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [userError, setUserError] = useState('');
@@ -62,7 +62,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   const [publisher, setPublisher] = useState(uploadedPublisher || '');
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
-  const [collections, setCollections] = useState<string[]>([]);
+  const [bookSeries, setBookSeries] = useState<string[]>([]);
   const [cover, setCover] = useState<File | null>();
   const [isbn, setIsbn] = useState('');
   const [pages, setPages] = useState('');
@@ -132,9 +132,9 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
     }
     if (data.addBook.book) {
       uploadCover(data.addBook.book.id);
-      setInCollection(false);
+      setInBookSeries(false);
       setAuthorsSelectCounter([0]);
-      setCollectionsSelectCounter([0]);
+      setBookSeriesSelectCounter([0]);
       setGenresSelectCounter([0]);
       setTranslatorsSelectCounter([0]);
       setSuccessMessage(data.addBook.book.title);
@@ -145,7 +145,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
       setGenres([]);
       setTranslators([]);
       setAuthors([]);
-      setCollections([]);
+      setBookSeries([]);
       setPublisher('');
       setIsbn('');
       setPages('');
@@ -217,7 +217,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
         bookGenres: genres ? genres : null,
         publisher,
         translators,
-        collections,
+        bookSeries,
       },
     });
   };
@@ -391,40 +391,40 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             onChange={handleCoverUpload}
           />
         </div>
-        <div className='addBookForm_element addBookForm_element_isCollection'>
-          <label htmlFor='in_collection'>Part of a collection?</label>
+        <div className='addBookForm_element addBookForm_element_isBookSeries'>
+          <label htmlFor='in_bookSeries'>Part of a book series?</label>
           <label htmlFor='yes' className='form-control-radio'>
             <input
               type='radio'
-              name='in_collection'
+              name='in_bookSeries'
               id='yes'
-              onClick={() => setInCollection(true)}
+              onClick={() => setInBookSeries(true)}
             />
             Yes
           </label>
           <label htmlFor='no' className='form-control-radio'>
             <input
               type='radio'
-              name='in_collection'
+              name='in_bookSeries'
               id='no'
-              onClick={() => setInCollection(false)}
+              onClick={() => setInBookSeries(false)}
             />
             No
           </label>
         </div>
-        {inCollection && (
-          <div className='addBookForm_element addBookForm_element_collections'>
-            {collectionsSelectCounter.map(input => {
+        {inBookSeries && (
+          <div className='addBookForm_element addBookForm_element_bookSeries'>
+            {bookSeriesSelectCounter.map(input => {
               return (
                 <Select
-                  item='collection'
+                  item='book series'
                   id={input}
                   key={input}
-                  data={data.collections}
-                  selectedValues={collections}
-                  selectCounter={collectionsSelectCounter}
-                  setSelectCounter={setCollectionsSelectCounter}
-                  setSelectedValues={setCollections}
+                  data={data.bookSeries}
+                  selectedValues={bookSeries}
+                  selectCounter={bookSeriesSelectCounter}
+                  setSelectCounter={setBookSeriesSelectCounter}
+                  setSelectedValues={setBookSeries}
                   setDuplicationError={setDuplicationError}
                 />
               );

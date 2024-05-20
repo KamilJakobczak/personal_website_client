@@ -41,9 +41,20 @@ export const LOAD_BOOK = gql`
       bookGenres {
         name
       }
+      bookSeries {
+        name
+        id
+      }
     }
   }
 `;
+
+export const LOAD_SINGLEBOOKSERIES = gql`
+  query SingleBookSeries($id: ID!){
+    singleBookSeries(id: $id){
+      name
+  }
+}`;
 
 export const LOAD_PUBLISHER = gql`
   query Publisher($id: ID!) {
