@@ -72,7 +72,7 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
       <form action='addTranslator__form'>
         <h5>new translator</h5>
         <div className='addTranslator__form_element'>
-          <label htmlFor='firstName'>first name:</label>
+          <label htmlFor='firstName'>first name</label>
           <input
             type='text'
             id='firstName'
@@ -83,7 +83,7 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
           />
         </div>
         <div className='addTranslator__form_element'>
-          <label htmlFor='lastName'>last name:</label>
+          <label htmlFor='lastName'>last name</label>
           <input
             type='text'
             id='lastName'

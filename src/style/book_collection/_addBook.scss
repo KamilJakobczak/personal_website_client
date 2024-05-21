@@ -13,7 +13,7 @@
 
 .bookCollection {
   &__addBook {
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
     &__bookForm {
       &__form {
@@ -23,29 +23,28 @@
         justify-content: center;
         .addBookForm_element {
           flex-basis: 100%;
-          max-width: 100%;
           display: flex;
           flex-wrap: wrap;
           align-items: center;
           justify-content: space-between;
           label {
             font-size: $font-size-p;
-            flex-basis: 25%;
+            flex-basis: 30%;
             &::first-letter {
               text-transform: capitalize;
             }
           }
           input {
             font-size: $font-size-p;
-
-            flex: 1;
+            width: 150px;
+            &[type='radio'] {
+              width: auto;
+            }
           }
           select {
             font-family: $font-basic;
             font-size: $font-size-p;
-            min-width: 0;
-            flex: 1;
-
+            width: 160px;
             text-align: center;
           }
           &_cover-upload {
@@ -131,13 +130,13 @@
 @media (min-width: $breakpoint-700) {
   .bookCollection {
     &__addBook {
-      width: 75%;
+      // width: 75%;
       &__bookForm {
         &__form {
           .addBookForm_element {
             + .addBookForm_element {
-              &_isCollection {
-                margin: 8px 0 4px;
+              &_isBookSeries {
+                // margin: 8px 0 4px;
               }
               // flex-grow: 1;
               // flex-basis: 60%;
@@ -153,40 +152,40 @@
 @media (min-width: $breakpoint-1025) {
   .bookCollection {
     &__addBook {
-      width: 90%;
+      // width: 90%;
       &__bookForm {
         &__form {
-          flex-wrap: wrap;
-          justify-content: space-between;
+          // flex-wrap: wrap;
+          // justify-content: space-between;
           .addBookForm_element {
             + .addBookForm_element {
-              flex-basis: 48%;
-              margin-top: 6px;
+              // flex-basis: 48%;
+              // margin-top: 6px;
 
               &_cover {
                 // width: 500px;
                 // flex-basis: 100%;
                 &-upload {
-                  flex-basis: 100%;
+                  // flex-basis: 100%;
                 }
               }
               &_title {
-                flex-basis: 100%;
-                justify-content: space-between;
+                // flex-basis: 100%;
+                // justify-content: space-between;
                 label {
-                  flex-basis: 12%;
+                  // flex-basis: 12%;
                 }
                 input {
-                  flex: 1;
+                  // flex: 1;
                 }
               }
               &_genres {
                 // flex-basis: 100%;plo
               }
 
-              &_isCollection {
-                flex-basis: 80%;
-                margin: 12px 0 8px;
+              &_isBookSeries {
+                // flex-basis: 80%;
+                // margin: 12px 0 8px;
               }
               // flex-grow: 1;
               // flex-basis: 60%;
@@ -202,7 +201,7 @@
 @media (min-width: $breakpoint-1400) {
   .bookCollection {
     &__addBook {
-      width: 70%;
+      // width: 70%;
     }
   }
 }
