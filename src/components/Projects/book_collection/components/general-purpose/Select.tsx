@@ -115,24 +115,26 @@ const Select: React.FC<SelectProps> = ({
       ) : (
         <label htmlFor={`${item}${id}`}>{`${item} ${id + 1}`}</label>
       )}
-      <select
-        className='custom-select'
-        id={`${id}`}
-        name={id === 0 ? item : `${item}${id}`}
-        onChange={e => handleSelectChange(e)}
-        value={selectedValues[id] || ''}
-      >
-        <option value=''>-- find me --</option>
-        {data &&
-          data.map((record: any) => {
-            let label = record.firstName
-              ? `${record.lastName} ${record.firstName}`
-              : record.name || record.title;
-            return <option key={record.id} value={record.id} label={label} />;
-          })}
-      </select>
-      {addButton()}
-      {removeButton()}
+      <div className='select_wrapper-inner'>
+        <select
+          className='custom-select'
+          id={`${id}`}
+          name={id === 0 ? item : `${item}${id}`}
+          onChange={e => handleSelectChange(e)}
+          value={selectedValues[id] || ''}
+        >
+          <option value=''>-- find me --</option>
+          {data &&
+            data.map((record: any) => {
+              let label = record.firstName
+                ? `${record.lastName} ${record.firstName}`
+                : record.name || record.title;
+              return <option key={record.id} value={record.id} label={label} />;
+            })}
+        </select>
+        {addButton()}
+        {removeButton()}
+      </div>
     </div>
   );
 };

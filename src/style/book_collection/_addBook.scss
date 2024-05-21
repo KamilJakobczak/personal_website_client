@@ -22,40 +22,92 @@
         align-items: center;
         justify-content: center;
         .addBookForm_element {
-          flex-basis: 100%;
+          // flex-basis: 100%;
+          width: 100%;
           display: flex;
-          flex-wrap: wrap;
+          margin: 1px 0;
+          // flex-wrap: wrap;
           align-items: center;
           justify-content: space-between;
-          label {
+          > label {
             font-size: $font-size-p;
-            flex-basis: 30%;
+            flex-basis: 35%;
             &::first-letter {
               text-transform: capitalize;
             }
           }
-          input {
+          > input {
+            min-width: 0;
+            // flex-basis: 73%;
             font-size: $font-size-p;
-            width: 150px;
+            // width: 150px;
             &[type='radio'] {
               width: auto;
             }
           }
-          select {
+          > select {
+            min-width: 0;
             font-family: $font-basic;
             font-size: $font-size-p;
-            width: 160px;
+            flex-basis: 75%;
             text-align: center;
+          }
+
+          &_genres,
+          &_authors,
+          &_translators,
+          &_bookSeries {
+            flex-wrap: wrap;
+            .select_wrapper {
+              label {
+                flex-basis: 30%;
+              }
+              &-inner {
+                min-width: 0;
+                flex-basis: 70%;
+                select {
+                }
+                button {
+                  &.select_remove-button {
+                  }
+                }
+              }
+            }
           }
           &_cover-upload {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             label {
               font-size: $font-size-p;
-              flex-basis: 25%;
+              flex-basis: 50%;
             }
-            input {
-              min-width: 0;
+            &__fileInput {
+              flex-basis: 50%;
+              input {
+                font-size: $font-size-p;
+                min-width: 0;
+                width: 100%;
+              }
+              &_preview {
+                flex-basis: 100%;
+                margin: 10px auto;
+                max-width: 75px;
+                img {
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+            }
+          }
+          &_isBookSeries {
+            margin-bottom: 5px;
+            label:nth-child(1) {
+              flex-basis: 60%;
+            }
+            label {
+              flex-basis: 15%;
             }
           }
           + .addBookForm_element {
@@ -127,24 +179,270 @@
 //     }
 //   }
 // }
-@media (min-width: $breakpoint-700) {
+@media (min-width: $breakpoint-360) {
   .bookCollection {
     &__addBook {
-      // width: 75%;
       &__bookForm {
         &__form {
           .addBookForm_element {
-            + .addBookForm_element {
-              &_isBookSeries {
-                // margin: 8px 0 4px;
-              }
-              // flex-grow: 1;
-              // flex-basis: 60%;
+            label {
+              // flex-basis: 28%;
             }
-            // input{}
-            // select{}
+
+            input {
+            }
+            > select {
+            }
+            &_genres,
+            &_authors,
+            &_translators,
+            &_bookSeries {
+              .select_wrapper {
+                label {
+                }
+                &-inner {
+                  select {
+                  }
+                  button {
+                    &.select_remove-button {
+                    }
+                  }
+                }
+              }
+            }
+            &_cover-upload {
+              label {
+                flex-basis: 30%;
+              }
+              &__fileInput {
+                flex-basis: 70%;
+              }
+              input {
+              }
+            }
+            + .addBookForm_element {
+            }
+            &_cover:nth-child(1) {
+              img {
+              }
+            }
+            &_isBookSeries {
+              label:nth-child(1) {
+              }
+              label {
+              }
+            }
           }
         }
+      }
+    }
+    &__options {
+      &_button {
+      }
+    }
+    &__upload {
+      p {
+      }
+      &_file-details {
+      }
+      form {
+      }
+      &_missing {
+        > p {
+        }
+        > div {
+          > p {
+          }
+        }
+      }
+      &_submit {
+        &.collection_button {
+        }
+      }
+      &_uploader {
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-480) {
+  .bookCollection {
+    &__addBook {
+      width: 90%;
+      &__bookForm {
+        &__form {
+          .addBookForm_element {
+            label {
+              // flex-basis: 28%;
+            }
+
+            input {
+            }
+            > select {
+            }
+            &_genres,
+            &_authors,
+            &_translators,
+            &_bookSeries {
+              .select_wrapper {
+                label {
+                }
+                &-inner {
+                  select {
+                  }
+                  button {
+                    &.select_remove-button {
+                    }
+                  }
+                }
+              }
+            }
+            &_cover-upload {
+              label {
+              }
+              &__fileInput {
+                &_preview {
+                  max-width: 100px;
+                }
+              }
+              input {
+              }
+            }
+            + .addBookForm_element {
+            }
+            &_cover:nth-child(1) {
+              img {
+              }
+            }
+            &_isBookSeries {
+              label:nth-child(1) {
+              }
+              label {
+              }
+            }
+          }
+        }
+      }
+    }
+    &__options {
+      &_button {
+      }
+    }
+    &__upload {
+      p {
+      }
+      &_file-details {
+      }
+      form {
+      }
+      &_missing {
+        > p {
+        }
+        > div {
+          > p {
+          }
+        }
+      }
+      &_submit {
+        &.collection_button {
+        }
+      }
+      &_uploader {
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-700) {
+  .bookCollection {
+    &__addBook {
+      &__bookForm {
+        &__form {
+          justify-content: space-between;
+          .addBookForm_element {
+            &_cover:nth-child(1) {
+              flex-basis: 100% !important;
+            }
+
+            &:nth-child(-n + 9) {
+              flex-basis: 49%;
+            }
+            label {
+              // flex-basis: 28%;
+            }
+
+            input {
+            }
+            > select {
+            }
+            &_genres,
+            &_authors,
+            &_translators,
+            &_bookSeries {
+              .select_wrapper {
+                label {
+                }
+                &-inner {
+                  select {
+                  }
+                  button {
+                    &.select_remove-button {
+                    }
+                  }
+                }
+              }
+            }
+            &_cover-upload {
+              label {
+                flex-basis: 20%;
+              }
+              &__fileInput {
+                &_preview {
+                  max-width: 150px;
+                }
+              }
+              input {
+              }
+            }
+            + .addBookForm_element {
+            }
+            &_cover:nth-child(1) {
+              img {
+              }
+            }
+            &_isBookSeries {
+              label:nth-child(1) {
+              }
+              label {
+              }
+            }
+          }
+        }
+      }
+    }
+    &__options {
+      &_button {
+      }
+    }
+    &__upload {
+      p {
+      }
+      &_file-details {
+      }
+      form {
+      }
+      &_missing {
+        > p {
+        }
+        > div {
+          > p {
+          }
+        }
+      }
+      &_submit {
+        &.collection_button {
+        }
+      }
+      &_uploader {
       }
     }
   }
@@ -152,48 +450,179 @@
 @media (min-width: $breakpoint-1025) {
   .bookCollection {
     &__addBook {
-      // width: 90%;
       &__bookForm {
         &__form {
-          // flex-wrap: wrap;
-          // justify-content: space-between;
           .addBookForm_element {
-            + .addBookForm_element {
-              // flex-basis: 48%;
-              // margin-top: 6px;
-
-              &_cover {
-                // width: 500px;
-                // flex-basis: 100%;
-                &-upload {
-                  // flex-basis: 100%;
-                }
-              }
-              &_title {
-                // flex-basis: 100%;
-                // justify-content: space-between;
-                label {
-                  // flex-basis: 12%;
-                }
-                input {
-                  // flex: 1;
-                }
-              }
-              &_genres {
-                // flex-basis: 100%;plo
-              }
-
-              &_isBookSeries {
-                // flex-basis: 80%;
-                // margin: 12px 0 8px;
-              }
-              // flex-grow: 1;
-              // flex-basis: 60%;
+            &_cover:nth-child(1) {
             }
-            // input{}
-            // select{}
+
+            &:nth-child(-n + 9) {
+            }
+            label {
+              // flex-basis: 28%;
+            }
+
+            input {
+            }
+            > select {
+            }
+            &_genres,
+            &_authors,
+            &_translators,
+            &_bookSeries {
+              .select_wrapper {
+                label {
+                }
+                &-inner {
+                  select {
+                  }
+                  button {
+                    &.select_remove-button {
+                    }
+                  }
+                }
+              }
+            }
+            &_cover-upload {
+              label {
+              }
+              &__fileInput {
+                &_preview {
+                }
+              }
+              input {
+              }
+            }
+            + .addBookForm_element {
+            }
+            &_cover:nth-child(1) {
+              img {
+              }
+            }
+            &_isBookSeries {
+              label:nth-child(1) {
+              }
+              label {
+              }
+            }
           }
         }
+      }
+    }
+    &__options {
+      &_button {
+      }
+    }
+    &__upload {
+      p {
+      }
+      &_file-details {
+      }
+      form {
+      }
+      &_missing {
+        > p {
+        }
+        > div {
+          > p {
+          }
+        }
+      }
+      &_submit {
+        &.collection_button {
+        }
+      }
+      &_uploader {
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-1201) {
+  .bookCollection {
+    &__addBook {
+      &__bookForm {
+        &__form {
+          .addBookForm_element {
+            &_cover:nth-child(1) {
+            }
+
+            &:nth-child(-n + 9) {
+            }
+            label {
+              // flex-basis: 28%;
+            }
+
+            input {
+            }
+            > select {
+            }
+            &_genres,
+            &_authors,
+            &_translators,
+            &_bookSeries {
+              .select_wrapper {
+                label {
+                }
+                &-inner {
+                  select {
+                  }
+                  button {
+                    &.select_remove-button {
+                    }
+                  }
+                }
+              }
+            }
+            &_cover-upload {
+              label {
+              }
+              &__fileInput {
+                &_preview {
+                }
+              }
+              input {
+              }
+            }
+            + .addBookForm_element {
+            }
+            &_cover:nth-child(1) {
+              img {
+              }
+            }
+            &_isBookSeries {
+              label:nth-child(1) {
+              }
+              label {
+              }
+            }
+          }
+        }
+      }
+    }
+    &__options {
+      &_button {
+      }
+    }
+    &__upload {
+      p {
+      }
+      &_file-details {
+      }
+      form {
+      }
+      &_missing {
+        > p {
+        }
+        > div {
+          > p {
+          }
+        }
+      }
+      &_submit {
+        &.collection_button {
+        }
+      }
+      &_uploader {
       }
     }
   }
@@ -201,7 +630,90 @@
 @media (min-width: $breakpoint-1400) {
   .bookCollection {
     &__addBook {
-      // width: 70%;
+      &__bookForm {
+        &__form {
+          .addBookForm_element {
+            &_cover:nth-child(1) {
+            }
+
+            &:nth-child(-n + 9) {
+            }
+            label {
+              // flex-basis: 28%;
+            }
+
+            input {
+            }
+            > select {
+            }
+            &_genres,
+            &_authors,
+            &_translators,
+            &_bookSeries {
+              .select_wrapper {
+                label {
+                }
+                &-inner {
+                  select {
+                  }
+                  button {
+                    &.select_remove-button {
+                    }
+                  }
+                }
+              }
+            }
+            &_cover-upload {
+              label {
+              }
+              &__fileInput {
+                &_preview {
+                }
+              }
+              input {
+              }
+            }
+            + .addBookForm_element {
+            }
+            &_cover:nth-child(1) {
+              img {
+              }
+            }
+            &_isBookSeries {
+              label:nth-child(1) {
+              }
+              label {
+              }
+            }
+          }
+        }
+      }
+    }
+    &__options {
+      &_button {
+      }
+    }
+    &__upload {
+      p {
+      }
+      &_file-details {
+      }
+      form {
+      }
+      &_missing {
+        > p {
+        }
+        > div {
+          > p {
+          }
+        }
+      }
+      &_submit {
+        &.collection_button {
+        }
+      }
+      &_uploader {
+      }
     }
   }
 }

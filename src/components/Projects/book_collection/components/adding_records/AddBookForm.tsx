@@ -262,34 +262,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             onChange={e => setTitleOriginal(e.target.value)}
           />
         </div>
-        <div className='addBookForm_element addBookForm_element_language'>
-          <label htmlFor='language'>language</label>
-          <select
-            id='language'
-            name='language'
-            onChange={e => setLanguage(e.target.value)}
-          >
-            <option value={Language.Polish}>{Language.Polish}</option>
-            <option value={Language.English}>{Language.English}</option>
-          </select>
-        </div>
-        <div className='addBookForm_element addBookForm_element_genres'>
-          {genresSelectCounter.map(input => {
-            return (
-              <Select
-                item='genre'
-                id={input}
-                key={input}
-                data={data.genres}
-                selectedValues={genres}
-                selectCounter={genresSelectCounter}
-                setSelectCounter={setGenresSelectCounter}
-                setSelectedValues={setGenres}
-                setDuplicationError={setDuplicationError}
-              />
-            );
-          })}
-        </div>
         <div className='addBookForm_element addBookForm_element_pages'>
           <label htmlFor='pages'>pages</label>
           <input
@@ -303,22 +275,37 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             onChange={e => handleInputs(e)}
           />
         </div>
-        <div className='addBookForm_element addBookForm_element_authors'>
-          {authorsSelectCounter.map(input => {
-            return (
-              <Select
-                item='author'
-                id={input}
-                key={input}
-                data={data.authors}
-                selectedValues={authors}
-                selectCounter={authorsSelectCounter}
-                setSelectCounter={setAuthorsSelectCounter}
-                setSelectedValues={setAuthors}
-                setDuplicationError={setDuplicationError}
-              />
-            );
-          })}
+        <div className='addBookForm_element addBookForm_element_isbn'>
+          <label htmlFor='isbn'>isbn</label>
+          <input
+            name='isbn'
+            autoComplete='off'
+            id='isbn'
+            type='text'
+            value={isbn}
+            onChange={e => handleInputs(e)}
+          />
+        </div>
+        <div className='addBookForm_element addBookForm_element_firstEdition'>
+          <label htmlFor='firstEdition'>first edition</label>
+          <input
+            autoComplete='off'
+            type='text'
+            id='firstEdition'
+            value={firstEdition}
+            onChange={e => handleInputs(e)}
+          />
+        </div>
+        <div className='addBookForm_element addBookForm_element_language'>
+          <label htmlFor='language'>language</label>
+          <select
+            id='language'
+            name='language'
+            onChange={e => setLanguage(e.target.value)}
+          >
+            <option value={Language.Polish}>{Language.Polish}</option>
+            <option value={Language.English}>{Language.English}</option>
+          </select>
         </div>
         <div className='addBookForm_element addBookForm_element_publisher'>
           <label htmlFor='publisher'>publisher</label>
@@ -342,6 +329,41 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             })}
           </select>
         </div>
+        <div className='addBookForm_element addBookForm_element_genres'>
+          {genresSelectCounter.map(input => {
+            return (
+              <Select
+                item='genre'
+                id={input}
+                key={input}
+                data={data.genres}
+                selectedValues={genres}
+                selectCounter={genresSelectCounter}
+                setSelectCounter={setGenresSelectCounter}
+                setSelectedValues={setGenres}
+                setDuplicationError={setDuplicationError}
+              />
+            );
+          })}
+        </div>
+
+        <div className='addBookForm_element addBookForm_element_authors'>
+          {authorsSelectCounter.map(input => {
+            return (
+              <Select
+                item='author'
+                id={input}
+                key={input}
+                data={data.authors}
+                selectedValues={authors}
+                selectCounter={authorsSelectCounter}
+                setSelectCounter={setAuthorsSelectCounter}
+                setSelectedValues={setAuthors}
+                setDuplicationError={setDuplicationError}
+              />
+            );
+          })}
+        </div>
 
         {language === Language.Polish && (
           <div className='addBookForm_element addBookForm_element_translators'>
@@ -362,33 +384,14 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             })}
           </div>
         )}
-        <div className='addBookForm_element addBookForm_element_isbn'>
-          <label htmlFor='isbn'>isbn</label>
-          <input
-            name='isbn'
-            autoComplete='off'
-            id='isbn'
-            type='text'
-            value={isbn}
-            onChange={e => handleInputs(e)}
-          />
-        </div>
-        <div className='addBookForm_element addBookForm_element_firstEdition'>
-          <label htmlFor='firstEdition'>first edition</label>
-          <input
-            autoComplete='off'
-            type='text'
-            id='firstEdition'
-            value={firstEdition}
-            onChange={e => handleInputs(e)}
-          />
-        </div>
+
         <div className='addBookForm_element addBookForm_element_cover-upload'>
           <label htmlFor='cover'>upload cover</label>
           <FileInput
             id='cover'
             fileList={cover ? [cover] : []}
             onChange={handleCoverUpload}
+            parentClass='addBookForm_element_cover-upload'
           />
         </div>
         <div className='addBookForm_element addBookForm_element_isBookSeries'>

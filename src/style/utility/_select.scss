@@ -1,39 +1,69 @@
 .select_wrapper {
   width: 100%;
   display: flex;
+
   align-items: center;
+  justify-content: space-between;
   + .select_wrapper {
     margin-top: 2px;
   }
   label {
     font-size: $font-size-p;
-    flex-basis: 25%;
+    flex-basis: 30%;
     &::first-letter {
       text-transform: capitalize;
     }
   }
-  .custom-select {
-    font-family: $font-basic;
-    font-size: $font-size-p;
-    min-width: 0;
-    flex: 1;
-    text-align: center;
-  }
-  button {
-    font-size: $font-size-p;
-    margin-left: 5px;
-    border: none;
+  &-inner {
+    display: flex;
 
-    &.select_add-button {
-      flex-basis: 30%;
-      padding: 0;
-
-      background-color: $main-color;
+    justify-content: space-evenly;
+    align-items: center;
+    .custom-select {
+      font-family: $font-basic;
+      font-size: $font-size-p;
+      min-width: 0;
+      flex: 1;
+      text-align: center;
     }
-    &.select_remove-button {
-      padding: 0 4px;
-      flex-basis: 5%;
-      background: $second-color;
+    button {
+      font-size: $font-size-p;
+      margin-left: 5px;
+      border: none;
+
+      &.select_add-button {
+        flex-basis: 38%;
+        padding: 0;
+        background-color: $main-color;
+      }
+      &.select_remove-button {
+        padding: 0 4px;
+        flex-basis: 5%;
+        background: $second-color;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-480) {
+  .select_wrapper {
+    &-inner {
+      button {
+        &.select_add-button {
+          flex-basis: 25%;
+        }
+      }
+    }
+  }
+}
+@media (min-width: $breakpoint-700) {
+  .select_wrapper {
+    &-inner {
+      button {
+        &.select_add-button {
+          flex-basis: 18%;
+        }
+      }
     }
   }
 }
