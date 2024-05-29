@@ -385,15 +385,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           </div>
         )}
 
-        <div className='addBookForm_element addBookForm_element_cover-upload'>
-          <label htmlFor='cover'>upload cover</label>
-          <FileInput
-            id='cover'
-            fileList={cover ? [cover] : []}
-            onChange={handleCoverUpload}
-            parentClass='addBookForm_element_cover-upload'
-          />
-        </div>
         <div className='addBookForm_element addBookForm_element_isBookSeries'>
           <label htmlFor='in_bookSeries'>Part of a book series?</label>
           <label htmlFor='yes' className='form-control-radio'>
@@ -434,6 +425,15 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
             })}
           </div>
         )}
+        <div className='addBookForm_element addBookForm_element_cover-upload'>
+          <label htmlFor='cover'>upload cover</label>
+          <FileInput
+            id='cover'
+            fileList={cover ? [cover] : []}
+            onChange={handleCoverUpload}
+            parentClass='addBookForm_element_cover-upload'
+          />
+        </div>
         <Button handleClick={handleBookSubmit} text='submit' className='' />
       </form>
     );
