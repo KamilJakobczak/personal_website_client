@@ -366,7 +366,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
           })}
         </div>
 
-        {language === Language.Polish && (
+        {language === Language.Polish && title !== titleOriginal && (
           <div className='addBookForm_element addBookForm_element_translators'>
             {translatorsSelectCounter.map(input => {
               return (

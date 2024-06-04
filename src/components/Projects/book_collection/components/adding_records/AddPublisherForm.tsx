@@ -76,14 +76,18 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
       case 'street':
         regexValidator(lastNameRegex, value, setStreet);
         break;
+      case 'website':
+        regexValidator(websiteRegex, value, setWebsite);
+        // setWebsite(value);
+        break;
       default:
         break;
     }
   };
-  const handleWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    regexValidator(websiteRegex, value, setWebsite);
-  };
+  // const handleWebsiteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = e.target;
+
+  // };
 
   const handleSubmit = () => {
     addPublisher({
@@ -124,7 +128,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             id='website'
             required
             value={website}
-            onChange={e => handleWebsiteChange(e)}
+            onChange={e => handleTextInputs(e)}
           />
         </div>
         <div className='addPublisher__form_element address'>

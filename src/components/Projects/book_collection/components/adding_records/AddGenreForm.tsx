@@ -5,7 +5,7 @@ import Error from '../../../../Error';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Button from '../general-purpose/Button';
 import { regexValidator } from '../../utility/handlers/regexValidator';
-import { smallLettersRegex } from '../../utility/regex';
+import { genreRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 
 interface AddGenreFormProps {
@@ -44,7 +44,7 @@ const AddGenreForm: React.FC<AddGenreFormProps> = ({
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    regexValidator(smallLettersRegex, value, setName);
+    regexValidator(genreRegex, value, setName);
   };
 
   const handleSubmit = () => {

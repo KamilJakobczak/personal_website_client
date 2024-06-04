@@ -52,9 +52,9 @@ export const ADD_PUBLISHER = gql`
   mutation addPublisher(
     $name: String!
     $website: String
-    $adress: addressInput
+    $address: addressInput
   ) {
-    addPublisher(input: { name: $name, website: $website, address: $adress }) {
+    addPublisher(input: { name: $name, website: $website, address: $address }) {
       userErrors {
         message
       }
