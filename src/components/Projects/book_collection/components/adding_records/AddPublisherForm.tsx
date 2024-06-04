@@ -104,9 +104,9 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
 
   const showForm = () => {
     return (
-      <form className='add_publisher__form' action='' autoComplete='off'>
+      <form className='addPublisher__form' action='' autoComplete='off'>
         <h5>new publisher</h5>
-        <div className='add_publisher__form_element'>
+        <div className='addPublisher__form_element'>
           <label htmlFor='name'>name</label>
           <input
             autoComplete='nameOff'
@@ -117,7 +117,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             onChange={e => handleTextInputs(e)}
           />
         </div>
-        <div className='add_publisher__form_element'>
+        <div className='addPublisher__form_element'>
           <label htmlFor='website'>website</label>
           <input
             type='text'
@@ -127,7 +127,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
             onChange={e => handleWebsiteChange(e)}
           />
         </div>
-        <div className='add_publisher__form_element address'>
+        <div className='addPublisher__form_element address'>
           <p>address</p>
           <div className='address_item'>
             <label htmlFor='country'>country</label>
@@ -195,7 +195,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
           </div>
         </div>
         <Button
-          className='add_publisher__form_button'
+          className='addPublisher__form_button'
           handleClick={handleSubmit}
         />
       </form>

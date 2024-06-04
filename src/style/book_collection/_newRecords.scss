@@ -87,10 +87,69 @@
 }
 
 @media (min-width: $breakpoint-700) {
-  .bookCollection__newRecords {
-    // justify-content: space-evenly;
-    &_item {
-      // flex-basis: 30%;
+  .addPublisher {
+    form {
+      div {
+        & + div {
+          &.address {
+            div.address_item {
+              flex-basis: 49%;
+              label {
+                flex-basis: 40%;
+              }
+              input {
+                flex-basis: 55%;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
+// @media (min-width: $breakpoint-1201) {
+//   .addPublisher {
+//     .addPublisher__form {
+//       &_element {
+//         &.address {
+//           // flex-basis: 100%;
+//           justify-content: space-between;
+
+//           div.address_item {
+//             // border: 1px solid red;
+//             // flex-basis: 33%;
+//             justify-content: space-between;
+//             label {
+//               flex-basis: 42%;
+//             }
+//             input {
+//               flex-basis: 50%;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// @media (min-width: $breakpoint-1400) {
+//   .addPublisher {
+//     .addPublisher__form {
+//       &_element {
+//         &.address {
+//           justify-content: space-between;
+
+//           div.address_item {
+//             flex-basis: 33%;
+//             justify-content: space-between;
+//             label {
+//               flex-basis: 43%;
+//             }
+//             input {
+//               flex-basis: 50%;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
