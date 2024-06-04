@@ -204,20 +204,21 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
   };
 
   const handleBookSubmit = () => {
+    console.log(bookSeries);
     addBook({
       variables: {
+        authors,
+        bookGenres: genres ? genres : null,
+        bookSeries,
+        firstEdition: firstEdition ? Number(firstEdition) : null,
+        isbn,
+        language,
+        pages: pages ? Number(pages) : null,
+        publisher,
         title,
         titleEnglish,
         titleOriginal,
-        authors,
-        language,
-        pages: pages ? Number(pages) : null,
-        isbn,
-        firstEdition: firstEdition ? Number(firstEdition) : null,
-        bookGenres: genres ? genres : null,
-        publisher,
         translators,
-        bookSeries,
       },
     });
   };

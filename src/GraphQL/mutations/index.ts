@@ -99,23 +99,27 @@ export const ADD_AUTHOR = gql`
 
 export const ADD_BOOK = gql`
   mutation addBook(
-    $title: String!
-    $language: Language
     $authors: [String]!
-    $collection: [String]
-    $translators: [String]
     $bookGenres: [String]!
+    $bookSeries: [String]!
+    $firstEdition: Int
+    $isbn: String
+    $language: Language
     $pages: Int
     $publisher: String
-    $isbn: String
-    $firstEdition: Int
+    $title: String!
+    $titleEnglish: String
+    $titleOriginal: String!
+    $translators: [String] 
   ) {
     addBook(
       input: {
+        bookSeries: $bookSeries
         title: $title
+        titleEnglish: $titleEnglish
+        titleOriginal: $titleOriginal
         language: $language
         authors: $authors
-        collection: $collection
         translators: $translators
         bookGenres: $bookGenres
         pages: $pages
