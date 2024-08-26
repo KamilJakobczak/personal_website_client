@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { imageApi } from '../../../../../server';
 import { resizeHelper } from '../../utility/handlers/resizeHelper';
 import { useCoverResize } from '../../utility/hooks/useCoverResize';
+import EditButton from '../general-purpose/EditButton';
 
 interface BookProps {
   data: {
@@ -32,9 +33,10 @@ interface BookProps {
     isbn: string;
     firstEdition: number;
   };
+  editable: boolean;
 }
 
-const Book: React.FC<BookProps> = ({ data }) => {
+const Book: React.FC<BookProps> = ({ data, editable }) => {
   console.log(data);
   const {
     authors,
@@ -126,7 +128,13 @@ const Book: React.FC<BookProps> = ({ data }) => {
 
   return (
     <div className='book'>
-      <h4 className='book__title'>{data.title}</h4>
+      <div className='book__title'>
+        <h4>
+          {data.title}
+          {editable ? <EditButton /> : null}
+        </h4>
+      </div>
+
       <div className='book__cover'>
         <div className='book__cover_img'>
           <img

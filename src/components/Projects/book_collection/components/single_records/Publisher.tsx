@@ -1,4 +1,5 @@
 import { checkURL } from '../../utility/handlers/checkURL';
+import EditButton from '../general-purpose/EditButton';
 import List from '../lists/List';
 
 interface PublisherProps {
@@ -15,15 +16,22 @@ interface PublisherProps {
     website: string;
     books: [];
   };
+  editable: boolean;
 }
 
-const Publisher: React.FC<PublisherProps> = ({ data }) => {
+const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
   const { address, name, books, website } = data;
   const { country, zipCode, city, street, buildingNr, placeNr } = address;
 
   return (
     <div className='publisher'>
-      <h4 className='publisher__name'>{name}</h4>
+      <div className='publisher__name'>
+        <h4>
+          {name}
+          {editable ? <EditButton /> : null}
+        </h4>
+      </div>
+
       <div className='publisher__logo'>
         {/* <div className='publisher__logo_img'>
           <img src='' alt='' />

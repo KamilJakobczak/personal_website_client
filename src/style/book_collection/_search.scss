@@ -155,3 +155,18 @@
     }
   }
 }
+@media (min-width: $breakpoint-1400) {
+  .bookCollection__search {
+    --search_height: 30px;
+    &__searchBox {
+      &_dropdown {
+        ul {
+        }
+      }
+      &_searchField {
+        &_results {
+        }
+      }
+    }
+  }
+}

@@ -34,9 +34,15 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
 
   const renderedElement = () => {
     return (
-      (data.author && <Author data={data.author} />) ||
-      (data.publisher && <Publisher data={data.publisher} />) ||
-      (data.book && <Book data={data.book} />)
+      (data.author && (
+        <Author data={data.author} editable={loggedIn ? true : false} />
+      )) ||
+      (data.publisher && (
+        <Publisher data={data.publisher} editable={loggedIn ? true : false} />
+      )) ||
+      (data.book && (
+        <Book data={data.book} editable={loggedIn ? true : false} />
+      ))
     );
   };
   return (
@@ -44,6 +50,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
       {/* <Button text='return' className='single-record__return' goBack={true} /> */}
 
       <div className='singleRecord__container'>{data && renderedElement()}</div>
+
       {data &&
         data.book &&
         !loading &&
