@@ -62,7 +62,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     <>
       {(letter ? sortData() : data).map(record => {
         const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
-        console.log(linkPath(record));
+
         return (
           <div className='bookCollection__list_element' key={record.id}>
             <Link

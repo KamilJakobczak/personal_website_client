@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from '../general-purpose/Button';
 import { useMutation } from '@apollo/client';
@@ -11,13 +11,14 @@ import { useStatus } from '../../../BookCollection';
 import { getCookie } from '../../../../../utility/getCookie';
 
 const LogIn: React.FC = () => {
-  const [email, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
   const { setLoggedIn, setUserRole } = useStatus();
   const navigate = useNavigate();
+  const controller = new AbortController();
 
   const [signin, { error, data, loading }] = useMutation(SIGNIN, {
     onCompleted(data) {
@@ -26,7 +27,11 @@ const LogIn: React.FC = () => {
         setUserError(data.signin.userErrors[0].message);
       } else if (data.signin.user) {
         setSuccessMessage('You were successfully logged in');
+        controller.abort();
+        setEmail('');
+        setPassword('');
         setLoggedIn(true);
+        setUserError('');
         console.log(data.signin.user);
 
         setUserRole(data.signin.user.role);
@@ -37,10 +42,12 @@ const LogIn: React.FC = () => {
     },
   });
 
-  const handleClick = () => {
+  const handleSubmit = () => {
+    console.log(email, password);
     if (email === '' || password === '') {
       setUserError('Provide both username/email and password');
     }
+
     signin({
       variables: {
         credentials: {
@@ -51,16 +58,39 @@ const LogIn: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    const passwordInput = document.getElementById('password');
+
+    if (passwordInput) {
+      passwordInput.addEventListener(
+        'keydown',
+        e => {
+          if (e.key === 'Enter') {
+            handleSubmit();
+          }
+        },
+        { signal: controller.signal }
+      );
+    }
+    return () => {
+      controller.abort();
+    };
+  }, [userError, controller]);
+
   const showForm = () => {
     return (
-      <form action='' onSubmit={handleClick}>
+      <form action=''>
         <div className='login_username'>
           <label htmlFor='username'>e-mail</label>
           <input
             type='text'
             id='username'
             value={email}
-            onChange={e => setUsername(e.target.value)}
+            onChange={e => {
+              setEmail(e.target.value);
+              console.log(e.target.value);
+              setUserError('');
+            }}
           />
         </div>
         <div className='login_password'>
@@ -69,7 +99,11 @@ const LogIn: React.FC = () => {
             type='password'
             id='password'
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={e => {
+              setPassword(e.target.value);
+              console.log(e.target.value);
+              setUserError('');
+            }}
           />
         </div>
       </form>
@@ -93,7 +127,7 @@ const LogIn: React.FC = () => {
         <Button
           text='login'
           className='login_submit'
-          handleClick={handleClick}
+          handleClick={handleSubmit}
         />
       )}
       {userError && showErrors()}

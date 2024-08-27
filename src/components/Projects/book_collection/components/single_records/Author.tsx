@@ -4,6 +4,7 @@ import EditButton from '../general-purpose/EditButton';
 
 interface AuthorProps {
   data: {
+    id: string;
     firstName: string;
     lastName: string;
     nationality?: string;
@@ -26,7 +27,7 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
       <div className='author__name'>
         <h4>
           {firstName} {lastName}
-          {editable ? <EditButton /> : null}
+          {editable ? <EditButton id={data.id} /> : null}
         </h4>
       </div>
 

@@ -131,7 +131,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
       <div className='book__title'>
         <h4>
           {data.title}
-          {editable ? <EditButton /> : null}
+          {editable ? <EditButton id={data.id} /> : null}
         </h4>
       </div>
 

@@ -4,6 +4,7 @@ import List from '../lists/List';
 
 interface PublisherProps {
   data: {
+    id: string;
     address: {
       country: string;
       zipCode: string;
@@ -28,7 +29,7 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
       <div className='publisher__name'>
         <h4>
           {name}
-          {editable ? <EditButton /> : null}
+          {editable ? <EditButton id={data.id} /> : null}
         </h4>
       </div>
 
