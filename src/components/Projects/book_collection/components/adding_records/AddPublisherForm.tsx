@@ -7,26 +7,33 @@ import Error from '../../../../Error';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import { lastNameRegex, nameRegex, websiteRegex } from '../../utility/regex';
+import { Flags } from '../../utility/enums';
+import { useLocation } from 'react-router-dom';
 
 interface AddPublisherFormProps {
   className?: string;
   publisher?: string;
   onAdded?: React.Dispatch<React.SetStateAction<string>>;
+  flag: Flags;
 }
 
 const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
   className,
   publisher,
   onAdded,
+  flag,
 }) => {
-  const [name, setName] = useState(publisher || '');
-  const [website, setWebsite] = useState('');
-  const [country, setCountry] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [city, setCity] = useState('');
-  const [street, setStreet] = useState('');
-  const [buildingNr, setBuildingNr] = useState('');
-  const [placeNr, setPlaceNr] = useState('');
+  const editableData = useLocation().state;
+
+  const [name, setName] = useState(publisher || editableData.name || '');
+  const [website, setWebsite] = useState(editableData.website || '');
+  const [country, setCountry] = useState(editableData.country || '');
+  const [zipCode, setZipCode] = useState(editableData.zipCode || '');
+  const [city, setCity] = useState(editableData.city || '');
+  const [street, setStreet] = useState(editableData.street || '');
+  const [buildingNr, setBuildingNr] = useState(editableData.buildingNr || '');
+  const [placeNr, setPlaceNr] = useState(editableData.placeNr || '');
+
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -109,7 +116,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
   const showForm = () => {
     return (
       <form className='addPublisher__form' action='' autoComplete='off'>
-        <h5>new publisher</h5>
+        <h5>{flag} publisher</h5>
         <div className='addPublisher__form_element'>
           <label htmlFor='name'>name</label>
           <input

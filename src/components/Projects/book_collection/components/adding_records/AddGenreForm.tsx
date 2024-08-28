@@ -7,6 +7,7 @@ import Button from '../general-purpose/Button';
 import { regexValidator } from '../../utility/handlers/regexValidator';
 import { genreRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
+import { Flags } from '../../utility/enums';
 
 interface AddGenreFormProps {
   className?: string;

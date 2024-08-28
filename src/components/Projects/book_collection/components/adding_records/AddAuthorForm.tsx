@@ -12,6 +12,8 @@ import {
   websiteRegex,
 } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
+import { useLocation } from 'react-router-dom';
+import { Flags } from '../../utility/enums';
 
 interface AddAuthorFormProps {
   className: string;
@@ -21,27 +23,46 @@ interface AddAuthorFormProps {
     thirdName: string;
     lastName: string;
   };
+  flag: Flags;
   onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   className,
   author,
+  flag,
   onAdded,
 }) => {
-  const [firstName, setFirstName] = useState(author?.firstName || '');
-  const [lastName, setLastName] = useState(author?.lastName || '');
-  const [secondName, setSecondName] = useState(author?.secondName || '');
-  const [thirdName, setThirdName] = useState(author?.thirdName || '');
-  const [nationality, setNationality] = useState('');
-  const [birthYear, setBirthYear] = useState('');
-  const [deathYear, setDeathYear] = useState('');
-  const [wiki, setWiki] = useState('');
-  const [goodreads, setGoodreads] = useState('');
-  const [lubimyczytac, setLubimyczytac] = useState('');
+  const location = useLocation();
+  const editableData = location.state;
+
+  const [firstName, setFirstName] = useState(
+    author?.firstName || editableData.firstName || ''
+  );
+  const [lastName, setLastName] = useState(
+    author?.lastName || editableData.lastName || ''
+  );
+  const [secondName, setSecondName] = useState(
+    author?.secondName || editableData.secondName || ''
+  );
+  const [thirdName, setThirdName] = useState(
+    author?.thirdName || editableData.thirdName || ''
+  );
+  const [nationality, setNationality] = useState(
+    editableData.nationality || ''
+  );
+  const [birthYear, setBirthYear] = useState(editableData.birthYear || '');
+  const [deathYear, setDeathYear] = useState(editableData.deathYear || '');
+  const [wiki, setWiki] = useState(editableData.wiki || '');
+  const [goodreads, setGoodreads] = useState(editableData.goodreads || '');
+  const [lubimyczytac, setLubimyczytac] = useState(
+    editableData.lubimyczytac || ''
+  );
 
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
+  console.log(location.state);
 
   const [addAuthor, { data, loading, error }] = useMutation(ADD_AUTHOR, {
     onCompleted(data) {
@@ -153,7 +174,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   const showForm = () => {
     return (
       <form className='addAuthor__form' autoComplete='off'>
-        <h5>new author</h5>
+        <h5>{`${flag} author`}</h5>
         <div className='addAuthor__form_element'>
           <label htmlFor='firstName'>first name</label>
           <input

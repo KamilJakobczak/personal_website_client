@@ -4,6 +4,7 @@ import AddBookForm, { AddBookFormProps } from './AddBookForm';
 import AddGenre from './AddGenreForm';
 import AddPublisherForm from './AddPublisherForm';
 import UploadBookForm from './UploadBookForm';
+import { Flags } from '../../utility/enums';
 
 export interface ParsedDataInterface {
   authors: {
@@ -111,6 +112,7 @@ const UploadBook: React.FC = () => {
             <AddAuthor
               className='bookCollection__addBook__upload_addAuthor'
               author={author}
+              flag={Flags.Add}
               onAdded={setAuthorsAdded}
             />
           </div>
@@ -143,6 +145,7 @@ const UploadBook: React.FC = () => {
             className='bookCollection__addBook__upload_addPublisher'
             publisher={newPublisher}
             onAdded={setPublisherAdded}
+            flag={Flags.Add}
           />
         </div>
       )
@@ -240,7 +243,7 @@ const UploadBook: React.FC = () => {
     <div className='bookCollection__addBook__upload'>
       {!parsedData && <UploadBookForm setParsedData={setParsedData} />}
       {showAddMissingRecords()}
-      {updatedData && <AddBookForm epubData={updatedData} />}
+      {updatedData && <AddBookForm epubData={updatedData} flag={Flags.Add} />}
     </div>
   );
 };

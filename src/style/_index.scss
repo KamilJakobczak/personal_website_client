@@ -26,6 +26,7 @@ body {
   }
   input {
     font-family: $font-basic;
+
     // font-size: 50px;
   }
   a {
@@ -60,8 +61,7 @@ body {
     img,
     button,
     li,
-    span,
-    input {
+    span {
       cursor: pointer;
     }
   }

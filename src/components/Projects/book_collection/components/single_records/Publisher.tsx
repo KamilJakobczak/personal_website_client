@@ -24,12 +24,24 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
   const { address, name, books, website } = data;
   const { country, zipCode, city, street, buildingNr, placeNr } = address;
 
+  const editableData = {
+    name,
+    books,
+    website,
+    country,
+    zipCode,
+    city,
+    street,
+    buildingNr,
+    placeNr,
+  };
+
   return (
     <div className='publisher'>
       <div className='publisher__name'>
         <h4>
           {name}
-          {editable ? <EditButton id={data.id} /> : null}
+          {editable ? <EditButton data={editableData} /> : null}
         </h4>
       </div>
 

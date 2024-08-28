@@ -1,12 +1,15 @@
+import { Link, useLocation } from 'react-router-dom';
 import editIcon from '../../../../../images/edit50.png';
 interface EditButtonProps {
-  id: string;
+  data: object;
 }
-const EditButton: React.FC<EditButtonProps> = ({ id }) => {
+const EditButton: React.FC<EditButtonProps> = ({ data }) => {
+  const location = useLocation();
+  // console.log(location.pathname);
   return (
-    <span>
+    <Link to={`${location.pathname}/edit`} state={data}>
       <img src={editIcon} alt='edit icon' />
-    </span>
+    </Link>
   );
 };
 export default EditButton;

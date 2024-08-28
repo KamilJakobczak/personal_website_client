@@ -6,6 +6,8 @@ interface AuthorProps {
   data: {
     id: string;
     firstName: string;
+    secondName?: string;
+    thirdName?: string;
     lastName: string;
     nationality?: string;
     birthYear?: number;
@@ -20,14 +22,34 @@ interface AuthorProps {
 }
 
 const Author: React.FC<AuthorProps> = ({ data, editable }) => {
-  const { firstName, lastName, nationality, birthYear, books, bioPages } = data;
+  const {
+    firstName,
+    secondName,
+    thirdName,
+    lastName,
+    nationality,
+    birthYear,
+    books,
+    bioPages,
+  } = data;
   console.log(data);
+  const editableData = {
+    firstName,
+    secondName,
+    thirdName,
+    lastName,
+    nationality,
+    birthYear,
+    wiki: bioPages?.wiki,
+    goodreads: bioPages?.goodreads,
+    lubimyczytac: bioPages?.lubimyczytac,
+  };
   return (
     <div className='author'>
       <div className='author__name'>
         <h4>
-          {firstName} {lastName}
-          {editable ? <EditButton id={data.id} /> : null}
+          {firstName} {secondName} {thirdName} {lastName}
+          {editable ? <EditButton data={editableData} /> : null}
         </h4>
       </div>
 

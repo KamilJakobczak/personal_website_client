@@ -13,6 +13,8 @@ import Button from '../general-purpose/Button';
 import FileInput from '../general-purpose/FileInput';
 import axios from 'axios';
 import { imageApi } from '../../../../../server';
+import { Flags } from '../../utility/enums';
+import { useLocation } from 'react-router-dom';
 
 export interface AddBookFormProps {
   epubData?: {
@@ -24,15 +26,19 @@ export interface AddBookFormProps {
     language: string;
     cover: string;
   };
+  flag: Flags;
 }
 
 enum Language {
   Polish = 'Polish',
   English = 'English',
 }
-const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
+const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   // FETCHING DATA
-  console.log(epubData);
+
+  const editableData = useLocation().state;
+  console.log(editableData);
+
   const { data, errors, loading } = useQueries();
   const uploadedAuthors = epubData?.authors;
   const uploadedGenres = epubData?.genres;
@@ -54,19 +60,27 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData }) => {
 
   // FORM VALUES
 
-  const [title, setTitle] = useState(uploadedTitle || '');
-  const [titleEnglish, setTitleEnglish] = useState('');
-  const [titleOriginal, setTitleOriginal] = useState('');
-  const [language, setLanguage] = useState(uploadedLanguage || 'Polish');
+  const [title, setTitle] = useState(uploadedTitle || editableData.title || '');
+  const [titleEnglish, setTitleEnglish] = useState(
+    editableData.titleEnglish || ''
+  );
+  const [titleOriginal, setTitleOriginal] = useState(
+    editableData.titleOriginal || ''
+  );
+  const [language, setLanguage] = useState(
+    uploadedLanguage || editableData.language || 'Polish'
+  );
   const [genres, setGenres] = useState<string[]>([]);
   const [publisher, setPublisher] = useState(uploadedPublisher || '');
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [bookSeries, setBookSeries] = useState<string[]>([]);
   const [cover, setCover] = useState<File | null>();
-  const [isbn, setIsbn] = useState('');
-  const [pages, setPages] = useState('');
-  const [firstEdition, setFirstEdition] = useState('');
+  const [isbn, setIsbn] = useState(editableData.isbn || '');
+  const [pages, setPages] = useState(editableData.pages || '');
+  const [firstEdition, setFirstEdition] = useState(
+    editableData.firstEdition || ''
+  );
 
   const loadReceivedData = (
     item: string[] | null,

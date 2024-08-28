@@ -35,6 +35,7 @@ import UserBooks from '../components/Projects/book_collection/components/user/Pr
 import UserLibrary from '../components/Projects/book_collection/components/user/UserLibrary';
 import Profile from '../components/Projects/book_collection/components/user/Profile';
 import AddBookSeries from '../components/Projects/book_collection/components/adding_records/AddBookSeries';
+import { Flags } from '../components/Projects/book_collection/utility/enums';
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +83,17 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection/books/:id',
             element: <SingleRecord query={LOAD_BOOK} />,
+            // children: [
+
+            // ],
+          },
+          {
+            path: '/apps/collection/books/:id/edit',
+            element: (
+              <ProtectedRoute
+                nestedElement={<AddBookForm flag={Flags.Edit} />}
+              />
+            ),
           },
           {
             path: '/apps/collection/authors',
@@ -95,6 +107,19 @@ export const router = createBrowserRouter([
             element: <SingleRecord query={LOAD_AUTHOR} />,
           },
           {
+            path: '/apps/collection/authors/:id/edit',
+            element: (
+              <ProtectedRoute
+                nestedElement={
+                  <AddAuthorForm
+                    className='bookCollection__editAuthor'
+                    flag={Flags.Edit}
+                  />
+                }
+              />
+            ),
+          },
+          {
             path: '/apps/collection/publishers',
             element: (
               <CollectionList query={LOAD_PUBLISHERS} listClass='publishers' />
@@ -105,7 +130,10 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddAuthorForm className='bookCollection__addAuthor' />
+                  <AddAuthorForm
+                    className='bookCollection__addAuthor'
+                    flag={Flags.Add}
+                  />
                 }
               />
             ),
@@ -124,7 +152,11 @@ export const router = createBrowserRouter([
               },
               {
                 path: '/apps/collection/add/book/manual',
-                element: <ProtectedRoute nestedElement={<AddBookForm />} />,
+                element: (
+                  <ProtectedRoute
+                    nestedElement={<AddBookForm flag={Flags.Add} />}
+                  />
+                ),
               },
             ],
           },
@@ -153,7 +185,10 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={
-                  <AddPublisherForm className='bookCollection__addPublisher' />
+                  <AddPublisherForm
+                    className='bookCollection__addPublisher'
+                    flag={Flags.Add}
+                  />
                 }
               />
             ),
@@ -176,6 +211,19 @@ export const router = createBrowserRouter([
           {
             path: '/apps/collection/publishers/:id',
             element: <SingleRecord query={LOAD_PUBLISHER} />,
+          },
+          {
+            path: '/apps/collection/publishers/:id/edit',
+            element: (
+              <ProtectedRoute
+                nestedElement={
+                  <AddPublisherForm
+                    className='bookCollection__editPublisher'
+                    flag={Flags.Edit}
+                  />
+                }
+              />
+            ),
           },
           {
             path: '/apps/collection/user/profile',

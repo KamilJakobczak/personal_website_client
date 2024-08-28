@@ -39,6 +39,11 @@ interface BookProps {
 const Book: React.FC<BookProps> = ({ data, editable }) => {
   console.log(data);
   const {
+    title,
+    firstEdition,
+    isbn,
+    language,
+    pages,
     authors,
     bookGenres,
     publisher,
@@ -47,6 +52,20 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     titleOriginal,
   } = data;
   const { coverSize } = useCoverResize();
+
+  const editableData = {
+    firstEdition,
+    isbn,
+    title,
+    language,
+    pages,
+    authors,
+    bookGenres,
+    publisher,
+    translators,
+    titleEnglish,
+    titleOriginal,
+  };
 
   const showAuthors = () => {
     let counter = 1;
@@ -130,8 +149,8 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     <div className='book'>
       <div className='book__title'>
         <h4>
-          {data.title}
-          {editable ? <EditButton id={data.id} /> : null}
+          {title}
+          {editable ? <EditButton data={editableData} /> : null}
         </h4>
       </div>
 
@@ -157,12 +176,12 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
         <div className='book__data_pages'>
           <p>Pages</p>
           <span>-</span>
-          <span>{data.pages}</span>
+          <span>{pages}</span>
         </div>
         <div className='book__data_language'>
           <p>Language</p>
           <span>-</span>
-          <span>{data.language}</span>
+          <span>{language}</span>
         </div>
         <div className='book__data_publisher'>
           <p>Publisher</p>
@@ -172,12 +191,12 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
         <div className='book__data_firstEdition'>
           <p>First edition</p>
           <span>-</span>
-          <span>{data.firstEdition}</span>
+          <span>{firstEdition}</span>
         </div>
         <div className='book__data_isbn'>
           <p>ISBN</p>
           <span>-</span>
-          <span>{data.isbn}</span>
+          <span>{isbn}</span>
         </div>
         {translators ? (
           <div className='book__data_translators'>
