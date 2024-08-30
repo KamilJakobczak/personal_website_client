@@ -4,6 +4,7 @@ import { imageApi } from '../../../../../server';
 import { resizeHelper } from '../../utility/handlers/resizeHelper';
 import { useCoverResize } from '../../utility/hooks/useCoverResize';
 import EditButton from '../general-purpose/EditButton';
+import { idParser } from '../../utility/handlers/idParser';
 
 interface BookProps {
   data: {
@@ -23,6 +24,7 @@ interface BookProps {
       lastName: string;
     }[];
     bookGenres: {
+      id: string;
       name: string;
     }[];
     pages: number;
@@ -52,15 +54,15 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     titleOriginal,
   } = data;
   const { coverSize } = useCoverResize();
-
+  console.log(authors);
   const editableData = {
     firstEdition,
     isbn,
     title,
     language,
     pages,
-    authors,
-    bookGenres,
+    authors: idParser(authors),
+    bookGenres: idParser(bookGenres),
     publisher,
     translators,
     titleEnglish,

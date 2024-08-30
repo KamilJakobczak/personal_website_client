@@ -37,10 +37,10 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   // FETCHING DATA
 
   const editableData = useLocation().state;
-  console.log(editableData);
-
+  console.log(editableData.publisher);
   const { data, errors, loading } = useQueries();
   const uploadedAuthors = epubData?.authors;
+
   const uploadedGenres = epubData?.genres;
   const uploadedDescription = epubData?.description;
   const uploadedPublisher = epubData?.publisher;
@@ -60,26 +60,30 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
 
   // FORM VALUES
 
-  const [title, setTitle] = useState(uploadedTitle || editableData.title || '');
+  const [title, setTitle] = useState(
+    uploadedTitle || editableData?.title || ''
+  );
   const [titleEnglish, setTitleEnglish] = useState(
-    editableData.titleEnglish || ''
+    editableData?.titleEnglish || ''
   );
   const [titleOriginal, setTitleOriginal] = useState(
-    editableData.titleOriginal || ''
+    editableData?.titleOriginal || ''
   );
   const [language, setLanguage] = useState(
-    uploadedLanguage || editableData.language || 'Polish'
+    uploadedLanguage || editableData?.language || 'Polish'
   );
   const [genres, setGenres] = useState<string[]>([]);
-  const [publisher, setPublisher] = useState(uploadedPublisher || '');
+  const [publisher, setPublisher] = useState(
+    uploadedPublisher || editableData?.publisher || ''
+  );
   const [translators, setTranslators] = useState<string[]>([]);
   const [authors, setAuthors] = useState<string[]>([]);
   const [bookSeries, setBookSeries] = useState<string[]>([]);
   const [cover, setCover] = useState<File | null>();
-  const [isbn, setIsbn] = useState(editableData.isbn || '');
-  const [pages, setPages] = useState(editableData.pages || '');
+  const [isbn, setIsbn] = useState(editableData?.isbn || '');
+  const [pages, setPages] = useState(editableData?.pages || '');
   const [firstEdition, setFirstEdition] = useState(
-    editableData.firstEdition || ''
+    editableData?.firstEdition || ''
   );
 
   const loadReceivedData = (
@@ -87,7 +91,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
     setItemState: React.Dispatch<React.SetStateAction<string[]>>,
     setCounterState: React.Dispatch<React.SetStateAction<number[]>>
   ) => {
-    console.log(item);
     if (item) {
       const dataArr = item;
 
@@ -108,6 +111,19 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
       loadReceivedData(uploadedAuthors, setAuthors, setAuthorsSelectCounter);
     uploadedGenres &&
       loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
+    // console.log(editableData.authors);
+    if (editableData) {
+      loadReceivedData(
+        editableData.authors,
+        setAuthors,
+        setAuthorsSelectCounter
+      );
+      loadReceivedData(
+        editableData.bookGenres,
+        setGenres,
+        setGenresSelectCounter
+      );
+    }
   }, []);
 
   const [
@@ -330,8 +346,8 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
             name='publishers'
             onChange={e => setPublisher(e.target.value)}
           >
-            <option value={uploadedPublisher?.id || ''}>
-              {uploadedPublisher?.name || '-- find me --'}
+            <option value={publisher.id}>
+              {publisher.name || '-- find me --'}
             </option>
             {data.publishers.map((publisher: { id: string; name: string }) => {
               return (

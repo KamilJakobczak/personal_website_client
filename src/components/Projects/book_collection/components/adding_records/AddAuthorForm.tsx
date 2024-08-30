@@ -43,20 +43,20 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
     author?.lastName || editableData.lastName || ''
   );
   const [secondName, setSecondName] = useState(
-    author?.secondName || editableData.secondName || ''
+    author?.secondName || editableData?.secondName || ''
   );
   const [thirdName, setThirdName] = useState(
-    author?.thirdName || editableData.thirdName || ''
+    author?.thirdName || editableData?.thirdName || ''
   );
   const [nationality, setNationality] = useState(
-    editableData.nationality || ''
+    editableData?.nationality || ''
   );
-  const [birthYear, setBirthYear] = useState(editableData.birthYear || '');
-  const [deathYear, setDeathYear] = useState(editableData.deathYear || '');
-  const [wiki, setWiki] = useState(editableData.wiki || '');
-  const [goodreads, setGoodreads] = useState(editableData.goodreads || '');
+  const [birthYear, setBirthYear] = useState(editableData?.birthYear || '');
+  const [deathYear, setDeathYear] = useState(editableData?.deathYear || '');
+  const [wiki, setWiki] = useState(editableData?.wiki || '');
+  const [goodreads, setGoodreads] = useState(editableData?.goodreads || '');
   const [lubimyczytac, setLubimyczytac] = useState(
-    editableData.lubimyczytac || ''
+    editableData?.lubimyczytac || ''
   );
 
   const [userError, setUserError] = useState('');

@@ -25,14 +25,14 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
 }) => {
   const editableData = useLocation().state;
 
-  const [name, setName] = useState(publisher || editableData.name || '');
-  const [website, setWebsite] = useState(editableData.website || '');
-  const [country, setCountry] = useState(editableData.country || '');
-  const [zipCode, setZipCode] = useState(editableData.zipCode || '');
-  const [city, setCity] = useState(editableData.city || '');
-  const [street, setStreet] = useState(editableData.street || '');
-  const [buildingNr, setBuildingNr] = useState(editableData.buildingNr || '');
-  const [placeNr, setPlaceNr] = useState(editableData.placeNr || '');
+  const [name, setName] = useState(publisher || editableData?.name || '');
+  const [website, setWebsite] = useState(editableData?.website || '');
+  const [country, setCountry] = useState(editableData?.country || '');
+  const [zipCode, setZipCode] = useState(editableData?.zipCode || '');
+  const [city, setCity] = useState(editableData?.city || '');
+  const [street, setStreet] = useState(editableData?.street || '');
+  const [buildingNr, setBuildingNr] = useState(editableData?.buildingNr || '');
+  const [placeNr, setPlaceNr] = useState(editableData?.placeNr || '');
 
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');

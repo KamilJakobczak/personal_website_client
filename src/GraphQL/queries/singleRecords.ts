@@ -39,6 +39,7 @@ export const LOAD_BOOK = gql`
         name
       }
       bookGenres {
+        id
         name
       }
       bookSeries {
@@ -52,6 +53,7 @@ export const LOAD_BOOK = gql`
 export const LOAD_SINGLEBOOKSERIES = gql`
   query SingleBookSeries($id: ID!){
     singleBookSeries(id: $id){
+      id
       name
   }
 }`;
