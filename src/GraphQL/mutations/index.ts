@@ -264,3 +264,30 @@ export const UPDATE_AUTHOR = gql`
     }
   }
 `;
+
+export const UPDATE_PUBLISHER = gql`
+  mutation updatePublisher(
+    $id: ID!
+    $name: String!
+    $website: String
+    $address: addressInput
+  ) {
+    updatePublisher(
+      input: {
+        id: $id
+        name: $name, 
+        website: $website, 
+        address: $address
+      }
+    ) {
+      userErrors {
+        message
+      }
+      publisher {
+        id
+        name
+      }
+    }
+
+  }
+`;

@@ -35,10 +35,9 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
+
   const editableData = location.state;
 
-  console.log(editableData.id);
   const [firstName, setFirstName] = useState(
     author?.firstName || editableData.firstName || ''
   );
@@ -72,7 +71,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
       onCompleted(data);
     },
   });
-  const [updateAuthor, { data: dataU, loading: loadingU, loading: errorU }] =
+  const [updateAuthor, { data: dataU, loading: loadingU, error: errorU }] =
     useMutation(UPDATE_AUTHOR, {
       onCompleted(data) {
         const linkRedirect = location.pathname.slice(0, 35);

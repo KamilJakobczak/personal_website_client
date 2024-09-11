@@ -1,14 +1,17 @@
 import Button from '../general-purpose/Button';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_PUBLISHER } from '../../../../../GraphQL/mutations';
+import {
+  ADD_PUBLISHER,
+  UPDATE_PUBLISHER,
+} from '../../../../../GraphQL/mutations';
 import { regexValidator } from '../../utility/handlers';
 import Error from '../../../../Error';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import { lastNameRegex, nameRegex, websiteRegex } from '../../utility/regex';
 import { Flags } from '../../utility/enums';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AddPublisherFormProps {
   className?: string;
@@ -23,7 +26,9 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
   onAdded,
   flag,
 }) => {
-  const editableData = useLocation().state;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const editableData = location.state;
 
   const [name, setName] = useState(publisher || editableData?.name || '');
   const [website, setWebsite] = useState(editableData?.website || '');
@@ -42,6 +47,15 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
       onCompleted(data);
     },
   });
+  const [updatePublisher, { data: dataU, loading: loadingU, error: errorU }] =
+    useMutation(UPDATE_PUBLISHER, {
+      onCompleted(data) {
+        const linkRedirect = location.pathname.slice(0, 35);
+        navigate(linkRedirect, {
+          state: { id: editableData.id, refetch: true },
+        });
+      },
+    });
 
   const onCompleted = (data: any) => {
     if (data.addPublisher.userErrors[0].message) {
@@ -97,20 +111,30 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
   // };
 
   const handleSubmit = () => {
-    addPublisher({
-      variables: {
-        name,
-        website,
-        address: {
-          country,
-          zipCode,
-          city,
-          street,
-          buildingNr,
-          placeNr,
-        },
+    const variables = {
+      name,
+      website,
+      address: {
+        country,
+        zipCode,
+        city,
+        street,
+        buildingNr,
+        placeNr,
       },
-    });
+    };
+
+    if (flag === Flags.Add) {
+      addPublisher({
+        variables,
+      });
+    }
+    console.log(editableData.id);
+    if (flag === Flags.Edit) {
+      updatePublisher({
+        variables: { ...variables, ...{ id: editableData.id } },
+      });
+    }
   };
 
   const showForm = () => {

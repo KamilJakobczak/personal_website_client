@@ -68,6 +68,7 @@ export const LOAD_SINGLEBOOKSERIES = gql`
 export const LOAD_PUBLISHER = gql`
   query Publisher($id: ID!) {
     publisher(id: $id) {
+      id
       name
       address {
         country
