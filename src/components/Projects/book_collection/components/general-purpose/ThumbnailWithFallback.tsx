@@ -1,4 +1,4 @@
-import React, { ImgHTMLAttributes, useEffect, useState } from 'react';
+import React, { ImgHTMLAttributes, useEffect, useMemo, useState } from 'react';
 import author_thumbnail from '../../../../../images/thumbnails/author_thumbnail.png';
 import book_thumbnail from '../../../../../images/thumbnails/book_thumbnail.png';
 import publisher_thumbnail from '../../../../../images/thumbnails/publisher_thumbnail.png';
@@ -17,8 +17,8 @@ const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({
 }) => {
   const [imgSrc, setImgSrc] = useState('');
 
-  useEffect(() => {
-    if (url)
+  const thumbnail = useMemo(() => {
+    url &&
       axios.get(url).then(res => {
         if (res.data === 'no cover') {
           switch (recordType) {
@@ -41,7 +41,32 @@ const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({
           setImgSrc(url);
         }
       });
-  });
+  }, [url, recordType]);
+  // useEffect(() => {
+  //   if (url)
+  //     axios.get(url).then(res => {
+  //       if (res.data === 'no cover') {
+  //         switch (recordType) {
+  //           case 'Book':
+  //             setImgSrc(book_thumbnail);
+
+  //             break;
+  //           case 'Author':
+  //             setImgSrc(author_thumbnail);
+
+  //             break;
+  //           case 'Publisher':
+  //             setImgSrc(publisher_thumbnail);
+
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       } else {
+  //         setImgSrc(url);
+  //       }
+  //     });
+  // });
 
   const showImage = () => {
     return (
