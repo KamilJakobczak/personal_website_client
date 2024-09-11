@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 interface FileInputProps {
   id: string;
+  coverLink?: string;
   fileList: File[];
   onChange: (fileList: FileList) => void;
   parentClass: string;
@@ -9,6 +10,7 @@ interface FileInputProps {
 
 const FileInput: React.FC<FileInputProps> = ({
   id,
+  coverLink,
   onChange,
   parentClass,
   fileList = [],
@@ -39,7 +41,10 @@ const FileInput: React.FC<FileInputProps> = ({
         />
       </div>
       <div className={`${parentClass}__fileInput_preview`}>
-        <img src={fileList[0] ? URL.createObjectURL(fileList[0]) : ''} alt='' />
+        <img
+          src={fileList[0] ? URL.createObjectURL(fileList[0]) : coverLink}
+          alt=''
+        />
       </div>
     </>
   );

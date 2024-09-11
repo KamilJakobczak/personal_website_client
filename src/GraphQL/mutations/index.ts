@@ -69,6 +69,8 @@ export const ADD_PUBLISHER = gql`
 export const ADD_AUTHOR = gql`
   mutation addAuthor(
     $firstName: String!
+    $secondName: String
+    $thirdName: String
     $lastName: String!
     $nationality: String
     $birthYear: Int
@@ -78,6 +80,8 @@ export const ADD_AUTHOR = gql`
     addAuthor(
       input: {
         firstName: $firstName
+        secondName: $secondName
+        thirdName: $thirdName
         lastName: $lastName
         nationality: $nationality
         birthYear: $birthYear
@@ -221,5 +225,42 @@ export const ADD_USERBOOKDETAILS = gql`
         }
     }
 
+  }
+`;
+
+export const UPDATE_AUTHOR = gql`
+  mutation updateAuthor(
+    $id: ID!
+    $firstName: String!
+    $secondName: String
+    $thirdName: String
+    $lastName: String!
+    $nationality: String
+    $birthYear: Int
+    $deathYear: Int
+    $bioPages: bioPagesInput
+  ) {
+    updateAuthor(
+      input: {
+        id: $id
+        firstName: $firstName
+        secondName: $secondName
+        thirdName: $thirdName
+        lastName: $lastName
+        nationality: $nationality
+        birthYear: $birthYear
+        deathYear: $deathYear
+        bioPages: $bioPages
+      }
+    ) {
+      userErrors {
+        message
+      }
+      author {
+        id
+        firstName
+        lastName
+      }
+    }
   }
 `;

@@ -37,7 +37,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   // FETCHING DATA
 
   const editableData = useLocation().state;
-  console.log(editableData.publisher);
+  console.log(editableData);
   const { data, errors, loading } = useQueries();
   const uploadedAuthors = epubData?.authors;
 
@@ -53,7 +53,9 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   const [genresSelectCounter, setGenresSelectCounter] = useState([0]);
   const [translatorsSelectCounter, setTranslatorsSelectCounter] = useState([0]);
   const [bookSeriesSelectCounter, setBookSeriesSelectCounter] = useState([0]);
-  const [inBookSeries, setInBookSeries] = useState(false);
+  const [inBookSeries, setInBookSeries] = useState(
+    editableData.bookSeries ? true : false
+  );
   const [duplicationError, setDuplicationError] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [userError, setUserError] = useState('');
@@ -234,7 +236,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   };
 
   const handleBookSubmit = () => {
-    console.log(bookSeries);
     addBook({
       variables: {
         authors,
@@ -458,8 +459,10 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
         )}
         <div className='addBookForm_element addBookForm_element_cover-upload'>
           <label htmlFor='cover'>upload cover</label>
+
           <FileInput
             id='cover'
+            coverLink={editableData.cover}
             fileList={cover ? [cover] : []}
             onChange={handleCoverUpload}
             parentClass='addBookForm_element_cover-upload'

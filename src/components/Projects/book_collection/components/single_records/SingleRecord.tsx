@@ -21,14 +21,23 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
   const location = useLocation();
   const { loggedIn } = useStatus();
   const { id } = location.state;
-  const { loading, error, data } = useQuery(query, {
+
+  console.log(location);
+
+  const { loading, error, data, refetch } = useQuery(query, {
     variables: { id },
   });
   const {
     loading: loadingUserBookDetails,
     error: errorUserBookDetails,
     data: dataUserBookDetails,
+    refetch: refetchUserBookDetails,
   } = useQuery(LOAD_USER_BOOK_DETAILS, { variables: { bookId: id } });
+
+  if (location.state.refetch) {
+    refetch();
+    refetchUserBookDetails();
+  }
 
   const details = dataUserBookDetails?.userBookDetails.userBookDetails;
 

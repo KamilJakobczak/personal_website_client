@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
-import { ADD_AUTHOR } from '../../../../../GraphQL/mutations';
+import { ADD_AUTHOR, UPDATE_AUTHOR } from '../../../../../GraphQL/mutations';
 import Error from '../../../../Error';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Button from '../general-purpose/Button';
@@ -12,7 +12,7 @@ import {
   websiteRegex,
 } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Flags } from '../../utility/enums';
 
 interface AddAuthorFormProps {
@@ -34,8 +34,11 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   onAdded,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
   const editableData = location.state;
 
+  console.log(editableData.id);
   const [firstName, setFirstName] = useState(
     author?.firstName || editableData.firstName || ''
   );
@@ -69,6 +72,15 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
       onCompleted(data);
     },
   });
+  const [updateAuthor, { data: dataU, loading: loadingU, loading: errorU }] =
+    useMutation(UPDATE_AUTHOR, {
+      onCompleted(data) {
+        const linkRedirect = location.pathname.slice(0, 35);
+        navigate(linkRedirect, {
+          state: { id: editableData.id, refetch: true },
+        });
+      },
+    });
 
   const onCompleted = (data: any) => {
     if (data.addAuthor.userErrors[0].message) {
@@ -155,20 +167,31 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   };
 
   const handleSubmit = () => {
-    addAuthor({
-      variables: {
-        firstName,
-        lastName,
-        nationality,
-        birthYear: Number(birthYear),
-        deathYear: Number(deathYear),
-        bioPages: {
-          wiki,
-          goodreads,
-          lubimyczytac,
-        },
+    const variables = {
+      firstName,
+      secondName,
+      thirdName,
+      lastName,
+      nationality,
+      birthYear: Number(birthYear),
+      deathYear: Number(deathYear),
+      bioPages: {
+        wiki,
+        goodreads,
+        lubimyczytac,
       },
-    });
+    };
+    if (flag === Flags.Add) {
+      addAuthor({
+        variables,
+      });
+    }
+    console.log({ ...variables, ...{ id: editableData.id } });
+    if (flag === Flags.Edit) {
+      updateAuthor({
+        variables: { ...variables, ...{ id: editableData.id } },
+      });
+    }
   };
 
   const showForm = () => {

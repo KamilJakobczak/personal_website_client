@@ -3,7 +3,10 @@ import { gql } from '@apollo/client';
 export const LOAD_AUTHOR = gql`
   query Author($id: ID!) {
     author(id: $id) {
+      id
       firstName
+      secondName
+      thirdName
       lastName
       nationality
       birthYear
@@ -43,8 +46,12 @@ export const LOAD_BOOK = gql`
         name
       }
       bookSeries {
-        name
         id
+        name
+        booksInBookSeries{
+          tome
+          bookId
+        }
       }
     }
   }

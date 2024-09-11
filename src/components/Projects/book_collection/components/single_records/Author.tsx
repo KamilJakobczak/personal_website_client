@@ -23,6 +23,7 @@ interface AuthorProps {
 
 const Author: React.FC<AuthorProps> = ({ data, editable }) => {
   const {
+    id,
     firstName,
     secondName,
     thirdName,
@@ -34,6 +35,7 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
   } = data;
   console.log(data);
   const editableData = {
+    id,
     firstName,
     secondName,
     thirdName,
@@ -44,6 +46,7 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
     goodreads: bioPages?.goodreads,
     lubimyczytac: bioPages?.lubimyczytac,
   };
+
   return (
     <div className='author'>
       <div className='author__name'>
@@ -100,51 +103,6 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
             ) : null}
           </div>
         ) : null}
-        {/* <div className='author__data_wiki'>
-          <p>Wikipedia</p>
-          <span>-</span>
-          <span>
-            {bioPages && bioPages.wiki ? (
-              <a
-                href={checkURL(bioPages.wiki)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
-                click
-              </a>
-            ) : null}
-          </span>
-        </div> */}
-        {/* <div className='author__data_goodreads'>
-          <p>Goodreads</p>
-          <span>-</span>
-          <span>
-            {bioPages && bioPages.goodreads ? (
-              <a
-                href={checkURL(bioPages.goodreads)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
-                click
-              </a>
-            ) : null}
-          </span>
-        </div>
-        <div className='author__data_lubimyczytac'>
-          <p>Lubimyczytac</p>
-          <span>-</span>
-          <span>
-            {bioPages && bioPages.lubimyczytac ? (
-              <a
-                href={checkURL(bioPages.lubimyczytac)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
-                click
-              </a>
-            ) : null}
-          </span>
-        </div> */}
       </div>
       {books.length > 0 ? (
         <div className='author__books'>

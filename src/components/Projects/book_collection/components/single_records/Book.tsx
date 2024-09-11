@@ -34,6 +34,14 @@ interface BookProps {
     };
     isbn: string;
     firstEdition: number;
+    bookSeries: {
+      id: string;
+      name: string;
+      booksInBookSeries: {
+        tome: string;
+        bookId: string;
+      };
+    };
   };
   editable: boolean;
 }
@@ -41,6 +49,7 @@ interface BookProps {
 const Book: React.FC<BookProps> = ({ data, editable }) => {
   console.log(data);
   const {
+    id,
     title,
     firstEdition,
     isbn,
@@ -52,10 +61,12 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     translators,
     titleEnglish,
     titleOriginal,
+    bookSeries,
   } = data;
   const { coverSize } = useCoverResize();
-  console.log(authors);
+
   const editableData = {
+    id,
     firstEdition,
     isbn,
     title,
@@ -67,6 +78,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     translators,
     titleEnglish,
     titleOriginal,
+    cover: `${imageApi}/covers/${data.id}/${coverSize}`,
   };
 
   const showAuthors = () => {
