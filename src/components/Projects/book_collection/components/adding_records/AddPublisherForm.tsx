@@ -50,7 +50,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
   const [updatePublisher, { data: dataU, loading: loadingU, error: errorU }] =
     useMutation(UPDATE_PUBLISHER, {
       onCompleted(data) {
-        const linkRedirect = location.pathname.slice(0, 35);
+        const linkRedirect = location.pathname.slice(0, 38);
         navigate(linkRedirect, {
           state: { id: editableData.id, refetch: true },
         });

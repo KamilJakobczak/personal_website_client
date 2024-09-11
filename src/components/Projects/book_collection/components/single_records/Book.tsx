@@ -47,7 +47,6 @@ interface BookProps {
 }
 
 const Book: React.FC<BookProps> = ({ data, editable }) => {
-  console.log(data);
   const {
     id,
     title,

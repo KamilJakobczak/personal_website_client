@@ -22,8 +22,6 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
   const { loggedIn } = useStatus();
   const { id } = location.state;
 
-  console.log(location);
-
   const { loading, error, data, refetch } = useQuery(query, {
     variables: { id },
   });

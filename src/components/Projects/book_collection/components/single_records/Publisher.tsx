@@ -23,7 +23,7 @@ interface PublisherProps {
 const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
   const { id, address, name, books, website } = data;
   const { country, zipCode, city, street, buildingNr, placeNr } = address;
-  console.log(id);
+
   const editableData = {
     id,
     name,

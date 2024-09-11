@@ -291,3 +291,47 @@ export const UPDATE_PUBLISHER = gql`
 
   }
 `;
+
+export const UPDATE_BOOK = gql`
+  mutation updateBook(
+    $id: ID!
+    $authors: [String]!
+    $bookGenres: [String]!
+    $bookSeries: [String]!
+    $firstEdition: Int
+    $isbn: String
+    $language: Language
+    $pages: Int
+    $publisher: String
+    $title: String!
+    $titleEnglish: String
+    $titleOriginal: String!
+    $translators: [String] 
+  ){
+    updateBook(
+      input: {
+        id: $id
+        bookSeries: $bookSeries
+        title: $title
+        titleEnglish: $titleEnglish
+        titleOriginal: $titleOriginal
+        language: $language
+        authors: $authors
+        translators: $translators
+        bookGenres: $bookGenres
+        pages: $pages
+        publisher: $publisher
+        isbn: $isbn
+        firstEdition: $firstEdition
+      }
+    ) {
+      userErrors {
+        message
+      }
+      book {
+        id
+        title
+      }
+    }
+  }
+`;

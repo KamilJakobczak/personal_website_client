@@ -64,8 +64,6 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  console.log(location.state);
-
   const [addAuthor, { data, loading, error }] = useMutation(ADD_AUTHOR, {
     onCompleted(data) {
       onCompleted(data);
@@ -126,7 +124,6 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
         regexValidator(lastNameRegex, value, setLastName);
         break;
       case 'nationality':
-        console.log(value);
         regexValidator(nameRegex, value, setNationality);
         break;
       case 'birth':
@@ -185,7 +182,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
         variables,
       });
     }
-    console.log({ ...variables, ...{ id: editableData.id } });
+
     if (flag === Flags.Edit) {
       updateAuthor({
         variables: { ...variables, ...{ id: editableData.id } },

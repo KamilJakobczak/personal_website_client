@@ -7,14 +7,14 @@ import { regexValidator } from '../../utility/handlers';
 import { numbersRegex } from '../../utility/regex';
 import { checkIsbn } from '../../utility/handlers/checkIsbn';
 import { useMutation } from '@apollo/client';
-import { ADD_BOOK } from '../../../../../GraphQL/mutations';
+import { ADD_BOOK, UPDATE_BOOK } from '../../../../../GraphQL/mutations';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import Button from '../general-purpose/Button';
 import FileInput from '../general-purpose/FileInput';
 import axios from 'axios';
 import { imageApi } from '../../../../../server';
 import { Flags } from '../../utility/enums';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface AddBookFormProps {
   epubData?: {
@@ -35,9 +35,10 @@ enum Language {
 }
 const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   // FETCHING DATA
+  const location = useLocation();
+  const navigate = useNavigate();
+  const editableData = location.state;
 
-  const editableData = useLocation().state;
-  console.log(editableData);
   const { data, errors, loading } = useQueries();
   const uploadedAuthors = epubData?.authors;
 
@@ -113,7 +114,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
       loadReceivedData(uploadedAuthors, setAuthors, setAuthorsSelectCounter);
     uploadedGenres &&
       loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
-    // console.log(editableData.authors);
+
     if (editableData) {
       loadReceivedData(
         editableData.authors,
@@ -136,6 +137,15 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
       onCompletedMutation(data);
     },
   });
+  const [updateBook, { data: dataU, loading: loadingU, error: errorU }] =
+    useMutation(UPDATE_BOOK, {
+      onCompleted(data) {
+        const linkRedirect = location.pathname.slice(0, 33);
+        navigate(linkRedirect, {
+          state: { id: editableData.id, refetch: true },
+        });
+      },
+    });
   const uploadCover = (id: string) => {
     axios
       .post(
@@ -153,7 +163,6 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
       .then(({ status, data }) => {
         if (status === 200) {
           setCover(null);
-          console.log(data);
         }
       });
   };
@@ -236,22 +245,31 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   };
 
   const handleBookSubmit = () => {
-    addBook({
-      variables: {
-        authors,
-        bookGenres: genres ? genres : null,
-        bookSeries,
-        firstEdition: firstEdition ? Number(firstEdition) : null,
-        isbn,
-        language,
-        pages: pages ? Number(pages) : null,
-        publisher,
-        title,
-        titleEnglish,
-        titleOriginal,
-        translators,
-      },
-    });
+    console.log(publisher);
+    const variables = {
+      authors,
+      bookGenres: genres ? genres : null,
+      bookSeries,
+      firstEdition: firstEdition ? Number(firstEdition) : null,
+      isbn,
+      language,
+      pages: pages ? Number(pages) : null,
+      publisher: publisher.id,
+      title,
+      titleEnglish,
+      titleOriginal,
+      translators,
+    };
+    if (flag === Flags.Add) {
+      addBook({
+        variables,
+      });
+    }
+    if (flag === Flags.Edit) {
+      updateBook({
+        variables: { ...variables, ...{ id: editableData.id } },
+      });
+    }
   };
 
   // RENDER ELEMENTS
