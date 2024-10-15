@@ -14,8 +14,8 @@ const WelcomeMessage: React.FC = () => {
           </p>
         </div>
         <p>
-          I'm in my 30s and I have a small (2 + 1) family. Well, 2 + 2 if you
-          count the cat. I like reading books, going to cinema, playing board
+          I'm in my 30s and I have a small (2 + 1) family. Well, 2 + 3 if you
+          count the cats. I like reading books, going to cinema, playing board
           games and some other 'nerdy' stuff.
         </p>
         <p>
@@ -26,8 +26,8 @@ const WelcomeMessage: React.FC = () => {
         <p>
           I'm hosting some of my projects on this page. You can check them out
           in the next section. My next project will be some kind of a blog as I
-          sometimes feel the urge of letting out my thoughts on some topics. It
-          should be quite a learning process as well.
+          sometimes feel the urge of letting out my thoughts. It should be quite
+          a learning process as well.
         </p>
         <p>
           Last section provides information about my skills and contact details.

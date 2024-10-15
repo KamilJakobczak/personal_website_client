@@ -55,7 +55,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
   const [translatorsSelectCounter, setTranslatorsSelectCounter] = useState([0]);
   const [bookSeriesSelectCounter, setBookSeriesSelectCounter] = useState([0]);
   const [inBookSeries, setInBookSeries] = useState(
-    editableData.bookSeries ? true : false
+    editableData?.bookSeries ? true : false
   );
   const [duplicationError, setDuplicationError] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -480,7 +480,7 @@ const AddBookForm: React.FC<AddBookFormProps> = ({ epubData, flag }) => {
 
           <FileInput
             id='cover'
-            coverLink={editableData.cover}
+            coverLink={editableData?.cover}
             fileList={cover ? [cover] : []}
             onChange={handleCoverUpload}
             parentClass='addBookForm_element_cover-upload'

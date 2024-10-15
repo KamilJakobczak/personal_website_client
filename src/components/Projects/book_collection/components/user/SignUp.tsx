@@ -25,9 +25,14 @@ const SignUp = () => {
       }
     },
   });
+
+  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
   const handleSubmit = () => {
     signup({
       variables: {
@@ -50,7 +55,7 @@ const SignUp = () => {
             type='text'
             id='email'
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={e => onEmailChange(e)}
             placeholder='will be used as a login'
             required
           />

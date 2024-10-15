@@ -39,10 +39,10 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
   const editableData = location.state;
 
   const [firstName, setFirstName] = useState(
-    author?.firstName || editableData.firstName || ''
+    author?.firstName || editableData?.firstName || ''
   );
   const [lastName, setLastName] = useState(
-    author?.lastName || editableData.lastName || ''
+    author?.lastName || editableData?.lastName || ''
   );
   const [secondName, setSecondName] = useState(
     author?.secondName || editableData?.secondName || ''

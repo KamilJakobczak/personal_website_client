@@ -29,10 +29,13 @@ const Projects: React.FC = () => {
           </Link>
         </div>
         <p>
-          This project is the biggest one until now. Written all by myself,
-          using TypeScript, GraphQL, Node and React. Ultimately there will be
-          user's log in support and a possibility to add books to the database
-          by sending an ebook and reading its metadata.
+          This project is the biggest one until now. Written all by myself using
+          TypeScript, GraphQL, Node and React. The goal is to keep my book
+          collection organised and to make it easier for my family to find a
+          book that they want to read. One cool feature is a possibility of
+          uploading ebook file so that my app gets metadata and speeds up the
+          whole adding book process. I'll keep developing this project as it's
+          something I'll be using for years to come.
         </p>
       </div>
 
