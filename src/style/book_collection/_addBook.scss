@@ -457,96 +457,7 @@
     }
   }
 }
-// @media (min-width: $breakpoint-1025) {
-//   .bookCollection {
-//     &__addBook {
-//       &__bookForm {
-//         &__form {
-//           .addBookForm_element {
-//             &_cover:nth-child(1) {
-//             }
 
-//             &:nth-child(-n + 9) {
-//             }
-//             label {
-//               // flex-basis: 28%;
-//             }
-
-//             input {
-//             }
-//             > select {
-//             }
-//             &_genres,
-//             &_authors,
-//             &_translators,
-//             &_bookSeries {
-//               .select_wrapper {
-//                 label {
-//                 }
-//                 &-inner {
-//                   select {
-//                   }
-//                   button {
-//                     &.select_remove-button {
-//                     }
-//                   }
-//                 }
-//               }
-//             }
-//             &_cover-upload {
-//               label {
-//               }
-//               &__fileInput {
-//                 &_preview {
-//                 }
-//               }
-//               input {
-//               }
-//             }
-//             + .addBookForm_element {
-//             }
-//             &_cover:nth-child(1) {
-//               img {
-//               }
-//             }
-//             &_isBookSeries {
-//               label:nth-child(1) {
-//               }
-//               label {
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//     &__options {
-//       &_button {
-//       }
-//     }
-//     &__upload {
-//       p {
-//       }
-//       &_file-details {
-//       }
-//       form {
-//       }
-//       &_missing {
-//         > p {
-//         }
-//         > div {
-//           > p {
-//           }
-//         }
-//       }
-//       &_submit {
-//         &.collection_button {
-//         }
-//       }
-//       &_uploader {
-//       }
-//     }
-//   }
-// }
 @media (min-width: $breakpoint-1201) {
   .bookCollection {
     &__addBook {
@@ -572,13 +483,15 @@
             &_translators,
             &_bookSeries {
               .select_wrapper {
-                flex-basis: 49%;
+                justify-content: space-between;
+
                 label {
                   flex-basis: 25%;
                 }
                 &-inner {
-                  flex-grow: 1;
+                  flex-basis: 50%;
                   select {
+                    flex-basis: 50%;
                   }
                   button {
                     flex-basis: 27%;
@@ -669,6 +582,7 @@
             &_bookSeries {
               .select_wrapper {
                 flex-basis: 49%;
+
                 label {
                 }
                 &-inner {

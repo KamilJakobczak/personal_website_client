@@ -38,18 +38,19 @@
 @import './coding_playground/textEditor';
 
 // Book Collection
+@import './book_collection/addBook';
 @import './book_collection/addBookSeries';
 @import './book_collection/bookCollection';
-@import './book_collection/addBook';
+@import './book_collection/bookList';
+@import './book_collection/button';
+@import './book_collection/filter';
+@import './book_collection/list';
 @import './book_collection/logIn';
 @import './book_collection/navigation';
-@import './book_collection/bookList';
-@import './book_collection/filter';
-@import './book_collection/search';
-@import './book_collection/list';
 @import './book_collection/newRecords';
-@import './book_collection/button';
 @import './book_collection/profile';
+@import './book_collection/search';
 @import './book_collection/singleRecord';
+@import './book_collection/uploadBook';
 @import './book_collection/userActions';
 @import './book_collection/userBookDetails';

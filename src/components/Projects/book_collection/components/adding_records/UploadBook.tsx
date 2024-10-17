@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import AddAuthor from './AddAuthorForm';
-import AddBookForm, { AddBookFormProps } from './AddBookForm';
+import AddBookForm, { AddBookFormProps, AddBookFormRef } from './AddBookForm';
 import AddGenre from './AddGenreForm';
 import AddPublisherForm from './AddPublisherForm';
 import UploadBookForm from './UploadBookForm';
 import { Flags } from '../../utility/enums';
+import Button from '../general-purpose/Button';
 
 export interface ParsedDataInterface {
   authors: {
@@ -57,7 +58,8 @@ const UploadBook: React.FC = () => {
   const [newPublisher, setNewPublisher] = useState<string | null>();
   const [publisherAdded, setPublisherAdded] = useState('');
 
-  console.log(updatedData);
+  const childRef = useRef<AddBookFormRef>(null);
+
   useEffect(() => {
     console.log(parsedData);
     if (parsedData) {
@@ -100,6 +102,13 @@ const UploadBook: React.FC = () => {
     /*eslint-disable*/
   }, [parsedData, authorsAdded, genresAdded, publisherAdded]);
   /*eslint-enable*/
+  useEffect(() => {
+    if (childRef.current) {
+      console.log('hi there');
+      childRef.current.refetchFunction();
+    }
+  }, [updatedData]);
+
   const showAddAuthor = () => {
     return (
       newAuthors &&
@@ -126,12 +135,25 @@ const UploadBook: React.FC = () => {
       newGenres &&
       newGenres.map(genre => {
         return (
-          <div className='bookCollection__addBook__upload_addGenre' key={genre}>
+          <div
+            className='bookCollection__addBook__upload_addGenre'
+            key={genre}
+            id={genre}
+          >
             <AddGenre
               className='bookCollection__addBook__upload_addGenre'
               genre={genre}
               onAdded={setGenresAdded}
             />
+            <div className='bookCollection__addBook__upload_addGenre-skip'>
+              <Button
+                className=''
+                text='skip'
+                handleClick={() => {
+                  document.getElementById(genre)?.remove();
+                }}
+              />
+            </div>
           </div>
         );
       })
@@ -176,6 +198,18 @@ const UploadBook: React.FC = () => {
               {showAddPublisher()}
             </div>
           )}
+          <Button
+            className=''
+            text='all done'
+            handleClick={() => {
+              updateData();
+              console.log(childRef.current);
+              if (childRef.current) {
+                console.log('hi there');
+                childRef.current.refetchFunction();
+              }
+            }}
+          />
         </div>
       )
     );
@@ -235,6 +269,7 @@ const UploadBook: React.FC = () => {
         language: parsedData.language || '',
         cover: parsedData.cover || '',
       };
+      console.log(updatedDataObj);
       setUpdatedData(updatedDataObj);
     }
   };
@@ -243,7 +278,9 @@ const UploadBook: React.FC = () => {
     <div className='bookCollection__addBook__upload'>
       {!parsedData && <UploadBookForm setParsedData={setParsedData} />}
       {showAddMissingRecords()}
-      {updatedData && <AddBookForm epubData={updatedData} flag={Flags.Add} />}
+      {updatedData && (
+        <AddBookForm ref={childRef} epubData={updatedData} flag={Flags.Add} />
+      )}
     </div>
   );
 };

@@ -30,26 +30,31 @@ export const useQueries = () => {
     error: errorA,
     loading: loadingA,
     data: dataA,
+    refetch: refetchA,
   } = useQuery(LOAD_AUTHORS);
   const {
     error: errorP,
     loading: loadingP,
     data: dataP,
+    refetch: refetchP,
   } = useQuery(LOAD_PUBLISHERS);
   const {
     error: errorG,
     loading: loadingG,
     data: dataG,
+    refetch: refetchG,
   } = useQuery(LOAD_GENRES);
   const {
     error: errorT,
     loading: loadingT,
     data: dataT,
+    refetch: refetchT,
   } = useQuery(LOAD_TRANSLATORS);
   const {
     error: errorBS,
     loading: loadingBS,
     data: dataBS,
+    refetch: refetchBS,
   } = useQuery(LOAD_BOOKSERIES);
 
   useEffect(() => {
@@ -95,10 +100,30 @@ export const useQueries = () => {
     }
   }, [dataA, dataBS, dataG, dataP, dataT]);
 
+  const refetch = () => {
+    setLoading(true);
+    setData({
+      authors: [],
+      bookSeries: [],
+      genres: [],
+      publishers: [],
+      translators: [],
+    });
+    refetchA();
+    refetchBS();
+    refetchG();
+    refetchP();
+    refetchT();
+    if (data) {
+      setLoading(false);
+    }
+  };
+
   const payload = {
     data,
     errors,
     loading,
+    refetch,
   };
 
   return payload;
