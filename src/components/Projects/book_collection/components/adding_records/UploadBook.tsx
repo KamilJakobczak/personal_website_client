@@ -28,6 +28,7 @@ export interface ParsedDataInterface {
   language?: string;
   cover?: string;
   description?: string;
+  isbn?: string;
 }
 
 const UploadBook: React.FC = () => {
@@ -43,6 +44,7 @@ const UploadBook: React.FC = () => {
     description: string;
     language: string;
     cover: string;
+    isbn: string;
   }>();
   const [newAuthors, setNewAuthors] = useState<Array<{
     firstName: string;
@@ -61,19 +63,15 @@ const UploadBook: React.FC = () => {
   const childRef = useRef<AddBookFormRef>(null);
 
   useEffect(() => {
-    console.log(parsedData);
     if (parsedData) {
       if (parsedData.authors?.new && !newAuthors) {
         setNewAuthors(parsedData.authors.new);
-        console.log('new authors');
       }
       if (parsedData.genres?.new && !newGenres) {
         setNewGenres(parsedData.genres.new);
-        console.log('new genres');
       }
       if (parsedData.publisher?.new && !newPublisher) {
         setNewPublisher(parsedData.publisher.new);
-        console.log('new publisher');
       }
     }
     /*eslint-disable*/
@@ -102,12 +100,6 @@ const UploadBook: React.FC = () => {
     /*eslint-disable*/
   }, [parsedData, authorsAdded, genresAdded, publisherAdded]);
   /*eslint-enable*/
-  useEffect(() => {
-    if (childRef.current) {
-      console.log('hi there');
-      childRef.current.refetchFunction();
-    }
-  }, [updatedData]);
 
   const showAddAuthor = () => {
     return (
@@ -162,13 +154,26 @@ const UploadBook: React.FC = () => {
   const showAddPublisher = () => {
     return (
       newPublisher && (
-        <div>
+        <div
+          className='bookCollection__addBook__upload_addPublisher'
+          key={newPublisher}
+          id={newPublisher}
+        >
           <AddPublisherForm
             className='bookCollection__addBook__upload_addPublisher'
             publisher={newPublisher}
             onAdded={setPublisherAdded}
             flag={Flags.Add}
           />
+          <div className='bookCollection__addBook__upload_addPublisher-skip'>
+            <Button
+              className=''
+              text='skip'
+              handleClick={() => {
+                document.getElementById(newPublisher)?.remove();
+              }}
+            />
+          </div>
         </div>
       )
     );
@@ -203,9 +208,7 @@ const UploadBook: React.FC = () => {
             text='all done'
             handleClick={() => {
               updateData();
-              console.log(childRef.current);
               if (childRef.current) {
-                console.log('hi there');
                 childRef.current.refetchFunction();
               }
             }}
@@ -268,8 +271,9 @@ const UploadBook: React.FC = () => {
         description: parsedData.description || '',
         language: parsedData.language || '',
         cover: parsedData.cover || '',
+        isbn: parsedData.isbn || '',
       };
-      console.log(updatedDataObj);
+
       setUpdatedData(updatedDataObj);
     }
   };

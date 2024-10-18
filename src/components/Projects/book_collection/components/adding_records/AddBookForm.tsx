@@ -29,6 +29,7 @@ export interface AddBookFormProps {
     genres: string[] | null;
     publisher: { id: string; name: string } | null;
     description: string;
+    isbn: string;
     language: string;
     cover: string;
   };
@@ -45,20 +46,21 @@ enum Language {
 const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
   (props, ref) => {
     // FETCHING DATA
-    const { epubData, flag } = props;
     const location = useLocation();
     const navigate = useNavigate();
     const editableData = location.state;
 
     const { data, errors, loading, refetch } = useQueries();
-    const uploadedAuthors = epubData?.authors;
 
+    const { epubData, flag } = props;
+    const uploadedAuthors = epubData?.authors;
     const uploadedGenres = epubData?.genres;
     const uploadedDescription = epubData?.description;
     const uploadedPublisher = epubData?.publisher;
     const uploadedTitle = epubData?.title;
     const uploadedLanguage = epubData?.language;
     const uploadedCover = epubData?.cover;
+    const uploadedIsbn = epubData?.isbn;
 
     // CONTROL STATES
     const [authorsSelectCounter, setAuthorsSelectCounter] = useState([0]);
@@ -96,7 +98,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
     const [authors, setAuthors] = useState<string[]>([]);
     const [bookSeries, setBookSeries] = useState<string[]>([]);
     const [cover, setCover] = useState<File | null>();
-    const [isbn, setIsbn] = useState(editableData?.isbn || '');
+    const [isbn, setIsbn] = useState(uploadedIsbn || editableData?.isbn || '');
     const [pages, setPages] = useState(editableData?.pages || '');
     const [firstEdition, setFirstEdition] = useState(
       editableData?.firstEdition || ''

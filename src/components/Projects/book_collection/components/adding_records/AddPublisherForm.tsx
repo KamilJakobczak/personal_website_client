@@ -129,7 +129,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
         variables,
       });
     }
-    console.log(editableData.id);
+
     if (flag === Flags.Edit) {
       updatePublisher({
         variables: { ...variables, ...{ id: editableData.id } },
