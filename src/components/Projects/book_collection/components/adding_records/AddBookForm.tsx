@@ -32,6 +32,7 @@ export interface AddBookFormProps {
     isbn: string;
     language: string;
     cover: string;
+    localId: string;
   };
   flag: Flags;
 }
@@ -45,14 +46,13 @@ enum Language {
 }
 const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
   (props, ref) => {
-    // FETCHING DATA
     const location = useLocation();
     const navigate = useNavigate();
+    // FETCHING DATA
+    const { epubData, flag } = props;
     const editableData = location.state;
-
     const { data, errors, loading, refetch } = useQueries();
 
-    const { epubData, flag } = props;
     const uploadedAuthors = epubData?.authors;
     const uploadedGenres = epubData?.genres;
     const uploadedDescription = epubData?.description;
@@ -169,25 +169,43 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
           });
         },
       });
-    const uploadCover = (id: string) => {
-      axios
-        .post(
-          `${imageApi}/uploaded/covers`,
-          {
-            file: cover,
-            id: id,
-          },
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
+    console.log(epubData?.localId, epubData?.cover);
+    const uploadCover = (bookId: string, localId?: string) => {
+      if (epubData?.cover) {
+        const data = {
+          bookId: bookId,
+          localId: localId,
+        };
+        axios
+          .post(`${imageApi}/uploaded/covers-epub`, data)
+          .then(({ status, data }) => {
+            if (status === 200) {
+              setCover(null);
+            }
+          })
+          .catch(error => {
+            console.error('There was an error!', error);
+          });
+      } else {
+        axios
+          .post(
+            `${imageApi}/uploaded/covers`,
+            {
+              file: cover,
+              id: bookId,
             },
-          }
-        )
-        .then(({ status, data }) => {
-          if (status === 200) {
-            setCover(null);
-          }
-        });
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          )
+          .then(({ status, data }) => {
+            if (status === 200) {
+              setCover(null);
+            }
+          });
+      }
     };
 
     const onCompletedMutation = (data: any) => {
@@ -195,7 +213,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
         setUserError(data.addBook.userErrors[0].message);
       }
       if (data.addBook.book) {
-        uploadCover(data.addBook.book.id);
+        uploadCover(data.addBook.book.id, epubData?.localId);
         setInBookSeries(false);
         setAuthorsSelectCounter([0]);
         setBookSeriesSelectCounter([0]);

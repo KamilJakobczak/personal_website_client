@@ -114,8 +114,13 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
       });
     } else {
       counter++;
-      return bookGenres.map(genre => {
-        return <span key={genre.name}>{genre.name.concat(',')}</span>;
+      return bookGenres.map((genre, i) => {
+        const lastEntry = bookGenres.length - 1;
+        return (
+          <span key={genre.name}>
+            {i === lastEntry ? genre.name : genre.name.concat(',')}
+          </span>
+        );
       });
     }
   };

@@ -115,8 +115,9 @@
             margin-top: 2px;
           }
           &_cover:nth-child(1) {
-            // max-width: 100px;
-            // max-height: 200px;
+            margin: 0 auto 20px;
+            max-width: 200px;
+
             img {
               width: 100%;
             }

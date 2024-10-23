@@ -29,6 +29,7 @@ export interface ParsedDataInterface {
   cover?: string;
   description?: string;
   isbn?: string;
+  localId?: string;
 }
 
 const UploadBook: React.FC = () => {
@@ -45,6 +46,7 @@ const UploadBook: React.FC = () => {
     language: string;
     cover: string;
     isbn: string;
+    localId: string;
   }>();
   const [newAuthors, setNewAuthors] = useState<Array<{
     firstName: string;
@@ -63,6 +65,7 @@ const UploadBook: React.FC = () => {
   const childRef = useRef<AddBookFormRef>(null);
 
   useEffect(() => {
+    console.log(parsedData);
     if (parsedData) {
       if (parsedData.authors?.new && !newAuthors) {
         setNewAuthors(parsedData.authors.new);
@@ -272,6 +275,7 @@ const UploadBook: React.FC = () => {
         language: parsedData.language || '',
         cover: parsedData.cover || '',
         isbn: parsedData.isbn || '',
+        localId: parsedData.localId || '',
       };
 
       setUpdatedData(updatedDataObj);
