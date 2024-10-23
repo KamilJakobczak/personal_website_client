@@ -210,6 +210,9 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
             if (status === 200) {
               setCover(null);
             }
+          })
+          .catch(error => {
+            console.error('There was an error:', error);
           });
       }
     };
@@ -296,7 +299,8 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
         setUserError('Pages are wrong');
         return;
       }
-      console.log(publisher);
+      console.log(genres);
+
       const variables = {
         authors,
         bookGenres: genres ? genres : null,
@@ -320,6 +324,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
         updateBook({
           variables: { ...variables, ...{ id: editableData.id } },
         });
+        uploadCover(editableData.id);
       }
     };
 

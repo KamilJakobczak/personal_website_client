@@ -295,17 +295,17 @@ export const UPDATE_PUBLISHER = gql`
 export const UPDATE_BOOK = gql`
   mutation updateBook(
     $id: ID!
-    $authors: [String]!
-    $bookGenres: [String]!
-    $bookSeries: [String]!
+    $authors: [String]
+    $bookGenres: [String]
+    $bookSeries: [String]
     $firstEdition: Int
     $isbn: String
     $language: Language
     $pages: Int
     $publisher: String
-    $title: String!
+    $title: String
     $titleEnglish: String
-    $titleOriginal: String!
+    $titleOriginal: String
     $translators: [String] 
   ){
     updateBook(
