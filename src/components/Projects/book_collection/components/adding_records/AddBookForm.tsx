@@ -169,16 +169,22 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
           });
         },
       });
-    console.log(epubData?.localId, epubData?.cover);
+
     const uploadCover = (bookId: string, localId?: string) => {
       if (epubData?.cover) {
         const data = {
           bookId: bookId,
           localId: localId,
         };
+        console.log(data);
         axios
-          .post(`${imageApi}/uploaded/covers-epub`, data)
+          .post(`${imageApi}/uploaded/covers-epub`, data, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
           .then(({ status, data }) => {
+            console.log(status);
             if (status === 200) {
               setCover(null);
             }
@@ -286,6 +292,10 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
     };
 
     const handleBookSubmit = () => {
+      if (!pages) {
+        setUserError('Pages are wrong');
+        return;
+      }
       console.log(publisher);
       const variables = {
         authors,
@@ -360,7 +370,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
               id='pages'
               type='text'
               value={pages}
-              min={0}
+              min={10}
               max={2000}
               step={1}
               onChange={e => handleInputs(e)}
