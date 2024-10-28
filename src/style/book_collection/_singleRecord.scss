@@ -4,7 +4,9 @@
   }
   &__container {
     width: 90%;
+    position: relative;
     margin: 0 auto;
+
     div.book {
       > div:nth-child(2) {
         flex-basis: 100%;
@@ -26,7 +28,7 @@
             justify-content: flex-end;
 
             span {
-              flex-basis: 25%;
+              flex-basis: 45%;
             }
           }
         }
@@ -48,7 +50,6 @@
           a {
             margin-left: 15px;
             display: inline;
-            color: $fourth-color;
             width: $font-size-small;
             img {
               width: $font-size-small;
@@ -135,6 +136,16 @@
         &_nationality {
           text-transform: capitalize;
         }
+      }
+    }
+    &_delete {
+      position: absolute;
+      top: 17px;
+      right: 5px;
+      width: $font-size-h4;
+      height: $font-size-h4;
+      img {
+        width: 100%;
       }
     }
   }

@@ -1,27 +1,33 @@
-import Error from '../../../../Error';
-import LoadingSpinner from '../../../../LoadingSpinner';
-import Author from './Author';
-import Book from './Book';
-import Publisher from './Publisher';
-
+// LIBRARIES
+import { useState } from 'react';
 import { DocumentNode } from 'graphql';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import Button from '../general-purpose/Button';
+// MAIN COMPONENTS
+import Author from './Author';
+import Book from './Book';
+import Publisher from './Publisher';
+// HELPER COMPONENTS
+import Error from '../../../../Error';
+import DeleteButton from '../general-purpose/DeleteButton';
+import LoadingSpinner from '../../../../LoadingSpinner';
+import Popup from '../general-purpose/PopUp';
 import UserActions from '../user/UserActions';
+import UserBookDetails from '../user/UserBookDetails';
+// MISC
 import { useStatus } from '../../../BookCollection';
 import { LOAD_USER_BOOK_DETAILS } from '../../../../../GraphQL/queries';
-import UserBookDetails from '../user/UserBookDetails';
 
 interface SingleRecordProps {
   query: DocumentNode;
 }
 
 const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
+  const [popupActive, setPopupActive] = useState(false);
   const location = useLocation();
   const { loggedIn } = useStatus();
   const { id } = location.state;
-
+  console.log(popupActive);
   const { loading, error, data, refetch } = useQuery(query, {
     variables: { id },
   });
@@ -52,11 +58,27 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
       ))
     );
   };
+
+  const recordId = () => {
+    return (
+      (data.author?.id as string) ||
+      (data.publisher?.id as string) ||
+      (data.book?.id as string)
+    );
+  };
   return (
     <div className='singleRecord'>
-      {/* <Button text='return' className='single-record__return' goBack={true} /> */}
-
-      <div className='singleRecord__container'>{data && renderedElement()}</div>
+      <div className='singleRecord__container'>
+        {data && renderedElement()}
+        {data && (
+          <DeleteButton
+            id={recordId()}
+            parentClass='singleRecord__container'
+            popupToggle={setPopupActive}
+            popupState={popupActive}
+          />
+        )}
+      </div>
 
       {data &&
         data.book &&
@@ -71,6 +93,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
       )}
       {loading && <LoadingSpinner />}
       {error && <Error text={error.message} />}
+      {popupActive && <Popup popupToggle={setPopupActive} />}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 interface ButtonProps {
   className: string;
-  handleClick?: () => void;
+  handleClick?: () => void | React.Dispatch<React.SetStateAction<boolean>>;
   linkPath?: string;
   linkEnd?: string;
   text?: string;

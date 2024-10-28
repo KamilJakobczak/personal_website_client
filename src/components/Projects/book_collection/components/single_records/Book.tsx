@@ -5,6 +5,7 @@ import { resizeHelper } from '../../utility/handlers/resizeHelper';
 import { useCoverResize } from '../../utility/hooks/useCoverResize';
 import EditButton from '../general-purpose/EditButton';
 import { idParser } from '../../utility/handlers/idParser';
+import DeleteButton from '../general-purpose/DeleteButton';
 
 interface BookProps {
   data: {
@@ -79,7 +80,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     titleOriginal,
     cover: `${imageApi}/covers/${data.id}/${coverSize}`,
   };
-
+  console.log(data);
   const showAuthors = () => {
     let counter = 1;
     return authors.map(author => {

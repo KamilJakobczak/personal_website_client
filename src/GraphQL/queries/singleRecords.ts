@@ -27,6 +27,8 @@ export const LOAD_BOOK = gql`
   query Book($id: ID!) {
     book(id: $id) {
       title
+      titleEnglish
+      titleOriginal
       id
       language
       pages
