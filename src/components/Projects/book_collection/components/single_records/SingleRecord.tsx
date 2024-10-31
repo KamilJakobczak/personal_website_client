@@ -70,7 +70,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     <div className='singleRecord'>
       <div className='singleRecord__container'>
         {data && renderedElement()}
-        {data && (
+        {data && loggedIn && (
           <DeleteButton
             id={recordId()}
             parentClass='singleRecord__container'

@@ -1,6 +1,6 @@
-export const server = 'http://localhost:4000';
+export const server = process.env.REACT_APP_API_URL;
 
-export const codingApi = `${server}/api/projects/coding`;
-export const graphqlApi = `${server}/api/graphql`;
-export const imageApi = `${server}/api/images`;
-export const uploadAPI = `${server}/api/upload`;
+export const codingApi = `${server}/projects/coding`;
+export const graphqlApi = `${server}/graphql`;
+export const imageApi = `${server}/images`;
+export const uploadAPI = `${server}/upload`;

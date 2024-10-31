@@ -16,7 +16,7 @@ export const CHECK_LOGIN = gql`
 }
 `;
 export const LOAD_PROFILE = gql`
-  query Profile($id: ID) {
+  query Profile($id: ID!) {
     profile(id: $id) {
       id
       bio

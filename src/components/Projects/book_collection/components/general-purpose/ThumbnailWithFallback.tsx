@@ -17,56 +17,52 @@ const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({
 }) => {
   const [imgSrc, setImgSrc] = useState('');
 
-  const thumbnail = useMemo(() => {
-    url &&
-      axios.get(url).then(res => {
-        if (res.data === 'no cover') {
-          switch (recordType) {
-            case 'Book':
-              setImgSrc(book_thumbnail);
+  useMemo(() => {
+    const fetchThumbnail = async (url: string): Promise<string> => {
+      try {
+        const response = await axios.get(url, { responseType: 'blob' });
+        const contentType = response.headers['Content-Type'] || 'image/jpeg';
+        const blob = new Blob([response.data], { type: contentType as string });
+        return URL.createObjectURL(blob);
+      } catch (error) {
+        // Commented to avoid console spamming
+        // console.error('Error fetching image', error);
+        throw error;
+      }
+    };
+    if (url) {
+      fetchThumbnail(url)
+        .then(setImgSrc)
+        .catch(error => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
 
-              break;
-            case 'Author':
-              setImgSrc(author_thumbnail);
-
-              break;
-            case 'Publisher':
-              setImgSrc(publisher_thumbnail);
-
-              break;
-            default:
-              break;
+            if (error.response.status === 404) {
+              // console.error('Resource not found');
+              switch (recordType) {
+                case 'Book':
+                  setImgSrc(book_thumbnail);
+                  break;
+                case 'Author':
+                  setImgSrc(author_thumbnail);
+                  break;
+                case 'Publisher':
+                  setImgSrc(publisher_thumbnail);
+                  break;
+                default:
+                  setImgSrc('');
+                  break;
+              }
+            } else if (error.request) {
+              console.error('No response received', error.request);
+            } else {
+              console.error('Error', error.message);
+            }
           }
-        } else {
-          setImgSrc(url);
-        }
-      });
+        });
+    }
   }, [url, recordType]);
-  // useEffect(() => {
-  //   if (url)
-  //     axios.get(url).then(res => {
-  //       if (res.data === 'no cover') {
-  //         switch (recordType) {
-  //           case 'Book':
-  //             setImgSrc(book_thumbnail);
-
-  //             break;
-  //           case 'Author':
-  //             setImgSrc(author_thumbnail);
-
-  //             break;
-  //           case 'Publisher':
-  //             setImgSrc(publisher_thumbnail);
-
-  //             break;
-  //           default:
-  //             break;
-  //         }
-  //       } else {
-  //         setImgSrc(url);
-  //       }
-  //     });
-  // });
 
   const showImage = () => {
     return (
