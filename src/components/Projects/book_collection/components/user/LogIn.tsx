@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Button from '../general-purpose/Button';
 import { useMutation } from '@apollo/client';
 import { SIGNIN } from '../../../../../GraphQL/mutations';
-import Error from '../../../../Error';
+import Error from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { useNavigate } from 'react-router-dom';
@@ -120,16 +120,8 @@ const LogIn: React.FC = () => {
     <div className='login-wrapper'>
       {loading && <LoadingSpinner />}
       {!loading && !successMessage && showForm()}
-      {data && successMessage ? (
-        <SuccessMessage successMessage={successMessage} />
-      ) : null}
-      {!successMessage && (
-        <Button
-          text='login'
-          className='login_submit'
-          handleClick={handleSubmit}
-        />
-      )}
+      {data && successMessage ? <SuccessMessage successMessage={successMessage} /> : null}
+      {!successMessage && <Button text='login' className='login_submit' handleClick={handleSubmit} />}
       {userError && showErrors()}
     </div>
   );

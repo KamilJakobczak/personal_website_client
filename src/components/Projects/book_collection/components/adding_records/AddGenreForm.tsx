@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { ADD_GENRE } from '../../../../../GraphQL/mutations';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Button from '../general-purpose/Button';
 import { regexValidator } from '../../utility/handlers/regexValidator';
@@ -15,11 +15,7 @@ interface AddGenreFormProps {
   onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const AddGenreForm: React.FC<AddGenreFormProps> = ({
-  className,
-  genre,
-  onAdded,
-}) => {
+const AddGenreForm: React.FC<AddGenreFormProps> = ({ className, genre, onAdded }) => {
   const [name, setName] = useState(genre || '');
   const [successMessage, setSuccessMessage] = useState('');
   const [userError, setUserError] = useState('');
@@ -79,17 +75,15 @@ const AddGenreForm: React.FC<AddGenreFormProps> = ({
 
   const showErrors = () => {
     if (error) {
-      return <Error text={error.message} />;
+      return <CustomError text={error.message} />;
     } else if (userError) {
-      return <Error text={userError} />;
+      return <CustomError text={userError} />;
     }
   };
 
   return (
     <div className={`${className} addGenre`}>
-      {data && successMessage ? (
-        <SuccessMessage item='genre' successMessage={successMessage} />
-      ) : null}
+      {data && successMessage ? <SuccessMessage item='genre' successMessage={successMessage} /> : null}
       {loading && <LoadingSpinner />}
 
       {!loading && !successMessage ? showForm() : null}

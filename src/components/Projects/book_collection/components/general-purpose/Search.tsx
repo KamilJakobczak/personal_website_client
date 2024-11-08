@@ -2,7 +2,7 @@ import { useLazyQuery } from '@apollo/client';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { LOAD_SEARCH } from '../../../../../GraphQL/queries';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import { RecordType } from '../lists/List';
 
@@ -16,34 +16,22 @@ const Search: React.FC = () => {
   const [searchInput, setSearchInput] = useState('');
   const [activeCategory, setActiveCategory] = useState('Book');
   const dropdown = useRef<HTMLUListElement>(null);
-  const [loadSearch, { called, loading, data, error }] = useLazyQuery(
-    LOAD_SEARCH,
-    { variables: { contains: searchInput, type: activeCategory } }
-  );
+  const [loadSearch, { called, loading, data, error }] = useLazyQuery(LOAD_SEARCH, {
+    variables: { contains: searchInput, type: activeCategory },
+  });
 
   const dropdownCloseListener = (event: MouseEvent) => {
     const target = event.target as Element;
-    if (
-      target.classList.contains(
-        'bookCollection__search__searchBox_dropdown_default'
-      )
-    ) {
+    if (target.classList.contains('bookCollection__search__searchBox_dropdown_default')) {
     } else {
-      dropdown &&
-        dropdown.current &&
-        dropdown.current.classList.remove('active');
+      dropdown && dropdown.current && dropdown.current.classList.remove('active');
     }
   };
   const searchResultsCloseListener = (event: MouseEvent) => {
     const target = event.target as Element;
-    const resultsContainer = document.querySelector(
-      '.bookCollection__search__searchBox_searchField_results'
-    );
+    const resultsContainer = document.querySelector('.bookCollection__search__searchBox_searchField_results');
 
-    if (
-      target.className.includes('bookCollection__search') ||
-      target.className.includes('fa-search')
-    ) {
+    if (target.className.includes('bookCollection__search') || target.className.includes('fa-search')) {
     } else {
       resultsContainer?.classList.remove('active');
     }
@@ -53,13 +41,9 @@ const Search: React.FC = () => {
     dropdown && dropdown.current && dropdown.current.classList.add('active');
     document.body.addEventListener('click', dropdownCloseListener);
   };
-  const handleOptionClick = (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>
-  ) => {
+  const handleOptionClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const text = e.currentTarget.innerHTML;
-    const defaultElement = document.querySelector(
-      '.bookCollection__search__searchBox_dropdown_default'
-    );
+    const defaultElement = document.querySelector('.bookCollection__search__searchBox_dropdown_default');
 
     dropdown && dropdown.current && dropdown.current.classList.remove('active');
     defaultElement && (defaultElement.innerHTML = text);
@@ -76,9 +60,7 @@ const Search: React.FC = () => {
   };
   const showSearchResults = () => {
     const dataArr = data.search;
-    const resultsContainer = document.querySelector(
-      '.bookCollection__search__searchBox_searchField_results'
-    );
+    const resultsContainer = document.querySelector('.bookCollection__search__searchBox_searchField_results');
     resultsContainer?.classList.add('active');
     document.body.addEventListener('click', searchResultsCloseListener);
 
@@ -98,14 +80,8 @@ const Search: React.FC = () => {
           break;
       }
       return (
-        <div
-          className='bookCollection__search__searchBox_searchField_results_item'
-          key={record.id}
-        >
-          <Link
-            to={`${linkPath}/${record.id.slice(-10)}`}
-            state={{ id: record.id }}
-          >
+        <div className='bookCollection__search__searchBox_searchField_results_item' key={record.id}>
+          <Link to={`${linkPath}/${record.id.slice(-10)}`} state={{ id: record.id }}>
             {record.title ? record.title : null}
             {record.lastName ? `${record.lastName} ${record.firstName}` : null}
             {record.name ? record.name : null}
@@ -161,7 +137,7 @@ const Search: React.FC = () => {
           />
           <i className='fas fa-search'></i>
           <div className='bookCollection__search__searchBox_searchField_results'>
-            {called && error && <Error text={error.message} />}
+            {called && error && <CustomError text={error.message} />}
             {called && loading && !data && <LoadingSpinner />}
             {data && !loading && !error && showSearchResults()}
           </div>

@@ -1,13 +1,17 @@
 import { useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
 import { LOAD_BOOKS } from '../../../../../GraphQL/queries';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import BookFilters from '../filter/BookFilters';
 import List from './List';
 import Button from '../general-purpose/Button';
+import { useLocation } from 'react-router-dom';
 
 const BookList: React.FC = () => {
+  const location = useLocation();
+  console.log(location.state);
+
   const { data, error, loading, refetch } = useQuery(LOAD_BOOKS, {
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-first',
@@ -22,6 +26,12 @@ const BookList: React.FC = () => {
   const hideFilters = () => {
     setFiltersVisible(false);
   };
+  useEffect(() => {
+    if (location.state?.refetch) {
+      refetch();
+    }
+  }, [location.state, refetch]);
+
   const windowResize = () => {
     const width = window.innerWidth;
     if (width > 1025) {
@@ -54,9 +64,7 @@ const BookList: React.FC = () => {
             handleClick={handleFiltersClick}
           />
         )}
-        {filtersVisible ? (
-          <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} />
-        ) : null}
+        {filtersVisible ? <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} /> : null}
         {/* {filtersVisible ? (
           <Button
             className='bookCollection__books__filter_hideButton'
@@ -88,7 +96,7 @@ const BookList: React.FC = () => {
           <List data={data.books} />
         </div>
       )}
-      {error && <Error text={error.message} />}
+      {error && <CustomError text={error.message} />}
       {loading && <LoadingSpinner />}
     </div>
   );

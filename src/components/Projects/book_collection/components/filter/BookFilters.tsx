@@ -3,30 +3,21 @@ import { useState } from 'react';
 import { LOAD_GENRES, LOAD_PUBLISHERS } from '../../../../../GraphQL/queries';
 import Filter from './Filter';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
-import Error from '../../../../Error';
+import Error from '../../../../CustomError';
 import Button from '../general-purpose/Button';
 
 interface BookFiltersProps {
-  refetchQuery: (
-    variables?: Partial<OperationVariables> | undefined
-  ) => Promise<ApolloQueryResult<any>>;
+  refetchQuery: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>;
   hideWhenDone: () => void;
 }
 
-const BookFilters: React.FC<BookFiltersProps> = ({
-  refetchQuery,
-  hideWhenDone,
-}) => {
+const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery, hideWhenDone }) => {
   const [genresFilter, setGenresFilter] = useState<string[]>([]);
   const [publishersFilter, setPublishersFilter] = useState<string[]>([]);
 
   console.log(genresFilter, publishersFilter);
   const { data, loading, error } = useQuery(LOAD_GENRES);
-  const {
-    data: dataP,
-    loading: loadingP,
-    error: errorP,
-  } = useQuery(LOAD_PUBLISHERS);
+  const { data: dataP, loading: loadingP, error: errorP } = useQuery(LOAD_PUBLISHERS);
 
   const handleFilterClick = () => {
     refetchQuery({
@@ -39,10 +30,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({
     });
     hideWhenDone();
   };
-  const handleCheckboxChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    name: string
-  ) => {
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, name: string) => {
     const { id, checked } = e.target;
 
     switch (name) {
@@ -72,10 +60,7 @@ const BookFilters: React.FC<BookFiltersProps> = ({
     return (
       <>
         {data && (
-          <Filter
-            filterOptions={{ name: 'genres', data: data.genres }}
-            handleCheckboxChange={handleCheckboxChange}
-          />
+          <Filter filterOptions={{ name: 'genres', data: data.genres }} handleCheckboxChange={handleCheckboxChange} />
         )}
         {dataP && (
           <Filter

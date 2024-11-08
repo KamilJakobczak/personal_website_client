@@ -1,36 +1,56 @@
-// LIBRARIES
-import { useState } from 'react';
+// LIBRARIES AND HOOKS
+import { useEffect, useMemo, useState } from 'react';
 import { DocumentNode } from 'graphql';
-import { useLocation } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useQuery, useMutation } from '@apollo/client';
+import { useStatus } from '../../../BookCollection';
+// GRAPHQL QUERIES AND MUTATIONS
+import { LOAD_USER_BOOK_DETAILS } from '../../../../../GraphQL/queries';
+import { DELETE_RECORD } from '../../../../../GraphQL/mutations';
 // MAIN COMPONENTS
 import Author from './Author';
 import Book from './Book';
 import Publisher from './Publisher';
 // HELPER COMPONENTS
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import DeleteButton from '../general-purpose/DeleteButton';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Popup from '../general-purpose/PopUp';
 import UserActions from '../user/UserActions';
 import UserBookDetails from '../user/UserBookDetails';
-// MISC
-import { useStatus } from '../../../BookCollection';
-import { LOAD_USER_BOOK_DETAILS } from '../../../../../GraphQL/queries';
+
+type RecordType =
+  | 'author'
+  | 'book'
+  // | 'genre'
+  | 'publisher'
+  // | 'profile'
+  // | 'translator'
+  // | 'user'
+  // | 'bookSeries'
+  // | 'customCollection'
+  // | 'userBookDetails';
+  | undefined;
 
 interface SingleRecordProps {
   query: DocumentNode;
 }
 
 const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
-  const [popupActive, setPopupActive] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
+  // State management for errors and popup visibility
+  const [userError, setUserError] = useState('');
+  const [popupActive, setPopupActive] = useState(false);
+  // Get login status and ID from location state
   const { loggedIn } = useStatus();
-  const { id } = location.state;
-  console.log(popupActive);
+  const { id, refetch: shouldRefetch } = location.state;
+  // Query to load the main record data
   const { loading, error, data, refetch } = useQuery(query, {
     variables: { id },
   });
+
+  // Query to load user book details
   const {
     loading: loadingUserBookDetails,
     error: errorUserBookDetails,
@@ -38,62 +58,113 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     refetch: refetchUserBookDetails,
   } = useQuery(LOAD_USER_BOOK_DETAILS, { variables: { bookId: id } });
 
-  if (location.state.refetch) {
-    refetch();
-    refetchUserBookDetails();
-  }
-
+  // Extract user book details if available
   const details = dataUserBookDetails?.userBookDetails.userBookDetails;
 
-  const renderedElement = () => {
-    return (
-      (data.author && (
-        <Author data={data.author} editable={loggedIn ? true : false} />
-      )) ||
-      (data.publisher && (
-        <Publisher data={data.publisher} editable={loggedIn ? true : false} />
-      )) ||
-      (data.book && (
-        <Book data={data.book} editable={loggedIn ? true : false} />
-      ))
-    );
+  // Mutation for deleting a record
+  const [deleteRecord, { loading: loadingDel, error: errorDel }] = useMutation(DELETE_RECORD, {
+    onCompleted(data) {
+      onCompletedDel();
+    },
+    onError(err) {
+      console.error('Deletion error', err);
+      setUserError('An error occured while deleting the record');
+    },
+  });
+
+  // Effect to refetch data when shouldRefetch is true
+  useEffect(() => {
+    if (shouldRefetch) {
+      refetch();
+      refetchUserBookDetails();
+    }
+  }, [shouldRefetch, refetch, refetchUserBookDetails]);
+
+  // Function to determine record type based on fetched data
+  const record = (): RecordType => {
+    if (data.author) return 'author';
+    if (data.book) return 'book';
+    if (data.publisher) return 'publisher';
+    return undefined;
+  };
+  const recordType: RecordType = !loading ? record() : undefined;
+
+  // Memoize the rendered element based on the record type and loading state
+  const renderedElement = useMemo(() => {
+    switch (recordType) {
+      case 'author':
+        return <Author data={data.author} editable={loggedIn} />;
+      case 'book':
+        return <Book data={data.book} editable={loggedIn} />;
+      case 'publisher':
+        return <Publisher data={data.publisher} editable={loggedIn} />;
+      default:
+        return undefined;
+    }
+  }, [recordType, data, loggedIn]);
+
+  // Handle deletion of the record
+  const handleDelete = () => {
+    try {
+      if (!recordType) {
+        setUserError('Record type is undefined');
+        return;
+      }
+      deleteRecord({ variables: { model: recordType, id: id } });
+    } catch (error: any) {
+      console.error('Error:', error.message);
+      setUserError('An error occured while trying to delete the record');
+    }
   };
 
-  const recordId = () => {
-    return (
-      (data.author?.id as string) ||
-      (data.publisher?.id as string) ||
-      (data.book?.id as string)
-    );
+  // Logic to handle post-deletion actions and navigation
+  const onCompletedDel = () => {
+    const linkRedirect = `/apps/collection/${recordType}s`;
+    navigate(linkRedirect, {
+      state: { refetch: true },
+    });
   };
+
+  // Function to render error messages based on different states
+  const showErrors = () => {
+    if (error) {
+      return <CustomError text={error.message} />;
+    }
+    if (errorUserBookDetails) {
+      return <CustomError text={errorUserBookDetails.message} />;
+    }
+    if (userError) {
+      return <CustomError text={userError} />;
+    }
+    return null;
+  };
+
   return (
     <div className='singleRecord'>
       <div className='singleRecord__container'>
-        {data && renderedElement()}
-        {data && loggedIn && (
+        {/* Render main content or loading spinner */}
+        {loading ? <LoadingSpinner /> : renderedElement}
+        {/* Render delete button if logged in */}
+        {!loading && loggedIn && (
           <DeleteButton
-            id={recordId()}
+            id={id}
             parentClass='singleRecord__container'
             popupToggle={setPopupActive}
             popupState={popupActive}
           />
         )}
       </div>
-
-      {data &&
-        data.book &&
-        !loading &&
-        !loadingUserBookDetails &&
-        !details &&
-        loggedIn === true && (
-          <UserActions parentClass='singleRecord' recordId={id} />
-        )}
-      {data && data.book && !loadingUserBookDetails && details && (
+      {/* Conditional rendering of user actions and book details */}
+      {data?.book && !loading && !loadingUserBookDetails && !details && loggedIn === true && (
+        <UserActions parentClass='singleRecord' recordId={id} />
+      )}
+      {data?.book && !loadingUserBookDetails && details && (
         <UserBookDetails className={'singleRecord'} details={details} />
       )}
-      {loading && <LoadingSpinner />}
-      {error && <Error text={error.message} />}
-      {popupActive && <Popup popupToggle={setPopupActive} />}
+      {/* Render any errors that occurred during queries or actions */}
+      {showErrors()}
+      {/* Render popup for confirmation before deletion */}
+      {popupActive && <Popup popupToggle={setPopupActive} handleDelete={handleDelete} />}
     </div>
   );
 };

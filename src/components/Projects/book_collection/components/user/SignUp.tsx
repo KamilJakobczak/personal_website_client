@@ -4,7 +4,7 @@ import { SIGNUP } from '../../../../../GraphQL/mutations';
 import Button from '../general-purpose/Button';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import SuccessMessage from '../general-purpose/SuccessMessage';
-import Error from '../../../../Error';
+import Error from '../../../../CustomError';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -62,23 +62,11 @@ const SignUp = () => {
         </div>
         <div className='signup__form_password'>
           <label htmlFor='password'>password</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            onChange={e => onPasswordChange(e)}
-            required
-          />
+          <input type='password' id='password' value={password} onChange={e => onPasswordChange(e)} required />
         </div>
         <div className='signup__form_username'>
           <label htmlFor='username'>username</label>
-          <input
-            type='text'
-            id='username'
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
+          <input type='text' id='username' value={username} onChange={e => setUsername(e.target.value)} required />
         </div>
         <div className='signup__form_bio'>
           <label htmlFor='bio'>bio</label>
@@ -92,11 +80,7 @@ const SignUp = () => {
             placeholder='optional'
           ></textarea>
         </div>
-        <Button
-          text='sign up'
-          className='signup__form_submit'
-          handleClick={handleSubmit}
-        />
+        <Button text='sign up' className='signup__form_submit' handleClick={handleSubmit} />
       </form>
     );
   };
@@ -112,12 +96,8 @@ const SignUp = () => {
     <div>
       {loading && <LoadingSpinner />}
       {showErrors()}
-      {data && successMessage ? (
-        <SuccessMessage item='sign up' successMessage={successMessage} />
-      ) : null}
-      <div className='signup-wrapper'>
-        {!loading && !successMessage ? showForm() : null}
-      </div>
+      {data && successMessage ? <SuccessMessage item='sign up' successMessage={successMessage} /> : null}
+      <div className='signup-wrapper'>{!loading && !successMessage ? showForm() : null}</div>
     </div>
   );
 };

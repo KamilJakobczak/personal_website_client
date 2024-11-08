@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { ADD_TRANSLATOR } from '../../../../../GraphQL/mutations';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Button from '../general-purpose/Button';
 import { regexValidator } from '../../utility/handlers/regexValidator';
@@ -18,30 +18,23 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const [addTranslator, { data, loading, error }] = useMutation(
-    ADD_TRANSLATOR,
-    {
-      onCompleted(data) {
-        if (data.addTranslator.userErrors[0].message) {
-          setUserError(data.addTranslator.userErrors[0].message);
-        }
-        if (data.addTranslator.translator) {
-          setFirstName('');
-          setLastName('');
-          setUserError('');
-          setSuccessMessage(
-            data.addTranslator.translator.firstName +
-              ' ' +
-              data.addTranslator.translator.lastName
-          );
+  const [addTranslator, { data, loading, error }] = useMutation(ADD_TRANSLATOR, {
+    onCompleted(data) {
+      if (data.addTranslator.userErrors[0].message) {
+        setUserError(data.addTranslator.userErrors[0].message);
+      }
+      if (data.addTranslator.translator) {
+        setFirstName('');
+        setLastName('');
+        setUserError('');
+        setSuccessMessage(data.addTranslator.translator.firstName + ' ' + data.addTranslator.translator.lastName);
 
-          setTimeout(() => {
-            setSuccessMessage('');
-          }, 3000);
-        }
-      },
-    }
-  );
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000);
+      }
+    },
+  });
 
   const handleNamesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.target;
@@ -93,27 +86,22 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
             onChange={e => handleNamesChange(e)}
           />
         </div>
-        <Button
-          className='addTranslator__form_button'
-          handleClick={handleSubmit}
-        />
+        <Button className='addTranslator__form_button' handleClick={handleSubmit} />
       </form>
     );
   };
 
   const showErrors = () => {
     if (error) {
-      return <Error text={error.message} />;
+      return <CustomError text={error.message} />;
     } else if (userError) {
-      return <Error text={userError} />;
+      return <CustomError text={userError} />;
     }
   };
 
   return (
     <div className={`${className} addTranslator`}>
-      {data && successMessage ? (
-        <SuccessMessage item='translator' successMessage={successMessage} />
-      ) : null}
+      {data && successMessage ? <SuccessMessage item='translator' successMessage={successMessage} /> : null}
       {loading && <LoadingSpinner />}
       {!loading && !successMessage ? showForm() : null}
       {showErrors()}

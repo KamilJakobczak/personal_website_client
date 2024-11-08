@@ -43,6 +43,11 @@ export const LOAD_BOOK = gql`
         id
         name
       }
+      translators {
+        id
+        firstName
+        lastName
+      }
       bookGenres {
         id
         name

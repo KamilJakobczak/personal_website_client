@@ -14,10 +14,10 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({
   popupToggle,
 }) => {
   // console.log(location.pathname);
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // const target = e.target as HTMLElement;
-    // const container = target.parentElement?.parentElement;
-  };
+  // const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   // const target = e.target as HTMLElement;
+  //   // const container = target.parentElement?.parentElement;
+  // };
   return (
     <div className={`${parentClass}_delete`} onClick={() => popupToggle(true)}>
       <img src={deleteIcon} alt='delete icon' />

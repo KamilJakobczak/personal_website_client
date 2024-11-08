@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { imageApi } from '../../../../../server';
-import { resizeHelper } from '../../utility/handlers/resizeHelper';
+
 import { useCoverResize } from '../../utility/hooks/useCoverResize';
 import EditButton from '../general-purpose/EditButton';
 import { idParser } from '../../utility/handlers/idParser';
-import DeleteButton from '../general-purpose/DeleteButton';
 
 interface BookProps {
   data: {
@@ -80,7 +79,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     titleOriginal,
     cover: `${imageApi}/covers/${data.id}/${coverSize}`,
   };
-  console.log(data);
+
   const showAuthors = () => {
     let counter = 1;
     return authors.map(author => {
@@ -117,11 +116,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
       counter++;
       return bookGenres.map((genre, i) => {
         const lastEntry = bookGenres.length - 1;
-        return (
-          <span key={genre.name}>
-            {i === lastEntry ? genre.name : genre.name.concat(',')}
-          </span>
-        );
+        return <span key={genre.name}>{i === lastEntry ? genre.name : genre.name.concat(',')}</span>;
       });
     }
   };
@@ -175,10 +170,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
 
       <div className='book__cover'>
         <div className='book__cover_img'>
-          <img
-            src={`${imageApi}/covers/${data.id}/${coverSize}`}
-            alt='book_cover'
-          />
+          <img src={`${imageApi}/covers/${data.id}/${coverSize}`} alt='book_cover' />
         </div>
       </div>
       <div className='book__data'>

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { processSelectionData } from '../../utility/handlers';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import React, { useState } from 'react';
 import { ADD_BOOKSERIES } from '../../../../../GraphQL/mutations';
 import { LOAD_BOOKS } from '../../../../../GraphQL/queries';
@@ -24,19 +24,12 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
   const [duplicationError, setDuplicationError] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [userError, setUserError] = useState('');
-  const {
-    data: dataB,
-    error: errorB,
-    loading: loadingB,
-  } = useQuery(LOAD_BOOKS);
-  const [addBookSeries, { data, loading, error }] = useMutation(
-    ADD_BOOKSERIES,
-    {
-      onCompleted(data) {
-        onCompletedMutation(data);
-      },
-    }
-  );
+  const { data: dataB, error: errorB, loading: loadingB } = useQuery(LOAD_BOOKS);
+  const [addBookSeries, { data, loading, error }] = useMutation(ADD_BOOKSERIES, {
+    onCompleted(data) {
+      onCompletedMutation(data);
+    },
+  });
 
   const onCompletedMutation = (data: any) => {
     setName('');
@@ -61,13 +54,7 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
   const handleTomeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     if (value.match(numbersRegex)) {
-      processSelectionData(
-        e,
-        tomes,
-        setTomes,
-        booksSelectionCounter,
-        setDuplicationError
-      );
+      processSelectionData(e, tomes, setTomes, booksSelectionCounter, setDuplicationError);
     } else if (value.length === 0) {
       setTomes(['']);
     }
@@ -81,10 +68,7 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
         bookId: books[i],
       });
     }
-    console.log(
-      `Counter: ${booksSelectionCounter}; Tomes: ${tomes}; Books: ${books}; `,
-      arr.length
-    );
+    console.log(`Counter: ${booksSelectionCounter}; Tomes: ${tomes}; Books: ${books}; `, arr.length);
 
     if (arr[0].bookId === '') {
       setUserError('Book series must have at least one book');
@@ -143,13 +127,8 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
         </div> */}
         {!loading && showAddBooks()}
         {showErrors()}
-        {duplicationError && (
-          <Error text='Duplication error(s) detected, correct mistakes before continuing' />
-        )}
-        <Button
-          className='addBookSeries__form_button'
-          handleClick={handleSubmit}
-        />
+        {duplicationError && <CustomError text='Duplication error(s) detected, correct mistakes before continuing' />}
+        <Button className='addBookSeries__form_button' handleClick={handleSubmit} />
       </form>
     );
   };
@@ -193,19 +172,17 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
 
   const showErrors = () => {
     if (error) {
-      return <Error text={error.message} />;
+      return <CustomError text={error.message} />;
     } else if (errorB) {
-      return <Error text={errorB.message} />;
+      return <CustomError text={errorB.message} />;
     } else if (userError) {
-      return <Error text={userError} />;
+      return <CustomError text={userError} />;
     }
   };
 
   return (
     <div className={`${className} addBookSeries`}>
-      {data && successMessage ? (
-        <SuccessMessage item='book series' successMessage={successMessage} />
-      ) : null}
+      {data && successMessage ? <SuccessMessage item='book series' successMessage={successMessage} /> : null}
       {(loading || loadingB) && <LoadingSpinner />}
       {!loading && !loadingB && !successMessage ? showForm() : null}
     </div>

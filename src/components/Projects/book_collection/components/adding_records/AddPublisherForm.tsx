@@ -1,12 +1,9 @@
 import Button from '../general-purpose/Button';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import {
-  ADD_PUBLISHER,
-  UPDATE_PUBLISHER,
-} from '../../../../../GraphQL/mutations';
+import { ADD_PUBLISHER, UPDATE_PUBLISHER } from '../../../../../GraphQL/mutations';
 import { regexValidator } from '../../utility/handlers';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import { lastNameRegex, nameRegex, websiteRegex } from '../../utility/regex';
@@ -20,12 +17,7 @@ interface AddPublisherFormProps {
   flag: Flags;
 }
 
-const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
-  className,
-  publisher,
-  onAdded,
-  flag,
-}) => {
+const AddPublisherForm: React.FC<AddPublisherFormProps> = ({ className, publisher, onAdded, flag }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const editableData = location.state;
@@ -47,15 +39,14 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
       onCompleted(data);
     },
   });
-  const [updatePublisher, { data: dataU, loading: loadingU, error: errorU }] =
-    useMutation(UPDATE_PUBLISHER, {
-      onCompleted(data) {
-        const linkRedirect = location.pathname.slice(0, 38);
-        navigate(linkRedirect, {
-          state: { id: editableData.id, refetch: true },
-        });
-      },
-    });
+  const [updatePublisher, { data: dataU, loading: loadingU, error: errorU }] = useMutation(UPDATE_PUBLISHER, {
+    onCompleted(data) {
+      const linkRedirect = location.pathname.slice(0, 38);
+      navigate(linkRedirect, {
+        state: { id: editableData.id, refetch: true },
+      });
+    },
+  });
 
   const onCompleted = (data: any) => {
     if (data.addPublisher.userErrors[0].message) {
@@ -154,13 +145,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
         </div>
         <div className='addPublisher__form_element'>
           <label htmlFor='website'>website</label>
-          <input
-            type='text'
-            id='website'
-            required
-            value={website}
-            onChange={e => handleTextInputs(e)}
-          />
+          <input type='text' id='website' required value={website} onChange={e => handleTextInputs(e)} />
         </div>
         <div className='addPublisher__form_element address'>
           <p>address</p>
@@ -220,36 +205,25 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({
           </div>
           <div className='address_item'>
             <label htmlFor='placeNr'>place number</label>
-            <input
-              type='text'
-              id='placeNr'
-              required
-              value={placeNr}
-              onChange={e => setPlaceNr(e.target.value)}
-            />
+            <input type='text' id='placeNr' required value={placeNr} onChange={e => setPlaceNr(e.target.value)} />
           </div>
         </div>
-        <Button
-          className='addPublisher__form_button'
-          handleClick={handleSubmit}
-        />
+        <Button className='addPublisher__form_button' handleClick={handleSubmit} />
       </form>
     );
   };
 
   const showErrors = () => {
     if (error) {
-      return <Error text={error.message} />;
+      return <CustomError text={error.message} />;
     } else if (userError) {
-      return <Error text={userError} />;
+      return <CustomError text={userError} />;
     }
   };
 
   return (
     <div className={`${className} addPublisher`}>
-      {data && successMessage ? (
-        <SuccessMessage item='publisher' successMessage={successMessage} />
-      ) : null}
+      {data && successMessage ? <SuccessMessage item='publisher' successMessage={successMessage} /> : null}
       {loading && <LoadingSpinner />}
       {!loading && !successMessage ? showForm() : null}
       {showErrors()}

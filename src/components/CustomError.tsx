@@ -1,8 +1,8 @@
-interface ErrorProps {
+interface CustomErrorProps {
   text: string;
 }
 
-const Error: React.FC<ErrorProps> = ({ text }) => {
+const CustomError: React.FC<CustomErrorProps> = ({ text }) => {
   return (
     <div className='error-message'>
       {/* <label className='error-message_label'>Error:</label> */}
@@ -11,4 +11,4 @@ const Error: React.FC<ErrorProps> = ({ text }) => {
   );
 };
 
-export default Error;
+export default CustomError;

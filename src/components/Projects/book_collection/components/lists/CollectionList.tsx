@@ -1,9 +1,10 @@
 import { useQuery } from '@apollo/client';
 import { DocumentNode } from 'graphql';
 import { useEffect, useState } from 'react';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import List from './List';
+import { useLocation } from 'react-router-dom';
 
 interface ListProps {
   query: DocumentNode;
@@ -11,13 +12,14 @@ interface ListProps {
 }
 
 const CollectionList: React.FC<ListProps> = ({ query, listClass }) => {
+  const location = useLocation();
+  console.log(location.state?.refetch);
   const { data, loading, error } = useQuery(query);
   const [listData, setListData] = useState([]);
 
   useEffect(() => {
     if (data) {
       if (data.authors) setListData(data.authors);
-      if (data.books) setListData(data.books);
       if (data.publishers) setListData(data.publishers);
     }
   }, [data]);
@@ -25,7 +27,7 @@ const CollectionList: React.FC<ListProps> = ({ query, listClass }) => {
   return (
     <div className={`bookCollection__list ${listClass}`}>
       {loading && <LoadingSpinner />}
-      {error && <Error text={error.message} />}
+      {error && <CustomError text={error.message} />}
       {data && <List data={listData} />}
     </div>
   );

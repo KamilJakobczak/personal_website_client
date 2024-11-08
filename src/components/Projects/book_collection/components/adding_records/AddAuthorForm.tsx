@@ -1,16 +1,11 @@
 import { useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { ADD_AUTHOR, UPDATE_AUTHOR } from '../../../../../GraphQL/mutations';
-import Error from '../../../../Error';
+import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Button from '../general-purpose/Button';
 import { invalidValue, regexValidator } from '../../utility/handlers';
-import {
-  lastNameRegex,
-  nameRegex,
-  numbersRegex,
-  websiteRegex,
-} from '../../utility/regex';
+import { lastNameRegex, nameRegex, numbersRegex, websiteRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Flags } from '../../utility/enums';
@@ -27,39 +22,22 @@ interface AddAuthorFormProps {
   onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
-  className,
-  author,
-  flag,
-  onAdded,
-}) => {
+const AddAuthorForm: React.FC<AddAuthorFormProps> = ({ className, author, flag, onAdded }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const editableData = location.state;
 
-  const [firstName, setFirstName] = useState(
-    author?.firstName || editableData?.firstName || ''
-  );
-  const [lastName, setLastName] = useState(
-    author?.lastName || editableData?.lastName || ''
-  );
-  const [secondName, setSecondName] = useState(
-    author?.secondName || editableData?.secondName || ''
-  );
-  const [thirdName, setThirdName] = useState(
-    author?.thirdName || editableData?.thirdName || ''
-  );
-  const [nationality, setNationality] = useState(
-    editableData?.nationality || ''
-  );
+  const [firstName, setFirstName] = useState(author?.firstName || editableData?.firstName || '');
+  const [lastName, setLastName] = useState(author?.lastName || editableData?.lastName || '');
+  const [secondName, setSecondName] = useState(author?.secondName || editableData?.secondName || '');
+  const [thirdName, setThirdName] = useState(author?.thirdName || editableData?.thirdName || '');
+  const [nationality, setNationality] = useState(editableData?.nationality || '');
   const [birthYear, setBirthYear] = useState(editableData?.birthYear || '');
   const [deathYear, setDeathYear] = useState(editableData?.deathYear || '');
   const [wiki, setWiki] = useState(editableData?.wiki || '');
   const [goodreads, setGoodreads] = useState(editableData?.goodreads || '');
-  const [lubimyczytac, setLubimyczytac] = useState(
-    editableData?.lubimyczytac || ''
-  );
+  const [lubimyczytac, setLubimyczytac] = useState(editableData?.lubimyczytac || '');
 
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -69,15 +47,14 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
       onCompleted(data);
     },
   });
-  const [updateAuthor, { data: dataU, loading: loadingU, error: errorU }] =
-    useMutation(UPDATE_AUTHOR, {
-      onCompleted(data) {
-        const linkRedirect = location.pathname.slice(0, 35);
-        navigate(linkRedirect, {
-          state: { id: editableData.id, refetch: true },
-        });
-      },
-    });
+  const [updateAuthor, { data: dataU, loading: loadingU, error: errorU }] = useMutation(UPDATE_AUTHOR, {
+    onCompleted(data) {
+      const linkRedirect = location.pathname.slice(0, 35);
+      navigate(linkRedirect, {
+        state: { id: editableData.id, refetch: true },
+      });
+    },
+  });
 
   const onCompleted = (data: any) => {
     if (data.addAuthor.userErrors[0].message) {
@@ -96,9 +73,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
       setGoodreads('');
       setLubimyczytac('');
       setUserError('');
-      setSuccessMessage(
-        data.addAuthor.author.firstName + ' ' + data.addAuthor.author.lastName
-      );
+      setSuccessMessage(data.addAuthor.author.firstName + ' ' + data.addAuthor.author.lastName);
       onAdded && onAdded(prevState => [...prevState, data.addAuthor.author.id]);
 
       setTimeout(() => {
@@ -196,100 +171,43 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
         <h5>{`${flag} author`}</h5>
         <div className='addAuthor__form_element'>
           <label htmlFor='firstName'>first name</label>
-          <input
-            type='text'
-            id='firstName'
-            required
-            value={firstName}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='firstName' required value={firstName} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='secondName'>second name</label>
-          <input
-            type='text'
-            id='secondName'
-            required
-            value={secondName}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='secondName' required value={secondName} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='thirdName'>third name</label>
-          <input
-            type='text'
-            id='thirdName'
-            required
-            value={thirdName}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='thirdName' required value={thirdName} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='lastName'>last name</label>
-          <input
-            type='text'
-            id='lastName'
-            required
-            value={lastName}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='lastName' required value={lastName} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='nationality'>nationality</label>
-          <input
-            type='text'
-            id='nationality'
-            value={nationality}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='nationality' value={nationality} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='birth'>born in</label>
-          <input
-            type='text'
-            id='birth'
-            value={birthYear}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='birth' value={birthYear} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='death'>died in</label>
-          <input
-            type='text'
-            id='death'
-            value={deathYear}
-            onChange={e => handleInputs(e)}
-          />
+          <input type='text' id='death' value={deathYear} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='wiki'>Wikipedia</label>
-          <input
-            name='link'
-            type='text'
-            id='wiki'
-            value={wiki}
-            onChange={e => handleInputs(e)}
-          />
+          <input name='link' type='text' id='wiki' value={wiki} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='goodreads'>goodreads</label>
-          <input
-            name='link'
-            type='text'
-            id='goodreads'
-            value={goodreads}
-            onChange={e => handleInputs(e)}
-          />
+          <input name='link' type='text' id='goodreads' value={goodreads} onChange={e => handleInputs(e)} />
         </div>
         <div className='addAuthor__form_element'>
           <label htmlFor='lubimyczytac'>lubimyczytac</label>
-          <input
-            name='link'
-            type='text'
-            id='lubimyczytac'
-            value={lubimyczytac}
-            onChange={e => handleInputs(e)}
-          />
+          <input name='link' type='text' id='lubimyczytac' value={lubimyczytac} onChange={e => handleInputs(e)} />
         </div>
         <Button className='addAuthor__form_button' handleClick={handleSubmit} />
       </form>
@@ -298,17 +216,15 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({
 
   const showErrors = () => {
     if (error) {
-      return <Error text={error.message} />;
+      return <CustomError text={error.message} />;
     } else if (userError) {
-      return <Error text={userError} />;
+      return <CustomError text={userError} />;
     }
   };
 
   return (
     <div className={`${className} addAuthor`}>
-      {data && successMessage ? (
-        <SuccessMessage item='author' successMessage={successMessage} />
-      ) : null}
+      {data && successMessage ? <SuccessMessage item='author' successMessage={successMessage} /> : null}
       {loading && <LoadingSpinner />}
       {!loading && !successMessage ? showForm() : null}
       {showErrors()}
