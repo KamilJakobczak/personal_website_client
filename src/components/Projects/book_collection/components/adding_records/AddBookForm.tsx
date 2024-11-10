@@ -1,20 +1,26 @@
-import { useQueries } from '../../utility/hooks/useQueries';
-import Select from '../general-purpose/Select';
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
-import LoadingSpinner from '../../../../LoadingSpinner';
-import CustomError from '../../../../CustomError';
-import { regexValidator } from '../../utility/handlers';
-import { numbersRegex } from '../../utility/regex';
-import { checkIsbn } from '../../utility/handlers/checkIsbn';
+// React and Standard Hooks
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+// Apollo Client
 import { useMutation } from '@apollo/client';
 import { ADD_BOOK, UPDATE_BOOK } from '../../../../../GraphQL/mutations';
+// React Router
+import { useLocation, useNavigate } from 'react-router-dom';
+// Custom Hooks and Utilities
+import { useQueries } from '../../utility/hooks/useQueries';
+import { regexValidator, checkIsbn } from '../../utility/handlers';
+import { numbersRegex } from '../../utility/regex';
+import { Flags } from '../../utility/enums';
+// General Purpose Components
+import Select from '../general-purpose/Select';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import Button from '../general-purpose/Button';
 import FileInput from '../general-purpose/FileInput';
+// Other Components
+import LoadingSpinner from '../../../../LoadingSpinner';
+import CustomError from '../../../../CustomError';
+// External Libraries
 import axios from 'axios';
 import { imageApi } from '../../../../../server';
-import { Flags } from '../../utility/enums';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface AddBookFormProps {
   epubData?: {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { imageApi } from '../../../../../server';
-
 import { useCoverResize } from '../../utility/hooks/useCoverResize';
 import EditButton from '../general-purpose/EditButton';
 import { idParser } from '../../utility/handlers/idParser';
@@ -60,7 +59,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     translators,
     titleEnglish,
     titleOriginal,
-    bookSeries,
+    // bookSeries,
   } = data;
   const { coverSize } = useCoverResize();
 
@@ -209,7 +208,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
           <span>-</span>
           <span>{isbn}</span>
         </div>
-        {translators ? (
+        {translators.length ? (
           <div className='book__data_translators'>
             <p>{translators.length === 1 ? 'Translator' : 'Translators'}</p>
             <span>-</span>

@@ -19,11 +19,12 @@ import Popup from '../general-purpose/PopUp';
 import UserActions from '../user/UserActions';
 import UserBookDetails from '../user/UserBookDetails';
 import SuccessMessage from '../general-purpose/SuccessMessage';
+import Genre from './Genre';
 
 type RecordType =
   | 'author'
   | 'book'
-  // | 'genre'
+  | 'genre'
   | 'publisher'
   // | 'profile'
   // | 'translator'
@@ -87,6 +88,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     if (data.author) return 'author';
     if (data.book) return 'book';
     if (data.publisher) return 'publisher';
+    if (data.genre) return 'genre';
     return undefined;
   };
   const recordType: RecordType = !loading ? record() : undefined;
@@ -100,6 +102,8 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
         return <Book data={data.book} editable={loggedIn} />;
       case 'publisher':
         return <Publisher data={data.publisher} editable={loggedIn} />;
+      case 'genre':
+        return <Genre data={data.genre} editable={loggedIn} />;
       default:
         return undefined;
     }

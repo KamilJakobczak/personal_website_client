@@ -64,6 +64,19 @@ export const LOAD_BOOK = gql`
   }
 `;
 
+export const LOAD_GENRE = gql`
+  query Genre($id: ID!) {
+    genre(id: $id) {
+      id
+      name
+      books {
+        id
+        title
+      }
+    }
+  }
+`;
+
 export const LOAD_SINGLEBOOKSERIES = gql`
   query SingleBookSeries($id: ID!){
     singleBookSeries(id: $id){

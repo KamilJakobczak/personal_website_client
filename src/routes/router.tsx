@@ -12,6 +12,8 @@ import {
   LOAD_AUTHOR,
   LOAD_AUTHORS,
   LOAD_BOOK,
+  LOAD_GENRE,
+  LOAD_GENRES,
   LOAD_PUBLISHER,
   LOAD_PUBLISHERS,
 } from '../GraphQL/queries';
@@ -59,20 +61,14 @@ export const router = createBrowserRouter([
             path: '/apps/collection',
             element: (
               <div className='bookCollection__welcome'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
-                consequatur accusamus, perferendis, nemo magni illum quis
-                voluptas sed exercitationem beatae odit temporibus sunt, vel
-                eligendi asperiores voluptates deserunt excepturi porro vero!
-                Suscipit illum praesentium quidem pariatur obcaecati alias
-                ullam, fugit quibusdam! Iste ipsam similique commodi soluta
-                possimus voluptates amet quisquam deserunt dolorum molestias
-                distinctio, dolor eos consequatur odio! Tenetur fugit dolor in,
-                ullam ab temporibus, reiciendis dicta iusto quam quaerat odio?
-                Necessitatibus corrupti doloremque sit deserunt. Maxime
-                explicabo, et laborum ipsa non vero corrupti voluptatem!
-                Perferendis officia sunt incidunt aliquid assumenda saepe
-                dolorum sapiente! Repellendus inventore vel ipsam corrupti
-                ipsum!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo consequatur accusamus, perferendis, nemo
+                magni illum quis voluptas sed exercitationem beatae odit temporibus sunt, vel eligendi asperiores
+                voluptates deserunt excepturi porro vero! Suscipit illum praesentium quidem pariatur obcaecati alias
+                ullam, fugit quibusdam! Iste ipsam similique commodi soluta possimus voluptates amet quisquam deserunt
+                dolorum molestias distinctio, dolor eos consequatur odio! Tenetur fugit dolor in, ullam ab temporibus,
+                reiciendis dicta iusto quam quaerat odio? Necessitatibus corrupti doloremque sit deserunt. Maxime
+                explicabo, et laborum ipsa non vero corrupti voluptatem! Perferendis officia sunt incidunt aliquid
+                assumenda saepe dolorum sapiente! Repellendus inventore vel ipsam corrupti ipsum!
               </div>
             ),
           },
@@ -89,17 +85,11 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/books/:id/edit',
-            element: (
-              <ProtectedRoute
-                nestedElement={<AddBookForm flag={Flags.Edit} />}
-              />
-            ),
+            element: <ProtectedRoute nestedElement={<AddBookForm flag={Flags.Edit} />} />,
           },
           {
             path: '/apps/collection/authors',
-            element: (
-              <CollectionList query={LOAD_AUTHORS} listClass='authors' />
-            ),
+            element: <CollectionList query={LOAD_AUTHORS} listClass='authors' />,
           },
 
           {
@@ -110,31 +100,36 @@ export const router = createBrowserRouter([
             path: '/apps/collection/authors/:id/edit',
             element: (
               <ProtectedRoute
-                nestedElement={
-                  <AddAuthorForm
-                    className='bookCollection__editAuthor'
-                    flag={Flags.Edit}
-                  />
-                }
+                nestedElement={<AddAuthorForm className='bookCollection__editAuthor' flag={Flags.Edit} />}
               />
             ),
           },
           {
-            path: '/apps/collection/publishers',
+            path: '/apps/collection/genres',
+            element: <CollectionList query={LOAD_GENRES} listClass='genres' />,
+          },
+          {
+            path: '/apps/collection/genres/:id',
+            element: <SingleRecord query={LOAD_GENRE} />,
+          },
+          {
+            path: '/apps/collection/genres/:id/edit',
             element: (
-              <CollectionList query={LOAD_PUBLISHERS} listClass='publishers' />
+              <ProtectedRoute
+                nestedElement={<AddGenreForm className='bookCollection__editGenre' flag={Flags.Edit} />}
+              />
             ),
+          },
+
+          {
+            path: '/apps/collection/publishers',
+            element: <CollectionList query={LOAD_PUBLISHERS} listClass='publishers' />,
           },
           {
             path: '/apps/collection/add/author',
             element: (
               <ProtectedRoute
-                nestedElement={
-                  <AddAuthorForm
-                    className='bookCollection__addAuthor'
-                    flag={Flags.Add}
-                  />
-                }
+                nestedElement={<AddAuthorForm className='bookCollection__addAuthor' flag={Flags.Add} />}
               />
             ),
           },
@@ -152,56 +147,31 @@ export const router = createBrowserRouter([
               },
               {
                 path: '/apps/collection/add/book/manual',
-                element: (
-                  <ProtectedRoute
-                    nestedElement={<AddBookForm flag={Flags.Add} />}
-                  />
-                ),
+                element: <ProtectedRoute nestedElement={<AddBookForm flag={Flags.Add} />} />,
               },
             ],
           },
           {
             path: '/apps/collection/add/bookseries',
-            element: (
-              <ProtectedRoute
-                nestedElement={
-                  <AddBookSeries className='bookCollection__addBookSeries' />
-                }
-              />
-            ),
+            element: <ProtectedRoute nestedElement={<AddBookSeries className='bookCollection__addBookSeries' />} />,
           },
           {
             path: '/apps/collection/add/genre',
             element: (
-              <ProtectedRoute
-                nestedElement={
-                  <AddGenreForm className='bookCollection__addGenre' />
-                }
-              />
+              <ProtectedRoute nestedElement={<AddGenreForm className='bookCollection__addGenre' flag={Flags.Add} />} />
             ),
           },
           {
             path: '/apps/collection/add/publisher',
             element: (
               <ProtectedRoute
-                nestedElement={
-                  <AddPublisherForm
-                    className='bookCollection__addPublisher'
-                    flag={Flags.Add}
-                  />
-                }
+                nestedElement={<AddPublisherForm className='bookCollection__addPublisher' flag={Flags.Add} />}
               />
             ),
           },
           {
             path: '/apps/collection/add/translator',
-            element: (
-              <ProtectedRoute
-                nestedElement={
-                  <AddTranslator className='bookCollection__addTranslator' />
-                }
-              />
-            ),
+            element: <ProtectedRoute nestedElement={<AddTranslator className='bookCollection__addTranslator' />} />,
           },
 
           {
@@ -216,12 +186,7 @@ export const router = createBrowserRouter([
             path: '/apps/collection/publishers/:id/edit',
             element: (
               <ProtectedRoute
-                nestedElement={
-                  <AddPublisherForm
-                    className='bookCollection__editPublisher'
-                    flag={Flags.Edit}
-                  />
-                }
+                nestedElement={<AddPublisherForm className='bookCollection__editPublisher' flag={Flags.Edit} />}
               />
             ),
           },

@@ -91,12 +91,7 @@ const UploadBook: React.FC = () => {
     ) {
       updateData();
     }
-    if (
-      parsedData &&
-      !parsedData.genres?.new &&
-      !parsedData.publisher?.new &&
-      !parsedData.authors?.new
-    ) {
+    if (parsedData && !parsedData.genres?.new && !parsedData.publisher?.new && !parsedData.authors?.new) {
       updateData();
     }
 
@@ -109,10 +104,7 @@ const UploadBook: React.FC = () => {
       newAuthors &&
       newAuthors.map(author => {
         return (
-          <div
-            className='bookCollection__addBook__upload_addAuthor'
-            key={author.lastName}
-          >
+          <div className='bookCollection__addBook__upload_addAuthor' key={author.lastName}>
             <AddAuthor
               className='bookCollection__addBook__upload_addAuthor'
               author={author}
@@ -130,15 +122,12 @@ const UploadBook: React.FC = () => {
       newGenres &&
       newGenres.map(genre => {
         return (
-          <div
-            className='bookCollection__addBook__upload_addGenre'
-            key={genre}
-            id={genre}
-          >
+          <div className='bookCollection__addBook__upload_addGenre' key={genre} id={genre}>
             <AddGenre
               className='bookCollection__addBook__upload_addGenre'
               genre={genre}
               onAdded={setGenresAdded}
+              flag={Flags.Add}
             />
             <div className='bookCollection__addBook__upload_addGenre-skip'>
               <Button
@@ -157,11 +146,7 @@ const UploadBook: React.FC = () => {
   const showAddPublisher = () => {
     return (
       newPublisher && (
-        <div
-          className='bookCollection__addBook__upload_addPublisher'
-          key={newPublisher}
-          id={newPublisher}
-        >
+        <div className='bookCollection__addBook__upload_addPublisher' key={newPublisher} id={newPublisher}>
           <AddPublisherForm
             className='bookCollection__addBook__upload_addPublisher'
             publisher={newPublisher}
@@ -183,9 +168,7 @@ const UploadBook: React.FC = () => {
   };
   const showAddMissingRecords = () => {
     return (
-      (parsedData?.authors?.new ||
-        parsedData?.genres?.new ||
-        parsedData?.publisher?.new) && (
+      (parsedData?.authors?.new || parsedData?.genres?.new || parsedData?.publisher?.new) && (
         <div className='bookCollection__addBook__upload_missing'>
           <p>Add following records to the database before the book</p>
           {parsedData?.authors?.new && (
@@ -286,9 +269,7 @@ const UploadBook: React.FC = () => {
     <div className='bookCollection__addBook__upload'>
       {!parsedData && <UploadBookForm setParsedData={setParsedData} />}
       {showAddMissingRecords()}
-      {updatedData && (
-        <AddBookForm ref={childRef} epubData={updatedData} flag={Flags.Add} />
-      )}
+      {updatedData && <AddBookForm ref={childRef} epubData={updatedData} flag={Flags.Add} />}
     </div>
   );
 };

@@ -8,11 +8,13 @@ import { regexValidator } from '../../utility/handlers/regexValidator';
 import { genreRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Flags } from '../../utility/enums';
 
 interface AddGenreFormProps {
   className?: string;
   genre?: string;
   onAdded?: React.Dispatch<React.SetStateAction<string[]>>;
+  flag: Flags;
 }
 
 const AddGenreForm: React.FC<AddGenreFormProps> = ({ className, genre, onAdded }) => {

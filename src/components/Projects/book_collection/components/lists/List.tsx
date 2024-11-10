@@ -33,11 +33,8 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     const pathId = record.id.slice(-10);
     if (!nested) {
       return pathId;
-    } else if (nested) {
-      if (record.__typename === 'Book') return `../books/${pathId}`;
-      if (record.__typename === 'Author') return `../authors/${pathId}`;
-      if (record.__typename === 'Publisher') return `../publishers/${pathId}`;
     }
+    return `../${record.__typename.toLowerCase()}s/${pathId}`;
   };
 
   const sortData = () => {
@@ -54,8 +51,11 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
 
   const checkLocation = () => {
     const path = location.pathname;
-    if (path.includes('authors/') || path.includes('/publishers')) return false;
-    return true;
+    if (path.includes('books/')) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -65,20 +65,11 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
 
         return (
           <div className='bookCollection__list_element' key={record.id}>
-            <Link
-              className='router_link'
-              to={linkPath(record) || ''}
-              state={{ id: record.id }}
-            >
-              <ThumbnailWithFallback
-                url={thumbnail}
-                recordType={record.__typename}
-              />
+            <Link className='router_link' to={linkPath(record) || ''} state={{ id: record.id }}>
+              <ThumbnailWithFallback url={thumbnail} recordType={record.__typename} />
               <span>
                 {record.title ? record.title : null}
-                {record.lastName
-                  ? `${record.lastName} ${record.firstName}`
-                  : null}
+                {record.lastName ? `${record.lastName} ${record.firstName}` : null}
                 {record.name ? record.name : null}
               </span>
             </Link>

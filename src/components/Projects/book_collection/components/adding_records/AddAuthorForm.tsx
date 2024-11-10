@@ -42,12 +42,12 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({ className, author, flag, 
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const [addAuthor, { data, loading, error }] = useMutation(ADD_AUTHOR, {
+  const [addAuthor, { loading, error }] = useMutation(ADD_AUTHOR, {
     onCompleted(data) {
       afterCompletion(data);
     },
   });
-  const [updateAuthor, { data: dataU, loading: loadingU, error: errorU }] = useMutation(UPDATE_AUTHOR, {
+  const [updateAuthor] = useMutation(UPDATE_AUTHOR, {
     onCompleted(data) {
       setSuccessMessage('Author data updated successfully');
 
