@@ -48,3 +48,16 @@ export type UserBookDetailsType = {
   whenRead?: number;
   purchasedBookInfo: PurchasedBookInfo[];
 };
+
+export type RecordType =
+  | 'author'
+  | 'book'
+  | 'genre'
+  | 'publisher'
+  // | 'profile'
+  | 'translator'
+  // | 'user'
+  // | 'bookSeries'
+  // | 'customCollection'
+  // | 'userBookDetails';
+  | undefined;

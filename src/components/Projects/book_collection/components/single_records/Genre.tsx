@@ -22,7 +22,7 @@ const Genre: React.FC<GenreProps> = ({ data, editable }) => {
         <h4>{name}</h4>
         {editable ? <EditButton data={editableData} /> : null}
       </div>
-      {books.length && (
+      {!books.length ? null : (
         <div className='genre__books'>
           <h5>books</h5>
           <List data={books} nested={true} />

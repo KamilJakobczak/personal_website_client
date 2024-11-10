@@ -20,19 +20,8 @@ import UserActions from '../user/UserActions';
 import UserBookDetails from '../user/UserBookDetails';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import Genre from './Genre';
-
-type RecordType =
-  | 'author'
-  | 'book'
-  | 'genre'
-  | 'publisher'
-  // | 'profile'
-  // | 'translator'
-  // | 'user'
-  // | 'bookSeries'
-  // | 'customCollection'
-  // | 'userBookDetails';
-  | undefined;
+import Translator from './Translator';
+import { RecordType } from '../../types';
 
 interface SingleRecordProps {
   query: DocumentNode;
@@ -89,6 +78,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     if (data.book) return 'book';
     if (data.publisher) return 'publisher';
     if (data.genre) return 'genre';
+    if (data.translator) return 'translator';
     return undefined;
   };
   const recordType: RecordType = !loading ? record() : undefined;
@@ -104,6 +94,8 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
         return <Publisher data={data.publisher} editable={loggedIn} />;
       case 'genre':
         return <Genre data={data.genre} editable={loggedIn} />;
+      case 'translator':
+        return <Translator data={data.translator} editable={loggedIn} />;
       default:
         return undefined;
     }

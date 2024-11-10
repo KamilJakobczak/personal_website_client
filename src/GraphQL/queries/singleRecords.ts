@@ -127,3 +127,17 @@ export const LOAD_SEARCH = gql`
     }
   }
 `;
+
+export const LOAD_TRANSLATOR = gql`
+  query Translator($id: ID!) {
+    translator(id: $id) {
+      id
+      firstName
+      lastName
+      books {
+        id
+        title
+      }
+    }
+  }
+`;

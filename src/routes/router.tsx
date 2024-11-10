@@ -16,6 +16,8 @@ import {
   LOAD_GENRES,
   LOAD_PUBLISHER,
   LOAD_PUBLISHERS,
+  LOAD_TRANSLATOR,
+  LOAD_TRANSLATORS,
 } from '../GraphQL/queries';
 
 import SingleRecord from '../components/Projects/book_collection/components/single_records/SingleRecord';
@@ -23,7 +25,7 @@ import AddBookForm from '../components/Projects/book_collection/components/addin
 import AddPublisherForm from '../components/Projects/book_collection/components/adding_records/AddPublisherForm';
 import NewRecords from '../components/Projects/book_collection/components/adding_records/NewRecords';
 import AddGenreForm from '../components/Projects/book_collection/components/adding_records/AddGenreForm';
-import AddTranslator from '../components/Projects/book_collection/components/adding_records/AddTranslator';
+import AddTranslatorForm from '../components/Projects/book_collection/components/adding_records/AddTranslatorForm';
 import BookList from '../components/Projects/book_collection/components/lists/BookList';
 import CollectionList from '../components/Projects/book_collection/components/lists/CollectionList';
 import UploadBook from '../components/Projects/book_collection/components/adding_records/UploadBook';
@@ -171,7 +173,11 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/add/translator',
-            element: <ProtectedRoute nestedElement={<AddTranslator className='bookCollection__addTranslator' />} />,
+            element: (
+              <ProtectedRoute
+                nestedElement={<AddTranslatorForm className='bookCollection__addTranslator' flag={Flags.Add} />}
+              />
+            ),
           },
 
           {
@@ -187,6 +193,22 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 nestedElement={<AddPublisherForm className='bookCollection__editPublisher' flag={Flags.Edit} />}
+              />
+            ),
+          },
+          {
+            path: '/apps/collection/translators',
+            element: <CollectionList query={LOAD_TRANSLATORS} listClass='translators' />,
+          },
+          {
+            path: '/apps/collection/translators/:id',
+            element: <SingleRecord query={LOAD_TRANSLATOR} />,
+          },
+          {
+            path: '/apps/collection/translators/:id/edit',
+            element: (
+              <ProtectedRoute
+                nestedElement={<AddTranslatorForm className='bookCollection__editTranslator' flag={Flags.Edit} />}
               />
             ),
           },

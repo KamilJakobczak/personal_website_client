@@ -15,7 +15,7 @@ interface ListProps {
   }[];
   nested?: boolean;
 }
-export interface RecordType {
+export interface RecordValues {
   id: string;
   title?: string;
   firstName?: string;
@@ -29,7 +29,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
 
   const location = useLocation();
 
-  const linkPath = (record: RecordType) => {
+  const linkPath = (record: RecordValues) => {
     const pathId = record.id.slice(-10);
     if (!nested) {
       return pathId;
@@ -58,6 +58,13 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     }
   };
 
+  const showThumbnail = (record: RecordValues, thumbnail: string) => {
+    const type = record.__typename;
+    if (type === 'Auhor' || type === 'Book' || type === 'Publisher') {
+      return <ThumbnailWithFallback url={thumbnail} recordType={record.__typename} />;
+    }
+  };
+
   return (
     <>
       {(letter ? sortData() : data).map(record => {
@@ -66,7 +73,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
         return (
           <div className='bookCollection__list_element' key={record.id}>
             <Link className='router_link' to={linkPath(record) || ''} state={{ id: record.id }}>
-              <ThumbnailWithFallback url={thumbnail} recordType={record.__typename} />
+              {showThumbnail(record, thumbnail)}
               <span>
                 {record.title ? record.title : null}
                 {record.lastName ? `${record.lastName} ${record.firstName}` : null}

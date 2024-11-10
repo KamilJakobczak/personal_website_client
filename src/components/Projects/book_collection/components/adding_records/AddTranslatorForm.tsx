@@ -8,9 +8,11 @@ import { regexValidator } from '../../utility/handlers/regexValidator';
 import { lastNameRegex, nameRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Flags } from '../../utility/enums';
 
 interface AddTranslatorProps {
   className: string;
+  flag: Flags;
 }
 
 const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {

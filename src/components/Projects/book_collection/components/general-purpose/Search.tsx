@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { LOAD_SEARCH } from '../../../../../GraphQL/queries';
 import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
-import { RecordType } from '../lists/List';
+import { RecordValues } from '../lists/List';
 
 enum SearchCategories {
   Author = 'Author',
@@ -64,7 +64,7 @@ const Search: React.FC = () => {
     resultsContainer?.classList.add('active');
     document.body.addEventListener('click', searchResultsCloseListener);
 
-    return dataArr.map((record: RecordType) => {
+    return dataArr.map((record: RecordValues) => {
       let linkPath = '';
       switch (activeCategory) {
         case 'Author':
