@@ -18,6 +18,7 @@ import LoadingSpinner from '../../../../LoadingSpinner';
 import Popup from '../general-purpose/PopUp';
 import UserActions from '../user/UserActions';
 import UserBookDetails from '../user/UserBookDetails';
+import SuccessMessage from '../general-purpose/SuccessMessage';
 
 type RecordType =
   | 'author'
@@ -42,9 +43,10 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
   // State management for errors and popup visibility
   const [userError, setUserError] = useState('');
   const [popupActive, setPopupActive] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
   // Get login status and ID from location state
   const { loggedIn } = useStatus();
-  const { id, refetch: shouldRefetch } = location.state;
+  const { id, refetch: shouldRefetch } = location?.state;
   // Query to load the main record data
   const { loading, error, data, refetch } = useQuery(query, {
     variables: { id },
@@ -62,7 +64,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
   const details = dataUserBookDetails?.userBookDetails.userBookDetails;
 
   // Mutation for deleting a record
-  const [deleteRecord, { loading: loadingDel, error: errorDel }] = useMutation(DELETE_RECORD, {
+  const [deleteRecord] = useMutation(DELETE_RECORD, {
     onCompleted(data) {
       onCompletedDel();
     },
@@ -120,9 +122,16 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
   // Logic to handle post-deletion actions and navigation
   const onCompletedDel = () => {
     const linkRedirect = `/apps/collection/${recordType}s`;
-    navigate(linkRedirect, {
-      state: { refetch: true },
-    });
+    const cappedRecordType = recordType && recordType.charAt(0).toUpperCase() + recordType.slice(1);
+    setPopupActive(false);
+    setSuccessMessage(`Deletion of ${cappedRecordType} done!`);
+
+    setTimeout(() => {
+      setSuccessMessage('');
+      navigate(linkRedirect, {
+        state: { refetch: true },
+      });
+    }, 3000);
   };
 
   // Function to render error messages based on different states
@@ -153,6 +162,8 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
             popupState={popupActive}
           />
         )}
+        {/* Display success message after succesful deletion */}
+        {successMessage ? <SuccessMessage item='' successMessage={successMessage} /> : null}
       </div>
       {/* Conditional rendering of user actions and book details */}
       {data?.book && !loading && !loadingUserBookDetails && !details && loggedIn === true && (

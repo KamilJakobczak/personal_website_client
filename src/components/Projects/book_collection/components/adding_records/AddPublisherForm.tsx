@@ -36,7 +36,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({ className, publishe
 
   const [addPublisher, { data, loading, error }] = useMutation(ADD_PUBLISHER, {
     onCompleted(data) {
-      onCompleted(data);
+      afterCompletion(data);
     },
   });
   const [updatePublisher, { data: dataU, loading: loadingU, error: errorU }] = useMutation(UPDATE_PUBLISHER, {
@@ -48,7 +48,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({ className, publishe
     },
   });
 
-  const onCompleted = (data: any) => {
+  const afterCompletion = (data: any) => {
     if (data.addPublisher.userErrors[0].message) {
       setUserError(data.addPublisher.userErrors[0].message);
       onAdded && onAdded(' ');
@@ -68,6 +68,7 @@ const AddPublisherForm: React.FC<AddPublisherFormProps> = ({ className, publishe
 
       setTimeout(() => {
         setSuccessMessage('');
+        navigate(location.pathname.slice(0, 20));
       }, 3000);
     }
   };

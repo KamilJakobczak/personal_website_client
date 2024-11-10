@@ -44,19 +44,24 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({ className, author, flag, 
 
   const [addAuthor, { data, loading, error }] = useMutation(ADD_AUTHOR, {
     onCompleted(data) {
-      onCompleted(data);
+      afterCompletion(data);
     },
   });
   const [updateAuthor, { data: dataU, loading: loadingU, error: errorU }] = useMutation(UPDATE_AUTHOR, {
     onCompleted(data) {
+      setSuccessMessage('Author data updated successfully');
+
       const linkRedirect = location.pathname.slice(0, 35);
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
       navigate(linkRedirect, {
         state: { id: editableData.id, refetch: true },
       });
     },
   });
 
-  const onCompleted = (data: any) => {
+  const afterCompletion = (data: any) => {
     if (data.addAuthor.userErrors[0].message) {
       setUserError(data.addAuthor.userErrors[0].message);
       onAdded && onAdded(prevState => [...prevState, ' ']);
@@ -78,6 +83,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({ className, author, flag, 
 
       setTimeout(() => {
         setSuccessMessage('');
+        navigate(location.pathname.slice(0, 20));
       }, 3000);
     }
   };
@@ -224,7 +230,7 @@ const AddAuthorForm: React.FC<AddAuthorFormProps> = ({ className, author, flag, 
 
   return (
     <div className={`${className} addAuthor`}>
-      {data && successMessage ? <SuccessMessage item='author' successMessage={successMessage} /> : null}
+      {successMessage ? <SuccessMessage item='author' successMessage={successMessage} /> : null}
       {loading && <LoadingSpinner />}
       {!loading && !successMessage ? showForm() : null}
       {showErrors()}

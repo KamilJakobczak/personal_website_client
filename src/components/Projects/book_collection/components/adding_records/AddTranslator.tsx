@@ -7,12 +7,15 @@ import Button from '../general-purpose/Button';
 import { regexValidator } from '../../utility/handlers/regexValidator';
 import { lastNameRegex, nameRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AddTranslatorProps {
   className: string;
 }
 
 const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userError, setUserError] = useState('');
@@ -31,6 +34,7 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
 
         setTimeout(() => {
           setSuccessMessage('');
+          navigate(location.pathname.slice(0, 20));
         }, 3000);
       }
     },

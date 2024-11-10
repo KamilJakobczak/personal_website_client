@@ -22,18 +22,8 @@ interface AuthorProps {
 }
 
 const Author: React.FC<AuthorProps> = ({ data, editable }) => {
-  const {
-    id,
-    firstName,
-    secondName,
-    thirdName,
-    lastName,
-    nationality,
-    birthYear,
-    books,
-    bioPages,
-  } = data;
-  console.log(data);
+  const { id, firstName, secondName, thirdName, lastName, nationality, birthYear, books, bioPages } = data;
+
   const editableData = {
     id,
     firstName,
@@ -75,29 +65,17 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
         {bioPages ? (
           <div className='author__data_bioPages'>
             {bioPages.wiki ? (
-              <a
-                href={checkURL(bioPages.wiki)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
+              <a href={checkURL(bioPages.wiki)} rel='noreferrer noopener' target='_blank'>
                 wikipedia
               </a>
             ) : null}
             {bioPages.goodreads ? (
-              <a
-                href={checkURL(bioPages.goodreads)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
+              <a href={checkURL(bioPages.goodreads)} rel='noreferrer noopener' target='_blank'>
                 goodreads
               </a>
             ) : null}
             {bioPages.lubimyczytac ? (
-              <a
-                href={checkURL(bioPages.lubimyczytac)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
+              <a href={checkURL(bioPages.lubimyczytac)} rel='noreferrer noopener' target='_blank'>
                 lubimyczytac
               </a>
             ) : null}

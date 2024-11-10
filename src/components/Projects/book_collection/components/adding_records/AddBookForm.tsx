@@ -1,6 +1,6 @@
 import { useQueries } from '../../utility/hooks/useQueries';
 import Select from '../general-purpose/Select';
-import { useState, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import CustomError from '../../../../CustomError';
 import { regexValidator } from '../../utility/handlers';
@@ -41,14 +41,15 @@ enum Language {
 const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) => {
   const location = useLocation();
   const navigate = useNavigate();
+
   // FETCHING DATA
   const { epubData, flag } = props;
   const editableData = location.state;
   const { data, errors, loading, refetch } = useQueries();
-
+  // Extract uploaded data if available
   const uploadedAuthors = epubData?.authors;
   const uploadedGenres = epubData?.genres;
-  const uploadedDescription = epubData?.description;
+  // const uploadedDescription = epubData?.description;
   const uploadedPublisher = epubData?.publisher;
   const uploadedTitle = epubData?.title;
   const uploadedLanguage = epubData?.language;
@@ -81,49 +82,44 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
   const [pages, setPages] = useState(editableData?.pages || '');
   const [firstEdition, setFirstEdition] = useState(editableData?.firstEdition || '');
 
+  // Load received data into state
   const loadReceivedData = (
-    item: string[] | null,
+    arr: string[] | null,
     setItemState: React.Dispatch<React.SetStateAction<string[]>>,
     setCounterState: React.Dispatch<React.SetStateAction<number[]>>
   ) => {
-    if (item) {
-      const dataArr = item;
-
-      for (let i = 0; i < dataArr.length; i++) {
-        const element = item[i];
-        if (i === 0) {
+    if (arr) {
+      arr.forEach((element, index) => {
+        if (index === 0) {
           setItemState([element]);
         } else {
-          setCounterState(prevState => [...prevState, i]);
+          setCounterState(prevState => [...prevState, index]);
           setItemState(prevState => [...prevState, element]);
         }
-      }
+      });
     }
   };
-  const refetchFunction = () => {
-    refetch();
-  };
-
+  // Refetch function exposed to parent components via ref
   useImperativeHandle(ref, () => ({
-    refetchFunction,
+    refetchFunction: () => refetch(),
   }));
-
+  // Load initial data when component mounts
   useEffect(() => {
-    uploadedAuthors && loadReceivedData(uploadedAuthors, setAuthors, setAuthorsSelectCounter);
-    uploadedGenres && loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
-
+    if (uploadedAuthors) loadReceivedData(uploadedAuthors, setAuthors, setAuthorsSelectCounter);
+    if (uploadedGenres) loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
     if (editableData) {
       loadReceivedData(editableData.authors, setAuthors, setAuthorsSelectCounter);
       loadReceivedData(editableData.bookGenres, setGenres, setGenresSelectCounter);
     }
-  }, []);
-
-  const [addBook, { data: mutationData, loading: mutationLoading, error: mutationError }] = useMutation(ADD_BOOK, {
+  }, [uploadedAuthors, uploadedGenres, editableData]);
+  // Mutation for adding a book
+  const [addBook, { loading: mutationLoading, error: mutationError }] = useMutation(ADD_BOOK, {
     onCompleted(data) {
-      onCompletedMutation(data);
+      afterCompletion(data);
     },
   });
-  const [updateBook, { data: dataU, loading: loadingU, error: errorU }] = useMutation(UPDATE_BOOK, {
+  // Mutation for updating a book
+  const [updateBook] = useMutation(UPDATE_BOOK, {
     onCompleted(data) {
       const linkRedirect = location.pathname.slice(0, 33);
       navigate(linkRedirect, {
@@ -131,14 +127,14 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       });
     },
   });
-
+  // Function to upload cover image after adding/updating a book
   const uploadCover = (bookId: string, localId?: string) => {
     if (epubData?.cover) {
       const data = {
         bookId: bookId,
         localId: localId,
       };
-      console.log(data);
+
       axios
         .post(`${imageApi}/uploaded/covers-epub`, data, {
           headers: {
@@ -146,7 +142,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
           },
         })
         .then(({ status, data }) => {
-          console.log(status);
           if (status === 200) {
             setCover(null);
           }
@@ -179,38 +174,45 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
         });
     }
   };
-
-  const onCompletedMutation = (data: any) => {
+  // Handle actions after successfully completing a mutation
+  const afterCompletion = (data: any) => {
     if (data.addBook.userErrors[0].message) {
       setUserError(data.addBook.userErrors[0].message);
     }
     if (data.addBook.book) {
-      uploadCover(data.addBook.book.id, epubData?.localId);
-      setInBookSeries(false);
-      setAuthorsSelectCounter([0]);
-      setBookSeriesSelectCounter([0]);
-      setGenresSelectCounter([0]);
-      setTranslatorsSelectCounter([0]);
+      const bookId = data.addBook.book.id;
+      uploadCover(bookId, epubData?.localId);
+      resetForm();
       setSuccessMessage(data.addBook.book.title);
-      setTitle('');
-      setTitleEnglish('');
-      setTitleOriginal('');
-      setLanguage('Polish');
-      setGenres([]);
-      setTranslators([]);
-      setAuthors([]);
-      setBookSeries([]);
-      setPublisher('');
-      setIsbn('');
-      setPages('');
-      setFirstEdition('');
       setTimeout(() => {
         setSuccessMessage('');
+        const linkRedirect = `${location.pathname.slice(0, 17)}books/${bookId.slice(-10)}`;
+        navigate(linkRedirect, {
+          state: { id: bookId, refetch: false },
+        });
       }, 3000);
     }
   };
+  const resetForm = () => {
+    setInBookSeries(false);
+    setAuthorsSelectCounter([0]);
+    setBookSeriesSelectCounter([0]);
+    setGenresSelectCounter([0]);
+    setTranslatorsSelectCounter([0]);
+    setTitle('');
+    setTitleEnglish('');
+    setTitleOriginal('');
+    setLanguage('Polish');
+    setGenres([]);
+    setTranslators([]);
+    setAuthors([]);
+    setBookSeries([]);
+    setPublisher('');
+    setIsbn('');
+    setPages('');
+    setFirstEdition('');
+  };
   // HANDLE EVENTS
-
   const handleInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, id } = e.target;
     switch (id) {
@@ -220,46 +222,40 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       case 'isbn':
         setIsbn(value);
         if (value.length >= 10) checkIsbn(e);
-
         break;
       case 'firstEdition':
         regexValidator(numbersRegex, value, setFirstEdition);
         break;
-
       default:
         break;
     }
   };
 
   const handleCoverUpload = (files: FileList) => {
+    if (!files.length) return;
     const validExtensions = ['.jpg', '.jpeg', '.png'];
-    const validSize = 5000000;
-    if (files) {
-      const coverFile = files[0];
-      const checkFileExt = () => {
-        for (let i = 0; i < validExtensions.length; i++) {
-          if (coverFile.name.endsWith(validExtensions[i])) {
-            return true;
-          } else {
-            return false;
-          }
-        }
-      };
-      if (checkFileExt() && coverFile.size < validSize) {
-        setCover(coverFile);
-      } else {
-        alert(`Sorry, ${coverFile.name} is invalid, allowed extensions are ${validExtensions.join(', ')}`);
-      }
-    }
-  };
+    const validSizeLimitMB = 7;
+    const validSizeInBytes = validSizeLimitMB * Math.pow(1024, 2);
 
+    const coverFile = files[0];
+    // Check file extension validity
+    if (!validExtensions.some(ext => coverFile.name.endsWith(ext))) {
+      alert(`Invalid file type. Allowed types are ${validExtensions.join(', ')}`);
+      return;
+    }
+    if (coverFile.size > validSizeInBytes) {
+      alert(`File size exceeds ${validSizeLimitMB}MB limit.`);
+      return;
+    }
+    // Set cover file state if all checks pass
+    setCover(coverFile);
+  };
+  // Handle book submission with validation checks before mutation calls
   const handleBookSubmit = () => {
-    if (!pages) {
+    if (!pages || isNaN(Number(pages))) {
       setUserError('Pages are wrong');
       return;
     }
-    console.log(genres);
-
     const variables = {
       authors,
       bookGenres: genres ? genres : null,
@@ -268,12 +264,13 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       isbn,
       language,
       pages: pages ? Number(pages) : null,
-      publisher: publisher.id,
+      publisher,
       title,
       titleEnglish,
       titleOriginal,
       translators,
     };
+
     if (flag === Flags.Add) {
       addBook({
         variables,
@@ -294,7 +291,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
         <div className='addBookForm_element addBookForm_element_cover'>
           <img src={uploadedCover} alt='' />
         </div>
-
+        {/* Title Input */}
         <div className='addBookForm_element addBookForm_element_title'>
           <label htmlFor='title'>title</label>
           <input
@@ -306,6 +303,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             onChange={e => setTitle(e.target.value)}
           />
         </div>
+        {/* English Title Input */}
         <div className='addBookForm_element addBookForm_element_title'>
           <label htmlFor='titleEnglish'>English title</label>
           <input
@@ -316,6 +314,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             onChange={e => setTitleEnglish(e.target.value)}
           />
         </div>
+        {/* Original Title Input */}
         <div className='addBookForm_element addBookForm_element_title'>
           <label htmlFor='titleOriginal'>Original title</label>
           <input
@@ -327,6 +326,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             onChange={e => setTitleOriginal(e.target.value)}
           />
         </div>
+        {/* Pages Input */}
         <div className='addBookForm_element addBookForm_element_pages'>
           <label htmlFor='pages'>pages</label>
           <input
@@ -340,10 +340,12 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             onChange={e => handleInputs(e)}
           />
         </div>
+        {/* ISBN Input */}
         <div className='addBookForm_element addBookForm_element_isbn'>
           <label htmlFor='isbn'>isbn</label>
           <input name='isbn' autoComplete='off' id='isbn' type='text' value={isbn} onChange={e => handleInputs(e)} />
         </div>
+        {/* First Edition Input */}
         <div className='addBookForm_element addBookForm_element_firstEdition'>
           <label htmlFor='firstEdition'>first edition</label>
           <input
@@ -354,6 +356,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             onChange={e => handleInputs(e)}
           />
         </div>
+        {/* Language Selection */}
         <div className='addBookForm_element addBookForm_element_language'>
           <label htmlFor='language'>language</label>
           <select id='language' name='language' onChange={e => setLanguage(e.target.value)}>
@@ -361,6 +364,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             <option value={Language.English}>{Language.English}</option>
           </select>
         </div>
+        {/* Publisher Selection */}
         <div className='addBookForm_element addBookForm_element_publisher'>
           <label htmlFor='publisher'>publisher</label>
           <select
@@ -375,6 +379,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             })}
           </select>
         </div>
+        {/* Genre Selection */}
         <div className='addBookForm_element addBookForm_element_genres'>
           {genresSelectCounter.map(input => {
             return (
@@ -392,7 +397,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             );
           })}
         </div>
-
+        {/* Author Selection */}
         <div className='addBookForm_element addBookForm_element_authors'>
           {authorsSelectCounter.map(input => {
             return (
@@ -410,7 +415,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             );
           })}
         </div>
-
+        {/* Translators Selection */}
         {language === Language.Polish && title !== titleOriginal && (
           <div className='addBookForm_element addBookForm_element_translators'>
             {translatorsSelectCounter.map(input => {
@@ -430,7 +435,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             })}
           </div>
         )}
-
+        {/* Book Series Radio Buttons */}
         <div className='addBookForm_element addBookForm_element_isBookSeries'>
           <label htmlFor='in_bookSeries'>Part of a book series?</label>
           <label htmlFor='yes' className='form-control-radio'>
@@ -461,9 +466,9 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
             })}
           </div>
         )}
+        {/* Cover upload section */}
         <div className='addBookForm_element addBookForm_element_cover-upload'>
           <label htmlFor='cover'>upload cover</label>
-
           <FileInput
             id='cover'
             coverLink={editableData?.cover}
@@ -476,23 +481,21 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       </form>
     );
   };
+  // Handle error display
   const showErrors = () => {
-    if (mutationError) {
-      return <CustomError text={mutationError.message} />;
-    } else if (userError) {
-      return <CustomError text={userError} />;
-    }
+    if (mutationError) return <CustomError text={mutationError.message} />;
+    if (userError) return <CustomError text={userError} />;
+    if (duplicationError)
+      return <CustomError text='Duplication error(s) detected, correct mistakes before continuing' />;
+    if (errors) return <CustomError text={errors} />;
   };
+
   return (
     <div className='bookCollection__addBook__bookForm'>
       {(loading || mutationLoading) && <LoadingSpinner />}
-      {errors && <CustomError text={errors} />}
-
-      {data && successMessage ? <SuccessMessage item='book' successMessage={successMessage} /> : null}
-
-      {data && !loading && !successMessage && showForm()}
-      {duplicationError && <CustomError text='Duplication error(s) detected, correct mistakes before continuing' />}
       {showErrors()}
+      {successMessage ? <SuccessMessage item='book' successMessage={successMessage} /> : null}
+      {data && !loading && !successMessage && showForm()}
     </div>
   );
 });

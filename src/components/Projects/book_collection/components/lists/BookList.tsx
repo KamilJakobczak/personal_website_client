@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { LOAD_BOOKS } from '../../../../../GraphQL/queries';
 import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
@@ -10,7 +10,6 @@ import { useLocation } from 'react-router-dom';
 
 const BookList: React.FC = () => {
   const location = useLocation();
-  console.log(location.state);
 
   const { data, error, loading, refetch } = useQuery(LOAD_BOOKS, {
     fetchPolicy: 'network-only',
@@ -53,9 +52,9 @@ const BookList: React.FC = () => {
       window.removeEventListener('resize', windowResize);
     };
   }, []);
-
-  const showFilters = () => {
-    return (
+  const memoizedBooks = useMemo(() => data?.books ?? [], [data]);
+  const showFilters = useMemo(
+    () => (
       <>
         {filtersVisible && !higherWidth && (
           <Button
@@ -64,21 +63,9 @@ const BookList: React.FC = () => {
             handleClick={handleFiltersClick}
           />
         )}
-        {filtersVisible ? <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} /> : null}
-        {/* {filtersVisible ? (
-          <Button
-            className='bookCollection__books__filter_hideButton'
-            text='hide filters'
-            handleClick={handleFiltersClick}
-          />
+        {filtersVisible ? (
+          <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} />
         ) : (
-          <Button
-            className='bookCollection__books__filter_showButton'
-            text='expand filters'
-            handleClick={handleFiltersClick}
-          />
-        )} */}
-        {filtersVisible ? null : (
           <Button
             className='bookCollection__books__filter_showButton'
             text='show filters'
@@ -86,14 +73,15 @@ const BookList: React.FC = () => {
           />
         )}
       </>
-    );
-  };
+    ),
+    [filtersVisible, higherWidth, refetch]
+  );
   return (
     <div className='bookCollection__books'>
-      <div className='bookCollection__books__filter'>{showFilters()}</div>
-      {data && (
+      <div className='bookCollection__books__filter'>{showFilters}</div>
+      {memoizedBooks.length > 0 && !error && !loading && (
         <div className='bookCollection__books__list bookCollection__list'>
-          <List data={data.books} />
+          <List data={memoizedBooks} />
         </div>
       )}
       {error && <CustomError text={error.message} />}

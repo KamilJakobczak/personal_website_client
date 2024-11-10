@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { DocumentNode } from 'graphql';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import List from './List';
@@ -13,22 +13,32 @@ interface ListProps {
 
 const CollectionList: React.FC<ListProps> = ({ query, listClass }) => {
   const location = useLocation();
-  console.log(location.state?.refetch);
-  const { data, loading, error } = useQuery(query);
-  const [listData, setListData] = useState([]);
+  const refetchBoolean = location.state?.refetch;
+  const { data, loading, error, refetch } = useQuery(query, {
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-first',
+  });
 
-  useEffect(() => {
+  const listData = useMemo(() => {
     if (data) {
-      if (data.authors) setListData(data.authors);
-      if (data.publishers) setListData(data.publishers);
+      return data.authors ?? data.publishers ?? [];
     }
+    return [];
   }, [data]);
+
+  // Effect to handle refetching and updating list data
+  useEffect(() => {
+    if (refetchBoolean) {
+      console.log('refetching data...');
+      refetch();
+    }
+  }, [refetch, refetchBoolean]);
 
   return (
     <div className={`bookCollection__list ${listClass}`}>
       {loading && <LoadingSpinner />}
       {error && <CustomError text={error.message} />}
-      {data && <List data={listData} />}
+      {!loading && !error && <List data={listData} />}
     </div>
   );
 };

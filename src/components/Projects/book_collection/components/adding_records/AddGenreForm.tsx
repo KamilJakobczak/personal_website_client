@@ -7,7 +7,7 @@ import Button from '../general-purpose/Button';
 import { regexValidator } from '../../utility/handlers/regexValidator';
 import { genreRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
-import { Flags } from '../../utility/enums';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AddGenreFormProps {
   className?: string;
@@ -16,6 +16,9 @@ interface AddGenreFormProps {
 }
 
 const AddGenreForm: React.FC<AddGenreFormProps> = ({ className, genre, onAdded }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [name, setName] = useState(genre || '');
   const [successMessage, setSuccessMessage] = useState('');
   const [userError, setUserError] = useState('');
@@ -31,9 +34,9 @@ const AddGenreForm: React.FC<AddGenreFormProps> = ({ className, genre, onAdded }
         setUserError('');
         setSuccessMessage(data.addGenre.genre.name);
         onAdded && onAdded(prevState => [...prevState, data.addGenre.genre.id]);
-
         setTimeout(() => {
           setSuccessMessage('');
+          navigate(location.pathname.slice(0, 20));
         }, 3000);
       }
     },
