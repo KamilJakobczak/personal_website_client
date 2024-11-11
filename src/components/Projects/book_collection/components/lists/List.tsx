@@ -28,7 +28,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
   const [letter, setLetter] = useState('');
 
   const location = useLocation();
-
+  console.log(data);
   const linkPath = (record: RecordValues) => {
     const pathId = record.id.slice(-10);
     if (!nested) {
@@ -60,7 +60,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
 
   const showThumbnail = (record: RecordValues, thumbnail: string) => {
     const type = record.__typename;
-    if (type === 'Auhor' || type === 'Book' || type === 'Publisher') {
+    if (type === 'Auhor' || type === 'Book' || type === 'Publisher' || type === 'BookSeries') {
       return <ThumbnailWithFallback url={thumbnail} recordType={record.__typename} />;
     }
   };
@@ -68,6 +68,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
   return (
     <>
       {(letter ? sortData() : data).map(record => {
+        console.log(record);
         const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
 
         return (

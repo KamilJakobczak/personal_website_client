@@ -12,10 +12,12 @@ import {
   LOAD_AUTHOR,
   LOAD_AUTHORS,
   LOAD_BOOK,
+  LOAD_BOOKSERIES,
   LOAD_GENRE,
   LOAD_GENRES,
   LOAD_PUBLISHER,
   LOAD_PUBLISHERS,
+  LOAD_SINGLEBOOKSERIES,
   LOAD_TRANSLATOR,
   LOAD_TRANSLATORS,
 } from '../GraphQL/queries';
@@ -107,6 +109,22 @@ export const router = createBrowserRouter([
             ),
           },
           {
+            path: '/apps/collection/bookseries',
+            element: <CollectionList query={LOAD_BOOKSERIES} listClass='bookSeries' />,
+          },
+          {
+            path: '/apps/collection/bookseries/:id',
+            element: <SingleRecord query={LOAD_SINGLEBOOKSERIES} />,
+          },
+          {
+            path: '/apps/collection/bookseries/:id/edit',
+            element: (
+              <ProtectedRoute
+                nestedElement={<AddBookSeries className='bookCollection__editGenre' flag={Flags.Edit} />}
+              />
+            ),
+          },
+          {
             path: '/apps/collection/genres',
             element: <CollectionList query={LOAD_GENRES} listClass='genres' />,
           },
@@ -155,7 +173,11 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/add/bookseries',
-            element: <ProtectedRoute nestedElement={<AddBookSeries className='bookCollection__addBookSeries' />} />,
+            element: (
+              <ProtectedRoute
+                nestedElement={<AddBookSeries className='bookCollection__addBookSeries' flag={Flags.Add} />}
+              />
+            ),
           },
           {
             path: '/apps/collection/add/genre',

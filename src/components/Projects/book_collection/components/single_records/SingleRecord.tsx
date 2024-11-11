@@ -22,6 +22,7 @@ import SuccessMessage from '../general-purpose/SuccessMessage';
 import Genre from './Genre';
 import Translator from './Translator';
 import { RecordType } from '../../types';
+import BookSeries from './BookSeries';
 
 interface SingleRecordProps {
   query: DocumentNode;
@@ -74,11 +75,13 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
 
   // Function to determine record type based on fetched data
   const record = (): RecordType => {
+    console.log(data);
     if (data.author) return 'author';
     if (data.book) return 'book';
     if (data.publisher) return 'publisher';
     if (data.genre) return 'genre';
     if (data.translator) return 'translator';
+    if (data.singleBookSeries) return 'bookSeries';
     return undefined;
   };
   const recordType: RecordType = !loading ? record() : undefined;
@@ -96,6 +99,8 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
         return <Genre data={data.genre} editable={loggedIn} />;
       case 'translator':
         return <Translator data={data.translator} editable={loggedIn} />;
+      case 'bookSeries':
+        return <BookSeries data={data.singleBookSeries} editable={loggedIn} />;
       default:
         return undefined;
     }
@@ -117,7 +122,17 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
 
   // Logic to handle post-deletion actions and navigation
   const onCompletedDel = () => {
-    const linkRedirect = `/apps/collection/${recordType}s`;
+    const typeString = (str: RecordType) => {
+      if (!str) return '';
+      const lowerCaseString = str.toLowerCase();
+      const lastChar = lowerCaseString.charAt(lowerCaseString.length - 1);
+      if (lastChar === 's') {
+        return lowerCaseString;
+      }
+      return lowerCaseString;
+    };
+
+    const linkRedirect = `/apps/collection/${typeString(recordType)}`;
     const cappedRecordType = recordType && recordType.charAt(0).toUpperCase() + recordType.slice(1);
     setPopupActive(false);
     setSuccessMessage(`Deletion of ${cappedRecordType} done!`);

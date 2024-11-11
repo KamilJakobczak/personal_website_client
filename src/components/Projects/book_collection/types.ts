@@ -57,7 +57,15 @@ export type RecordType =
   // | 'profile'
   | 'translator'
   // | 'user'
-  // | 'bookSeries'
+  | 'bookSeries'
   // | 'customCollection'
   // | 'userBookDetails';
   | undefined;
+
+// export type SingleRecordType = {
+//   data: {
+//     id: string;
+//     books: [];
+//   };
+//   editable: boolean;
+// };

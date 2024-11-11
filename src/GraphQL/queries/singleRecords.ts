@@ -82,6 +82,10 @@ export const LOAD_SINGLEBOOKSERIES = gql`
     singleBookSeries(id: $id){
       id
       name
+      books {
+        id
+        title
+      }
   }
 }`;
 

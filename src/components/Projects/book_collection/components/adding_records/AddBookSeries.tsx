@@ -10,9 +10,11 @@ import Select from '../general-purpose/Select';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { numbersRegex } from '../../utility/regex';
+import { Flags } from '../../utility/enums';
 
 interface AddBookSeriesProps {
   className: string;
+  flag: Flags;
 }
 
 const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {

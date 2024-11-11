@@ -61,13 +61,14 @@ const BookCollection: React.FC = () => {
     <div className='bookCollection'>
       <Navigation elements={elements} parentClass='bookCollection__main' />
       <Search />
+      {userRole === 'ADMIN' && <Navigation elements={adminNavElements} parentClass='bookCollection__admin' />}
       {!loading && (
         <Navigation
           elements={loggedIn ? loggedInUserNavElements : userNavElements}
           parentClass='bookCollection__user'
         />
       )}
-      {userRole === 'ADMIN' && <Navigation elements={adminNavElements} parentClass='bookCollection__admin' />}
+
       <Outlet context={{ setLoggedIn, setUserRole, loggedIn }} />
     </div>
   );
