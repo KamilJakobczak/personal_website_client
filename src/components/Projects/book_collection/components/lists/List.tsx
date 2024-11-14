@@ -60,7 +60,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
 
   const showThumbnail = (record: RecordValues, thumbnail: string) => {
     const type = record.__typename;
-    if (type === 'Auhor' || type === 'Book' || type === 'Publisher' || type === 'BookSeries') {
+    if (type === 'Auhor' || type === 'Book' || type === 'Publisher' || type === 'singleBookSeries') {
       return <ThumbnailWithFallback url={thumbnail} recordType={record.__typename} />;
     }
   };
@@ -69,7 +69,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     <>
       {(letter ? sortData() : data).map(record => {
         console.log(record);
-        const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
+        const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`; //jamarhub.com/api/images/covers/id/size
 
         return (
           <div className='bookCollection__list_element' key={record.id}>

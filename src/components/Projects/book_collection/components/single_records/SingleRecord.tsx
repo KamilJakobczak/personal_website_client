@@ -150,9 +150,6 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
     if (error) {
       return <CustomError text={error.message} />;
     }
-    if (errorUserBookDetails) {
-      return <CustomError text={errorUserBookDetails.message} />;
-    }
     if (userError) {
       return <CustomError text={userError} />;
     }
