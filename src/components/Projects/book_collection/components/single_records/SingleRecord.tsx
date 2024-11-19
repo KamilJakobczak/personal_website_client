@@ -75,7 +75,6 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
 
   // Function to determine record type based on fetched data
   const record = (): RecordType => {
-    console.log(data);
     if (data.author) return 'author';
     if (data.book) return 'book';
     if (data.publisher) return 'publisher';

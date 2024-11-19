@@ -13,16 +13,16 @@ interface ThumbnailWithFallbackProps extends ImgHTMLAttributes<any> {
 
 const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({ url, recordType }) => {
   const [imgSrc, setImgSrc] = useState('');
-
   const fetchThumbnail = async (url: string): Promise<string> => {
     try {
       const response = await axios.get(url, { responseType: 'blob' });
       const contentType = response.headers['Content-Type'] || 'image/jpeg';
       const blob = new Blob([response.data], { type: contentType as string });
+
       return URL.createObjectURL(blob);
     } catch (error) {
       // Commented to avoid console spamming
-      // console.error('Error fetching image', error);
+
       throw error;
     }
   };
@@ -32,10 +32,11 @@ const ThumbnailWithFallback: React.FC<ThumbnailWithFallbackProps> = ({ url, reco
       console.error('Invalid URL');
       return;
     }
-
     if (recordType === 'Book') {
       fetchThumbnail(url)
-        .then(setImgSrc)
+        .then(() => {
+          setImgSrc(url);
+        })
         .catch(error => {
           if (error.response) {
             // The request was made and the server responded with a status code
