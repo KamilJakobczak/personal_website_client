@@ -1,4 +1,7 @@
+import useViewportHeight from './hooks/useViewportHeight';
+
 const Home: React.FC = () => {
+  useViewportHeight('scroller__homepage');
   return (
     <section className='scroller__homepage'>
       <div className='scroller__homepage_title'>

@@ -1,8 +1,10 @@
 html {
   font-size: $font-size-root;
   font-family: $font-basic;
+  overflow: hidden;
 }
 body {
+  overflow: hidden;
   #root {
     height: 100vh;
     max-height: 100%;

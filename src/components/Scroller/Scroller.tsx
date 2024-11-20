@@ -9,9 +9,9 @@ import WelcomeMessage from '../Scroller/WelcomeMessage';
 const ScrollerComponent: React.FC = () => {
   const elements = [<Home />, <WelcomeMessage />, <Projects />, <Business />];
   const [visibleElementIndex, setVisibleElementIndex] = useState(0);
-  useEffect(() => {
-    document.body.classList.remove('coding_playground');
-  }, []);
+  // useEffect(() => {
+  //   document.body.classList.remove('coding_playground');
+  // }, []);
 
   useEffect(() => {
     const scroller = new Scroller(elements.length);
@@ -41,11 +41,7 @@ const ScrollerComponent: React.FC = () => {
   return (
     <div className='scroller' id='scroller'>
       {elements[visibleElementIndex]}
-      <ScrollerNavigation
-        elements={elements}
-        onClick={handleClick}
-        visibleElement={visibleElementIndex}
-      />
+      <ScrollerNavigation elements={elements} onClick={handleClick} visibleElement={visibleElementIndex} />
     </div>
   );
 };

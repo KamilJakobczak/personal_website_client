@@ -1,7 +1,8 @@
-.scroller__welcome_message {
+.scroller__welcomeMessage {
   height: 100vh;
   max-width: 1400px;
   margin: 0 auto;
+  overflow: hidden;
   &_container {
     display: flex;
     // align-items: center;
@@ -42,7 +43,7 @@
 }
 
 @media (min-width: $breakpoint-360) {
-  .scroller__welcome_message {
+  .scroller__welcomeMessage {
     &_container {
       justify-content: flex-start;
       div {
@@ -56,7 +57,7 @@
 }
 
 @media (min-width: $breakpoint-1400) {
-  .scroller__welcome_message {
+  .scroller__welcomeMessage {
     &_container {
       max-width: 800px;
     }

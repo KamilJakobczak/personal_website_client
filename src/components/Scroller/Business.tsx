@@ -2,18 +2,12 @@ import { ReactComponent as LinkedInIcon } from '../../images/linkedIn_icon.svg';
 import { ReactComponent as GithubIcon } from '../../images/github_icon.svg';
 import { ReactComponent as MailIcon } from '../../images/mail_icon.svg';
 import SkillsSlider from './SkillsSlider';
+import useViewportHeight from './hooks/useViewportHeight';
 
 const Business: React.FC = () => {
-  const mainSkills = [
-    'React',
-    'Javascript',
-    'Typescript',
-    'GraphQL',
-    'CSS (SASS)',
-    'HTML',
-  ];
+  const mainSkills = ['React', 'Javascript', 'Typescript', 'GraphQL', 'CSS (SASS)', 'HTML'];
   const secondarySkills = ['Apollo', 'Redux', 'MongoDB', 'Prisma', 'NodeJS'];
-
+  useViewportHeight('scroller__business');
   return (
     <section className='scroller__business'>
       <h2>Skills and contact</h2>
