@@ -72,7 +72,7 @@ const SingleRecord: React.FC<SingleRecordProps> = ({ query }) => {
       refetchUserBookDetails();
     }
   }, [shouldRefetch, refetch, refetchUserBookDetails]);
-
+  console.log(data);
   // Function to determine record type based on fetched data
   const record = (): RecordType => {
     if (data.author) return 'author';

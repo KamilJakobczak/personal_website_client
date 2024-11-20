@@ -1,5 +1,5 @@
 export const nameRegex = /[\p{Mn}\p{P}\p{Z}\p{L}À-ÿ\w]+/;
-export const lastNameRegex = /^[a-zA-Z]*[-']*[a-zA-Z]+/;
+export const lastNameRegex = /[\p{Mn}\p{P}\p{Z}\p{L}À-ÿ\w]+/;
 export const genreRegex = /^[a-z -]*$/;
 export const websiteRegex = /[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*/;
 export const numbersRegex = /^[0-9]+$/;

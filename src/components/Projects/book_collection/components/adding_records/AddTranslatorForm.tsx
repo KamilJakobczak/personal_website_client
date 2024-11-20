@@ -47,10 +47,11 @@ const AddTranslator: React.FC<AddTranslatorProps> = ({ className }) => {
 
     switch (id) {
       case 'firstName':
-        regexValidator(nameRegex, value, setFirstName);
+        if (typeof value === 'string') setFirstName(value);
         break;
       case 'lastName':
-        regexValidator(lastNameRegex, value, setLastName);
+        if (typeof value === 'string') setLastName(value);
+
         break;
       default:
         break;

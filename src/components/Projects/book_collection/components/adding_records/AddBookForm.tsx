@@ -95,14 +95,14 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
     setCounterState: React.Dispatch<React.SetStateAction<number[]>>
   ) => {
     if (arr) {
+      const newItemState: string[] = [];
+      const newCounterState: number[] = [];
       arr.forEach((element, index) => {
-        if (index === 0) {
-          setItemState([element]);
-        } else {
-          setCounterState(prevState => [...prevState, index]);
-          setItemState(prevState => [...prevState, element]);
-        }
+        newItemState.push(element);
+        newCounterState.push(index);
       });
+      setItemState(newItemState);
+      setCounterState(newCounterState);
     }
   };
   // Refetch function exposed to parent components via ref
@@ -113,11 +113,12 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
   useEffect(() => {
     if (uploadedAuthors) loadReceivedData(uploadedAuthors, setAuthors, setAuthorsSelectCounter);
     if (uploadedGenres) loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
-    if (editableData) {
+    if (editableData && !loading) {
       loadReceivedData(editableData.authors, setAuthors, setAuthorsSelectCounter);
       loadReceivedData(editableData.bookGenres, setGenres, setGenresSelectCounter);
+      loadReceivedData(editableData.translators, setTranslators, setTranslatorsSelectCounter);
     }
-  }, [uploadedAuthors, uploadedGenres, editableData]);
+  }, [uploadedAuthors, uploadedGenres, editableData, loading]);
   // Mutation for adding a book
   const [addBook, { loading: mutationLoading, error: mutationError }] = useMutation(ADD_BOOK, {
     onCompleted(data) {
@@ -270,12 +271,13 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       isbn,
       language,
       pages: pages ? Number(pages) : null,
-      publisher,
+      publisher: publisher.id,
       title,
       titleEnglish,
       titleOriginal,
-      translators,
+      translators: translators ? translators : null,
     };
+    console.log(variables);
 
     if (flag === Flags.Add) {
       addBook({
@@ -289,7 +291,8 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       uploadCover(editableData.id);
     }
   };
-
+  console.log(translators);
+  console.log(publisher);
   // RENDER ELEMENTS
   const showForm = () => {
     return (
@@ -422,6 +425,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
           })}
         </div>
         {/* Translators Selection */}
+
         {language === Language.Polish && title !== titleOriginal && (
           <div className='addBookForm_element addBookForm_element_translators'>
             {translatorsSelectCounter.map(input => {

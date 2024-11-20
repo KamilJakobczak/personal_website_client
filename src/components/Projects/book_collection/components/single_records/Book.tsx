@@ -72,8 +72,8 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
     pages,
     authors: idParser(authors),
     bookGenres: idParser(bookGenres),
-    publisher,
-    translators,
+    publisher: publisher,
+    translators: idParser(translators),
     titleEnglish,
     titleOriginal,
     cover: `${imageApi}/covers/${data.id}/${coverSize}`,
@@ -133,6 +133,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
   };
 
   const showTranslators = () => {
+    console.log(translators);
     let counter = 1;
     return translators.map(translator => {
       const { id } = translator;
