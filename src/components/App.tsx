@@ -8,12 +8,12 @@ const App: React.FC = () => {
   return (
     <>
       <Helmet>
-        {/* <meta
+        <meta
           httpEquiv='Content-Security-Policy'
           content={`
             // img-src 'self' ${imageApi}/* data: blob:;
       `}
-        ></meta> */}
+        ></meta>
       </Helmet>
       <Header />
 

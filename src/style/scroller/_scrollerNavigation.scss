@@ -8,8 +8,8 @@
     align-items: center;
 
     position: absolute;
-    top: 46vh;
-    bottom: 40vh;
+    top: 46dvh;
+    bottom: 40dvh;
     right: 2vw;
     left: 94vw;
 
@@ -28,8 +28,8 @@
 @media (orientation: landscape) {
   .scroller {
     &__navigation {
-      top: 45vh;
-      bottom: 30vh;
+      top: 45dvh;
+      bottom: 30dvh;
     }
   }
 }

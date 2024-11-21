@@ -4,7 +4,6 @@ const useViewportHeight = (elementClass: string) => {
   useEffect(() => {
     const setVH = () => {
       const container = document.querySelector(`.${elementClass}`) as HTMLElement;
-
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty('--vh', `${vh}px`);
       if (container) {

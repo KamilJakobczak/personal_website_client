@@ -1,12 +1,10 @@
 html {
   font-size: $font-size-root;
   font-family: $font-basic;
-  overflow: hidden;
 }
 body {
-  overflow: hidden;
   #root {
-    height: 100vh;
+    height: 100dvh;
     max-height: 100%;
     position: relative;
     display: flex;
@@ -21,6 +19,7 @@ body {
   #scroller {
     background-color: $scroller-background-color;
     color: $scroller-text-color;
+    overflow: hidden;
   }
   button {
     font-family: $font-basic;

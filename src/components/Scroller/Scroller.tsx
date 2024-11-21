@@ -6,9 +6,11 @@ import Home from '../Scroller/Home';
 import Projects from '../Scroller/Projects';
 import ScrollerNavigation from '../Scroller/ScrollerNavigation';
 import WelcomeMessage from '../Scroller/WelcomeMessage';
+
 const ScrollerComponent: React.FC = () => {
   const elements = [<Home />, <WelcomeMessage />, <Projects />, <Business />];
   const [visibleElementIndex, setVisibleElementIndex] = useState(0);
+  // useSwiper();
   // useEffect(() => {
   //   document.body.classList.remove('coding_playground');
   // }, []);
