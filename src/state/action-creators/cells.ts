@@ -29,10 +29,7 @@ export const fetchCells = (cookie?: string) => {
     } = getState();
 
     try {
-      const { data }: { data: Cell[] } = await axios.get(
-        `${codingApi}/cells/${sessionId}`
-      );
-      console.log(data);
+      const { data }: { data: Cell[] } = await axios.get(`${codingApi}/cells/${sessionId}`);
 
       dispatch({ type: ActionType.FETCH_CELLS_COMPLETE, payload: data });
     } catch (err) {
@@ -46,10 +43,7 @@ export const fetchCells = (cookie?: string) => {
   };
 };
 
-export const insertCellAfter = (
-  id: string | null,
-  type: CellTypes
-): InsertCellAfterAction => {
+export const insertCellAfter = (id: string | null, type: CellTypes): InsertCellAfterAction => {
   return {
     type: ActionType.INSERT_CELL_AFTER,
     payload: {

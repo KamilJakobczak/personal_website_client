@@ -16,7 +16,6 @@ const SignUp = () => {
 
   const [signup, { error, data, loading }] = useMutation(SIGNUP, {
     onCompleted(data) {
-      console.log(data);
       if (data.signup.userErrors[0].message) {
         setUserError(data.signup.userErrors[0].message);
       }

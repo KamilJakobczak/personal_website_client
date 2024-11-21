@@ -29,7 +29,6 @@ const CollectionList: React.FC<ListProps> = ({ query, listClass }) => {
   // Effect to handle refetching and updating list data
   useEffect(() => {
     if (refetchBoolean) {
-      console.log('refetching data...');
       refetch();
     }
   }, [refetch, refetchBoolean]);

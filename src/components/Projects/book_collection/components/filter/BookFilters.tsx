@@ -15,7 +15,6 @@ const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery, hideWhenDone })
   const [genresFilter, setGenresFilter] = useState<string[]>([]);
   const [publishersFilter, setPublishersFilter] = useState<string[]>([]);
 
-  console.log(genresFilter, publishersFilter);
   const { data, loading, error } = useQuery(LOAD_GENRES);
   const { data: dataP, loading: loadingP, error: errorP } = useQuery(LOAD_PUBLISHERS);
 

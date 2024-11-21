@@ -70,7 +70,6 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
         bookId: books[i],
       });
     }
-    console.log(`Counter: ${booksSelectionCounter}; Tomes: ${tomes}; Books: ${books}; `, arr.length);
 
     if (arr[0].bookId === '') {
       setUserError('Book series must have at least one book');

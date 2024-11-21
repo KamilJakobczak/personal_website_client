@@ -1,28 +1,29 @@
+// Hooks and main libraries
 import { useState, useEffect } from 'react';
-
-import Button from '../general-purpose/Button';
 import { useMutation } from '@apollo/client';
-import { SIGNIN } from '../../../../../GraphQL/mutations';
+import { useNavigate } from 'react-router-dom';
+import { useStatus } from '../../../BookCollection';
+// Components
+import Button from '../general-purpose/Button';
 import Error from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import SuccessMessage from '../general-purpose/SuccessMessage';
-import { useNavigate } from 'react-router-dom';
-import { useStatus } from '../../../BookCollection';
-import { getCookie } from '../../../../../utility/getCookie';
+// GraphQL
+import { SIGNIN } from '../../../../../GraphQL/mutations';
 
 const LogIn: React.FC = () => {
+  const navigate = useNavigate();
+  const controller = new AbortController();
+  const { setLoggedIn, setUserRole } = useStatus();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userError, setUserError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const { setLoggedIn, setUserRole } = useStatus();
-  const navigate = useNavigate();
-  const controller = new AbortController();
-
+  // GraphQL mutation for signing in
   const [signin, { error, data, loading }] = useMutation(SIGNIN, {
     onCompleted(data) {
-      console.log(data);
       if (data.signin.userErrors[0].message) {
         setUserError(data.signin.userErrors[0].message);
       } else if (data.signin.user) {
@@ -32,8 +33,6 @@ const LogIn: React.FC = () => {
         setPassword('');
         setLoggedIn(true);
         setUserError('');
-        console.log(data.signin.user);
-
         setUserRole(data.signin.user.role);
         setTimeout(() => {
           navigate('/apps/collection');
@@ -41,13 +40,12 @@ const LogIn: React.FC = () => {
       }
     },
   });
-
+  // Function to handle form submission
   const handleSubmit = () => {
-    console.log(email, password);
-    if (email === '' || password === '') {
+    if (!email || !password) {
       setUserError('Provide both username/email and password');
+      return;
     }
-
     signin({
       variables: {
         credentials: {
@@ -57,20 +55,14 @@ const LogIn: React.FC = () => {
       },
     });
   };
-
+  // Effect to handle "Enter" key press for form submission
   useEffect(() => {
+    const handleEnterKey = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') handleSubmit();
+    };
     const passwordInput = document.getElementById('password');
-
     if (passwordInput) {
-      passwordInput.addEventListener(
-        'keydown',
-        e => {
-          if (e.key === 'Enter') {
-            handleSubmit();
-          }
-        },
-        { signal: controller.signal }
-      );
+      passwordInput.addEventListener('keydown', handleEnterKey, { signal: controller.signal });
     }
     return () => {
       controller.abort();
@@ -88,7 +80,6 @@ const LogIn: React.FC = () => {
             value={email}
             onChange={e => {
               setEmail(e.target.value);
-              console.log(e.target.value);
               setUserError('');
             }}
           />
@@ -101,7 +92,6 @@ const LogIn: React.FC = () => {
             value={password}
             onChange={e => {
               setPassword(e.target.value);
-              console.log(e.target.value);
               setUserError('');
             }}
           />
@@ -120,8 +110,11 @@ const LogIn: React.FC = () => {
     <div className='login-wrapper'>
       {loading && <LoadingSpinner />}
       {!loading && !successMessage && showForm()}
-      {data && successMessage ? <SuccessMessage successMessage={successMessage} /> : null}
-      {!successMessage && <Button text='login' className='login_submit' handleClick={handleSubmit} />}
+      {successMessage ? (
+        <SuccessMessage successMessage={successMessage} />
+      ) : (
+        <Button text='login' className='login_submit' handleClick={handleSubmit} />
+      )}
       {userError && showErrors()}
     </div>
   );

@@ -6,10 +6,7 @@ interface PurchasedBookDetailsInterface {
   updateState: React.Dispatch<React.SetStateAction<CoverCheckboxes[]>>;
 }
 
-const PurchasedBookDetails: React.FC<PurchasedBookDetailsInterface> = ({
-  cover,
-  updateState,
-}) => {
+const PurchasedBookDetails: React.FC<PurchasedBookDetailsInterface> = ({ cover, updateState }) => {
   const coverClass = cover.type.toLowerCase();
   const index = cover.id;
 
@@ -50,11 +47,7 @@ const PurchasedBookDetails: React.FC<PurchasedBookDetailsInterface> = ({
         });
     }
   };
-  const handlePrice = (
-    e:
-      | React.ChangeEvent<HTMLSelectElement>
-      | React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlePrice = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.name) {
       case 'price':
         updateState(prevState => {
@@ -69,13 +62,11 @@ const PurchasedBookDetails: React.FC<PurchasedBookDetailsInterface> = ({
         break;
       case 'currency':
         updateState(prevState => {
-          console.log(prevState);
           const newState = prevState.map(book => {
-            console.log(book.id, index);
             if (book.id === index) {
               return { ...book, currency: e.target.value as Currency };
             }
-            console.log(book);
+
             return book;
           });
           return newState;
@@ -83,9 +74,7 @@ const PurchasedBookDetails: React.FC<PurchasedBookDetailsInterface> = ({
     }
   };
   return (
-    <div
-      className={`userActions__form_element userActions__form_element-${coverClass}`}
-    >
+    <div className={`userActions__form_element userActions__form_element-${coverClass}`}>
       <fieldset className='purchaseInfo'>
         <legend>{cover.type}</legend>
         <div className={`purchaseInfo_edition`}>
@@ -130,11 +119,7 @@ const PurchasedBookDetails: React.FC<PurchasedBookDetailsInterface> = ({
           </div>
           <div>
             <label htmlFor={`currency-${index}`}>Currency:</label>
-            <select
-              name='currency'
-              id={`currency-${index}`}
-              onChange={e => handlePrice(e)}
-            >
+            <select name='currency' id={`currency-${index}`} onChange={e => handlePrice(e)}>
               <option value=''>select</option>
               <option value={Currency.PLN}>{Currency.PLN}</option>
               <option value={Currency.EUR}>{Currency.EUR}</option>

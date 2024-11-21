@@ -22,7 +22,6 @@ const BookCollection: React.FC = () => {
 
   const [logout] = useMutation(SIGNOUT, {
     onCompleted(data) {
-      console.log(data);
       setLoggedIn(false);
       setUserRole('');
     },

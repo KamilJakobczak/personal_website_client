@@ -3,7 +3,6 @@ export const useLocations = (location: string) => {
 
   if (locationString.indexOf('/') > 0) {
     const slashIndex = locationString.indexOf('/');
-    // console.log(slashIndex);
     return locationString.slice(0, slashIndex);
   }
 

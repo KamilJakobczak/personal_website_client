@@ -10,7 +10,6 @@ interface ProtectedRouteProps {
 export const ProtectedRoute = (props: ProtectedRouteProps) => {
   const { error, loading, data } = useQuery(CHECK_LOGIN);
   const { nestedElement } = props;
-  console.log(nestedElement);
   if (data && data.checkLogin.authenticated) {
     return nestedElement;
   } else if (loading && !data) return <LoadingSpinner />;

@@ -10,10 +10,7 @@ interface UserActionsInterface {
   recordId: string;
 }
 
-const UserActions: React.FC<UserActionsInterface> = ({
-  parentClass,
-  recordId,
-}) => {
+const UserActions: React.FC<UserActionsInterface> = ({ parentClass, recordId }) => {
   // initial state
   const initialPurchasedBooksState = [
     {
@@ -46,23 +43,14 @@ const UserActions: React.FC<UserActionsInterface> = ({
   const [whenRead, setWhenRead] = useState('');
   const [ratingState, setRatingState] = useState('');
 
-  const [purchasedBooksInfo, setPurchasedBooksInfo] = useState<
-    CoverCheckboxes[]
-  >(initialPurchasedBooksState);
+  const [purchasedBooksInfo, setPurchasedBooksInfo] = useState<CoverCheckboxes[]>(initialPurchasedBooksState);
   // fetch/send data
-  const [addUserBookDetails, { data, loading, error }] = useMutation(
-    ADD_USERBOOKDETAILS,
-    {
-      onCompleted(data) {
-        console.log(data);
-      },
-    }
-  );
+  const [addUserBookDetails, { data, loading, error }] = useMutation(ADD_USERBOOKDETAILS, {
+    onCompleted(data) {},
+  });
   // handlers
 
-  const updatePurchasedBooksState = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const updatePurchasedBooksState = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPurchasedBooksInfo(prevState => {
       const newState = prevState.map(book => {
         if (book.type === e.target.id) {
@@ -144,8 +132,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
     const ratings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return ratings.map(rating => {
-      const classVariant =
-        rating <= parseInt(ratingState) ? 'solid' : `regular`;
+      const classVariant = rating <= parseInt(ratingState) ? 'solid' : `regular`;
       return (
         <i
           onClick={e => handleRating(e)}
@@ -160,13 +147,7 @@ const UserActions: React.FC<UserActionsInterface> = ({
   const purchasedBooksOptions = () => {
     return purchasedBooksInfo.map(cover => {
       if (cover.checked === true) {
-        return (
-          <PurchasedBookDetails
-            cover={cover}
-            key={cover.type}
-            updateState={setPurchasedBooksInfo}
-          />
-        );
+        return <PurchasedBookDetails cover={cover} key={cover.type} updateState={setPurchasedBooksInfo} />;
       } else return null;
     });
   };
@@ -174,25 +155,15 @@ const UserActions: React.FC<UserActionsInterface> = ({
   const optionsForm = () => {
     return (
       <div className={`${parentClass}__userActions__options userActions`}>
-        <form
-          className={`${parentClass}__userActions__options_form userActions__form`}
-        >
+        <form className={`${parentClass}__userActions__options_form userActions__form`}>
           <div className='userActionsForm_element userActions__form_element-status'>
             <label htmlFor='bookStatus'>Status:</label>
-            <select
-              name='bookStatus'
-              id='bookStatus'
-              onChange={e => handleBookStatus(e.target.value)}
-            >
+            <select name='bookStatus' id='bookStatus' onChange={e => handleBookStatus(e.target.value)}>
               <option value=''>-- select --</option>
               <option value={BookStatus.READ}>{BookStatus.READ}</option>
               <option value={BookStatus.UNREAD}>{BookStatus.UNREAD}</option>
-              <option value={BookStatus.WANTEDTOBUY}>
-                {BookStatus.WANTEDTOBUY}
-              </option>
-              <option value={BookStatus.WANTEDTOREAD}>
-                {BookStatus.WANTEDTOREAD}
-              </option>
+              <option value={BookStatus.WANTEDTOBUY}>{BookStatus.WANTEDTOBUY}</option>
+              <option value={BookStatus.WANTEDTOREAD}>{BookStatus.WANTEDTOREAD}</option>
             </select>
           </div>
           {bookStatus === BookStatus.READ && (
@@ -218,21 +189,11 @@ const UserActions: React.FC<UserActionsInterface> = ({
             <legend>Owned:</legend>
             <div className='form-control'>
               <label htmlFor='owned'>owned</label>
-              <input
-                type='checkbox'
-                name='owned'
-                id='owned'
-                onChange={e => handleOwnedCheckboxes(e)}
-              />
+              <input type='checkbox' name='owned' id='owned' onChange={e => handleOwnedCheckboxes(e)} />
             </div>
             <div className='form-control'>
               <label htmlFor='notOwned'>not owned</label>
-              <input
-                type='checkbox'
-                name='notOwned'
-                id='notOwned'
-                onChange={e => handleOwnedCheckboxes(e)}
-              />
+              <input type='checkbox' name='notOwned' id='notOwned' onChange={e => handleOwnedCheckboxes(e)} />
             </div>
           </div>
           {owned && (

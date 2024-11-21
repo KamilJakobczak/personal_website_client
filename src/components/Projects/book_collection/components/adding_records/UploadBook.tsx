@@ -65,7 +65,6 @@ const UploadBook: React.FC = () => {
   const childRef = useRef<AddBookFormRef>(null);
 
   useEffect(() => {
-    console.log(parsedData);
     if (parsedData) {
       if (parsedData.authors?.new && !newAuthors) {
         setNewAuthors(parsedData.authors.new);

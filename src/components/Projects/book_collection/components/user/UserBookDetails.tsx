@@ -6,11 +6,7 @@ interface UserBookDetailsInterface {
   className: string;
 }
 
-const UserBookDetails: React.FC<UserBookDetailsInterface> = ({
-  details,
-  className,
-}) => {
-  console.log(details);
+const UserBookDetails: React.FC<UserBookDetailsInterface> = ({ details, className }) => {
   const { rating, status, whenRead, purchasedBookInfo } = details;
 
   const statusElement = () => {
@@ -47,7 +43,6 @@ const UserBookDetails: React.FC<UserBookDetailsInterface> = ({
     }
   };
   const purchasedElement = () => {
-    console.log(purchasedBookInfo);
     return purchasedBookInfo.map(book => {
       const { edition, coverType } = book;
 
@@ -61,9 +56,7 @@ const UserBookDetails: React.FC<UserBookDetailsInterface> = ({
             <div>
               <p>
                 {editionNumber &&
-                  `${editionNumber}${editionOrdinal} edition ${
-                    editionYear ? 'from ' + editionYear : ''
-                  }`}
+                  `${editionNumber}${editionOrdinal} edition ${editionYear ? 'from ' + editionYear : ''}`}
               </p>
             </div>
             <div>

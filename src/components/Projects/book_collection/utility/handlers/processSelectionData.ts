@@ -24,7 +24,6 @@ export const processSelectionData = (
     if (setDuplicationError) {
       setDuplicationError(true);
       invalidValue(event);
-      console.log('duplication error');
     }
   } else {
     element.classList.remove('invalid');

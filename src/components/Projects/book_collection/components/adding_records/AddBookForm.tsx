@@ -277,7 +277,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       titleOriginal,
       translators: translators ? translators : null,
     };
-    console.log(variables);
 
     if (flag === Flags.Add) {
       addBook({
@@ -291,8 +290,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>((props, ref) =>
       uploadCover(editableData.id);
     }
   };
-  console.log(translators);
-  console.log(publisher);
+
   // RENDER ELEMENTS
   const showForm = () => {
     return (

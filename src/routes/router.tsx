@@ -37,7 +37,6 @@ import AddAuthorForm from '../components/Projects/book_collection/components/add
 import LogIn from '../components/Projects/book_collection/components/user/LogIn';
 import SignUp from '../components/Projects/book_collection/components/user/SignUp';
 import { ProtectedRoute } from './ProtectedRoute';
-import UserBooks from '../components/Projects/book_collection/components/user/Profile';
 import UserLibrary from '../components/Projects/book_collection/components/user/UserLibrary';
 import Profile from '../components/Projects/book_collection/components/user/Profile';
 import AddBookSeries from '../components/Projects/book_collection/components/adding_records/AddBookSeries';

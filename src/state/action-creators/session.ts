@@ -42,7 +42,7 @@ export const createSession = () => {
 export const checkSession = () => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({ type: ActionType.CHECK_SESSION });
-    console.log('dispatching check session');
+
     try {
       const { data } = await axios.get(`${codingApi}/cells/session`, {
         withCredentials: true,
