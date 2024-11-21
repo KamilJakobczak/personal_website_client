@@ -68,8 +68,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
   return (
     <>
       {(letter ? sortData() : data).map(record => {
-        const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`; //jamarhub.com/api/images/covers/id/size
-
+        const thumbnail = `${imageApi}/covers/${record.id}/thumbnail`;
         return (
           <div className='bookCollection__list_element' key={record.id}>
             <Link className='router_link' to={linkPath(record) || ''} state={{ id: record.id }}>

@@ -15,7 +15,7 @@ type ContextType = {
 };
 
 const BookCollection: React.FC = () => {
-  const { error, loading, data } = useQuery(CHECK_LOGIN);
+  const { loading, data } = useQuery(CHECK_LOGIN);
 
   const [loggedIn, setLoggedIn] = useState<boolean>();
   const [userRole, setUserRole] = useState('');
@@ -23,7 +23,7 @@ const BookCollection: React.FC = () => {
   const [logout] = useMutation(SIGNOUT, {
     onCompleted(data) {
       console.log(data);
-      setLoggedIn(data.signout.authenticated);
+      setLoggedIn(false);
       setUserRole('');
     },
   });
