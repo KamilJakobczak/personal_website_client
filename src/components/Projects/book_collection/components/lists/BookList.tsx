@@ -7,6 +7,7 @@ import BookFilters from '../filter/BookFilters';
 import List from './List';
 import Button from '../general-purpose/Button';
 import { useLocation } from 'react-router-dom';
+import PageNumbers from './PageNumbers';
 
 const BookList: React.FC = () => {
   const location = useLocation();
@@ -18,6 +19,8 @@ const BookList: React.FC = () => {
 
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [higherWidth, setHigherWidth] = useState(false);
+  const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState(14);
 
   const handleFiltersClick = () => {
     setFiltersVisible(prevState => !prevState);
@@ -31,59 +34,77 @@ const BookList: React.FC = () => {
     }
   }, [location.state, refetch]);
 
-  const windowResize = () => {
-    const width = window.innerWidth;
-    if (width > 1025) {
-      setFiltersVisible(true);
-      setHigherWidth(true);
-    } else {
-      setFiltersVisible(false);
-      setHigherWidth(false);
-    }
-  };
-  useEffect(() => {
-    if (window.innerWidth > 1024) {
-      setHigherWidth(true);
-      setFiltersVisible(true);
-    }
-    window.addEventListener('resize', windowResize);
+  // const windowResize = () => {
+  //   const width = window.innerWidth;
+  //   if (width > 1025) {
+  //     setFiltersVisible(true);
+  //     setHigherWidth(true);
+  //   } else {
+  //     setFiltersVisible(false);
+  //     setHigherWidth(false);
+  //   }
+  // };
+  // useEffect(() => {
+  //   if (window.innerWidth > 1024) {
+  //     setHigherWidth(true);
+  //     setFiltersVisible(true);
+  //   }
+  //   window.addEventListener('resize', windowResize);
 
+  //   return () => {
+  //     window.removeEventListener('resize', windowResize);
+  //   };
+  // }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width > 1025) {
+        setFiltersVisible(true);
+        setHigherWidth(true);
+      } else {
+        setFiltersVisible(false);
+        setHigherWidth(false);
+      }
+    };
+    handleResize();
+    // Set initial state based on current window size
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resize', windowResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
-  const memoizedBooks = useMemo(() => data?.books ?? [], [data]);
-  const showFilters = useMemo(
-    () => (
-      <>
-        {filtersVisible && !higherWidth && (
-          <Button
-            className='bookCollection__books__filter_hideButton'
-            text='hide filters'
-            handleClick={handleFiltersClick}
-          />
-        )}
-        {filtersVisible ? (
-          <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} />
-        ) : (
-          <Button
-            className='bookCollection__books__filter_showButton'
-            text='show filters'
-            handleClick={handleFiltersClick}
-          />
-        )}
-      </>
-    ),
-    [filtersVisible, higherWidth, refetch]
+
+  const showFilters = () => (
+    <>
+      {filtersVisible && !higherWidth && (
+        <Button
+          className='bookCollection__books__filter_hideButton'
+          text='hide filters'
+          handleClick={handleFiltersClick}
+        />
+      )}
+      {filtersVisible ? (
+        <BookFilters refetchQuery={refetch} hideWhenDone={hideFilters} />
+      ) : (
+        <Button
+          className='bookCollection__books__filter_showButton'
+          text='show filters'
+          handleClick={handleFiltersClick}
+        />
+      )}
+    </>
   );
+
   return (
     <div className='bookCollection__books'>
-      <div className='bookCollection__books__filter'>{showFilters}</div>
-      {memoizedBooks.length > 0 && !error && !loading && (
+      <div className='bookCollection__books__filter'>{showFilters()}</div>
+      {data?.books.length > 0 && !error && !loading && (
         <div className='bookCollection__books__list bookCollection__list'>
-          <List data={memoizedBooks} />
+          <List data={data.books} />
+          <PageNumbers currentPage={5} totalPages={totalPages} setActivePage={setActivePage} />
         </div>
       )}
+
       {error && <CustomError text={error.message} />}
       {loading && <LoadingSpinner />}
     </div>

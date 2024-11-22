@@ -46,6 +46,29 @@
       }
     }
   }
+  &_pages {
+    width: 50%;
+    // border: 1px solid green;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    &-page {
+      &.active {
+        color: $apps_background;
+        background-color: $fourth-color;
+      }
+      flex-basis: 7%;
+      flex-grow: 1;
+
+      > span {
+        text-align: center;
+        display: block;
+        // border: red 1px solid;
+        width: 90%;
+        font-size: $font-size-small;
+      }
+    }
+  }
 }
 @media (min-width: $breakpoint-360) {
   .bookCollection__list {

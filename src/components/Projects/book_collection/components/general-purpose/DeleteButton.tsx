@@ -7,13 +7,7 @@ interface DeleteButtonProps {
   popupState: boolean;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({
-  id,
-  parentClass,
-  popupState,
-  popupToggle,
-}) => {
-  // console.log(location.pathname);
+const DeleteButton: React.FC<DeleteButtonProps> = ({ id, parentClass, popupState, popupToggle }) => {
   // const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   //   // const target = e.target as HTMLElement;
   //   // const container = target.parentElement?.parentElement;

@@ -65,6 +65,16 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
     }
   };
 
+  const handleLongTitles = (title: string, maxLength: number) => {
+    if (title.length <= maxLength) return title;
+    let shortenedTitle = title.slice(0, maxLength);
+
+    if (shortenedTitle.lastIndexOf(' ') > -1) {
+      shortenedTitle = shortenedTitle.slice(0, shortenedTitle.lastIndexOf(' '));
+    }
+    return `${shortenedTitle}...`;
+  };
+
   return (
     <>
       {(letter ? sortData() : data).map(record => {
@@ -74,7 +84,7 @@ const List: React.FC<ListProps> = ({ data, nested }) => {
             <Link className='router_link' to={linkPath(record) || ''} state={{ id: record.id }}>
               {showThumbnail(record, thumbnail)}
               <span>
-                {record.title ? record.title : null}
+                {record.title ? handleLongTitles(record.title, 100) : null}
                 {record.lastName ? `${record.lastName} ${record.firstName}` : null}
                 {record.name ? record.name : null}
               </span>
