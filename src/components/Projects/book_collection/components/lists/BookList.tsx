@@ -20,7 +20,7 @@ const BookList: React.FC = () => {
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [higherWidth, setHigherWidth] = useState(false);
   const [activePage, setActivePage] = useState(1);
-  const [totalPages, setTotalPages] = useState(14);
+  const [totalPages, setTotalPages] = useState(13);
 
   const handleFiltersClick = () => {
     setFiltersVisible(prevState => !prevState);
@@ -101,7 +101,7 @@ const BookList: React.FC = () => {
       {data?.books.length > 0 && !error && !loading && (
         <div className='bookCollection__books__list bookCollection__list'>
           <List data={data.books} />
-          <PageNumbers currentPage={5} totalPages={totalPages} setActivePage={setActivePage} />
+          <PageNumbers activePage={activePage} totalPages={totalPages} setActivePage={setActivePage} />
         </div>
       )}
 

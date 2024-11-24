@@ -53,19 +53,23 @@
     display: flex;
     justify-content: space-between;
     &-page {
-      &.active {
-        color: $apps_background;
-        background-color: $fourth-color;
-      }
       flex-basis: 7%;
-      flex-grow: 1;
 
+      transition: 0.1s;
       > span {
         text-align: center;
         display: block;
         // border: red 1px solid;
         width: 90%;
         font-size: $font-size-small;
+      }
+      &.active {
+        color: $apps_background;
+        background-color: $fourth-color;
+      }
+      &:hover {
+        color: $apps_background;
+        background-color: $fourth-color;
       }
     }
   }
