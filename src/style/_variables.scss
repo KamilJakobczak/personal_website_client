@@ -19,8 +19,9 @@ $font-size-h2: clamp(2rem, 1.5088rem + 1.7544vw, 6rem);
 $font-size-h3: clamp(1.6rem, 1.1825rem + 1.4912vw, 5rem);
 $font-size-h4: clamp(1.6rem, 1.3667rem + 0.8333vw, 3.5rem);
 $font-size-h5: clamp(1.4rem, 1.1789rem + 0.7895vw, 3.2rem);
-$font-size-p: clamp(1.4rem, 1.2035rem + 0.7018vw, 3rem);
-$font-size-small: clamp(1.4rem, 1.2649rem + 0.4825vw, 2.5rem);
+// $font-size-p: clamp(1.4rem, 1.2035rem + 0.7018vw, 3rem);
+$font-size-p: clamp(1.2rem, 0.439vw + 1.077rem, 2.2rem);
+$font-size-small: clamp(1rem, 0.439vw + 0.877rem, 2rem);
 
 $font-basic: 'Kanit', Arial, Helvetica, sans-serif;
 $font-heading: 'Monoton', Arial, Helvetica, sans-serif;

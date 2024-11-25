@@ -3,6 +3,7 @@ html {
   font-family: $font-basic;
 }
 body {
+  background-color: $apps_background;
   #root {
     height: 100dvh;
     max-height: 100%;

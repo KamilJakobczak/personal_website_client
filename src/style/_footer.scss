@@ -1,19 +1,18 @@
 footer.footer {
-  flex-basis: 5%;
+  flex-basis: 6%;
   flex: 1;
   position: relative;
   bottom: 0;
   left: 0;
-  background-color: $apps_background;
+
   div {
     width: 100%;
     border-top: 1px solid $fourth-color;
-    padding-bottom: 10px;
     color: $fourth-color;
     span {
       display: block;
       margin-top: 5px;
-      font-size: $font-size-p;
+      font-size: $font-size-small;
       letter-spacing: 1.75px;
       text-align: center;
     }

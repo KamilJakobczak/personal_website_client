@@ -91,7 +91,7 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
             <Link className='router_link' to={linkPath(record) || ''} state={{ id: record.id }}>
               {showThumbnail(record, thumbnail)}
               <span>
-                {record.title ? handleLongTitles(record.title, 100) : null}
+                {record.title ? handleLongTitles(record.title, 150) : null}
                 {record.lastName ? `${record.lastName} ${record.firstName}` : null}
                 {record.name ? record.name : null}
               </span>
