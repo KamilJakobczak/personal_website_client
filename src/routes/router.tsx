@@ -10,6 +10,7 @@ import {
   LOAD_AUTHOR,
   LOAD_AUTHORS_FEED,
   LOAD_BOOK,
+  LOAD_BOOKS_FEED,
   LOAD_BOOKSERIES_FEED,
   LOAD_GENRE,
   LOAD_GENRES_FEED,
@@ -75,7 +76,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/books',
-            element: <BookList />,
+            element: <BookList paginatedQuery={LOAD_BOOKS_FEED} listClass={CollectionsClasses.Books} />,
           },
           {
             path: '/apps/collection/books/:id',

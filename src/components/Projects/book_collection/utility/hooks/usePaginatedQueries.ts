@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { DocumentNode } from 'graphql';
 import { CollectionsClasses } from '../enums';
-import { LOAD_AUTHORS_FEED } from '../../../../../GraphQL/queries';
 
 interface DataInterface {
   id: string;
@@ -11,11 +10,9 @@ interface DataInterface {
 
 export const usePaginatedQueries = (paginatedQuery: DocumentNode, listCLass?: CollectionsClasses) => {
   const [activePage, setActivePage] = useState(1);
-  const [limit, setLimit] = useState(10);
   const [offsetMulti, setOffsetMulti] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
   const [data, setData] = useState<DataInterface[]>([]);
-  // const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     console.log(listCLass);
@@ -23,14 +20,17 @@ export const usePaginatedQueries = (paginatedQuery: DocumentNode, listCLass?: Co
       case CollectionsClasses.Authors:
         setOffsetMulti(16);
         break;
-      case CollectionsClasses.Publishers:
-        setOffsetMulti(12);
+      case CollectionsClasses.Books:
+        setOffsetMulti(10);
         break;
       case CollectionsClasses.BookSeries:
         setOffsetMulti(20);
         break;
       case CollectionsClasses.Genres:
         setOffsetMulti(20);
+        break;
+      case CollectionsClasses.Publishers:
+        setOffsetMulti(12);
         break;
       case CollectionsClasses.Translators:
         setOffsetMulti(16);
@@ -62,9 +62,13 @@ export const usePaginatedQueries = (paginatedQuery: DocumentNode, listCLass?: Co
   useEffect(() => {
     if (QueryData && !loading) {
       switch (true) {
+        case !!QueryData.booksFeed:
+          const { books } = QueryData.booksFeed;
+          setData(books);
+          setTotalPages(Math.ceil(QueryData.booksFeed.totalCount / offsetMulti));
+          break;
         case !!QueryData.authorsFeed:
           const { authors } = QueryData.authorsFeed;
-          console.log(authors);
           setData(authors);
           setTotalPages(Math.ceil(QueryData.authorsFeed.totalCount / offsetMulti));
           break;

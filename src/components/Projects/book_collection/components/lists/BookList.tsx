@@ -1,42 +1,28 @@
-import { useQuery } from '@apollo/client';
 import { useState, useEffect } from 'react';
-import { LOAD_BOOKS_FEED } from '../../../../../GraphQL/queries';
 import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import BookFilters from '../filter/BookFilters';
 import List from './List';
 import Button from '../general-purpose/Button';
 import { useLocation } from 'react-router-dom';
+import { ListProps } from './CollectionList';
+import { usePaginatedQueries } from '../../utility/hooks/usePaginatedQueries';
 
-const BookList: React.FC = () => {
+const BookList: React.FC<ListProps> = ({ paginatedQuery, listClass }) => {
   const location = useLocation();
 
   const [filtersVisible, setFiltersVisible] = useState(false);
   const [higherWidth, setHigherWidth] = useState(false);
-  const [activePage, setActivePage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
 
-  const { data, error, loading, refetch } = useQuery(LOAD_BOOKS_FEED, {
-    variables: {
-      input: {
-        offset: (activePage - 1) * 10,
-        limit: 10,
-      },
-    },
-    fetchPolicy: 'cache-and-network',
-  });
+  const { data, error, loading, refetch, pagination } = usePaginatedQueries(paginatedQuery, listClass);
+
   // Refetch data if needed
   useEffect(() => {
     if (location.state?.refetch) {
       refetch();
     }
   }, [location.state, refetch]);
-  // Set number of pages
-  useEffect(() => {
-    if (data?.booksFeed?.totalCount) {
-      setTotalPages(Math.ceil(data.booksFeed.totalCount / 10));
-    }
-  }, [data]);
+
   // Handle list filters visability
   const handleFiltersClick = () => {
     setFiltersVisible(prevState => !prevState);
@@ -87,9 +73,9 @@ const BookList: React.FC = () => {
   return (
     <div className='bookCollection__books'>
       <div className='bookCollection__books__filter'>{showFilters()}</div>
-      {data?.booksFeed?.books?.length > 0 && !error && !loading && (
+      {data && !error && !loading && (
         <div className='bookCollection__books__list bookCollection__list'>
-          <List data={data.booksFeed.books} pagination={{ activePage, totalPages, setActivePage }} />
+          <List data={data} pagination={pagination} />
         </div>
       )}
       {error && <CustomError text={error.message} />}
