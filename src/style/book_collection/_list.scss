@@ -1,8 +1,8 @@
 .bookCollection__list {
   display: flex;
   width: 100%;
-  margin: 20px auto 0;
-  min-height: 70dvh;
+  margin: 10px auto 0;
+  min-height: 65dvh;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
@@ -47,11 +47,12 @@
     }
   }
   &_pages {
-    width: 50%;
+    flex-basis: 90%;
+
     // border: 1px solid green;
-    margin: 10px auto;
+    margin: 5px auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     &-page {
       flex-basis: 7%;
 

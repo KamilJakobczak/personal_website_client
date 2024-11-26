@@ -23,6 +23,9 @@ export const apollo_client = new ApolloClient({
             //   return [...existing, ...incoming]
             // }
           },
+          authorsFeed: {
+            keyArgs: false,
+          },
         },
       },
     },

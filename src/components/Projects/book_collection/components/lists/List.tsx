@@ -55,15 +55,15 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
     });
   };
 
-  const checkLocation = () => {
-    const path = location.pathname;
-    console.log(path);
-    if (path.includes('books')) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const checkLocation = () => {
+  //   const path = location.pathname;
+  //   console.log(path);
+  //   if (path.includes('books') || path.includes('authors') || path.includes('publishers')) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   const showThumbnail = (record: RecordValues, thumbnail: string) => {
     const type = record.__typename;
@@ -100,18 +100,16 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
         );
       })}
 
-      {checkLocation() ? (
-        <>
-          {pagination && (
-            <PageNumbers
-              activePage={pagination.activePage}
-              totalPages={pagination.totalPages}
-              setActivePage={pagination.setActivePage}
-            />
-          )}
-          <AZList letter={letter} sort={setLetter} />
-        </>
-      ) : null}
+      <>
+        {pagination && pagination.totalPages > 1 && (
+          <PageNumbers
+            activePage={pagination.activePage}
+            totalPages={pagination.totalPages}
+            setActivePage={pagination.setActivePage}
+          />
+        )}
+        {/* <AZList letter={letter} sort={setLetter} /> */}
+      </>
     </>
   );
 };

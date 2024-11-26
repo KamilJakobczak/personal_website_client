@@ -1,8 +1,6 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
-
 import BookCollection from '../components/Projects/BookCollection';
 import App from '../components/App';
-
 import CodePlayground from '../components/Projects/CodePlayground';
 import ScrollerComponent from '../components/Scroller/Scroller';
 import { apollo_client } from '../ApolloClient';
@@ -10,16 +8,16 @@ import { ApolloProvider } from '@apollo/client';
 
 import {
   LOAD_AUTHOR,
-  LOAD_AUTHORS,
+  LOAD_AUTHORS_FEED,
   LOAD_BOOK,
-  LOAD_BOOKSERIES,
+  LOAD_BOOKSERIES_FEED,
   LOAD_GENRE,
-  LOAD_GENRES,
+  LOAD_GENRES_FEED,
   LOAD_PUBLISHER,
-  LOAD_PUBLISHERS,
+  LOAD_PUBLISHERS_FEED,
   LOAD_SINGLEBOOKSERIES,
   LOAD_TRANSLATOR,
-  LOAD_TRANSLATORS,
+  LOAD_TRANSLATORS_FEED,
 } from '../GraphQL/queries';
 
 import SingleRecord from '../components/Projects/book_collection/components/single_records/SingleRecord';
@@ -40,7 +38,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import UserLibrary from '../components/Projects/book_collection/components/user/UserLibrary';
 import Profile from '../components/Projects/book_collection/components/user/Profile';
 import AddBookSeries from '../components/Projects/book_collection/components/adding_records/AddBookSeries';
-import { Flags } from '../components/Projects/book_collection/utility/enums';
+import { CollectionsClasses, Flags } from '../components/Projects/book_collection/utility/enums';
 
 export const router = createBrowserRouter([
   {
@@ -92,7 +90,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/authors',
-            element: <CollectionList query={LOAD_AUTHORS} listClass='authors' />,
+            element: <CollectionList paginatedQuery={LOAD_AUTHORS_FEED} listClass={CollectionsClasses.Authors} />,
           },
 
           {
@@ -109,7 +107,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/bookseries',
-            element: <CollectionList query={LOAD_BOOKSERIES} listClass='bookSeries' />,
+            element: <CollectionList paginatedQuery={LOAD_BOOKSERIES_FEED} listClass={CollectionsClasses.BookSeries} />,
           },
           {
             path: '/apps/collection/bookseries/:id',
@@ -125,7 +123,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/genres',
-            element: <CollectionList query={LOAD_GENRES} listClass='genres' />,
+            element: <CollectionList paginatedQuery={LOAD_GENRES_FEED} listClass={CollectionsClasses.Genres} />,
           },
           {
             path: '/apps/collection/genres/:id',
@@ -142,7 +140,7 @@ export const router = createBrowserRouter([
 
           {
             path: '/apps/collection/publishers',
-            element: <CollectionList query={LOAD_PUBLISHERS} listClass='publishers' />,
+            element: <CollectionList paginatedQuery={LOAD_PUBLISHERS_FEED} listClass={CollectionsClasses.Publishers} />,
           },
           {
             path: '/apps/collection/add/author',
@@ -219,7 +217,9 @@ export const router = createBrowserRouter([
           },
           {
             path: '/apps/collection/translators',
-            element: <CollectionList query={LOAD_TRANSLATORS} listClass='translators' />,
+            element: (
+              <CollectionList paginatedQuery={LOAD_TRANSLATORS_FEED} listClass={CollectionsClasses.Translators} />
+            ),
           },
           {
             path: '/apps/collection/translators/:id',

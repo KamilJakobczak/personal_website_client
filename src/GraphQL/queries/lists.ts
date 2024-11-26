@@ -9,6 +9,18 @@ export const LOAD_AUTHORS = gql`
     }
   }
 `;
+export const LOAD_AUTHORS_FEED = gql`
+  query authorsFeed($input: FeedInput!) {
+    authorsFeed(input: $input) {
+       authors {
+        id
+        firstName
+        lastName
+       }
+       totalCount
+    }
+  }
+`;
 
 export const LOAD_BOOKS = gql`
   query Books($input: BooksInput) {
@@ -24,7 +36,7 @@ export const LOAD_BOOKS = gql`
 `;
 
 export const LOAD_BOOKS_FEED = gql`
-  query BooksFeed($input: BooksFeedInput!) {
+  query BooksFeed($input: FeedInput!) {
     booksFeed(input: $input) {
        books {
         id
@@ -43,12 +55,34 @@ export const LOAD_BOOKSERIES = gql`
     }
   }
 `;
+export const LOAD_BOOKSERIES_FEED = gql`
+  query BookSeriesFeed($input: FeedInput!) {
+    bookSeriesFeed(input: $input) {
+       bookSeries {
+        id
+        name
+       }
+       totalCount
+    }
+  }
+`;
 
 export const LOAD_GENRES = gql`
   query Genres {
     genres {
       id
       name
+    }
+  }
+`;
+export const LOAD_GENRES_FEED = gql`
+  query GenresFeed($input: FeedInput!) {
+    genresFeed(input: $input) {
+       genres {
+        id
+        name
+       }
+       totalCount
     }
   }
 `;
@@ -61,6 +95,17 @@ export const LOAD_PUBLISHERS = gql`
     }
   }
 `;
+export const LOAD_PUBLISHERS_FEED = gql`
+  query PublishersFeed($input: FeedInput!) {
+    publishersFeed(input: $input) {
+       publishers {
+        id
+        name
+       }
+       totalCount
+    }
+  }
+`;
 
 export const LOAD_TRANSLATORS = gql`
   query Translators {
@@ -68,6 +113,18 @@ export const LOAD_TRANSLATORS = gql`
       id
       firstName
       lastName
+    }
+  }
+`;
+export const LOAD_TRANSLATORS_FEED = gql`
+  query TranslatorsFeed($input: FeedInput!) {
+    translatorsFeed(input: $input) {
+       translators {
+        id
+        lastName
+        firstName
+       }
+       totalCount
     }
   }
 `;
