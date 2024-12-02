@@ -3,6 +3,8 @@ import Footer from './Footer';
 import Header from './Header';
 import { Helmet } from 'react-helmet-async';
 import { imageApi } from '../server';
+import { Suspense } from 'react';
+import LoadingSpinner from './LoadingSpinner';
 
 const App: React.FC = () => {
   return (
@@ -14,7 +16,9 @@ const App: React.FC = () => {
 
       {/* <Location /> */}
       <div id='apps'>
-        <Outlet />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Outlet />
+        </Suspense>
       </div>
       <Footer />
     </>

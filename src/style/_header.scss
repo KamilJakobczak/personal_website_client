@@ -1,6 +1,6 @@
 header {
   position: relative;
-  flex-basis: 5%;
+  flex-basis: 4%;
   width: 100%;
   flex-shrink: 0;
 
@@ -38,7 +38,7 @@ header {
   }
 }
 
-@media (min-width: $breakpoint-1025) {
+@media (min-width: $breakpoint-1024) {
   header {
     a {
       span.header {

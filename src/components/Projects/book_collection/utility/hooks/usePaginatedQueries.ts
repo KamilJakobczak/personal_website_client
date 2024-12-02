@@ -13,27 +13,54 @@ export const usePaginatedQueries = (paginatedQuery: DocumentNode, listCLass?: Co
   const [offsetMulti, setOffsetMulti] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
   const [data, setData] = useState<DataInterface[]>([]);
+  // const [isMobile, setIsMobile] = useState(0);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     const height = window.innerHeight;
+  //     const width = window.innerWidth;
+  //     console.log(height, width);
+  //     if (height <= 600 && width < 1025) {
+  //       setIsMobile(0.5);
+  //     } else {
+  //       setIsMobile(1);
+  //     }
+  //   };
+  //   // Set initial state based on current window size
+  //   handleResize();
+  //   // window.addEventListener('resize', handleResize);
+  //   // return () => {
+  //   //   window.removeEventListener('resize', handleResize);
+  //   // };
+  // }, []);
 
   useEffect(() => {
-    console.log(listCLass);
+    const offset = {
+      authors: 30,
+      books: 20,
+      bookSeries: 20,
+      genres: 30,
+      publishers: 30,
+      translators: 30,
+    };
     switch (listCLass) {
       case CollectionsClasses.Authors:
-        setOffsetMulti(16);
+        setOffsetMulti(offset.authors);
         break;
       case CollectionsClasses.Books:
-        setOffsetMulti(10);
+        setOffsetMulti(offset.books);
         break;
       case CollectionsClasses.BookSeries:
-        setOffsetMulti(20);
+        setOffsetMulti(offset.bookSeries);
         break;
       case CollectionsClasses.Genres:
-        setOffsetMulti(20);
+        setOffsetMulti(offset.genres);
         break;
       case CollectionsClasses.Publishers:
-        setOffsetMulti(12);
+        setOffsetMulti(offset.publishers);
         break;
       case CollectionsClasses.Translators:
-        setOffsetMulti(16);
+        setOffsetMulti(offset.translators);
         break;
       default:
         break;

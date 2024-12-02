@@ -17,11 +17,14 @@ $font-size-root: 10px;
 $font-size-h1: clamp(2.5rem, 1.5789rem + 3.2895vw, 10rem);
 $font-size-h2: clamp(2rem, 1.5088rem + 1.7544vw, 6rem);
 $font-size-h3: clamp(1.6rem, 1.1825rem + 1.4912vw, 5rem);
-$font-size-h4: clamp(1.6rem, 1.3667rem + 0.8333vw, 3.5rem);
-$font-size-h5: clamp(1.4rem, 1.1789rem + 0.7895vw, 3.2rem);
+$font-size-h4: clamp(1.6rem, 1.428rem + 0.982vw, 3rem);
+$font-size-h5: clamp(1.4rem, 1.265rem + 0.772vw, 2.5rem);
 // $font-size-p: clamp(1.4rem, 1.2035rem + 0.7018vw, 3rem);
 $font-size-p: clamp(1.2rem, 0.439vw + 1.077rem, 2.2rem);
 $font-size-small: clamp(1rem, 0.439vw + 0.877rem, 2rem);
+
+$book_thumbnail: clamp(2rem, 1.754rem + 0.877vw, 4rem);
+$list_thumbnail: clamp(1.5rem, 1.316rem + 1.053vw, 3rem);
 
 $font-basic: 'Kanit', Arial, Helvetica, sans-serif;
 $font-heading: 'Monoton', Arial, Helvetica, sans-serif;
@@ -37,6 +40,7 @@ $collection_blue: #b9ccdf;
 $breakpoint-360: 360px;
 $breakpoint-480: 480px;
 $breakpoint-700: 700px;
-$breakpoint-1025: 1025px;
+$breakpoint-1024: 1024px;
 $breakpoint-1201: 1201px;
 $breakpoint-1400: 1400px;
+$breakpoint-1920: 1920px;

@@ -24,12 +24,20 @@ const CollectionList: React.FC<ListProps> = ({ paginatedQuery, listClass }) => {
     }
   }, [refetch, refetchBoolean]);
 
-  return (
-    <div className={`bookCollection__list ${listClass}`}>
-      {loading && <LoadingSpinner />}
-      {error && <CustomError text={error.message} />}
-      {!loading && !error && data && <List data={data} pagination={pagination} />}
-    </div>
-  );
+  const showList = () => {
+    if (loading) {
+      return <LoadingSpinner />;
+    } else {
+      return (
+        <>
+          <h4>{listClass}</h4>
+          {error && <CustomError text={error.message} />}
+          {!error && data && <List data={data} pagination={pagination} />}
+        </>
+      );
+    }
+  };
+
+  return <div className={`bookCollection__list ${listClass}`}>{showList()}</div>;
 };
 export default CollectionList;

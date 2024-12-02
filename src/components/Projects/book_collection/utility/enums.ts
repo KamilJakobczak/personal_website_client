@@ -11,3 +11,12 @@ export enum CollectionsClasses {
   Publishers = 'publishers',
   Translators = 'translators',
 }
+
+export enum RecordTypes {
+  Author = 'Author',
+  Book = 'Book',
+  BookSeries = 'BookSeries',
+  Genre = 'Genre',
+  Publisher = 'Publisher',
+  Translator = 'Translator',
+}

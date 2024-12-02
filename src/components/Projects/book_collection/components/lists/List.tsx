@@ -1,9 +1,10 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AZList from './AZ-list';
 import { useState } from 'react';
 import { imageApi } from '../../../../../server';
 import ThumbnailWithFallback from '../general-purpose/ThumbnailWithFallback';
 import PageNumbers from './PageNumbers';
+import { RecordTypes } from '../../utility/enums';
 
 interface ListProps {
   data: {
@@ -31,8 +32,6 @@ export interface RecordValues {
 }
 
 const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
-  const location = useLocation();
-
   const [letter, setLetter] = useState('');
 
   const linkPath = (record: RecordValues) => {
@@ -67,8 +66,16 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
 
   const showThumbnail = (record: RecordValues, thumbnail: string) => {
     const type = record.__typename;
-    if (type === 'Author' || type === 'Book' || type === 'Publisher' || type === 'singleBookSeries') {
-      return <ThumbnailWithFallback url={thumbnail} recordType={record.__typename} />;
+    console.log(type);
+    if (
+      type === RecordTypes.Author ||
+      type === RecordTypes.Book ||
+      type === RecordTypes.Genre ||
+      type === RecordTypes.Publisher ||
+      type === RecordTypes.BookSeries ||
+      type === RecordTypes.Translator
+    ) {
+      return <ThumbnailWithFallback url={thumbnail} recordType={type} />;
     }
   };
 
@@ -91,9 +98,9 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
             <Link className='router_link' to={linkPath(record) || ''} state={{ id: record.id }}>
               {showThumbnail(record, thumbnail)}
               <span>
-                {record.title ? handleLongTitles(record.title, 150) : null}
+                {record.title ? handleLongTitles(record.title, 90) : null}
                 {record.lastName ? `${record.lastName} ${record.firstName}` : null}
-                {record.name ? record.name : null}
+                {record.name ? record.name.toLocaleUpperCase() : null}
               </span>
             </Link>
           </div>

@@ -1,22 +1,29 @@
 footer.footer {
-  flex-basis: 6%;
-  flex: 1;
+  flex-basis: 4%;
   position: relative;
   bottom: 0;
   left: 0;
 
   div {
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     border-top: 1px solid $fourth-color;
     color: $fourth-color;
+    justify-content: center;
+    align-items: center;
+
     span {
+      flex-basis: 100%;
       display: block;
-      margin-top: 5px;
-      font-size: $font-size-small;
+      margin-top: 4px;
+      font-size: $font-size-p;
       letter-spacing: 1.75px;
       text-align: center;
     }
     a {
+      margin-bottom: 2px;
       font-size: $font-size-small;
       text-align: center;
     }
