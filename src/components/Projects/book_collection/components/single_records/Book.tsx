@@ -97,7 +97,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
         return (
           <span key={id}>
             <Link to={`../authors/${pathId}`} state={{ id }}>
-              {author.firstName.concat(' ', author.lastName, ',')}
+              {author.firstName.concat(' ', author.lastName)}
             </Link>
           </span>
         );
@@ -133,7 +133,6 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
   };
 
   const showTranslators = () => {
-    console.log(translators);
     let counter = 1;
     return translators.map(translator => {
       const { id } = translator;
@@ -151,7 +150,7 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
         return (
           <span key={id}>
             {/* <Link to={`../translators/${pathId}`} state={{ id }}> */}
-            {translator.firstName.concat(' ', translator.lastName, ',')}
+            {translator.firstName.concat(' ', translator.lastName)}
             {/* </Link> */}
           </span>
         );
@@ -169,64 +168,62 @@ const Book: React.FC<BookProps> = ({ data, editable }) => {
       </div>
 
       <div className='book__cover'>
-        <div className='book__cover_img'>
-          <img src={`${imageApi}/covers/${data.id}/${coverSize}`} alt='book_cover' />
-        </div>
+        <img src={`${imageApi}/covers/${data.id}/${coverSize}`} alt='book_cover' />
       </div>
       <div className='book__data'>
         <div className='book__data_authors'>
           <p>{authors.length === 1 ? 'Author' : 'Authors'}</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{showAuthors()}</span>
         </div>
         <div className='book__data_genres'>
           <p>{bookGenres.length === 1 ? 'Genre' : 'Genres'}</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{showGenres()}</span>
         </div>
         <div className='book__data_pages'>
           <p>Pages</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{pages}</span>
         </div>
         <div className='book__data_language'>
           <p>Language</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{language}</span>
         </div>
         <div className='book__data_publisher'>
           <p>Publisher</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{showPublisher()}</span>
         </div>
         <div className='book__data_firstEdition'>
           <p>First edition</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{firstEdition}</span>
         </div>
         <div className='book__data_isbn'>
           <p>ISBN</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{isbn}</span>
         </div>
         {translators.length ? (
           <div className='book__data_translators'>
             <p>{translators.length === 1 ? 'Translator' : 'Translators'}</p>
-            <span>-</span>
+            <span>❖</span>
             <span>{showTranslators()}</span>
           </div>
         ) : null}
         {titleEnglish ? (
           <div className='book__data_titleEnglish'>
             <p>English title</p>
-            <span>-</span>
+            <span>❖</span>
             <span>{titleEnglish}</span>
           </div>
         ) : null}
         {titleOriginal ? (
           <div className='book__data_titleOriginal'>
             <p>Original title</p>
-            <span>-</span>
+            <span>❖</span>
             <span>{titleOriginal}</span>
           </div>
         ) : null}

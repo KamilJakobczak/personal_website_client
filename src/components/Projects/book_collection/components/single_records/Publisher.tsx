@@ -46,30 +46,15 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
         </h4>
       </div>
 
-      <div className='publisher__logo'>
-        {/* <div className='publisher__logo_img'>
+      {/* <div className='publisher__logo'>
+         <div className='publisher__logo_img'>
           <img src='' alt='' />
-        </div> */}
-      </div>
+        </div> 
+      </div> */}
       <div className='publisher__data'>
-        <div className='publisher__data_website'>
-          <p>Website</p>
-          <span>-</span>
-          <span>
-            {website && (
-              <a
-                href={checkURL(website)}
-                rel='noreferrer noopener'
-                target='_blank'
-              >
-                click
-              </a>
-            )}
-          </span>
-        </div>
         <div className='publisher__data_street'>
           <p>Street</p>
-          <span>-</span>
+          <span>❖</span>
           <span>
             {street} {buildingNr}
             {placeNr ? `/${placeNr}` : null}
@@ -77,19 +62,26 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
         </div>
         <div className='publisher__data_city'>
           <p>City</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{city}</span>
         </div>
         <div className='publisher__data_zipCode'>
           <p>Zip Code</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{zipCode}</span>
         </div>
         <div className='publisher__data_country'>
           <p>Country</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{country}</span>
         </div>
+        {website ? (
+          <div className='publisher__data_bioPages'>
+            <a href={checkURL(website)} rel='noreferrer noopener' target='_blank'>
+              website
+            </a>
+          </div>
+        ) : null}
       </div>
 
       {books.length > 0 ? (

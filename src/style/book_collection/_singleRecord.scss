@@ -1,149 +1,192 @@
+$singleRecords_selectors: '.author, .genre, .publisher, .translator, .bookSeries';
 .singleRecord {
-  &__return {
-    margin-bottom: 20px;
-  }
   &__container {
-    width: 90%;
-    position: relative;
+    width: 100%;
     margin: 0 auto;
-
-    div.book {
-      > div:nth-child(2) {
-        flex-basis: 100%;
-        margin: 5px 0 10px;
-        div:nth-child(1) {
-          margin: 0 auto;
-          max-width: 100px;
-          // max-height: 150px;
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-      > div:nth-child(3) {
-        > div:nth-child(2) {
-          > span:nth-child(3) {
-            display: flex;
-            justify-content: flex-end;
-
-            span {
-              flex-basis: 45%;
-            }
-          }
-        }
-      }
-    }
-    > div:nth-child(1) {
-      margin: 0 auto;
+    position: relative;
+    #{$singleRecords_selectors},
+    .book {
+      margin-top: 10px;
+      width: 100%;
       display: flex;
       flex-wrap: wrap;
-      > div:nth-child(1) {
-        flex-basis: 100%;
-        margin: 15px 0;
-        h4 {
-          font-size: $font-size-h4;
-          line-height: 1.1;
-          word-wrap: normal;
-          text-align: center;
+      justify-content: space-around;
+      align-items: center;
+      &__name,
+      &__title {
+        flex-basis: 95%;
+        margin: 0 auto 10px;
+        text-align: center;
 
-          a {
-            margin-left: 15px;
-            display: inline;
-            width: $font-size-small;
-            img {
-              width: $font-size-small;
-            }
+        h4,
+        a {
+          display: inline-block;
+          vertical-align: middle;
+        }
+        h4 {
+          line-height: 1.2;
+          word-wrap: normal;
+          text-transform: capitalize;
+        }
+        a {
+          margin-left: 10px;
+          width: $font-size-h5;
+          img {
+            width: 100%;
           }
         }
       }
+      &__cover {
+        flex-basis: 20%;
+        margin-bottom: 10px;
+        //border 1
+        // border: 2px solid $fourth-color; /* Adjust color as needed */
+        // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        // border-radius: 8px; /* Rounded corners */
+        // overflow: hidden;
 
-      > div:nth-child(3) {
-        margin-top: 20px;
+        //border 2
+        // border: 4px solid transparent;
+        // border-image: linear-gradient(45deg, #e6d450, #bab272) 1; /* Adjusted gradient colors */
+        // border-radius: 8px;
+        // padding: 5px; /* Optional padding for better appearance */
+        // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        //border 3
+        border: 3px double $fourth-color; /* Adjust color as needed */
+        padding: 5px;
+        border-radius: 5px;
+        //border4
+        // border: 3px solid #fff; /* White border */
+        // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        // border-radius: 10px;
+
+        // border: 3px inset white; /* Adjust color as needed */
+        // padding: 5px;
+        // border-radius: 5px;
+        img {
+          width: 100%;
+        }
+      }
+      &__data {
         flex-basis: 100%;
-
-        div {
+        margin-top: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        > div {
           display: flex;
           align-items: center;
-          justify-content: space-between;
-
+          flex-basis: 90%;
+          margin-bottom: 3px;
+          line-height: 1.1;
           p {
-            flex-basis: 35%;
-            margin-bottom: 3px;
-            font-size: $font-size-p;
+            flex-basis: 45%;
           }
           span {
-            cursor: auto;
-          }
-          span:nth-child(2) {
-            display: block;
-
             text-align: right;
-            flex-basis: 10%;
-          }
-          span:nth-child(3) {
             font-size: $font-size-p;
-            justify-self: end;
-            display: block;
-            flex-basis: 50%;
-            margin-left: 3px;
-            text-align: right;
-            a {
-              display: inline;
-              text-transform: capitalize;
-              letter-spacing: 0.5px;
+            cursor: default;
+            &:nth-child(2) {
+              flex-basis: 10%;
+              text-align: center;
             }
-          }
-          + div {
-            margin-top: 5px;
-          }
-          > a {
-            margin-top: 10px;
-            flex-basis: 30%;
-            padding: 5px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: $font-size-p;
-
-            &:hover {
-              transition: 0.25s;
-              background-color: $fourth-color;
-              color: $apps_background;
+            &:nth-last-child(1) {
+              flex-basis: 45%;
+              text-align: right;
+              &:has(span) {
+                span {
+                  + span {
+                  }
+                }
+              }
             }
           }
         }
-      }
-      > div:nth-child(4) {
-        flex-basis: 100%;
-        h5 {
-          width: 100%;
-          margin: 20px 0 15px;
-          font-size: $font-size-h5;
-          text-align: center;
-          text-transform: capitalize;
-          letter-spacing: 1px;
-        }
-        div {
-          a {
-            font-size: $font-size-p;
-          }
-        }
-      }
-    }
-    .author {
-      &__data {
         &_nationality {
           text-transform: capitalize;
         }
+        &_bioPages {
+          flex-basis: 90%;
+          display: flex;
+          margin-top: 10px;
+          a {
+            flex: 1 1 30%;
+            padding: 5px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: $font-size-p;
+          }
+        }
+      }
+      &__books {
+        flex-basis: 90%;
+        margin: 10px auto;
+        text-align: center;
+        h5 {
+          text-transform: capitalize;
+          margin-bottom: 5px;
+        }
+        div.bookCollection__list_element {
+          margin-bottom: 10px;
+          a {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            div {
+              min-width: $book_thumbnail;
+              height: auto;
+              img {
+                width: 100%;
+              }
+            }
+            span {
+              // transition: 0.2s;
+            }
+          }
+          // &:hover {
+          //   a {
+          //     span {
+          //       font-size: calc(1.15 * $font-size-p);
+          //       padding-bottom: 3px;
+          //       border-bottom: 1px solid $fourth-color;
+          //     }
+          //   }
+          // }
+        }
       }
     }
+
+    .book__data {
+      > div {
+        p {
+          flex-basis: 35%;
+        }
+        span {
+          &:nth-last-child(1) {
+            flex-basis: 55%;
+            &:has(span) {
+              display: flex;
+              flex-wrap: wrap;
+              span {
+                flex: 1 1 70%;
+                + span {
+                  margin-top: 2px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
     &_delete {
       position: absolute;
-      top: 17px;
+      top: calc(($font-size-h4 * 1.1 - $font-size-h5) / 2);
       right: 5px;
-      width: $font-size-h4;
-      height: $font-size-h4;
+      width: $font-size-h5;
+      height: $font-size-h5;
       img {
         width: 100%;
       }
@@ -152,31 +195,40 @@
 }
 
 @media (min-width: $breakpoint-480) {
-  .singleRecord {
-    &__container {
-      // width: 70%;
-      > div:nth-child(1) {
-        // display: flex;
-        // flex-wrap: wrap;
-        // justify-content: space-evenly;
-        h4 {
-          // flex-basis: 100%;
-        }
-        > div:nth-child(2) {
-          // flex-basis: 30%;
-          div:nth-child(1) {
-            // max-width: 150px;
+  .singleRecord__container {
+    #{$singleRecords_selectors} {
+      &__data {
+        flex-basis: 70%;
+        > div {
+          p {
+            flex-basis: 45%;
+          }
+          span {
+            &:nth-child(2) {
+              flex-basis: 10%;
+            }
+            &:nth-last-child(1) {
+              flex-basis: 45%;
+            }
           }
         }
-        > div:nth-child(3) {
-          // flex-basis: 60%;
-        }
-        div:nth-child(4) {
-          h5 {
-            // font-size: 32px;
-          }
-          div {
-            a {
+      }
+    }
+    .book {
+      &__data {
+        > div {
+          span {
+            &:nth-child(2) {
+            }
+            &:nth-last-child(1) {
+              &:has(span) {
+                span {
+                  flex: 1 1 45%;
+                  + span {
+                    margin-top: 0;
+                  }
+                }
+              }
             }
           }
         }
@@ -184,80 +236,113 @@
     }
   }
 }
-
 @media (min-width: $breakpoint-1024) {
   .singleRecord {
-    // display: flex;
     &__container {
-      width: 90%;
-      margin: 0 auto;
-
-      div:nth-child(1) {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        h4 {
-          flex-basis: 100%;
-        }
-        div:nth-child(2) {
-          // flex-basis: 30%;
-        }
-        div:nth-child(3) {
+      #{$singleRecords_selectors} {
+        &__data {
           flex-basis: 50%;
-          div {
-            span:nth-child(2) {
-              text-align: center;
+        }
+      }
+      .book {
+        justify-content: center;
+        &__title {
+          margin-bottom: 15px;
+          letter-spacing: 0.25px;
+        }
+        &__cover {
+          flex-basis: 15%;
+        }
+        &__data {
+          flex-basis: 70%;
+          > div {
+            p {
+              flex-basis: 20%;
             }
-            span:nth-child(3) {
-              text-align: right;
+            span {
+              &:nth-last-child(1) {
+                flex-basis: 70%;
+              }
             }
           }
         }
       }
     }
-    div:nth-last-child(1) {
-      // flex-basis: 40%;
-    }
   }
 }
+
 @media (min-width: $breakpoint-1201) {
   .singleRecord {
     &__container {
-      // width: 70%;
-      div.book {
-        > div:nth-child(2) {
-          margin: 0 0;
-
-          flex-basis: 30%;
-          div:nth-child(1) {
-            max-width: 200px;
+      .author,
+      .publisher {
+        &__data {
+          &_bioPages {
+            a {
+              transition: 0.2s;
+              &:hover {
+                background-color: $fourth-color;
+                color: $apps_background;
+              }
+            }
           }
         }
       }
-      > div:nth-child(1) {
-        // display: flex;
-        // flex-wrap: wrap;
-        // justify-content: space-evenly;
-        h4 {
-          // flex-basis: 100%;
-        }
-
-        > div:nth-child(3) {
-          margin: 0 0;
-          align-self: center;
-          // border: 1px solid red;
-          // flex-basis: 60%;
-        }
-        div:nth-child(4) {
-          h5 {
-            // font-size: 32px;
-          }
-          div {
-            a {
-            }
-          }
+      .book__data {
+        > div {
+          margin-bottom: 5px;
         }
       }
     }
   }
 }
+@media (min-width: $breakpoint-1920) {
+  .singleRecord__container {
+    .book__data {
+      > div {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+// @media (min-width: $breakpoint-1201) {
+//   .singleRecord {
+//     &__container {
+//       // width: 70%;
+//       div.book {
+//         > div:nth-child(2) {
+//           margin: 0 0;
+
+//           flex-basis: 30%;
+//           div:nth-child(1) {
+//             max-width: 200px;
+//           }
+//         }
+//       }
+//       > div:nth-child(1) {
+//         // display: flex;
+//         // flex-wrap: wrap;
+//         // justify-content: space-evenly;
+//         h4 {
+//           // flex-basis: 100%;
+//         }
+
+//         > div:nth-child(3) {
+//           margin: 0 0;
+//           align-self: center;
+//           // border: 1px solid red;
+//           // flex-basis: 60%;
+//         }
+//         div:nth-child(4) {
+//           h5 {
+//             // font-size: 32px;
+//           }
+//           div {
+//             a {
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

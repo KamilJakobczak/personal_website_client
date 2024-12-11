@@ -42,24 +42,24 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
       <div className='author__name'>
         <h4>
           {firstName} {secondName} {thirdName} {lastName}
-          {editable ? <EditButton data={editableData} /> : null}
         </h4>
+        {editable ? <EditButton data={editableData} /> : null}
       </div>
 
-      <div className='author__cover'>
+      {/* <div className='author__cover'>
         <div className='author__cover_img'>
           <img src='' alt='' />
         </div>
-      </div>
+      </div> */}
       <div className='author__data'>
         <div className='author__data_nationality'>
           <p>Nationality</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{nationality}</span>
         </div>
         <div className='author__data_birth_year'>
           <p>Year of birth</p>
-          <span>-</span>
+          <span>❖</span>
           <span>{birthYear}</span>
         </div>
         {bioPages ? (
