@@ -10,11 +10,10 @@ const App: React.FC = () => {
   return (
     <>
       <Helmet>
-        {/* <meta httpEquiv='Content-Security-Policy' content={`img-src 'self' ${imageApi}/* data: blob:;`}></meta> */}
+        <meta httpEquiv='Content-Security-Policy' content={`img-src 'self' ${imageApi}/* data: blob:;`}></meta>
       </Helmet>
       <Header />
 
-      {/* <Location /> */}
       <div id='apps'>
         <Suspense fallback={<LoadingSpinner />}>
           <Outlet />

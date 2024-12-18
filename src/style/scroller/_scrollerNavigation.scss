@@ -18,9 +18,10 @@
       width: clamp(10px, 7.5439px + 0.8772vi, 30px);
       height: clamp(10px, 7.5439px + 0.8772vi, 30px);
       border-radius: 50%;
-
+      cursor: pointer;
+      transition: 0.2s;
       &.active {
-        background-color: $main-color;
+        background-color: #007acc;
       }
     }
   }

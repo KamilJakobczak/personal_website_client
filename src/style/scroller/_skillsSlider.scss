@@ -1,7 +1,7 @@
 .scroller__business_slider {
   --svg-size: 48px;
-
-  flex-basis: calc(3 * var(--svg-size) + 3 * 10px);
+  // flex-basis: calc(3 * var(--svg-size) + 3 * 10px);
+  width: calc(3 * var(--svg-size) + 3 * 10px);
   overflow: hidden;
   display: flex;
   div {
@@ -39,16 +39,10 @@
       transform: translate(calc((calc(var(--svg-size) * -1) - 10px) * 9), 0);
     }
     65% {
-      transform: translate(
-        calc((calc(var(--svg-size) * -1) - 10px) * 9),
-        calc(var(--svg-size) * -1)
-      );
+      transform: translate(calc((calc(var(--svg-size) * -1) - 10px) * 9), calc(var(--svg-size) * -1));
     }
     69% {
-      transform: translate(
-        calc(((var(--svg-size)) + 10px) * 3),
-        calc(var(--svg-size) * -1)
-      );
+      transform: translate(calc(((var(--svg-size)) + 10px) * 3), calc(var(--svg-size) * -1));
     }
     70% {
       transform: translate(calc(((var(--svg-size)) + 10px) * 3), 0);
@@ -67,37 +61,30 @@
 
 @media (min-width: $breakpoint-480) or (min-height: 750px) {
   .scroller__business_slider {
-    --svg-size: 72px;
+    // --svg-size: 72px;
   }
 }
 @media (min-width: $breakpoint-700) {
   .scroller__business_slider {
-    --svg-size: 96px;
+    --svg-size: 72px;
   }
 }
 @media (orientation: landscape) and (min-width: 800px) {
   .scroller__business_slider {
-    --svg-size: 96px;
+    --svg-size: 72px;
   }
 }
 
 @media (min-width: 1200px) {
   .scroller__business_slider {
     // overflow: hidden;
-    margin: 20px 0;
+
     display: flex;
 
     justify-content: space-evenly;
-    flex-basis: 60%;
 
     div {
-      animation: none;
+      // animation: none;
     }
-  }
-}
-
-@media (min-width: 1921px) {
-  .scroller__business_slider {
-    flex-basis: 50%;
   }
 }

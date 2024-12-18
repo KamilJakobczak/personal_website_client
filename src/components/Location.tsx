@@ -11,7 +11,6 @@ const Location: React.FC = () => {
         return 'book collection';
       case 'coding':
         return 'coding playground';
-
       default:
         break;
     }

@@ -16,7 +16,9 @@ body {
     color: $fourth-color;
   }
   #scroller {
-    background-color: $scroller-background-color;
+    background: rgb(232, 224, 175);
+    background: radial-gradient(circle, rgba(232, 224, 175, 1) 49%, rgba(254, 252, 236, 1) 84%);
+    // background-color: $scroller-background-color;
     color: $scroller-text-color;
     overflow: hidden;
   }
@@ -29,12 +31,24 @@ body {
   }
   a {
     // -webkit-tap-highlight-color: transparent; might be needed
-
+    line-height: 1.25;
     cursor: none;
   }
+
+  h2,
+  h3,
+  h4,
+  h5 {
+    line-height: 1.25;
+    font-family: $font-headings;
+    letter-spacing: 0.5px;
+    cursor: default;
+    font-weight: 500;
+  }
   h1 {
-    font-family: $font-heading;
+    font-family: $font-front-heading;
     font-size: $font-size-h1;
+    cursor: default;
   }
   h2 {
     font-size: $font-size-h2;
@@ -50,6 +64,16 @@ body {
   }
   p {
     font-size: $font-size-p;
+    line-height: 1.25;
+  }
+  li {
+    cursor: default;
+  }
+  li,
+  label {
+    font-size: $font-size-p;
+    line-height: 1.25;
+    letter-spacing: 0.2px;
   }
 }
 
@@ -61,7 +85,6 @@ body {
     a,
     img,
     button,
-    li,
     span {
       cursor: pointer;
     }

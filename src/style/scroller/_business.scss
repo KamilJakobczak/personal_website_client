@@ -1,84 +1,77 @@
 .scroller__business {
-  // max-width: 1400px;
+  max-width: 1000px;
   margin: 0 auto;
-  height: 100vh;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
   h2 {
-    margin-top: 20px;
-    flex-basis: 100%;
-    // margin-top: 1vh;
-    // color: $fifth-color;
+    flex-basis: 8%;
+    margin-top: 15px;
     text-align: center;
     text-transform: uppercase;
   }
+  &_slider {
+    width: 50%;
+    flex-basis: 10%;
+  }
   &_skills {
-    div {
-      max-width: 1000px;
-      margin: 0 8vw 0 2vw;
+    flex-basis: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+      flex-basis: 100%;
       h4 {
         width: 100%;
         border-bottom: 1px solid $scroller-text-color;
         margin-bottom: 5px;
-        letter-spacing: 0.25px;
+        padding-left: 10px;
         text-align: justify;
+        cursor: default;
       }
       ul {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
         margin-bottom: 10px;
+        margin-left: 5px;
         li {
+          flex: 1 1 33%;
+          font-style: italic;
+          font-weight: 500;
           text-indent: 10px;
-          font-size: $font-size-p;
+          cursor: default;
         }
       }
     }
   }
   &_contact {
-    flex-basis: 100%;
-
+    width: 100%;
+    flex-basis: 10%;
     h3 {
-      border-bottom: 1px solid $scroller-text-color;
-
-      // color: $fifth-color;
+      width: 100%;
       text-align: center;
       text-transform: uppercase;
+      border-bottom: 1px solid $scroller-text-color;
     }
     ul {
       width: 90%;
       margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      align-items: center;
+      justify-content: space-around;
       li {
-        flex-basis: 12%;
-        margin: 10px 0 0;
+        flex-basis: 10%;
+        margin: 7px 0 5px;
         color: $scroller-text-color;
-      }
-    }
-  }
-}
-
-@media (min-width: $breakpoint-360) {
-  .scroller__business {
-    h2 {
-      // margin-top: 20px;
-    }
-    &_skills {
-      div {
-        ul {
-          justify-content: space-evenly;
-          li {
-            flex-basis: 85%;
-            letter-spacing: 0.5px;
+        a {
+          svg {
+            max-width: clamp(2.5rem, 2.193rem + 1.754vw, 5rem);
           }
         }
       }
-    }
-    &_contact {
-      margin-bottom: 10px;
     }
   }
 }
@@ -86,117 +79,55 @@
 @media (min-width: $breakpoint-480) {
   .scroller__business {
     &_skills {
-      div {
-        ul {
-          li {
-          }
-        }
-      }
-    }
-    &_contact {
-      margin-bottom: 10px;
-
-      ul {
-        li {
-          flex-basis: 10%;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: 540px) and (min-height: 720px) {
-  .scroller__business {
-    &_skills {
-      div {
-        ul {
-          justify-content: space-between;
-          li {
-            flex-basis: 40%;
-          }
-        }
-      }
-    }
-    &_contact {
-      margin-bottom: 10px;
-
-      ul {
-        li {
-          flex-basis: 10%;
-        }
-      }
-    }
-  }
-}
-
-@media (min-width: $breakpoint-700) {
-  .scroller__business {
-    h3 {
-      margin-top: 3vh;
-    }
-    &_skills {
-      div {
-        ul {
-          justify-content: space-between;
-          margin-bottom: 10px;
-          li {
-            margin-top: 3px;
-          }
-        }
+      > div {
+        flex-basis: 80%;
       }
     }
     &_contact {
       ul {
         li {
-          flex-basis: 15%;
-          margin: 30px 0 0;
-        }
-      }
-    }
-  }
-}
-@media (orientation: landscape) and (min-width: 800px) {
-  .scroller__business {
-    h3 {
-      margin-top: 3vh;
-    }
-    &_skills {
-      div {
-        margin: 0 8vw 0 2vw;
-
-        ul {
-          justify-content: space-between;
-
-          li {
-            flex-basis: 40%;
+          a {
+            svg {
+            }
           }
         }
       }
     }
-    &_contact {
-      flex-basis: 100%;
-
-      ul {
-        justify-content: space-evenly;
-        max-width: 1200px;
-
-        li {
-          flex-basis: 3%;
-          margin-top: 20px;
-        }
-      }
+  }
+}
+@media (min-width: $breakpoint-360) and (min-height: 800px) {
+  .scroller__business {
+    &_skills {
+      flex-basis: 50%;
     }
   }
 }
 
-@media (min-width: $breakpoint-1201) {
+@media (max-width: $breakpoint-1024) and (min-height: $breakpoint-1024) {
   .scroller__business {
+    h2 {
+      flex-basis: 6%;
+    }
+    &_slider {
+      flex-basis: 6%;
+    }
     &_skills {
-      div {
-        margin: 0 auto;
-        width: 100%;
-      }
-      flex-basis: 90%;
+      flex-basis: 35%;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-1400) {
+  .scroller__business {
+    h2 {
+      margin-top: 25px;
+      flex-basis: 10%;
+    }
+    &_slider {
+      flex-basis: 10%;
+    }
+    &_skills {
+      flex-basis: 60%;
     }
   }
 }

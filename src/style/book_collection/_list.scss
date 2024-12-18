@@ -9,14 +9,16 @@
   &.genres {
     .bookCollection__list_element {
       flex-basis: 40%;
-      letter-spacing: 0.5px;
     }
   }
-  &.publishers {
+  &.publishers,
+  &.genres,
+  &.bookSeries {
     .bookCollection__list_element {
       a {
         span {
-          letter-spacing: 0.5px;
+          letter-spacing: 1px;
+          font-weight: 500;
         }
       }
     }
@@ -25,14 +27,12 @@
   h4 {
     flex-basis: 100%;
     margin: 5px auto 20px;
+
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 1px;
   }
   &_element {
     flex-basis: 95%;
-    text-align: left;
-    font-size: $font-size-p;
     margin-bottom: 12px;
     a {
       display: flex;
@@ -48,6 +48,10 @@
       }
       span {
         position: relative;
+        text-align: left;
+        font-size: $font-size-p;
+        font-weight: 500;
+        letter-spacing: 0.4px;
       }
     }
   }
@@ -219,8 +223,7 @@
   .bookCollection__list {
     &.authors,
     &.genres,
-    &.translators,
-    &.publishers {
+    &.translators {
       justify-content: space-between;
       .bookCollection__list_element {
         flex: 1 1 24%;
