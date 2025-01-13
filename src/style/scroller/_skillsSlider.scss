@@ -77,14 +77,11 @@
 
 @media (min-width: 1200px) {
   .scroller__business_slider {
-    // overflow: hidden;
-
     display: flex;
 
     justify-content: space-evenly;
 
     div {
-      // animation: none;
     }
   }
 }

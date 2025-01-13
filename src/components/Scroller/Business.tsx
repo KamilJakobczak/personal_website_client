@@ -38,12 +38,12 @@ const Business: React.FC = () => {
             <li>Git</li>
           </ul>
         </div>
-        <div className='skills__inProgress'>
+        {/* <div className='skills__inProgress'>
           <h4>Skills I'm learning:</h4>
           <ul>
             <li>React Native</li>
           </ul>
-        </div>
+        </div> */}
       </div>
       <div className='scroller__business_contact'>
         <h3>send me a message!</h3>
