@@ -80,7 +80,7 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
         {website ? (
           <div className='publisher__data_bioPages'>
             <a href={checkURL(website)} rel='noreferrer noopener' target='_blank'>
-              website
+              {t('website')}
             </a>
           </div>
         ) : null}

@@ -6,22 +6,26 @@ interface GenreProps {
   data: {
     id: string;
     name: string;
+    namePolish: string;
     books: [];
   };
   editable: boolean;
 }
 
 const Genre: React.FC<GenreProps> = ({ data, editable }) => {
-  const { t } = useTranslation();
-  const { id, name, books } = data;
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+  const { id, name, namePolish, books } = data;
   const editableData = {
     id,
     name,
+    namePolish,
   };
+  console.log(currentLanguage);
   return (
     <div className='genre'>
       <div className='genre__name'>
-        <h4>{name}</h4>
+        <h4>{currentLanguage === 'pl' ? (namePolish ? namePolish : name) : name}</h4>
         {editable ? <EditButton data={editableData} /> : null}
       </div>
       <div className='genre__data'></div>

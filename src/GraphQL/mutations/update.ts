@@ -107,3 +107,28 @@ export const UPDATE_BOOK = gql`
     }
   }
 `;
+
+export const UPDATE_GENRE = gql`
+mutation updateGenre(
+  $id: ID!
+  $name: String!
+  $namePolish: String!
+) {
+  updateGenre(
+    input: {
+      id: $id
+      name: $name
+      namePolish: $namePolish
+    }
+  ) {
+    userErrors {
+      message
+    }
+    genre {
+      id
+      name
+      namePolish
+    }
+  }
+}
+`;

@@ -5,6 +5,7 @@ import { imageApi } from '../../../../../server';
 import ThumbnailWithFallback from '../general-purpose/ThumbnailWithFallback';
 import PageNumbers from './PageNumbers';
 import { RecordTypes } from '../../utility/enums';
+import { useTranslation } from 'react-i18next';
 
 interface ListProps {
   data: {
@@ -13,6 +14,7 @@ interface ListProps {
     firstName?: string;
     lastName?: string;
     name?: string;
+    namePolish?: string;
     __typename: string;
   }[];
   nested?: boolean;
@@ -28,10 +30,13 @@ export interface RecordValues {
   firstName?: string;
   lastName?: string;
   name?: string;
+  namePolish?: string;
   __typename: string;
 }
 
 const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const [letter, setLetter] = useState('');
 
   const linkPath = (record: RecordValues) => {
@@ -47,7 +52,8 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
       if (
         record.title?.charAt(0) === letter.toUpperCase() ||
         record.lastName?.charAt(0) === letter.toUpperCase() ||
-        record.name?.charAt(0) === letter.toUpperCase()
+        record.name?.charAt(0) === letter.toUpperCase() ||
+        record.namePolish?.charAt(0) === letter.toUpperCase()
       ) {
         return record;
       } else return false;
@@ -66,7 +72,7 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
 
   const showThumbnail = (record: RecordValues, thumbnail: string) => {
     const type = record.__typename;
-    console.log(type);
+
     if (
       type === RecordTypes.Author ||
       type === RecordTypes.Book ||
@@ -100,7 +106,13 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
               <span>
                 {record.title ? handleLongTitles(record.title, 90) : null}
                 {record.lastName ? `${record.lastName} ${record.firstName}` : null}
-                {record.name ? record.name.toLocaleUpperCase() : null}
+                {record.name
+                  ? currentLanguage === 'pl'
+                    ? record.namePolish
+                      ? record.namePolish?.toLocaleUpperCase()
+                      : record.name.toLocaleUpperCase()
+                    : record.name.toLocaleUpperCase()
+                  : null}
               </span>
             </Link>
           </div>

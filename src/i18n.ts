@@ -34,6 +34,7 @@ i18n.use(initReactI18next).init({
         city: 'City',
         zipCode: 'Zip Code',
         country: 'Country',
+        website: 'website',
       },
     },
     pl: {
@@ -62,6 +63,7 @@ i18n.use(initReactI18next).init({
         city: 'Miasto',
         zipCode: 'Kod pocztowy',
         country: 'Kraj',
+        website: 'Strona internetowa',
       },
     },
   },

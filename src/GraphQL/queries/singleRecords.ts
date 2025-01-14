@@ -69,6 +69,7 @@ export const LOAD_GENRE = gql`
     genre(id: $id) {
       id
       name
+      namePolish
       books {
         id
         title

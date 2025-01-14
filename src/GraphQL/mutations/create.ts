@@ -97,13 +97,18 @@ export const ADD_BOOKSERIES = gql`
 `;
 
 export const ADD_GENRE = gql`
-  mutation addGenre($name: String!) {
-    addGenre(input: { name: $name }) {
+  mutation addGenre(
+    $name: String! 
+    $namePolish: String!
+    ) {
+    addGenre(
+      input: { name: $name namePolish: $namePolish }) {
       userErrors {
         message
       }
       genre {
         name
+        namePolish
         id
       }
     }
@@ -116,7 +121,7 @@ export const ADD_PUBLISHER = gql`
     $website: String
     $address: addressInput
   ) {
-    addPublisher(input: { name: $name, website: $website, address: $address }) {
+    addPublisher(input: { name: $name website: $website address: $address }) {
       userErrors {
         message
       }
@@ -130,7 +135,7 @@ export const ADD_PUBLISHER = gql`
 
 export const ADD_TRANSLATOR = gql`
   mutation addTranslator($firstName: String!, $lastName: String!) {
-    addTranslator(input: { firstName: $firstName, lastName: $lastName }) {
+    addTranslator(input: { firstName: $firstName lastName: $lastName }) {
       userErrors {
         message
       }

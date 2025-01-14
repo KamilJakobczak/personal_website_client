@@ -72,6 +72,7 @@ export const LOAD_GENRES = gql`
     genres {
       id
       name
+      namePolish
     }
   }
 `;
@@ -81,6 +82,7 @@ export const LOAD_GENRES_FEED = gql`
        genres {
         id
         name
+        namePolish
        }
        totalCount
     }
