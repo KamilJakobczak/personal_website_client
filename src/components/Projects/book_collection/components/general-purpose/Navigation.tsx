@@ -5,6 +5,7 @@ interface NavigationProps {
     id: number;
     path?: string;
     element: string;
+    text: string;
     handler?: () => void;
   }[];
   parentClass: string;
@@ -21,18 +22,17 @@ const Navigation: React.FC<NavigationProps> = ({ elements, parentClass }) => {
     }
   };
   const renderElements = () => {
-    return elements.map(({ id, path, element, handler }) => {
-      const noSpaceElement = element.replaceAll(' ', '');
+    return elements.map(({ id, path, element, text, handler }) => {
       return (
         <li key={id} className='navigation_li'>
           <NavLink
             onClick={() => {
-              handleSamePageRefresh(noSpaceElement);
+              handleSamePageRefresh(element);
               handler && handler();
             }}
-            to={path ? `${path}/${noSpaceElement}` : noSpaceElement}
+            to={path ? `${path}/${element}` : element}
           >
-            {element}
+            {text}
           </NavLink>
         </li>
       );

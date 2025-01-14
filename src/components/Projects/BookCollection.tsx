@@ -46,23 +46,23 @@ const BookCollection: React.FC = () => {
   }, [data]);
 
   const elements = [
-    { id: 0, element: `${t('books')}` },
-    { id: 1, element: `${t('authors')}` },
-    { id: 2, element: `${t('publishers')}` },
+    { id: 0, element: 'books', text: `${t('books')}` },
+    { id: 1, element: 'authors', text: `${t('authors')}` },
+    { id: 2, element: 'publishers', text: `${t('publishers')}` },
   ];
   const adminNavElements = [
-    { id: 0, element: 'add' },
-    { id: 1, element: 'genres' },
-    { id: 2, element: 'translators' },
-    { id: 3, element: 'book series' },
+    { id: 0, element: 'add', text: `${t('add')}` },
+    { id: 1, element: 'genres', text: `${t('genres')}` },
+    { id: 2, element: 'translators', text: `${t('translators')}` },
+    { id: 3, element: 'bookseries', text: `${t('bookSeries')}` },
   ];
   const userNavElements = [
-    { id: 0, path: 'user', element: 'sign up' },
-    { id: 1, path: 'user', element: 'log in' },
+    { id: 0, path: 'user', element: 'signup', text: `${t('signUp')}` },
+    { id: 1, path: 'user', element: 'login', text: `${t('logIn')}` },
   ];
   const loggedInUserNavElements = [
-    { id: 0, path: 'user', element: 'profile' },
-    { id: 2, path: 'user', element: 'log out', handler: logout },
+    { id: 0, path: 'user', element: 'profile', text: `${t('profile')}` },
+    { id: 2, path: 'user', element: 'logout', text: `${t('logOut')}`, handler: logout },
   ];
 
   return (

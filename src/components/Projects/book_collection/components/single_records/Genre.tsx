@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import EditButton from '../general-purpose/EditButton';
 import List from '../lists/List';
 
@@ -11,6 +12,7 @@ interface GenreProps {
 }
 
 const Genre: React.FC<GenreProps> = ({ data, editable }) => {
+  const { t } = useTranslation();
   const { id, name, books } = data;
   const editableData = {
     id,
@@ -25,7 +27,7 @@ const Genre: React.FC<GenreProps> = ({ data, editable }) => {
       <div className='genre__data'></div>
       {!books.length ? null : (
         <div className='genre__books'>
-          <h5>books</h5>
+          <h5>{t('books')}</h5>
           <List data={books} nested={true} />
         </div>
       )}

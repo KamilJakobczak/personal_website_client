@@ -5,6 +5,7 @@ import { LOAD_SEARCH } from '../../../../../GraphQL/queries';
 import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import { RecordValues } from '../lists/List';
+import { useTranslation } from 'react-i18next';
 
 enum SearchCategories {
   Author = 'Author',
@@ -13,6 +14,7 @@ enum SearchCategories {
 }
 
 const Search: React.FC = () => {
+  const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState('');
   const [activeCategory, setActiveCategory] = useState('Book');
   const dropdown = useRef<HTMLUListElement>(null);
@@ -42,13 +44,15 @@ const Search: React.FC = () => {
     document.body.addEventListener('click', dropdownCloseListener);
   };
   const handleOptionClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const id = e.currentTarget.getAttribute('data-name');
     const text = e.currentTarget.innerHTML;
     const defaultElement = document.querySelector('.bookCollection__search__searchBox_dropdown_default');
-
-    dropdown && dropdown.current && dropdown.current.classList.remove('active');
-    defaultElement && (defaultElement.innerHTML = text);
-    document.body.removeEventListener('click', dropdownCloseListener);
-    setActiveCategory(text);
+    if (id) {
+      dropdown && dropdown.current && dropdown.current.classList.remove('active');
+      defaultElement && (defaultElement.innerHTML = text);
+      document.body.removeEventListener('click', dropdownCloseListener);
+      setActiveCategory(id);
+    }
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
@@ -67,13 +71,13 @@ const Search: React.FC = () => {
     return dataArr.map((record: RecordValues) => {
       let linkPath = '';
       switch (activeCategory) {
-        case 'Author':
+        case SearchCategories.Author:
           linkPath = 'authors';
           break;
-        case 'Book':
+        case SearchCategories.Book:
           linkPath = 'books';
           break;
-        case 'Publisher':
+        case SearchCategories.Publisher:
           linkPath = 'publishers';
           break;
         default:
@@ -81,7 +85,7 @@ const Search: React.FC = () => {
       }
       return (
         <div className='bookCollection__search__searchBox_searchField_results_item' key={record.id}>
-          <Link to={`${linkPath}/${record.id.slice(-10)}`} state={{ id: record.id }}>
+          <Link to={`${linkPath}/${record.id.slice(-10)}`} state={{ id: record.id }} onClick={() => setSearchInput('')}>
             {record.title ? record.title : null}
             {record.lastName ? `${record.lastName} ${record.firstName}` : null}
             {record.name ? record.name : null}
@@ -101,36 +105,39 @@ const Search: React.FC = () => {
               handleDefaultClick();
             }}
           >
-            {SearchCategories.Book}
+            {t('book')}
           </div>
           <ul ref={dropdown}>
             <li
+              data-name={SearchCategories.Author}
               onClick={e => {
                 handleOptionClick(e);
               }}
             >
-              {SearchCategories.Author}
+              {t('author')}
             </li>
             <li
+              data-name={SearchCategories.Book}
               onClick={e => {
                 handleOptionClick(e);
               }}
             >
-              {SearchCategories.Book}
+              {t('book')}
             </li>
             <li
+              data-name={SearchCategories.Publisher}
               onClick={e => {
                 handleOptionClick(e);
               }}
             >
-              {SearchCategories.Publisher}
+              {t('publisher')}
             </li>
           </ul>
         </div>
         <div className='bookCollection__search__searchBox_searchField'>
           <input
             className='bookCollection__search__searchBox_searchField_input'
-            placeholder='Search'
+            placeholder={t('search')}
             value={searchInput}
             onChange={e => handleInputChange(e)}
             type='text'

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import EditButton from '../general-purpose/EditButton';
 import List from '../lists/List';
 
@@ -12,6 +13,7 @@ interface TranslatorProps {
 }
 
 const Translator: React.FC<TranslatorProps> = ({ data, editable }) => {
+  const { t } = useTranslation();
   const { id, firstName, lastName, books } = data;
   const editableData = {
     id,
@@ -29,7 +31,7 @@ const Translator: React.FC<TranslatorProps> = ({ data, editable }) => {
       </div>
       {books.length ? (
         <div className='translator__books'>
-          <h5>books</h5>
+          <h5>{t('books')}</h5>
           <List data={books} nested={true} />
         </div>
       ) : null}

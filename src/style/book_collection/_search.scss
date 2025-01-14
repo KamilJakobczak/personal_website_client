@@ -19,6 +19,7 @@
       border-right: 2px solid #dde2f1;
       letter-spacing: 1px;
       color: $apps_background;
+      text-transform: capitalize;
       position: relative;
       font-size: $font-size-small;
       &_default {

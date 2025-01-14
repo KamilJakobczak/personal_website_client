@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { checkURL } from '../../utility/handlers/checkURL';
 import EditButton from '../general-purpose/EditButton';
 import List from '../lists/List';
@@ -21,6 +22,7 @@ interface PublisherProps {
 }
 
 const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
+  const { t } = useTranslation();
   const { id, address, name, books, website } = data;
   const { country, zipCode, city, street, buildingNr, placeNr } = address;
 
@@ -53,7 +55,7 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
       </div> */}
       <div className='publisher__data'>
         <div className='publisher__data_street'>
-          <p>Street</p>
+          <p>{t('street')}</p>
           <span>❖</span>
           <span>
             {street} {buildingNr}
@@ -61,17 +63,17 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
           </span>
         </div>
         <div className='publisher__data_city'>
-          <p>City</p>
+          <p>{t('city')}</p>
           <span>❖</span>
           <span>{city}</span>
         </div>
         <div className='publisher__data_zipCode'>
-          <p>Zip Code</p>
+          <p>{t('zipCode')}</p>
           <span>❖</span>
           <span>{zipCode}</span>
         </div>
         <div className='publisher__data_country'>
-          <p>Country</p>
+          <p>{t('country')}</p>
           <span>❖</span>
           <span>{country}</span>
         </div>
@@ -86,7 +88,7 @@ const Publisher: React.FC<PublisherProps> = ({ data, editable }) => {
 
       {books.length > 0 ? (
         <div className='publisher__books'>
-          <h5>books</h5>
+          <h5>{t('books')}</h5>
           <List data={books} nested={true} />
         </div>
       ) : null}

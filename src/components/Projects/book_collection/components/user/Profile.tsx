@@ -7,8 +7,8 @@ const Profile: React.FC = () => {
   const { error, loading, data } = useQuery(LOAD_PROFILE);
 
   const navElements = [
-    { id: 0, path: '', element: 'library' },
-    { id: 1, path: '', element: 'lists' },
+    { id: 0, path: '', element: 'library', text: '' },
+    { id: 1, path: '', element: 'lists', text: '' },
   ];
   return (
     <div className='bookCollection__my__profile'>

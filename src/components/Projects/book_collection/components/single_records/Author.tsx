@@ -1,6 +1,7 @@
 import { checkURL } from '../../utility/handlers/checkURL';
 import List from '../lists/List';
 import EditButton from '../general-purpose/EditButton';
+import { useTranslation } from 'react-i18next';
 
 interface AuthorProps {
   data: {
@@ -22,6 +23,7 @@ interface AuthorProps {
 }
 
 const Author: React.FC<AuthorProps> = ({ data, editable }) => {
+  const { t } = useTranslation();
   const { id, firstName, secondName, thirdName, lastName, nationality, birthYear, books, bioPages } = data;
 
   const editableData = {
@@ -53,12 +55,12 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
       </div> */}
       <div className='author__data'>
         <div className='author__data_nationality'>
-          <p>Nationality</p>
+          <p>{t('nationality')}</p>
           <span>❖</span>
           <span>{nationality}</span>
         </div>
         <div className='author__data_birth_year'>
-          <p>Year of birth</p>
+          <p>{t('birthYear')}</p>
           <span>❖</span>
           <span>{birthYear}</span>
         </div>
@@ -84,7 +86,7 @@ const Author: React.FC<AuthorProps> = ({ data, editable }) => {
       </div>
       {books.length > 0 ? (
         <div className='author__books'>
-          <h5>books</h5>
+          <h5>{t('books')}</h5>
           <List data={books} nested={true} />
         </div>
       ) : null}
