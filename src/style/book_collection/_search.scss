@@ -2,7 +2,7 @@
   --search_arrow_size: 6px;
   --search_height: 15px;
 
-  margin: 10px auto 15px;
+  margin: 15px auto 15px;
   width: 90%;
 
   &__searchBox {
@@ -17,6 +17,7 @@
     &_dropdown {
       flex-basis: 40%;
       border-right: 2px solid #dde2f1;
+      letter-spacing: 1px;
       color: $apps_background;
       position: relative;
       font-size: $font-size-small;
@@ -79,13 +80,9 @@
         color: $apps_background;
       }
       .fas {
-        // background-color: #9fa3b1;
-
         position: absolute;
-        top: calc((var(--search_height) - $font-size-small));
-
+        top: 25%;
         right: $font-size-p;
-
         font-size: $font-size-small;
         color: #5078ef;
       }
@@ -155,17 +152,14 @@
     }
   }
 }
-@media (min-width: $breakpoint-1400) {
+@media (min-width: $breakpoint-1024) {
   .bookCollection__search {
-    --search_height: 30px;
     &__searchBox {
       &_dropdown {
-        ul {
-        }
+        flex-basis: 20%;
       }
       &_searchField {
-        &_results {
-        }
+        flex-basis: 70%;
       }
     }
   }

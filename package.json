@@ -73,10 +73,11 @@
     "@types/react-resizable": "^3.0.3",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^10.0.1",
+    "i18next": "^23.16.8",
     "lodash": "^4.17.21",
     "prettier": "^2.7.1",
+    "react-i18next": "^15.4.0",
     "sass": "^1.55.0",
-    "sass-loader": "^13.0.2",
-    "typescript": "^4.8.3"
+    "sass-loader": "^13.0.2"
   }
 }

@@ -7,6 +7,8 @@ import Search from './book_collection/components/general-purpose/Search';
 
 import { CHECK_LOGIN } from '../../GraphQL/queries';
 import { SIGNOUT } from '../../GraphQL/mutations';
+import { LANGUAGES } from './book_collection/languages';
+import { useTranslation } from 'react-i18next';
 
 type ContextType = {
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +21,13 @@ const BookCollection: React.FC = () => {
 
   const [loggedIn, setLoggedIn] = useState<boolean>();
   const [userRole, setUserRole] = useState('');
+
+  const { i18n, t } = useTranslation();
+
+  const onChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const lang_code = e.target.value;
+    i18n.changeLanguage(lang_code);
+  };
 
   const [logout] = useMutation(SIGNOUT, {
     onCompleted(data) {
@@ -37,9 +46,9 @@ const BookCollection: React.FC = () => {
   }, [data]);
 
   const elements = [
-    { id: 0, element: 'books' },
-    { id: 1, element: 'authors' },
-    { id: 2, element: 'publishers' },
+    { id: 0, element: `${t('books')}` },
+    { id: 1, element: `${t('authors')}` },
+    { id: 2, element: `${t('publishers')}` },
   ];
   const adminNavElements = [
     { id: 0, element: 'add' },
@@ -67,6 +76,15 @@ const BookCollection: React.FC = () => {
           parentClass='bookCollection__user'
         />
       )}
+      {
+        <select defaultValue={i18n.language} onChange={e => onChangeLanguage(e)}>
+          {LANGUAGES.map(({ code, label }) => (
+            <option key={code} value={code}>
+              {label}
+            </option>
+          ))}
+        </select>
+      }
 
       <Outlet context={{ setLoggedIn, setUserRole, loggedIn }} />
     </div>
