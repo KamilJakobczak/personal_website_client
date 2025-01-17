@@ -5,8 +5,25 @@ import SkillsSlider from './SkillsSlider';
 import useViewportHeight from './hooks/useViewportHeight';
 
 const Business: React.FC = () => {
-  const mainSkills = ['React', 'Javascript', 'Typescript', 'GraphQL', 'CSS (SASS)', 'HTML'];
-  const secondarySkills = ['Apollo', 'Redux', 'MongoDB', 'Prisma', 'NodeJS'];
+  const mainSkills = [
+    'React',
+    'Javascript ES6',
+    'Typescript',
+    'GraphQL (both sides)',
+    'REST API',
+    'CSS 3 (SASS)',
+    'HTML 5',
+    'NodeJS',
+  ];
+  const secondarySkills = ['Apollo', 'Redux', 'MongoDB', 'Prisma'];
+  const basicSkills = ['Webpack', 'Bootstrap', 'Docker', 'Git'];
+  const softSkills = [
+    'Adaptability',
+    'Patience',
+    'Problem solving',
+    'Eager and fast learner',
+    'Intellectual curiosity',
+  ];
   useViewportHeight('scroller__business');
   return (
     <section className='scroller__business'>
@@ -32,10 +49,17 @@ const Business: React.FC = () => {
         <div className='skills__recognized'>
           <h4>Basic knowledge of:</h4>
           <ul>
-            <li>Webpack</li>
-            <li>Bootstrap</li>
-            <li>Docker</li>
-            <li>Git</li>
+            {basicSkills.map(skill => {
+              return <li key={skill}>{skill}</li>;
+            })}
+          </ul>
+        </div>
+        <div className='skills__soft'>
+          <h4>Soft skills:</h4>
+          <ul>
+            {softSkills.map(skill => {
+              return <li key={skill}>{skill}</li>;
+            })}
           </ul>
         </div>
         {/* <div className='skills__inProgress'>

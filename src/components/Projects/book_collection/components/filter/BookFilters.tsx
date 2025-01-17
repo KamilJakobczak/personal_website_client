@@ -5,6 +5,7 @@ import Filter from './Filter';
 import { ApolloQueryResult, OperationVariables } from '@apollo/client';
 import Error from '../../../../CustomError';
 import Button from '../general-purpose/Button';
+import { useTranslation } from 'react-i18next';
 
 interface BookFiltersProps {
   refetchQuery: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<any>>;
@@ -12,6 +13,8 @@ interface BookFiltersProps {
 }
 
 const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery, hideWhenDone }) => {
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const [genresFilter, setGenresFilter] = useState<string[]>([]);
   const [publishersFilter, setPublishersFilter] = useState<string[]>([]);
 
@@ -59,11 +62,14 @@ const BookFilters: React.FC<BookFiltersProps> = ({ refetchQuery, hideWhenDone })
     return (
       <>
         {data && (
-          <Filter filterOptions={{ name: 'genres', data: data.genres }} handleCheckboxChange={handleCheckboxChange} />
+          <Filter
+            filterOptions={{ name: `${t('genres')}`, data: data.genres }}
+            handleCheckboxChange={handleCheckboxChange}
+          />
         )}
         {dataP && (
           <Filter
-            filterOptions={{ name: 'publishers', data: dataP.publishers }}
+            filterOptions={{ name: `${t('publishers')}`, data: dataP.publishers }}
             handleCheckboxChange={handleCheckboxChange}
           />
         )}
