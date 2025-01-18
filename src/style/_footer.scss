@@ -4,7 +4,7 @@ footer.footer {
   bottom: 0;
   left: 0;
 
-  div {
+  div.footer__wrapper {
     height: 100%;
     width: 100%;
     display: flex;
@@ -26,6 +26,23 @@ footer.footer {
       margin-bottom: 2px;
       font-size: $font-size-small;
       text-align: center;
+    }
+  }
+  div.languageSelect {
+    width: 100%;
+    select {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+@media (min-width: $breakpoint-480) {
+  footer.footer {
+    div.languageSelect {
+      width: auto;
+      position: absolute;
+      top: 25%;
+      right: 2%;
     }
   }
 }

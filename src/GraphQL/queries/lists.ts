@@ -36,7 +36,7 @@ export const LOAD_BOOKS = gql`
 `;
 
 export const LOAD_BOOKS_FEED = gql`
-  query BooksFeed($input: FeedInput!) {
+  query BooksFeed($input: BooksFeedInput!) {
     booksFeed(input: $input) {
        books {
         id

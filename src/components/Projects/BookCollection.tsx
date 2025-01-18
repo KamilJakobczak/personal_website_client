@@ -7,7 +7,6 @@ import Search from './book_collection/components/general-purpose/Search';
 
 import { CHECK_LOGIN } from '../../GraphQL/queries';
 import { SIGNOUT } from '../../GraphQL/mutations';
-import { LANGUAGES } from './book_collection/languages';
 import { useTranslation } from 'react-i18next';
 
 type ContextType = {
@@ -17,17 +16,11 @@ type ContextType = {
 };
 
 const BookCollection: React.FC = () => {
+  const { t } = useTranslation();
   const { loading, data } = useQuery(CHECK_LOGIN);
 
   const [loggedIn, setLoggedIn] = useState<boolean>();
   const [userRole, setUserRole] = useState('');
-
-  const { i18n, t } = useTranslation();
-
-  const onChangeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const lang_code = e.target.value;
-    i18n.changeLanguage(lang_code);
-  };
 
   const [logout] = useMutation(SIGNOUT, {
     onCompleted(data) {
@@ -76,15 +69,6 @@ const BookCollection: React.FC = () => {
           parentClass='bookCollection__user'
         />
       )}
-      {
-        <select defaultValue={i18n.language} onChange={e => onChangeLanguage(e)}>
-          {LANGUAGES.map(({ code, label }) => (
-            <option key={code} value={code}>
-              {label}
-            </option>
-          ))}
-        </select>
-      }
 
       <Outlet context={{ setLoggedIn, setUserRole, loggedIn }} />
     </div>

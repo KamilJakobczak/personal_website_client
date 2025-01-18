@@ -28,7 +28,10 @@ const BookList: React.FC<ListProps> = ({ paginatedQuery, listClass }) => {
     setFiltersVisible(prevState => !prevState);
   };
   const hideFilters = () => {
-    setFiltersVisible(false);
+    const width = window.innerWidth;
+    if (width < 1024) {
+      setFiltersVisible(false);
+    }
   };
   useEffect(() => {
     const handleResize = () => {
