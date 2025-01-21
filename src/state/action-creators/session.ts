@@ -47,8 +47,10 @@ export const checkSession = () => {
       const { data } = await axios.get(`${codingApi}/cells/session`, {
         withCredentials: true,
       });
+      console.log(data);
       if (data.sessionId) {
         setInterval(() => {
+          console.log('autosaving');
           saveCells();
         }, 12000);
       }
@@ -61,7 +63,6 @@ export const checkSession = () => {
       });
     } catch (err) {
       if (err instanceof Error) {
-        console.log(err.message);
         dispatch({
           type: ActionType.CHECK_SESSION_ERROR,
           payload: {

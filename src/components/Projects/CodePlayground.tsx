@@ -7,7 +7,6 @@ import CodingGuide from './coding_playground/components/CodingGuide';
 const CodePlayground: React.FC = () => {
   useEffect(() => {
     setupBundler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -10,9 +10,7 @@ const CodingGuide: React.FC = () => {
   const [showSessionSuccess, setShowSessionSuccess] = useState(false);
 
   const { checkSession, createSession, fetchCells } = useActions();
-  const { autosave, error, sessionId, loading } = useTypedSelector(
-    state => state.session
-  );
+  const { autosave, error, sessionId, loading } = useTypedSelector(state => state.session);
 
   useEffect(() => {
     if (!autosave) {
@@ -21,6 +19,7 @@ const CodingGuide: React.FC = () => {
     }
 
     if (sessionId && autosave) {
+      console.log(sessionId);
       fetchCells(sessionId);
       setShowSessionSuccess(true);
       setTimeout(() => {
@@ -28,7 +27,7 @@ const CodingGuide: React.FC = () => {
       }, 5000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autosave]);
+  }, [autosave, sessionId, checkSession]);
 
   const handleConsentClick = (answer: string) => {
     setConsentVisible('hide');
@@ -44,10 +43,7 @@ const CodingGuide: React.FC = () => {
 
   const consentFoldedEl = () => {
     return (
-      <div
-        className='coding_info__autosave__fold'
-        onClick={() => setConsentVisible('show')}
-      >
+      <div className='coding_info__autosave__fold' onClick={() => setConsentVisible('show')}>
         <p>Click here to edit your settings</p>
       </div>
     );
@@ -81,20 +77,14 @@ const CodingGuide: React.FC = () => {
         <p>Some of the features included:</p>
         <ul>
           <li>Two types of cells: code and text</li>
-          <li>
-            Importing npm packages is enough to use them. You don't have to
-            install them separately.
-          </li>
+          <li>Importing npm packages is enough to use them. You don't have to install them separately.</li>
           <li>CSS styles</li>
           <li>preview window</li>
           <li>you can create multiple code or text cells</li>
           <li>components created in one cell are usable in others</li>
           <li>move or delete cells at any time</li>
         </ul>
-        <button
-          className='coding_info__guide__close_button'
-          onClick={() => setInfoVisible(false)}
-        >
+        <button className='coding_info__guide__close_button' onClick={() => setInfoVisible(false)}>
           CLOSE
         </button>
       </div>

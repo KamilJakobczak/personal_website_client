@@ -77,8 +77,10 @@ export const saveCells = () => {
     const cells = order.map((id: string) => data[id]);
 
     try {
+      console.log(cells);
       await axios.post(
         `${codingApi}/cells/${sessionId}`,
+
         { cells }
         // {
         //   withCredentials: true,
@@ -95,16 +97,11 @@ export const saveCells = () => {
   };
 };
 
-export const updateCell = (
-  id: string,
-
-  content: string
-): UpdateCellAction => {
+export const updateCell = (id: string, content: string): UpdateCellAction => {
   return {
     type: ActionType.UPDATE_CELL,
     payload: {
       id,
-
       content,
     },
   };

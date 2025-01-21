@@ -1,8 +1,8 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import AddCell from './AddCell';
 import CellListItem from './CellListItem';
-import { useActions } from '../hooks/useActions';
+// import { useActions } from '../hooks/useActions';
 import { Cell } from '../../../../state';
 
 const CellList: React.FC = () => {
@@ -12,7 +12,7 @@ const CellList: React.FC = () => {
     });
   });
 
-  const { fetchCells, saveCells } = useActions();
+  // const { fetchCells, saveCells } = useActions();
 
   // useEffect(() => {
   //   saveCells();
