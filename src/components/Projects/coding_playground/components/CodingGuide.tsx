@@ -13,19 +13,20 @@ const CodingGuide: React.FC = () => {
   const { autosave, error, sessionId, loading } = useTypedSelector(state => state.session);
 
   useEffect(() => {
+    console.log(autosave);
     if (!autosave) {
       checkSession();
       return;
     }
-
-    if (sessionId && autosave) {
-      console.log(sessionId);
-      fetchCells(sessionId);
-      setShowSessionSuccess(true);
-      setTimeout(() => {
-        setShowSessionSuccess(false);
-      }, 5000);
-    }
+    console.log(autosave);
+    // if (sessionId && autosave) {
+    //   console.log(sessionId);
+    //   fetchCells(sessionId);
+    //   setShowSessionSuccess(true);
+    //   setTimeout(() => {
+    //     setShowSessionSuccess(false);
+    //   }, 5000);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autosave, sessionId, checkSession]);
 
