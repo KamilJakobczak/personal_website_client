@@ -15,6 +15,7 @@ import { useQueries } from '../../utility/hooks/useQueries';
 import { regexValidator, checkIsbn } from '../../utility/handlers';
 import { numbersRegex } from '../../utility/regex';
 import { Flags } from '../../utility/enums';
+import { loadEditableData } from '../../utility/handlers/loadEditableData';
 // General Purpose Components
 import Select from '../general-purpose/Select';
 import SuccessMessage from '../general-purpose/SuccessMessage';
@@ -86,7 +87,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 		const [userError, setUserError] = useState('');
 
 		// FORM VALUES
-
 		const [title, setTitle] = useState(
 			uploadedTitle || editableData?.title || ''
 		);
@@ -104,7 +104,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 			uploadedPublisher || editableData?.publisher || ''
 		);
 		const [translators, setTranslators] = useState<string[]>([]);
-
 		const [authors, setAuthors] = useState<string[]>([]);
 		const [bookSeries, setBookSeries] = useState<string[]>([]);
 		const [cover, setCover] = useState<File | null>();
@@ -116,27 +115,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 			editableData?.firstEdition || ''
 		);
 
-		// Load received data into state
-		const loadReceivedData = (
-			arr: string[] | null,
-			setItemState: React.Dispatch<React.SetStateAction<string[]>>,
-			setCounterState: React.Dispatch<React.SetStateAction<number[]>>
-		) => {
-			if (arr) {
-				if (arr.length === 0) {
-					return;
-				}
-
-				const newItemState: string[] = [];
-				const newCounterState: number[] = [];
-				arr.forEach((element, index) => {
-					newItemState.push(element);
-					newCounterState.push(index);
-				});
-				setItemState(newItemState);
-				setCounterState(newCounterState);
-			}
-		};
 		// Refetch function exposed to parent components via ref
 		useImperativeHandle(ref, () => ({
 			refetchFunction: () => refetch(),
@@ -144,25 +122,25 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 		// Load initial data when component mounts
 		useEffect(() => {
 			if (uploadedAuthors)
-				loadReceivedData(
+				loadEditableData(
 					uploadedAuthors,
 					setAuthors,
 					setAuthorsSelectCounter
 				);
 			if (uploadedGenres)
-				loadReceivedData(uploadedGenres, setGenres, setGenresSelectCounter);
+				loadEditableData(uploadedGenres, setGenres, setGenresSelectCounter);
 			if (editableData && !loading) {
-				loadReceivedData(
+				loadEditableData(
 					editableData.authors,
 					setAuthors,
 					setAuthorsSelectCounter
 				);
-				loadReceivedData(
+				loadEditableData(
 					editableData.bookGenres,
 					setGenres,
 					setGenresSelectCounter
 				);
-				loadReceivedData(
+				loadEditableData(
 					editableData.translators,
 					setTranslators,
 					setTranslatorsSelectCounter

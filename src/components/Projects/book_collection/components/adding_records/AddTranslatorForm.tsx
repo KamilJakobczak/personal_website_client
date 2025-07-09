@@ -7,8 +7,8 @@ import {
 import CustomError from '../../../../CustomError';
 import LoadingSpinner from '../../../../LoadingSpinner';
 import Button from '../general-purpose/Button';
-import { regexValidator } from '../../utility/handlers/regexValidator';
-import { lastNameRegex, nameRegex } from '../../utility/regex';
+// import { regexValidator } from '../../utility/handlers/regexValidator';
+// import { lastNameRegex, nameRegex } from '../../utility/regex';
 import SuccessMessage from '../general-purpose/SuccessMessage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Flags } from '../../utility/enums';
