@@ -9,11 +9,13 @@ import LoadingSpinner from './LoadingSpinner';
 const App: React.FC = () => {
 	return (
 		<>
-			<Helmet>
-				<meta
-					httpEquiv='Content-Security-Policy'
-					content={`img-src 'self' ${imageApi}/* data: blob:;`}></meta>
-			</Helmet>
+			{process.env.NODE_ENV === 'production' && (
+				<Helmet>
+					<meta
+						httpEquiv='Content-Security-Policy'
+						content={`img-src 'self' ${imageApi}/* data: blob:;`}></meta>
+				</Helmet>
+			)}
 			<Header />
 
 			<div id='apps'>

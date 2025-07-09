@@ -58,6 +58,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 		const { epubData, flag } = props;
 		const editableData = location.state;
 		const { data, errors, loading, refetch } = useQueries();
+
 		// Extract uploaded data if available
 		const uploadedAuthors = epubData?.authors;
 		const uploadedGenres = epubData?.genres;
@@ -103,6 +104,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 			uploadedPublisher || editableData?.publisher || ''
 		);
 		const [translators, setTranslators] = useState<string[]>([]);
+
 		const [authors, setAuthors] = useState<string[]>([]);
 		const [bookSeries, setBookSeries] = useState<string[]>([]);
 		const [cover, setCover] = useState<File | null>();
@@ -121,6 +123,10 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 			setCounterState: React.Dispatch<React.SetStateAction<number[]>>
 		) => {
 			if (arr) {
+				if (arr.length === 0) {
+					return;
+				}
+
 				const newItemState: string[] = [];
 				const newCounterState: number[] = [];
 				arr.forEach((element, index) => {
@@ -323,7 +329,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 				isbn,
 				language,
 				pages: pages ? Number(pages) : null,
-				publisher: publisher.id,
+				publisher: publisher.id || publisher,
 				title,
 				titleEnglish,
 				titleOriginal,
@@ -342,7 +348,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 				uploadCover(editableData.id);
 			}
 		};
-
 		// RENDER ELEMENTS
 		const showForm = () => {
 			return (
@@ -498,7 +503,6 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 						})}
 					</div>
 					{/* Translators Selection */}
-
 					{language === Language.Polish && title !== titleOriginal && (
 						<div className='addBookForm_element addBookForm_element_translators'>
 							{translatorsSelectCounter.map(input => {
