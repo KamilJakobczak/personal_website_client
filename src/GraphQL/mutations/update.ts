@@ -109,18 +109,18 @@ export const UPDATE_BOOK = gql`
 `;
 
 export const UPDATE_GENRE = gql`
-mutation updateGenre(
-  $id: ID!
-  $name: String!
-  $namePolish: String!
-) {
-  updateGenre(
-    input: {
-      id: $id
-      name: $name
-      namePolish: $namePolish
-    }
+  mutation updateGenre(
+    $id: ID!
+    $name: String!
+    $namePolish: String!
   ) {
+    updateGenre(
+      input: {
+        id: $id
+        name: $name
+        namePolish: $namePolish
+      }
+    ) {
     userErrors {
       message
     }
@@ -131,4 +131,29 @@ mutation updateGenre(
     }
   }
 }
+`;
+
+export const UPDATE_TRANSLATOR = gql`
+  mutation updateTranslator(
+    $id: ID!
+    $firstName: String!
+    $lastName: String!
+  ) {
+    updateTranslator (
+      input: {
+        id: $id
+        firstName: $firstName
+        lastName: $lastName
+      }
+    ) {
+      userErrors {
+        message
+      }
+      translator {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
 `;
