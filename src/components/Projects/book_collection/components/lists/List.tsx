@@ -24,16 +24,15 @@ interface ListProps {
 		setActivePage: React.Dispatch<React.SetStateAction<number>>;
 	};
 }
-export interface RecordValues {
+export type RecordValues = {
 	id: string;
-	bookId?: string;
 	title?: string;
 	firstName?: string;
 	lastName?: string;
 	name?: string;
 	namePolish?: string;
 	__typename: string;
-}
+};
 
 const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
 	const { i18n } = useTranslation();
@@ -42,12 +41,13 @@ const List: React.FC<ListProps> = ({ data, nested, pagination }) => {
 
 	const linkPath = (record: RecordValues) => {
 		const pathId = record.id.slice(-10);
+
 		if (!nested) {
 			return pathId;
 		}
 		return `../${record.__typename.toLowerCase()}s/${pathId}`;
 	};
-
+	console.log(data);
 	const sortData = () => {
 		return data.filter(record => {
 			if (
