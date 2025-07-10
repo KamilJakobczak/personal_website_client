@@ -1,8 +1,11 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { processSelectionData } from '../../utility/handlers';
 import CustomError from '../../../../CustomError';
-import React, { useState } from 'react';
-import { ADD_BOOKSERIES } from '../../../../../GraphQL/mutations';
+import React, { useEffect, useState } from 'react';
+import {
+	ADD_BOOKSERIES,
+	UPDATE_BOOKSERIES,
+} from '../../../../../GraphQL/mutations';
 import { LOAD_BOOKS } from '../../../../../GraphQL/queries';
 import Button from '../general-purpose/Button';
 import Select from '../general-purpose/Select';
@@ -12,13 +15,14 @@ import SuccessMessage from '../general-purpose/SuccessMessage';
 import { numbersRegex } from '../../utility/regex';
 import { Flags } from '../../utility/enums';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { loadEditableData } from '../../utility/handlers/loadEditableData';
 
 interface AddBookSeriesProps {
 	className: string;
 	flag: Flags;
 }
 
-const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
+const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const editableData = location.state;
@@ -33,6 +37,29 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
 	const [successMessage, setSuccessMessage] = useState('');
 	const [userError, setUserError] = useState('');
 
+	useEffect(() => {
+		if (editableData.books && Array.isArray(editableData.books)) {
+			if (editableData.books.length === 0) {
+				return;
+			} else {
+				const newBooksState: string[] = [];
+				const newTomesState: string[] = [];
+				const newCounterState: number[] = [];
+				editableData.books.forEach(
+					(element: { bookId: string; tome: string }, index: number) => {
+						newBooksState.push(element.bookId);
+						newTomesState.push(element.tome);
+						newCounterState.push(index);
+						console.log(element, index);
+					}
+				);
+				setBooks(newBooksState);
+				setTomes(newTomesState);
+				setBooksSelectionCounter(newCounterState);
+			}
+		}
+	}, [editableData]);
+	console.log(books, booksSelectionCounter);
 	const {
 		data: dataB,
 		error: errorB,
@@ -47,6 +74,19 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
 			},
 		}
 	);
+	const [updateBookSeries, { data: dataU, loading: loadingU, error: errorU }] =
+		useMutation(UPDATE_BOOKSERIES, {
+			onCompleted(data) {
+				setSuccessMessage('Book series data updated successfully');
+				const linkRedirect = location.pathname.slice(0, 35);
+				setTimeout(() => {
+					setSuccessMessage('');
+				}, 3000);
+				navigate(linkRedirect, {
+					state: { id: editableData.id, refetch: true },
+				});
+			},
+		});
 
 	const onCompletedMutation = (data: any) => {
 		setName('');
@@ -98,12 +138,18 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className }) => {
 		} else if (name === '' && name.length < 2) {
 			setUserError("Provide a book series' name");
 		} else {
-			addBookSeries({
-				variables: {
-					name: name,
-					booksInBookSeries: arr,
-				},
-			});
+			const variables = {
+				name,
+				booksInBookSeries: arr,
+			};
+			flag === Flags.Add &&
+				addBookSeries({
+					variables,
+				});
+			flag === Flags.Edit &&
+				updateBookSeries({
+					variables: { ...variables, ...{ id: editableData.id } },
+				});
 		}
 	};
 

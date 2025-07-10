@@ -108,6 +108,30 @@ export const UPDATE_BOOK = gql`
   }
 `;
 
+export const UPDATE_BOOKSERIES = gql`
+  mutation updateBookSeries(
+    $id: ID!
+    $name: String!
+    $booksInBookSeries: [BookInBookSeriesInput]
+  ) {
+    updateBookSeries(
+      input: {
+        id: $id
+        name: $name
+        booksInBookSeries: $booksInBookSeries
+      }
+    ) {
+      userErrors {
+        message
+      }
+      bookSeries {
+        name
+        id
+      }
+    }
+  }
+`;
+
 export const UPDATE_GENRE = gql`
   mutation updateGenre(
     $id: ID!
