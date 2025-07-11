@@ -12,7 +12,11 @@ import { ADD_BOOK, UPDATE_BOOK } from '../../../../../GraphQL/mutations';
 import { useLocation, useNavigate } from 'react-router-dom';
 // Custom Hooks and Utilities
 import { useQueries } from '../../utility/hooks/useQueries';
-import { regexValidator, checkIsbn } from '../../utility/handlers';
+import {
+	regexValidator,
+	checkIsbn,
+	processSelectionData,
+} from '../../utility/handlers';
 import { numbersRegex } from '../../utility/regex';
 import { Flags } from '../../utility/enums';
 import { loadEditableData } from '../../utility/handlers/loadEditableData';
@@ -106,6 +110,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 		const [translators, setTranslators] = useState<string[]>([]);
 		const [authors, setAuthors] = useState<string[]>([]);
 		const [bookSeries, setBookSeries] = useState<string[]>([]);
+		const [tomes, setTomes] = useState<string[]>([]);
 		const [cover, setCover] = useState<File | null>();
 		const [isbn, setIsbn] = useState(
 			uploadedIsbn || editableData?.isbn || ''
@@ -119,7 +124,7 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 		useImperativeHandle(ref, () => ({
 			refetchFunction: () => refetch(),
 		}));
-		// Load initial data when component mounts
+		// Load initial uploaded data when component mounts
 		useEffect(() => {
 			if (uploadedAuthors)
 				loadEditableData(
@@ -267,6 +272,20 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 					break;
 				default:
 					break;
+			}
+		};
+		const handleTomeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+			const { value } = e.target;
+			if (value.length === 0) {
+				setTomes(['']);
+			} else {
+				processSelectionData(
+					e,
+					tomes,
+					setTomes,
+					bookSeriesSelectCounter,
+					setDuplicationError
+				);
 			}
 		};
 
@@ -528,19 +547,29 @@ const AddBookForm = forwardRef<AddBookFormRef, AddBookFormProps>(
 					</div>
 					{inBookSeries && (
 						<div className='addBookForm_element addBookForm_element_bookSeries'>
-							{bookSeriesSelectCounter.map(input => {
+							{bookSeriesSelectCounter.map(index => {
 								return (
-									<Select
-										item='book series'
-										id={input}
-										key={input}
-										data={data.bookSeries}
-										selectedValues={bookSeries}
-										selectCounter={bookSeriesSelectCounter}
-										setSelectCounter={setBookSeriesSelectCounter}
-										setSelectedValues={setBookSeries}
-										setDuplicationError={setDuplicationError}
-									/>
+									<React.Fragment key={index}>
+										<Select
+											item='book series'
+											id={index}
+											data={data.bookSeries}
+											selectedValues={bookSeries}
+											selectCounter={bookSeriesSelectCounter}
+											setSelectCounter={setBookSeriesSelectCounter}
+											setSelectedValues={setBookSeries}
+											setDuplicationError={setDuplicationError}
+										/>
+										<label htmlFor='tome'>tome</label>
+										<input
+											autoComplete='off'
+											type='text'
+											name='tome'
+											id={`${index}`}
+											value={tomes[index] || ''}
+											onChange={e => handleTomeInput(e)}
+										/>
+									</React.Fragment>
 								);
 							})}
 						</div>

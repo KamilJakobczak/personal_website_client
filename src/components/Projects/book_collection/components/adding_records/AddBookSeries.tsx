@@ -26,7 +26,6 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const editableData = location.state;
-	console.log('ADDBOOK UPDATE DATA', editableData);
 
 	const [name, setName] = useState(editableData?.name || '');
 	// const [addBooks, setAddBooks] = useState(false);
@@ -36,9 +35,13 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 	const [duplicationError, setDuplicationError] = useState(false);
 	const [successMessage, setSuccessMessage] = useState('');
 	const [userError, setUserError] = useState('');
-
+	console.log(editableData);
 	useEffect(() => {
-		if (editableData.books && Array.isArray(editableData.books)) {
+		if (
+			editableData &&
+			editableData.books &&
+			Array.isArray(editableData.books)
+		) {
 			if (editableData.books.length === 0) {
 				return;
 			} else {
@@ -59,7 +62,7 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 			}
 		}
 	}, [editableData]);
-	console.log(books, booksSelectionCounter);
+
 	const {
 		data: dataB,
 		error: errorB,
