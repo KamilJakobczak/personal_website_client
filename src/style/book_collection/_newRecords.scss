@@ -1,14 +1,14 @@
 .bookCollection__newRecords {
-  width: 90%;
-  margin: 0 auto;
+	width: 90%;
+	margin: 0 auto;
 
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-  &_item {
-    flex-basis: 70%;
-  }
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-evenly;
+	&_item {
+		flex-basis: 70%;
+	}
 }
 
 .addAuthor,
@@ -16,96 +16,98 @@
 .addGenre,
 .addPublisher,
 .addTranslator {
-  width: 95%;
-  margin: 0 auto;
-  form {
-    width: 100%;
-    margin: 10px auto 0;
-    h5 {
-      width: 100%;
-      margin: 15px auto 10px;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: $font-size-h5;
-    }
+	width: 95%;
+	margin: 0 auto;
+	form {
+		width: 100%;
+		margin: 10px auto 0;
+		h5 {
+			width: 100%;
+			margin: 15px auto 10px;
+			text-align: center;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-size: $font-size-h5;
+		}
 
-    > div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+		> div {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
 
-      & + div {
-        margin-top: 2px;
+			& + div {
+				margin-top: 3px;
 
-        &:nth-last-child(1) {
-          margin-top: 20px;
-        }
-        &.address {
-          display: flex;
-          flex-wrap: wrap;
+				&:nth-last-child(1) {
+					margin-top: 20px;
+				}
 
-          p {
-            text-align: center;
-            flex-basis: 100%;
-            text-transform: uppercase;
-            font-size: $font-size-p;
-            padding-bottom: 1px;
-            margin: 10px auto 5px;
-            border-bottom: 1px solid currentColor;
-          }
-          div.address_item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-basis: 100%;
-            margin-top: 2px;
-            label {
-              flex-basis: 44%;
-            }
-            input {
-              flex-basis: 45%;
-            }
-          }
-        }
-      }
-      label {
-        font-size: $font-size-p;
-        flex-basis: 35%;
-        &::first-letter {
-          text-transform: capitalize;
-        }
-      }
-      input {
-        font-size: $font-size-p;
-        min-width: 0;
-        // padding-left: 5px;
-        flex-basis: 60%;
-      }
-    }
-  }
+				&.address {
+					display: flex;
+					flex-wrap: wrap;
+
+					p {
+						text-align: center;
+						flex-basis: 100%;
+						text-transform: uppercase;
+						font-size: $font-size-p;
+						padding-bottom: 1px;
+						margin: 10px auto 5px;
+						border-bottom: 1px solid currentColor;
+					}
+					div.address_item {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						flex-basis: 100%;
+						margin-top: 2px;
+						label {
+							flex-basis: 44%;
+						}
+						input {
+							flex-basis: 45%;
+						}
+					}
+				}
+			}
+			label {
+				font-size: $font-size-p;
+				flex-basis: 35%;
+				&::first-letter {
+					text-transform: capitalize;
+				}
+			}
+			input {
+				font-size: $font-size-p;
+				min-width: 0;
+				// padding-left: 5px;
+				flex-basis: 60%;
+			}
+		}
+	}
 }
 
 @media (min-width: $breakpoint-700) {
-  .addPublisher {
-    form {
-      div {
-        & + div {
-          &.address {
-            div.address_item {
-              flex-basis: 49%;
-              label {
-                flex-basis: 40%;
-              }
-              input {
-                flex-basis: 55%;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+	.addPublisher {
+		form {
+			div {
+				& + div {
+					&.address {
+						div.address_item {
+							flex-basis: 49%;
+							label {
+								flex-basis: 40%;
+							}
+							input {
+								flex-basis: 55%;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 // @media (min-width: $breakpoint-1201) {
 //   .addPublisher {

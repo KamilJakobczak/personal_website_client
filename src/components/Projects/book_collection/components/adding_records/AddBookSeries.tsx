@@ -213,11 +213,13 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 
 	const showAddBooks = () => {
 		return (
-			<div className='addBookSeries__form_element collectionBookList'>
+			<div className='addBookSeries__form_element booksInBookSeries'>
 				{booksSelectionCounter.map(selection => {
 					return (
-						<React.Fragment key={selection}>
-							<div>
+						<div
+							className='booksInBookSeries_book'
+							key={selection}>
+							<div className='booksInBookSeries_book-tome'>
 								<label htmlFor='tome'>tome</label>
 								<input
 									autoComplete='off'
@@ -241,7 +243,7 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 								setInputValues={setTomes}
 								setDuplicationError={setDuplicationError}
 							/>
-						</React.Fragment>
+						</div>
 					);
 				})}
 			</div>
@@ -257,7 +259,7 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 			return <CustomError text={userError} />;
 		}
 	};
-
+	console.log(className);
 	return (
 		<div className={`${className} addBookSeries`}>
 			{data && successMessage ? (
