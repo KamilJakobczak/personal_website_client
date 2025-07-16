@@ -163,7 +163,7 @@ const AddBookSeries: React.FC<AddBookSeriesProps> = ({ className, flag }) => {
 			<form
 				action=''
 				className='addBookSeries__form'>
-				<h5>new book series</h5>
+				<h5>{`${flag}`} book series</h5>
 				<div className='addBookSeries__form_element'>
 					<label htmlFor='name'>name</label>
 					<input

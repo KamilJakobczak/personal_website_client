@@ -38,6 +38,7 @@ const UploadBookForm: React.FC<UploadBookFormProps> = ({ setParsedData }) => {
 		axios
 			.post(`${uploadAPI}`, formData)
 			.then(res => {
+				console.log(res);
 				setParsedData(res.data);
 				alert('file upload success');
 			})
