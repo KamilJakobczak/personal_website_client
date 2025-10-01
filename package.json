@@ -9,7 +9,7 @@
     "@monaco-editor/react": "^4.5.1",
     "@reduxjs/toolkit": "^1.8.6",
     "@uiw/react-md-editor": "^3.20.8",
-    "axios": "^1.7.4",
+    "axios": "^1.12.0",
     "buffer": "^6.0.3",
     "bulmaswatch": "^0.8.1",
     "esbuild-wasm": "^0.15.11",
